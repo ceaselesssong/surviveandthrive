@@ -1,6 +1,0 @@
-{
-  "parent": "doom_and_gloom:block/vigil_candle_double_ceiling",
-  "textures": {
-    "0": "doom_and_gloom:block/red_vigil_candle_lit"
-  }
-}

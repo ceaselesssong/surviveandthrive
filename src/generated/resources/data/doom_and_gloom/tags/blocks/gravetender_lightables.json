@@ -1,9 +1,0 @@
-{
-  "values": [
-    "#minecraft:candles",
-    {
-      "id": "#amendments:skull_candles",
-      "required": false
-    }
-  ]
-}
