@@ -30,12 +30,12 @@ public class OreganizedFeatures {
         List<OreConfiguration.TargetBlockState> leadOre = List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, RegistryHandler.LEAD_ORE.get().defaultBlockState()),
                 OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, RegistryHandler.DEEPSLATE_LEAD_ORE.get().defaultBlockState()));
 
-        SILVER_ORE_LOW = registerPlacedOreFeature("silver_ore", new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(silverOre, 9)), // Vein size of 9
+        SILVER_ORE_LOW = registerPlacedOreFeature("silver_ore", new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(silverOre, 4)), // Vein size of 9
                 CountPlacement.of(2), // How rare the ore is, closer to 0, the rarer it is.
                 InSquarePlacement.spread(),
                 BiomeFilter.biome(),
                 HeightRangePlacement.triangle(VerticalAnchor.absolute(-15), VerticalAnchor.absolute(5))); // Triangle distribution between y values, uniform would be a flat chance between the values while triangle has a 'peak' of chance.
-        SILVER_ORE_HIGH = registerPlacedOreFeature("silver_ore_high", new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(silverOre, 9)), // Vein size of 9
+        SILVER_ORE_HIGH = registerPlacedOreFeature("silver_ore_high", new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(silverOre, 2)), // Vein size of 9
                 CountPlacement.of(2),
                 InSquarePlacement.spread(),
                 BiomeFilter.biome(),
@@ -46,7 +46,7 @@ public class OreganizedFeatures {
                 BiomeFilter.biome(),
                 HeightRangePlacement.triangle(VerticalAnchor.absolute(-40), VerticalAnchor.absolute(-20)));
         LEAD_ORE_SAVANNAH = registerPlacedOreFeature("lead_ore_savannah", new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(leadOre, 13)), // Vein size of 13
-                CountPlacement.of(15),
+                CountPlacement.of(12),
                 InSquarePlacement.spread(),
                 BiomeFilter.biome(),
                 HeightRangePlacement.triangle(VerticalAnchor.absolute(50), VerticalAnchor.absolute(80)));

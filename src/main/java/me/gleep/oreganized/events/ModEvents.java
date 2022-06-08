@@ -105,30 +105,6 @@ public class ModEvents {
                 entity.setPos(previousPos.getX(), previousPos.getY(), previousPos.getZ());
             }
         }
-        AttributeInstance attributeInstance = entity.getAttribute(Attributes.MOVEMENT_SPEED);
-        if (attributeInstance != null) {
-            boolean flag = false;
-            float boostPerSlot = 0.0F;
-            for (ItemStack stack : entity.getArmorSlots()) {
-                if (stack.getItem() instanceof ElectrumArmorItem) {
-                    boostPerSlot+=0.005F;
-                    flag = true;
-                }
-            }
-            AttributeModifier attributeModifier = new AttributeModifier(ELECTRUM_BOOST_MODIFIER, "Electrum boost", boostPerSlot, AttributeModifier.Operation.ADDITION);
-            if (flag) {
-                if (!attributeInstance.hasModifier(attributeModifier)) {
-                    attributeInstance.addPermanentModifier(attributeModifier);
-                } else {
-                    if (boostPerSlot <= 0.02F) {
-                        attributeInstance.removeModifier(attributeModifier);
-                        attributeInstance.addPermanentModifier(attributeModifier);
-                    }
-                }
-            } else {
-                attributeInstance.removeModifier(attributeModifier);
-            }
-        }
     }
 
     /**

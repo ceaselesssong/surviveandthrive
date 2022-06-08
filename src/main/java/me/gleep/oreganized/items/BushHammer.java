@@ -5,11 +5,10 @@ import me.gleep.oreganized.Oreganized;
 import me.gleep.oreganized.capabilities.engravedblockscap.CapabilityEngravedBlocks;
 import me.gleep.oreganized.capabilities.engravedblockscap.EngravedBlocks;
 import me.gleep.oreganized.capabilities.engravedblockscap.IEngravedBlocks;
-import me.gleep.oreganized.items.tiers.ModTier;
+import me.gleep.oreganized.items.tiers.OreganizedTiers;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import me.gleep.oreganized.util.messages.BushHammerClickPacket;
@@ -58,7 +57,7 @@ public class BushHammer extends DiggerItem{
     );*/
 
     public BushHammer() {
-        super(2.5F, -2.8F, ModTier.LEAD, BUSH_HAMMER_BREAKABLE_BLOCKTAG,
+        super(2.5F, -2.8F, OreganizedTiers.LEAD, BUSH_HAMMER_BREAKABLE_BLOCKTAG,
                 new Properties().tab(CreativeModeTab.TAB_TOOLS).stacksTo(1)
         );
     }

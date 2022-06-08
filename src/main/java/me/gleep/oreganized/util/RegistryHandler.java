@@ -1,5 +1,6 @@
 package me.gleep.oreganized.util;
 
+import me.gleep.oreganized.armors.OreganizedArmorMaterials;
 import me.gleep.oreganized.blocks.*;
 import me.gleep.oreganized.entities.PrimedShrapnelBomb;
 import me.gleep.oreganized.entities.tileentities.ExposerBlockEntity;
@@ -10,7 +11,8 @@ import me.gleep.oreganized.items.ItemBase;
 import me.gleep.oreganized.items.ModMusicDisc;
 import me.gleep.oreganized.items.SilverIngot;
 import me.gleep.oreganized.items.SilverMirror;
-import me.gleep.oreganized.items.tiers.ModTier;
+import me.gleep.oreganized.items.tiers.ElectrumPickaxeItem;
+import me.gleep.oreganized.items.tiers.OreganizedTiers;
 import me.gleep.oreganized.world.gen.BoulderStructures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleType;
@@ -37,14 +39,7 @@ import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.SolidBucketItem;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FallingBlock;
-import net.minecraft.world.level.block.OreBlock;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -267,6 +262,13 @@ public class RegistryHandler {
     public static final RegistryObject<Block> RED_CRYSTAL_GLASS_PANE = BLOCKS.register("red_crystal_glass_pane", () -> new CrystalGlassPaneColored(DyeColor.RED));
     public static final RegistryObject<Block> WHITE_CRYSTAL_GLASS_PANE = BLOCKS.register("white_crystal_glass_pane", () -> new CrystalGlassPaneColored(DyeColor.WHITE));
     public static final RegistryObject<Block> YELLOW_CRYSTAL_GLASS_PANE = BLOCKS.register("yellow_crystal_glass_pane", () -> new CrystalGlassPaneColored(DyeColor.YELLOW));
+
+    // Bars
+    public static final RegistryObject<Block> LEAD_BARS = BLOCKS.register("lead_bars", () -> new LeadBars(BlockBehaviour.Properties.copy(Blocks.IRON_BARS)));
+    public static final RegistryObject<Block> SILVER_BARS = BLOCKS.register("silver_bars", () -> new SilverBars(BlockBehaviour.Properties.copy(Blocks.IRON_BARS)));
+    public static final RegistryObject<Block> SILVER_ORNAMENT_BARS = BLOCKS.register("silver_ornament_bars", () -> new SilverOrnamentBars(BlockBehaviour.Properties.copy(RegistryHandler.SILVER_BARS.get())));
+
+
     //Waxed Concrete Powder
     public static final RegistryObject<FallingBlock> WAXED_WHITE_CONCRETE_POWDER = BLOCKS.register("waxed_white_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.of(Material.SAND, DyeColor.WHITE).strength(0.5F).sound(SoundType.SAND)));
     public static final RegistryObject<FallingBlock> WAXED_ORANGE_CONCRETE_POWDER = BLOCKS.register("waxed_orange_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.of(Material.SAND, DyeColor.ORANGE).strength(0.5F).sound(SoundType.SAND)));
@@ -351,6 +353,12 @@ public class RegistryHandler {
     public static final RegistryObject<Item> RED_CRYSTAL_GLASS_PANE_ITEM = ITEMS.register("red_crystal_glass_pane", () -> new BlockItemBase(RED_CRYSTAL_GLASS_PANE.get(), 1));
     public static final RegistryObject<Item> WHITE_CRYSTAL_GLASS_PANE_ITEM = ITEMS.register("white_crystal_glass_pane", () -> new BlockItemBase(WHITE_CRYSTAL_GLASS_PANE.get(), 1));
     public static final RegistryObject<Item> YELLOW_CRYSTAL_GLASS_PANE_ITEM = ITEMS.register("yellow_crystal_glass_pane", () -> new BlockItemBase(YELLOW_CRYSTAL_GLASS_PANE.get(), 1));
+
+    // Bars
+    public static final RegistryObject<Item> LEAD_BARS_ITEM = ITEMS.register("lead_bars", () -> new BlockItemBase(LEAD_BARS.get(), 1));
+    public static final RegistryObject<Item> SILVER_BARS_ITEM = ITEMS.register("silver_bars", () -> new BlockItemBase(SILVER_BARS.get(), 1));
+    public static final RegistryObject<Item> SILVER_ORNAMENT_BARS_ITEM = ITEMS.register("silver_ornament_bars", () -> new BlockItemBase(SILVER_ORNAMENT_BARS.get(), 1));
+
     //SugarCoated Powder Concrete
     public static final RegistryObject<Item> WAXED_WHITE_CONCRETE_POWDER_ITEM = ITEMS.register("waxed_white_concrete_powder", () -> new BlockItemBase(WAXED_WHITE_CONCRETE_POWDER.get(), 1));
     public static final RegistryObject<Item> WAXED_ORANGE_CONCRETE_POWDER_ITEM = ITEMS.register("waxed_orange_concrete_powder", () -> new BlockItemBase(WAXED_ORANGE_CONCRETE_POWDER.get(), 1));
@@ -380,35 +388,35 @@ public class RegistryHandler {
 
     /*//////////////////////////////////            TOOLS            //////////////////////////////////*/
     public static final RegistryObject<Item> ELECTRUM_SWORD = ITEMS.register("electrum_sword",
-            () -> new SwordItem(ModTier.ELECTRUM, 3, -2.6F, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_COMBAT))
+            () -> new SwordItem(OreganizedTiers.ELECTRUM, 3, -2.2F, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_COMBAT))
     );
     public static final RegistryObject<Item> ELECTRUM_PICKAXE = ITEMS.register("electrum_pickaxe",
-            () -> new PickaxeItem(ModTier.ELECTRUM, 1, -2.8F, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TOOLS))
+            () -> new ElectrumPickaxeItem(OreganizedTiers.ELECTRUM, 1, -2.6F)
     );
     public static final RegistryObject<Item> ELECTRUM_SHOVEL = ITEMS.register("electrum_shovel",
-            () -> new ShovelItem(ModTier.ELECTRUM, 1.5F, -3.0F, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TOOLS))
+            () -> new ShovelItem(OreganizedTiers.ELECTRUM, 1.5F, -3.0F, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TOOLS))
     );
     public static final RegistryObject<Item> ELECTRUM_AXE = ITEMS.register("electrum_axe",
-            () -> new AxeItem(ModTier.ELECTRUM, 5.0F, -3.0F, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TOOLS))
+            () -> new AxeItem(OreganizedTiers.ELECTRUM, 5.0F, -3.0F, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TOOLS))
     );
     public static final RegistryObject<Item> ELECTRUM_HOE = ITEMS.register("electrum_hoe",
-            () -> new HoeItem(ModTier.ELECTRUM, -4, 0.0F, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TOOLS))
+            () -> new HoeItem(OreganizedTiers.ELECTRUM, -4, 0.0F, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TOOLS))
     );
     public static final RegistryObject<Item> BUSH_HAMMER = ITEMS.register("bush_hammer", BushHammer::new);
 
 
     /*//////////////////////////////////            ARMOR            //////////////////////////////////*/
     public static final RegistryObject<Item> ELECTRUM_HELMET = ITEMS.register("electrum_helmet",
-            () -> new ElectrumArmorItem(EquipmentSlot.HEAD, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT))
+            () -> new ElectrumArmorItem(OreganizedArmorMaterials.ELECTRUM, EquipmentSlot.HEAD)
     );
     public static final RegistryObject<Item> ELECTRUM_CHESTPLATE = ITEMS.register("electrum_chestplate",
-            () -> new ElectrumArmorItem(EquipmentSlot.CHEST, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT))
+            () -> new ElectrumArmorItem(OreganizedArmorMaterials.ELECTRUM, EquipmentSlot.CHEST)
     );
     public static final RegistryObject<Item> ELECTRUM_LEGGINGS = ITEMS.register("electrum_leggings",
-            () -> new ElectrumArmorItem(EquipmentSlot.LEGS, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT))
+            () -> new ElectrumArmorItem(OreganizedArmorMaterials.ELECTRUM, EquipmentSlot.LEGS)
     );
     public static final RegistryObject<Item> ELECTRUM_BOOTS = ITEMS.register("electrum_boots",
-            () -> new ElectrumArmorItem(EquipmentSlot.FEET, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT))
+            () -> new ElectrumArmorItem(OreganizedArmorMaterials.ELECTRUM, EquipmentSlot.FEET)
     );
 
     /*//////////////////////////////////            BLOCKTAGS            //////////////////////////////////*/

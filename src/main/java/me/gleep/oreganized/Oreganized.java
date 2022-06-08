@@ -125,6 +125,11 @@ public class Oreganized {
         ItemBlockRenderTypes.setRenderLayer(RegistryHandler.WHITE_CRYSTAL_GLASS_PANE.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(RegistryHandler.YELLOW_CRYSTAL_GLASS_PANE.get(), RenderType.translucent());
 
+        ItemBlockRenderTypes.setRenderLayer(RegistryHandler.LEAD_BARS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(RegistryHandler.SILVER_BARS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(RegistryHandler.SILVER_ORNAMENT_BARS.get(), RenderType.cutout());
+
+
         ItemBlockRenderTypes.setRenderLayer(RegistryHandler.MOLTEN_LEAD_BLOCK.get(), RenderType.translucent());
 
         event.enqueueWork(() -> ItemProperties.register(RegistryHandler.SILVER_INGOT.get(),

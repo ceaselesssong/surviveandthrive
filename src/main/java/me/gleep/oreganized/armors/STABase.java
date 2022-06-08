@@ -1,14 +1,11 @@
 package me.gleep.oreganized.armors;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.math.Vector3d;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -19,9 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.lwjgl.glfw.GLFW;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class STABase extends ArmorItem {
@@ -53,18 +48,6 @@ public class STABase extends ArmorItem {
     @Override
     public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
         return stack.getItemEnchantability() == ArmorMaterials.GOLD.getEnchantmentValue();
-    }
-
-    /**
-     * Used to change durability bar when holding left shift or crouching.
-     */
-    @Override
-    public void inventoryTick(ItemStack p_41404_, Level p_41405_, Entity p_41406_, int p_41407_, boolean p_41408_) {
-        super.inventoryTick(p_41404_, p_41405_, p_41406_, p_41407_, p_41408_);
-        if (p_41406_ instanceof Player) {
-            Player pl = (Player) p_41406_;
-            this.shouldDisplayTint = pl.isCrouching() || InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_SHIFT);
-        }
     }
 
     @Override
@@ -170,53 +153,5 @@ public class STABase extends ArmorItem {
             return Mth.hsvToRgb(200F / 360F, Math.max(0.0F, this.getBarWidth(stack)), 0.94F);
         }
         return Mth.hsvToRgb(Math.max(0.0F, (float) (1.0F - this.getBarWidth(stack))) / 3.0F, 1.0F, 1.0F);
-    }
-
-    @Override
-    public void appendHoverText(ItemStack p_41421_, @Nullable Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
-        if (p_41421_.getOrCreateTag().getInt("TintedDamage") > 0) {
-            TextComponent text = new TextComponent("Tint Durability: " + p_41421_.getOrCreateTag().getInt("TintedDamage") + "/" + MAX_TINT_DURABILITY);
-            text.getStyle().withColor(TextColor.fromRgb(0xE1EBF0));
-            p_41423_.add(text);
-        }
-        super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
-    }
-
-    /**
-     * Called by RenderBiped and RenderPlayer to determine the armor texture that
-     * should be use for the currently equipped item. This will only be called on
-     * instances of ItemArmor.
-     * <p>
-     * Returning null from this function will use the default value.
-     *
-     * @param stack  ItemStack for the equipped armor
-     * @param entity The entity wearing the armor
-     * @param slot   The slot the armor is in
-     * @param type   The subtype, can be null or "overlays"
-     * @return Path of texture to bind, or null to use default
-     */
-    @Nullable
-    @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        if (slot.equals(EquipmentSlot.LEGS)) {
-            switch ((ArmorMaterials) this.getMaterial()) {
-                case DIAMOND:
-                    return "oreganized:textures/models/armor/silver_tinted_diamond_layer_2.png";
-                case GOLD:
-                    return "oreganized:textures/models/armor/silver_tinted_gold_layer_2.png";
-                case NETHERITE:
-                    return "oreganized:textures/models/armor/silver_tinted_netherite_layer_2.png";
-            }
-        } else {
-            switch ((ArmorMaterials) this.getMaterial()) {
-                case DIAMOND:
-                    return "oreganized:textures/models/armor/silver_tinted_diamond_layer_1.png";
-                case GOLD:
-                    return "oreganized:textures/models/armor/silver_tinted_gold_layer_1.png";
-                case NETHERITE:
-                    return "oreganized:textures/models/armor/silver_tinted_netherite_layer_1.png";
-            }
-        }
-        return super.getArmorTexture(stack, entity, slot, type);
     }
 }
