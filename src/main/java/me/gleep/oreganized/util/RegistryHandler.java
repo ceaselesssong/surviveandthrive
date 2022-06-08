@@ -120,56 +120,15 @@ public class RegistryHandler {
 
 
     /*//////////////////////////////////            ITEMS            //////////////////////////////////*/
-    public static final RegistryObject<Item> SILVER_INGOT = ITEMS.register("silver_ingot", SilverIngot::new);
-    public static final RegistryObject<Item> LEAD_INGOT = ITEMS.register("lead_ingot", ItemBase::new);
-    public static final RegistryObject<Item> ELECTRUM_INGOT = ITEMS.register("electrum_ingot", ItemBase::new);
-    public static final RegistryObject<Item> RAW_SILVER = ITEMS.register("raw_silver", ItemBase::new);
-    public static final RegistryObject<Item> RAW_LEAD = ITEMS.register("raw_lead", ItemBase::new);
-    public static final RegistryObject<Item> SILVER_NUGGET = ITEMS.register("silver_nugget", ItemBase::new);
-    public static final RegistryObject<Item> LEAD_NUGGET = ITEMS.register("lead_nugget", ItemBase::new);
-    public static final RegistryObject<Item> ELECTRUM_NUGGET = ITEMS.register("electrum_nugget", ItemBase::new);
-    public static final RegistryObject<Item> NETHERITE_NUGGET = ITEMS.register("netherite_nugget", () -> new ItemBase(true));
-    public static final RegistryObject<Item> MOLTEN_LEAD_BUCKET = ITEMS.register("molten_lead_bucket", () -> new SolidBucketItem(RegistryHandler.MOLTEN_LEAD_BLOCK.get(),
-            SoundEvents.BUCKET_EMPTY_LAVA, new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS).stacksTo(1))
-    );
-    public static final RegistryObject<Item> SILVER_MIRROR = ITEMS.register("silver_mirror", SilverMirror::new);
-    //Music Discs
-    public static final RegistryObject<Item> MUSIC_DISC_PILLAGED_ITEM = ITEMS.register("music_disc_pillaged", () -> new ModMusicDisc(13, MUSIC_DISC_PILLAGED));
-    public static final RegistryObject<Item> MUSIC_DISC_18_ITEM = ITEMS.register("music_disc_18", () -> new ModMusicDisc(14, MUSIC_DISC_18));
-    public static final RegistryObject<Item> MUSIC_DISC_SHULK_ITEM = ITEMS.register("music_disc_shulk", () -> new ModMusicDisc(15, MUSIC_DISC_SHULK));
+
+
 
     /*//////////////////////////////////            BLOCKS            //////////////////////////////////*/
     //Ores
-    public static final RegistryObject<Block> SILVER_ORE = BLOCKS.register("silver_ore", () -> new OreBlock(BlockBehaviour.Properties.copy(Blocks.GOLD_ORE)));
-    public static final RegistryObject<Block> LEAD_ORE = BLOCKS.register("lead_ore", () -> new OreBlock(BlockBehaviour.Properties.of(Material.METAL)
-            .strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.STONE), UniformInt.of(0, 3))
-    );
-    public static final RegistryObject<Block> DEEPSLATE_SILVER_ORE = BLOCKS.register("deepslate_silver_ore", () -> new OreBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_GOLD_ORE)));
-    public static final RegistryObject<Block> DEEPSLATE_LEAD_ORE = BLOCKS.register("deepslate_lead_ore", () -> new OreBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_GOLD_ORE)));
-    public static final RegistryObject<Block> RAW_SILVER_BLOCK = BLOCKS.register("raw_silver_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.RAW_IRON_BLOCK)));
-    public static final RegistryObject<Block> RAW_LEAD_BLOCK = BLOCKS.register("raw_lead_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.RAW_IRON_BLOCK)));
+
     //Blocks
-    public static final RegistryObject<Block> SILVER_BLOCK = BLOCKS.register("silver_block", SilverBlock::new);
-    public static final RegistryObject<Block> LEAD_BLOCK = BLOCKS.register("lead_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL)
-            .strength(5.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.METAL))
-    );
-    public static final RegistryObject<Block> ELECTRUM_BLOCK = BLOCKS.register("electrum_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(5.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.METAL)));
-    public static final RegistryObject<Block> GLANCE = BLOCKS.register("glance", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIORITE)));
-    public static final RegistryObject<SlabBlock> GLANCE_SLAB = BLOCKS.register("glance_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(GLANCE.get())));
-    public static final RegistryObject<SlabBlock> GLANCE_BRICKS_SLAB = BLOCKS.register("glance_bricks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(GLANCE.get())));
-    public static final RegistryObject<StairBlock> GLANCE_STAIRS = BLOCKS.register("glance_stairs", () -> new StairBlock(GLANCE.get()::defaultBlockState,
-            BlockBehaviour.Properties.copy(GLANCE.get())));
-    public static final RegistryObject<StairBlock> GLANCE_BRICKS_STAIRS = BLOCKS.register("glance_bricks_stairs", () -> new StairBlock(GLANCE.get()::defaultBlockState,
-            BlockBehaviour.Properties.copy(GLANCE.get())));
-    public static final RegistryObject<WallBlock> GLANCE_WALL = BLOCKS.register("glance_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(GLANCE.get())));
-    public static final RegistryObject<WallBlock> GLANCE_BRICKS_WALL = BLOCKS.register("glance_bricks_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(GLANCE.get())));
-    public static final RegistryObject<Block> POLISHED_GLANCE = BLOCKS.register("polished_glance", () -> new Block(BlockBehaviour.Properties.copy(GLANCE.get())));
-    public static final RegistryObject<Block> GLANCE_BRICKS = BLOCKS.register("glance_bricks", () -> new Block(BlockBehaviour.Properties.copy(GLANCE.get())));
-    public static final RegistryObject<Block> CHISELED_GLANCE = BLOCKS.register("chiseled_glance", () -> new Block(BlockBehaviour.Properties.copy(GLANCE.get())));
-    public static final RegistryObject<Block> SPOTTED_GLANCE = BLOCKS.register("spotted_glance", SpottedGlance::new);
-    public static final RegistryObject<Block> WAXED_SPOTTED_GLANCE = BLOCKS.register("waxed_spotted_glance", () -> new Block(BlockBehaviour.Properties.copy(SPOTTED_GLANCE.get())));
-    public static final RegistryObject<Block> MOLTEN_LEAD_BLOCK = BLOCKS.register("molten_lead_block", MoltenLeadBlock::new);
-    public static final RegistryObject<Block> LEAD_CAULDRON = BLOCKS.register("cauldron", ModCauldron::new);
+
+
 
     //Engraved Bricks
     public static final RegistryObject<EngravedBlock> ENGRAVED_NETHER_BRICKS = BLOCKS.register("engraved_nether_bricks",
@@ -387,37 +346,11 @@ public class RegistryHandler {
     );
 
     /*//////////////////////////////////            TOOLS            //////////////////////////////////*/
-    public static final RegistryObject<Item> ELECTRUM_SWORD = ITEMS.register("electrum_sword",
-            () -> new SwordItem(OreganizedTiers.ELECTRUM, 3, -2.2F, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_COMBAT))
-    );
-    public static final RegistryObject<Item> ELECTRUM_PICKAXE = ITEMS.register("electrum_pickaxe",
-            () -> new ElectrumPickaxeItem(OreganizedTiers.ELECTRUM, 1, -2.6F)
-    );
-    public static final RegistryObject<Item> ELECTRUM_SHOVEL = ITEMS.register("electrum_shovel",
-            () -> new ShovelItem(OreganizedTiers.ELECTRUM, 1.5F, -3.0F, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TOOLS))
-    );
-    public static final RegistryObject<Item> ELECTRUM_AXE = ITEMS.register("electrum_axe",
-            () -> new AxeItem(OreganizedTiers.ELECTRUM, 5.0F, -3.0F, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TOOLS))
-    );
-    public static final RegistryObject<Item> ELECTRUM_HOE = ITEMS.register("electrum_hoe",
-            () -> new HoeItem(OreganizedTiers.ELECTRUM, -4, 0.0F, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TOOLS))
-    );
-    public static final RegistryObject<Item> BUSH_HAMMER = ITEMS.register("bush_hammer", BushHammer::new);
+
 
 
     /*//////////////////////////////////            ARMOR            //////////////////////////////////*/
-    public static final RegistryObject<Item> ELECTRUM_HELMET = ITEMS.register("electrum_helmet",
-            () -> new ElectrumArmorItem(OreganizedArmorMaterials.ELECTRUM, EquipmentSlot.HEAD)
-    );
-    public static final RegistryObject<Item> ELECTRUM_CHESTPLATE = ITEMS.register("electrum_chestplate",
-            () -> new ElectrumArmorItem(OreganizedArmorMaterials.ELECTRUM, EquipmentSlot.CHEST)
-    );
-    public static final RegistryObject<Item> ELECTRUM_LEGGINGS = ITEMS.register("electrum_leggings",
-            () -> new ElectrumArmorItem(OreganizedArmorMaterials.ELECTRUM, EquipmentSlot.LEGS)
-    );
-    public static final RegistryObject<Item> ELECTRUM_BOOTS = ITEMS.register("electrum_boots",
-            () -> new ElectrumArmorItem(OreganizedArmorMaterials.ELECTRUM, EquipmentSlot.FEET)
-    );
+
 
     /*//////////////////////////////////            BLOCKTAGS            //////////////////////////////////*/
     //Oreganized
