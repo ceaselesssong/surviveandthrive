@@ -16,6 +16,7 @@ import me.gleep.oreganized.capabilities.stunning.IStunning;
 import me.gleep.oreganized.items.BushHammer;
 import me.gleep.oreganized.items.ElectrumArmorItem;
 import me.gleep.oreganized.potion.ModPotions;
+import me.gleep.oreganized.registry.OreganizedItems;
 import me.gleep.oreganized.tools.STSBase;
 import me.gleep.oreganized.util.RegistryHandler;
 import me.gleep.oreganized.util.messages.UpdateClientEngravedBlocks;
@@ -118,10 +119,10 @@ public class ModEvents {
 
         if(stack.getItem() instanceof STSBase){
             int count = (int) Math.round( ((double) stack.getOrCreateTag().getInt( "TintedDamage" ) / (double) STSBase.MAX_TINT_DURABILITY) * 9D );
-            item = new ItemStack( RegistryHandler.SILVER_NUGGET.get() , count );
+            item = new ItemStack( OreganizedItems.SILVER_NUGGET.get() , count );
         }else if(stack.getItem() instanceof STABase){
             int count = (int) Math.round( ((double) stack.getOrCreateTag().getInt( "TintedDamage" ) / (double) STABase.MAX_TINT_DURABILITY) * 9D );
-            item = new ItemStack( RegistryHandler.SILVER_NUGGET.get() , count );
+            item = new ItemStack( OreganizedItems.SILVER_NUGGET.get() , count );
         }
 
         pl.drop( item , true );
@@ -200,7 +201,7 @@ public class ModEvents {
                     event.setCancellationResult( InteractionResult.sidedSuccess( level.isClientSide() ) );
                     event.setCanceled( true );
                 }
-            }else if(item.getItem().equals( RegistryHandler.MOLTEN_LEAD_BUCKET.get() )){
+            }else if(item.getItem().equals( OreganizedItems.MOLTEN_LEAD_BUCKET.get() )){
                 if(!level.isClientSide()){
                     level.removeBlock( pos , false );
                     level.setBlockAndUpdate( pos , RegistryHandler.LEAD_CAULDRON.get().defaultBlockState().setValue( ModCauldron.LEVEL , 3 ) );
@@ -271,7 +272,7 @@ public class ModEvents {
         BlockState state = world.getBlockState( pos );
         ItemStack currentitem = event.getPlayer().getItemInHand( event.getPlayer().getUsedItemHand() );
 
-        if (currentitem.getItem().equals(RegistryHandler.BUSH_HAMMER.get())) {
+        if (currentitem.getItem().equals(OreganizedItems.BUSH_HAMMER.get())) {
             for (Block b : BushHammer.EFFECTIVE_ON.keySet()) {
                 if (state.getBlock().equals( b ) && !event.getPlayer().isCreative()){
                     world.setBlock( pos , BushHammer.EFFECTIVE_ON.get( b ).defaultBlockState() , 2 );
@@ -348,10 +349,10 @@ public class ModEvents {
                 nbt.putBoolean( "Shine" , true );
 
                 for(ItemStack stack : player.getInventory().items){
-                    if(stack.getItem().equals( RegistryHandler.SILVER_INGOT.get() )) stack.setTag( nbt );
+                    if(stack.getItem().equals( OreganizedItems.SILVER_INGOT.get() )) stack.setTag( nbt );
                 }
 
-                if(player.getInventory().offhand.get( 0 ).getItem().equals( RegistryHandler.SILVER_INGOT.get() )){
+                if(player.getInventory().offhand.get( 0 ).getItem().equals( OreganizedItems.SILVER_INGOT.get() )){
                     player.getInventory().offhand.get( 0 ).setTag( nbt );
                 }
             }

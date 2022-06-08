@@ -1,5 +1,6 @@
 package me.gleep.oreganized.items.tiers;
 
+import me.gleep.oreganized.registry.OreganizedItems;
 import me.gleep.oreganized.util.RegistryHandler;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.Tier;
@@ -9,8 +10,8 @@ import java.util.function.Supplier;
 import static me.gleep.oreganized.util.RegistryHandler.LEAD_INGOTS_ITEMTAG;
 
 public enum OreganizedTiers implements Tier {
-    LEAD(0, 150, 7.0F, 1.5F, 8, () -> Ingredient.of(RegistryHandler.LEAD_INGOT.get())),
-    ELECTRUM(5,1279,8.2F,4.0F,15,() -> Ingredient.of(RegistryHandler.ELECTRUM_INGOT.get()));
+    LEAD(0, 150, 7.0F, 1.5F, 8, () -> Ingredient.of(OreganizedItems.LEAD_INGOT.get())),
+    ELECTRUM(5,1279,8.2F,4.0F,15,() -> Ingredient.of(OreganizedItems.ELECTRUM_INGOT.get()));
 
     private final int level;
     private final int durability;

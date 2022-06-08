@@ -1,5 +1,6 @@
 package me.gleep.oreganized.blocks;
 
+import me.gleep.oreganized.registry.OreganizedItems;
 import me.gleep.oreganized.util.RegistryHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -95,9 +96,9 @@ public class ModCauldron extends Block {
                     if (!player.getAbilities().instabuild) {
                         itemstack.shrink(1);
                         if (itemstack.isEmpty()) {
-                            player.setItemInHand(hand, new ItemStack(RegistryHandler.MOLTEN_LEAD_BUCKET.get()));
-                        } else if (!player.getInventory().add(new ItemStack(RegistryHandler.MOLTEN_LEAD_BUCKET.get()))) {
-                            player.drop(new ItemStack(RegistryHandler.MOLTEN_LEAD_BUCKET.get()), false);
+                            player.setItemInHand(hand, new ItemStack(OreganizedItems.MOLTEN_LEAD_BUCKET.get()));
+                        } else if (!player.getInventory().add(new ItemStack(OreganizedItems.MOLTEN_LEAD_BUCKET.get()))) {
+                            player.drop(new ItemStack(OreganizedItems.MOLTEN_LEAD_BUCKET.get()), false);
                         }
                     }
                     player.awardStat(Stats.USE_CAULDRON);

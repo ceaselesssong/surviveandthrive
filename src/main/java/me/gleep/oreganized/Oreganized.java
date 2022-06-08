@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 import me.gleep.oreganized.blocks.client.ShrapnelBombRenderer;
 import me.gleep.oreganized.capabilities.CapabilityHandler;
+import me.gleep.oreganized.registry.OreganizedItems;
 import me.gleep.oreganized.util.RegistryHandler;
 import me.gleep.oreganized.util.SimpleNetwork;
 import me.gleep.oreganized.events.*;
@@ -29,13 +30,15 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-@Mod("oreganized")
+@Mod(Oreganized.MOD_ID)
 public class Oreganized {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "oreganized";
 
     public Oreganized() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        //OreganizedBlocks.BLOCKS.register(bus);
+        OreganizedItems.ITEMS.register(bus);
         RegistryHandler.init();
         bus.addListener(this::setup);
         bus.addListener(this::doClientStuff);
@@ -132,12 +135,12 @@ public class Oreganized {
 
         ItemBlockRenderTypes.setRenderLayer(RegistryHandler.MOLTEN_LEAD_BLOCK.get(), RenderType.translucent());
 
-        event.enqueueWork(() -> ItemProperties.register(RegistryHandler.SILVER_INGOT.get(),
+        event.enqueueWork(() -> ItemProperties.register(OreganizedItems.SILVER_INGOT.get(),
                 new ResourceLocation(Oreganized.MOD_ID + ":shine"),
                 (ItemStack p_174676_, @Nullable ClientLevel p_174677_, @Nullable LivingEntity p_174678_, int p_174679_) ->
                         p_174676_.getTag() != null ? (p_174676_.getTag().getBoolean("Shine") ? 1 : 0) : 0)
         );
-        event.enqueueWork(() -> ItemProperties.register(RegistryHandler.SILVER_MIRROR.get(),
+        event.enqueueWork(() -> ItemProperties.register(OreganizedItems.SILVER_MIRROR.get(),
                 new ResourceLocation(Oreganized.MOD_ID + ":dist"),
                 (ItemStack p_174676_, @Nullable ClientLevel p_174677_, @Nullable LivingEntity p_174678_, int p_174679_) ->
                         p_174676_.getTag() != null ? p_174676_.getTag().getInt("Dist") : 8)

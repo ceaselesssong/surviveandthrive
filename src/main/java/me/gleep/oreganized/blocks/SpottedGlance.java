@@ -1,5 +1,6 @@
 package me.gleep.oreganized.blocks;
 
+import me.gleep.oreganized.registry.OreganizedItems;
 import me.gleep.oreganized.util.RegistryHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,7 +20,7 @@ public class SpottedGlance extends Block {
     @Override
     public BlockState updateShape(BlockState state, Direction p_60542_, BlockState neighbour, LevelAccessor level, BlockPos pos, BlockPos neighbourPos) {
         if (level.isWaterAt(neighbourPos)) {
-            ItemStack stack = new ItemStack(RegistryHandler.LEAD_NUGGET.get(), level.getRandom().nextInt(2) + 1);
+            ItemStack stack = new ItemStack(OreganizedItems.LEAD_NUGGET.get(), level.getRandom().nextInt(2) + 1);
             Containers.dropItemStack((Level) level, pos.getX(), pos.getY(), pos.getZ(), stack);
 
             return RegistryHandler.GLANCE.get().defaultBlockState();
@@ -33,7 +34,7 @@ public class SpottedGlance extends Block {
         if (level.isWaterAt(neighbourPos)) {
             level.setBlockAndUpdate(pos, RegistryHandler.GLANCE.get().defaultBlockState());
 
-            ItemStack stack = new ItemStack(RegistryHandler.LEAD_NUGGET.get(), level.getRandom().nextInt(2) + 1);
+            ItemStack stack = new ItemStack(OreganizedItems.LEAD_NUGGET.get(), level.getRandom().nextInt(2) + 1);
             Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), stack);
             /*
             int x = level.getRandom().nextInt(2) + 1;

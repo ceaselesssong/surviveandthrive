@@ -1,5 +1,6 @@
 package me.gleep.oreganized.blocks;
 
+import me.gleep.oreganized.registry.OreganizedItems;
 import me.gleep.oreganized.util.ModDamageSource;
 import me.gleep.oreganized.util.RegistryHandler;
 import net.minecraft.core.BlockPos;
@@ -136,7 +137,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
     public VoxelShape getShape( BlockState p_60555_ , BlockGetter p_60556_ , BlockPos p_60557_ , CollisionContext p_60558_ ){
         if(((EntityCollisionContext) p_60558_).getEntity() != null){
             return p_60558_.isHoldingItem( Items.BUCKET )
-                    || p_60558_.isHoldingItem( RegistryHandler.MOLTEN_LEAD_BUCKET.get() ) ? Shapes.block() : Shapes.empty();
+                    || p_60558_.isHoldingItem( OreganizedItems.MOLTEN_LEAD_BUCKET.get() ) ? Shapes.block() : Shapes.empty();
         }
 
         return Shapes.block();
@@ -174,7 +175,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
             p_152719_.levelEvent( 2001 , p_152720_ , Block.getId( p_152721_ ) );
         }
 
-        return new ItemStack( RegistryHandler.MOLTEN_LEAD_BUCKET.get() , 1 );
+        return new ItemStack( OreganizedItems.MOLTEN_LEAD_BUCKET.get() , 1 );
     }
 
     @Override
