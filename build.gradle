@@ -98,6 +98,13 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.k-4u.nl"
     }
+
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 dependencies {
@@ -105,6 +112,11 @@ dependencies {
 
     compileOnly fg.deobf("mezz.jei:jei-${project.mc_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${project.mc_version}:${jei_version}")
+
+    // For testing and showcasing with pretty shaders:
+    runtimeOnly fg.deobf("curse.maven:oculus-581495:3821406")
+    runtimeOnly fg.deobf("curse.maven:rubidium-574856:3749094")
+
 
     //annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
