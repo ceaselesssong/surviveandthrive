@@ -51,7 +51,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import me.gleep.oreganized.registry.OreganizedBlocks.*;
 import static me.gleep.oreganized.Oreganized.MOD_ID;
+import static me.gleep.oreganized.registry.OreganizedBlocks.*;
 
 public class RegistryHandler {
     //Mod
@@ -225,7 +227,7 @@ public class RegistryHandler {
     // Bars
     public static final RegistryObject<Block> LEAD_BARS = BLOCKS.register("lead_bars", () -> new LeadBars(BlockBehaviour.Properties.copy(Blocks.IRON_BARS)));
     public static final RegistryObject<Block> SILVER_BARS = BLOCKS.register("silver_bars", () -> new SilverBars(BlockBehaviour.Properties.copy(Blocks.IRON_BARS)));
-    public static final RegistryObject<Block> SILVER_ORNAMENT_BARS = BLOCKS.register("silver_ornament_bars", () -> new SilverOrnamentBars(BlockBehaviour.Properties.copy(RegistryHandler.SILVER_BARS.get())));
+    public static final RegistryObject<Block> SILVER_ORNAMENT_BARS = BLOCKS.register("silver_ornament_bars", () -> new SilverOrnamentBars(BlockBehaviour.Properties.copy(Blocks.IRON_BARS)));
 
 
     //Waxed Concrete Powder
@@ -251,33 +253,7 @@ public class RegistryHandler {
 
 
     /*//////////////////////////////////            BLOCK ITEMS            //////////////////////////////////*/
-    //Ores
-    public static final RegistryObject<Item> SILVER_ORE_ITEM = ITEMS.register("silver_ore", () -> new BlockItemBase(SILVER_ORE.get()));
-    public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItemBase(LEAD_ORE.get()));
-    public static final RegistryObject<Item> DEEPSLATE_SILVER_ORE_ITEM = ITEMS.register("deepslate_silver_ore", () -> new BlockItemBase(DEEPSLATE_SILVER_ORE.get()));
-    public static final RegistryObject<Item> DEEPSLATE_LEAD_ORE_ITEM = ITEMS.register("deepslate_lead_ore", () -> new BlockItemBase(DEEPSLATE_LEAD_ORE.get()));
-    public static final RegistryObject<Item> RAW_SILVER_BLOCK_ITEM = ITEMS.register("raw_silver_block", () -> new BlockItemBase(RAW_SILVER_BLOCK.get()));
-    public static final RegistryObject<Item> RAW_LEAD_BLOCK_ITEM = ITEMS.register("raw_lead_block", () -> new BlockItemBase(RAW_LEAD_BLOCK.get()));
-    //Blocks
-    public static final RegistryObject<Item> SILVER_BLOCK_ITEM = ITEMS.register("silver_block", () -> new BlockItemBase(SILVER_BLOCK.get()));
-    public static final RegistryObject<Item> LEAD_BLOCK_ITEM = ITEMS.register("lead_block", () -> new BlockItemBase(LEAD_BLOCK.get()));
-    public static final RegistryObject<Item> ELECTURM_BLOCK_ITEM = ITEMS.register("electrum_block", () -> new BlockItemBase(ELECTRUM_BLOCK.get()));
-    public static final RegistryObject<Item> GLANCE_ITEM = ITEMS.register("glance", () -> new BlockItemBase(GLANCE.get()));
-    public static final RegistryObject<Item> POLISHED_GLANCE_ITEM = ITEMS.register("polished_glance", () -> new BlockItemBase(POLISHED_GLANCE.get()));
-    public static final RegistryObject<Item> GLANCE_BRICKS_ITEM = ITEMS.register("glance_bricks", () -> new BlockItemBase(GLANCE_BRICKS.get()));
-    public static final RegistryObject<Item> CHISELED_GLANCE_ITEM = ITEMS.register("chiseled_glance", () -> new BlockItemBase(CHISELED_GLANCE.get()));
-    public static final RegistryObject<Item> SPOTTED_GLANCE_ITEM = ITEMS.register("spotted_glance", () -> new BlockItemBase(SPOTTED_GLANCE.get()));
-    public static final RegistryObject<Item> WAXED_SPOTTED_GLANCE_ITEM = ITEMS.register("waxed_spotted_glance", () -> new BlockItemBase(WAXED_SPOTTED_GLANCE.get()));
-    //Stairs
-    public static final RegistryObject<Item> GLANCE_STAIRS_ITEM = ITEMS.register("glance_stairs", () -> new BlockItemBase(GLANCE_STAIRS.get()));
-    public static final RegistryObject<Item> GLANCE_BRICKS_STAIRS_ITEM = ITEMS.register("glance_bricks_stairs", () -> new BlockItemBase(GLANCE_BRICKS_STAIRS.get()));
-    //Slabs
-    public static final RegistryObject<Item> GLANCE_SLAB_ITEM = ITEMS.register("glance_slab", () -> new BlockItemBase(GLANCE_SLAB.get()));
-    public static final RegistryObject<Item> GLANCE_BRICKS_SLAB_ITEM = ITEMS.register("glance_bricks_slab", () -> new BlockItemBase(GLANCE_BRICKS_SLAB.get()));
-    //Walls
-    public static final RegistryObject<Item> GLANCE_WALL_ITEM = ITEMS.register("glance_wall", () -> new BlockItemBase(GLANCE_WALL.get()));
-    public static final RegistryObject<Item> GLANCE_BRICKS_WALL_ITEM = ITEMS.register("glance_bricks_wall", () -> new BlockItemBase(GLANCE_BRICKS_WALL.get()));
-    //Glass
+    // Glass
     public static final RegistryObject<Item> BLACK_CRYSTAL_GLASS_ITEM = ITEMS.register("black_crystal_glass", () -> new BlockItemBase(BLACK_CRYSTAL_GLASS.get()));
     public static final RegistryObject<Item> BLUE_CRYSTAL_GLASS_ITEM = ITEMS.register("blue_crystal_glass", () -> new BlockItemBase(BLUE_CRYSTAL_GLASS.get()));
     public static final RegistryObject<Item> BROWN_CRYSTAL_GLASS_ITEM = ITEMS.register("brown_crystal_glass", () -> new BlockItemBase(BROWN_CRYSTAL_GLASS.get()));

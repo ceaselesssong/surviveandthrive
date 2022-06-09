@@ -1,5 +1,6 @@
 package me.gleep.oreganized.blocks;
 
+import me.gleep.oreganized.registry.OreganizedBlocks;
 import me.gleep.oreganized.registry.OreganizedItems;
 import me.gleep.oreganized.util.ModDamageSource;
 import me.gleep.oreganized.util.RegistryHandler;
@@ -66,7 +67,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
     public BlockState updateShape( BlockState pState , Direction pDirection , BlockState neighbour , LevelAccessor pLevel , BlockPos pPos , BlockPos neighbourPos ){
         if(pLevel.isWaterAt( neighbourPos )){
             pLevel.levelEvent( 1501 , pPos , 0 );
-            return RegistryHandler.LEAD_BLOCK.get().defaultBlockState();
+            return OreganizedBlocks.LEAD_BLOCK.get().defaultBlockState();
         }
         if(pDirection == Direction.DOWN){
             pLevel.scheduleTick( pPos , this , 30 );
@@ -77,7 +78,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
     @Override
     public void neighborChanged( BlockState p_60509_ , Level level , BlockPos pos , Block p_60512_ , BlockPos neighbourPos , boolean p_60514_ ){
         if(level.getFluidState( neighbourPos ).is( FluidTags.WATER )){
-            level.setBlockAndUpdate( pos , RegistryHandler.LEAD_BLOCK.get().defaultBlockState() );
+            level.setBlockAndUpdate( pos , OreganizedBlocks.LEAD_BLOCK.get().defaultBlockState() );
 
             level.levelEvent( 1501 , pos , 0 );
         } //else if (level.getFluidState(neighbourPos).is(FluidTags.LAVA)) {}
@@ -191,7 +192,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
                 pLevel.setBlock( pPos , pState.setValue( MOVING , true ) , 3 );
             }else{
                 pLevel.levelEvent( 1501 , pPos , 0 );
-                pLevel.setBlock( pPos , RegistryHandler.LEAD_BLOCK.get().defaultBlockState() , 3 );
+                pLevel.setBlock( pPos , OreganizedBlocks.LEAD_BLOCK.get().defaultBlockState() , 3 );
             }
         }else{
             if(!pOldState.getFluidState().is( FluidTags.WATER )){
@@ -199,7 +200,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
                 pLevel.scheduleTick( pPos , this , 300 );
             }else{
                 pLevel.levelEvent( 1501 , pPos , 0 );
-                pLevel.setBlock( pPos , RegistryHandler.LEAD_BLOCK.get().defaultBlockState() , 3 );
+                pLevel.setBlock( pPos , OreganizedBlocks.LEAD_BLOCK.get().defaultBlockState() , 3 );
             }
         }
     }
@@ -211,7 +212,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
                 || pLevel.getBlockState(pPos.below()).is(BlockTags.SMALL_FLOWERS)
                 || pLevel.getBlockState(pPos.below()).is(BlockTags.TALL_FLOWERS)){
             pLevel.setBlock( pPos , Blocks.AIR.defaultBlockState() , 67 );
-            pLevel.setBlock( pPos.below() , RegistryHandler.MOLTEN_LEAD_BLOCK.get().defaultBlockState() , 67 );
+            pLevel.setBlock( pPos.below() , OreganizedBlocks.MOLTEN_LEAD_BLOCK.get().defaultBlockState() , 67 );
         }
     }
 
@@ -226,7 +227,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
 
     private void trySpawnDripParticles( Level pLevel , BlockPos pPos , BlockState pState ){
         if(pState.getFluidState().isEmpty() && !(pLevel.random.nextFloat() < 0.5F)){
-            VoxelShape voxelshape = RegistryHandler.LEAD_BLOCK.get().defaultBlockState().getCollisionShape( pLevel , pPos );
+            VoxelShape voxelshape = OreganizedBlocks.LEAD_BLOCK.get().defaultBlockState().getCollisionShape( pLevel , pPos );
             double d0 = voxelshape.max( Direction.Axis.Y );
             if(d0 >= 1.0D){
                 double d1 = voxelshape.min( Direction.Axis.Y );

@@ -1,5 +1,6 @@
 package me.gleep.oreganized.blocks;
 
+import me.gleep.oreganized.registry.OreganizedBlocks;
 import me.gleep.oreganized.registry.OreganizedItems;
 import me.gleep.oreganized.util.RegistryHandler;
 import net.minecraft.core.BlockPos;
@@ -77,7 +78,7 @@ public class ModCauldron extends Block {
             if (blockState.getValue(LEVEL) == 1) {
                 level.removeBlock(pos, false);
                 level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
-                level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY() + 0.5D, pos.getZ(), RegistryHandler.LEAD_BLOCK_ITEM.get().getDefaultInstance()));
+                level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY() + 0.5D, pos.getZ(), OreganizedBlocks.LEAD_BLOCK.get().asItem().getDefaultInstance()));
                 return InteractionResult.sidedSuccess(level.isClientSide);
             } else return InteractionResult.PASS;
         } else {

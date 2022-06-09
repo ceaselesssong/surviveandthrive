@@ -16,6 +16,7 @@ import me.gleep.oreganized.capabilities.stunning.IStunning;
 import me.gleep.oreganized.items.BushHammer;
 import me.gleep.oreganized.items.ElectrumArmorItem;
 import me.gleep.oreganized.potion.ModPotions;
+import me.gleep.oreganized.registry.OreganizedBlocks;
 import me.gleep.oreganized.registry.OreganizedItems;
 import me.gleep.oreganized.tools.STSBase;
 import me.gleep.oreganized.util.RegistryHandler;
@@ -189,10 +190,10 @@ public class ModEvents {
         Level level = event.getWorld();
 
         if(level.getBlockState( pos ).equals( Blocks.CAULDRON.defaultBlockState() )){
-            if(item.getItem().equals( RegistryHandler.LEAD_BLOCK_ITEM.get() )){
+            if(item.getItem().equals( OreganizedBlocks.LEAD_BLOCK.get().asItem() )){
                 if(!level.isClientSide()){
                     level.removeBlock( pos , false );
-                    level.setBlockAndUpdate( pos , RegistryHandler.LEAD_CAULDRON.get().defaultBlockState() );
+                    level.setBlockAndUpdate( pos , OreganizedBlocks.LEAD_CAULDRON.get().defaultBlockState() );
                     if(!event.getPlayer().isCreative()) item.shrink( 1 );
                     level.playSound( (Player) null , pos , SoundEvents.STONE_PLACE , SoundSource.BLOCKS , 1.0F , 1.0F );
                     event.getPlayer().awardStat( Stats.USE_CAULDRON );
@@ -204,7 +205,7 @@ public class ModEvents {
             }else if(item.getItem().equals( OreganizedItems.MOLTEN_LEAD_BUCKET.get() )){
                 if(!level.isClientSide()){
                     level.removeBlock( pos , false );
-                    level.setBlockAndUpdate( pos , RegistryHandler.LEAD_CAULDRON.get().defaultBlockState().setValue( ModCauldron.LEVEL , 3 ) );
+                    level.setBlockAndUpdate( pos , OreganizedBlocks.LEAD_CAULDRON.get().defaultBlockState().setValue( ModCauldron.LEVEL , 3 ) );
                     if(!event.getPlayer().isCreative())
                         event.getPlayer().setItemInHand( InteractionHand.MAIN_HAND , new ItemStack( Items.BUCKET , 1 ) );
                     level.playSound( (Player) null , pos , SoundEvents.BUCKET_EMPTY_LAVA , SoundSource.BLOCKS , 1.0F , 1.0F );
@@ -314,7 +315,7 @@ public class ModEvents {
         Camera info = event.getCamera();
         BlockState blockState = info.getBlockAtCamera();
 
-        if (blockState.getBlock().equals( RegistryHandler.MOLTEN_LEAD_BLOCK.get() )) {
+        if (blockState.getBlock().equals( OreganizedBlocks.MOLTEN_LEAD_BLOCK.get() )) {
             RenderSystem.enableCull();
             event.setDensity( 1.4F );
             event.setCanceled( true );
@@ -330,7 +331,7 @@ public class ModEvents {
         Camera info = event.getCamera();
         BlockState blockState = info.getBlockAtCamera();
 
-        if(blockState.getBlock().equals( RegistryHandler.MOLTEN_LEAD_BLOCK.get() )){
+        if(blockState.getBlock().equals( OreganizedBlocks.MOLTEN_LEAD_BLOCK.get() )){
             event.setRed( 57F / 256F );
             event.setGreen( 57F / 256F );
             event.setBlue( 95F / 256F );

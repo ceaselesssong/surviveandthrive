@@ -1,9 +1,9 @@
 {
   "ambientocclusion": false,
   "textures": {
-    "particle": "oreganized:block/silver_bars_ornament",
-    "bars": "oreganized:block/silver_bars_ornament",
-    "edge": "oreganized:block/silver_bars"
+    "particle": "oreganized:block/silver_bars_4",
+    "bars": "oreganized:block/silver_bars_4",
+    "edge": "oreganized:block/silver_bars_4"
   },
   "elements": [
     {   "from": [ 8, 0, 0 ],

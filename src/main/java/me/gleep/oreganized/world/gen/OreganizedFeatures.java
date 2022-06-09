@@ -1,5 +1,6 @@
 package me.gleep.oreganized.world.gen;
 
+import me.gleep.oreganized.registry.OreganizedBlocks;
 import me.gleep.oreganized.util.RegistryHandler;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.OreFeatures;
@@ -25,10 +26,10 @@ public class OreganizedFeatures {
 
 
     public static void registerOreFeatures() {
-        List<OreConfiguration.TargetBlockState> silverOre = List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, RegistryHandler.SILVER_ORE.get().defaultBlockState()),
-                OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, RegistryHandler.DEEPSLATE_SILVER_ORE.get().defaultBlockState()));
-        List<OreConfiguration.TargetBlockState> leadOre = List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, RegistryHandler.LEAD_ORE.get().defaultBlockState()),
-                OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, RegistryHandler.DEEPSLATE_LEAD_ORE.get().defaultBlockState()));
+        List<OreConfiguration.TargetBlockState> silverOre = List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, OreganizedBlocks.SILVER_ORE.get().defaultBlockState()),
+                OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, OreganizedBlocks.DEEPSLATE_SILVER_ORE.get().defaultBlockState()));
+        List<OreConfiguration.TargetBlockState> leadOre = List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, OreganizedBlocks.LEAD_ORE.get().defaultBlockState()),
+                OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, OreganizedBlocks.DEEPSLATE_LEAD_ORE.get().defaultBlockState()));
 
         SILVER_ORE_LOW = registerPlacedOreFeature("silver_ore", new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(silverOre, 4)), // Vein size of 9
                 CountPlacement.of(2), // How rare the ore is, closer to 0, the rarer it is.

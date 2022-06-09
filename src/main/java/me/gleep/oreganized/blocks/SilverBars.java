@@ -1,12 +1,21 @@
 package me.gleep.oreganized.blocks;
 
 import com.google.common.collect.Maps;
+import me.gleep.oreganized.registry.OreganizedBlocks;
+import me.gleep.oreganized.registry.OreganizedItems;
 import me.gleep.oreganized.util.RegistryHandler;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -14,13 +23,12 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -74,15 +82,36 @@ public class SilverBars extends IronBarsBlock {
     }
 
     @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (itemStack.is(OreganizedItems.SILVER_INGOT.get())) {
+            BlockState silverBarState = level.getBlockState(pos);
+            Direction direction = silverBarState.getValue(NORTH) && silverBarState.getValue(SOUTH) ? Direction.EAST :
+                    silverBarState.getValue(EAST) && silverBarState.getValue(WEST) ? Direction.NORTH : null;
+            if (direction != null) {
+                BlockState silverOrnamentBars = RegistryHandler.SILVER_ORNAMENT_BARS.get().defaultBlockState()
+                        .setValue(WATERLOGGED, silverBarState.getValue(WATERLOGGED))
+                        .setValue(LEVEL, silverBarState.getValue(LEVEL))
+                        .setValue(SilverOrnamentBars.FACING, direction);
+
+                level.playSound(player, pos, SoundEvents.SMITHING_TABLE_USE, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                level.setBlockAndUpdate(pos, silverOrnamentBars);
+                level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+                player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return super.use(state, level, pos, player, hand, hit);
+    }
+
+    @Override
     public void animateTick(BlockState state, final Level level, final BlockPos pos, final @NotNull Random random) {
 
-        // If you can see a better way of doing this, feel free to rewrite it.
-        // I may have overcomplicated the math side of things.
         int[] ages = new int[6];
         int finalAge;
 
         for(int direction = 0; direction <= 5; direction++) {
-            if (level.getBlockState(pos.relative(Direction.from3DDataValue(direction))).getBlock() == RegistryHandler.SILVER_BLOCK.get()) {
+            if (level.getBlockState(pos.relative(Direction.from3DDataValue(direction))).getBlock() == OreganizedBlocks.SILVER_BLOCK.get()) {
                 int silverBlockLevel = level.getBlockState(pos.relative(Direction.from3DDataValue(direction))).getValue(SilverBlock.LEVEL);
                 ages[direction] = silverBlockLevel <= 1 ? 0 : silverBlockLevel <= 3 ? 1 : silverBlockLevel <= 5 ? 2 : 3;
             } else if(level.getBlockState(pos.relative(Direction.from3DDataValue(direction))).getBlock() == RegistryHandler.SILVER_ORNAMENT_BARS.get()) {
@@ -96,8 +125,9 @@ public class SilverBars extends IronBarsBlock {
         }
         finalAge = Arrays.stream(ages).min().getAsInt();
 
-
-        level.setBlockAndUpdate(pos, state.setValue(LEVEL, finalAge));
+        if (finalAge != state.getValue(LEVEL)) {
+            level.setBlock(pos, state.setValue(LEVEL, finalAge), 3);
+        }
         level.scheduleTick( pos, state.getBlock(), 1);
     }
 }

@@ -3,6 +3,7 @@ package me.gleep.oreganized.datagen;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import me.gleep.oreganized.blocks.EngravedBlock;
+import me.gleep.oreganized.registry.OreganizedBlocks;
 import me.gleep.oreganized.util.RegistryHandler;
 import me.gleep.oreganized.blocks.*;
 import net.minecraft.core.Direction;
@@ -74,26 +75,26 @@ public class Datagen {
                     event.getExistingFileHelper()) {
                 @Override
                 protected void addTags() {
-                    this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(RegistryHandler.RAW_LEAD_BLOCK.get(),
-                            RegistryHandler.DEEPSLATE_LEAD_ORE.get(),
-                            RegistryHandler.RAW_SILVER_BLOCK.get(),
-                            RegistryHandler.DEEPSLATE_SILVER_ORE.get(),
-                            RegistryHandler.GLANCE.get(),
-                            RegistryHandler.GLANCE_STAIRS.get(),
-                            RegistryHandler.GLANCE_SLAB.get(),
-                            RegistryHandler.POLISHED_GLANCE.get(),
-                            RegistryHandler.CHISELED_GLANCE.get(),
-                            RegistryHandler.GLANCE_WALL.get(),
-                            RegistryHandler.GLANCE_BRICKS.get(),
-                            RegistryHandler.GLANCE_BRICKS_STAIRS.get(),
-                            RegistryHandler.GLANCE_BRICKS_SLAB.get(),
-                            RegistryHandler.GLANCE_BRICKS_WALL.get(),
-                            RegistryHandler.SPOTTED_GLANCE.get(),
-                            RegistryHandler.WAXED_SPOTTED_GLANCE.get(),
-                            RegistryHandler.SILVER_ORE.get(),
-                            RegistryHandler.LEAD_ORE.get(),
-                            RegistryHandler.LEAD_BLOCK.get(),
-                            RegistryHandler.SILVER_BLOCK.get(),
+                    this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OreganizedBlocks.RAW_LEAD_BLOCK.get(),
+                            OreganizedBlocks.DEEPSLATE_LEAD_ORE.get(),
+                            OreganizedBlocks.RAW_SILVER_BLOCK.get(),
+                            OreganizedBlocks.DEEPSLATE_SILVER_ORE.get(),
+                            OreganizedBlocks.GLANCE.get(),
+                            OreganizedBlocks.GLANCE_STAIRS.get(),
+                            OreganizedBlocks.GLANCE_SLAB.get(),
+                            OreganizedBlocks.POLISHED_GLANCE.get(),
+                            OreganizedBlocks.CHISELED_GLANCE.get(),
+                            OreganizedBlocks.GLANCE_WALL.get(),
+                            OreganizedBlocks.GLANCE_BRICKS.get(),
+                            OreganizedBlocks.GLANCE_BRICKS_STAIRS.get(),
+                            OreganizedBlocks.GLANCE_BRICKS_SLAB.get(),
+                            OreganizedBlocks.GLANCE_BRICKS_WALL.get(),
+                            OreganizedBlocks.SPOTTED_GLANCE.get(),
+                            OreganizedBlocks.WAXED_SPOTTED_GLANCE.get(),
+                            OreganizedBlocks.SILVER_ORE.get(),
+                            OreganizedBlocks.LEAD_ORE.get(),
+                            OreganizedBlocks.LEAD_BLOCK.get(),
+                            OreganizedBlocks.SILVER_BLOCK.get(),
                             RegistryHandler.ENGRAVED_STONE_BRICKS.get(),
                             RegistryHandler.ENGRAVED_POLISHED_BLACKSTONE_BRICKS.get(), RegistryHandler.ENGRAVED_NETHER_BRICKS.get(), RegistryHandler.ENGRAVED_RED_NETHER_BRICKS.get(), RegistryHandler.ENGRAVED_BRICKS.get(), RegistryHandler.ENGRAVED_CUT_COPPER.get(), RegistryHandler.ENGRAVED_EXPOSED_CUT_COPPER.get(), RegistryHandler.ENGRAVED_WEATHERED_CUT_COPPER.get(), RegistryHandler.ENGRAVED_OXIDIZED_CUT_COPPER.get(), RegistryHandler.ENGRAVED_WAXED_CUT_COPPER.get(), RegistryHandler.ENGRAVED_WAXED_EXPOSED_CUT_COPPER.get(), RegistryHandler.ENGRAVED_WAXED_WEATHERED_CUT_COPPER.get(), RegistryHandler.ENGRAVED_WAXED_OXIDIZED_CUT_COPPER.get(), RegistryHandler.ENGRAVED_DEEPSLATE_BRICKS.get(), RegistryHandler.ENGRAVED_END_STONE_BRICKS.get(), RegistryHandler.ENGRAVED_QUARTZ_BRICKS.get(), RegistryHandler.ENGRAVED_PRISMARINE_BRICKS.get(), RegistryHandler.ENGRAVED_GLANCE_BRICKS.get());
                     //	this.tag(BlockTags.NEEDS_IRON_TOOL).add(
@@ -114,16 +115,16 @@ public class Datagen {
                     //			RegistryHandler.LEAD_BLOCK.get(),
                     //			RegistryHandler.LEAD_ORE.get()
                     //	);
-                    this.tag(BlockTags.SLABS).add(RegistryHandler.GLANCE_SLAB.get(),
-                            RegistryHandler.GLANCE_BRICKS_SLAB.get());
-                    this.tag(BlockTags.STAIRS).add(RegistryHandler.GLANCE_STAIRS.get(),
-                            RegistryHandler.GLANCE_BRICKS_STAIRS.get());
-                    this.tag(BlockTags.WALLS).add(RegistryHandler.GLANCE_WALL.get(),
-                            RegistryHandler.GLANCE_BRICKS_WALL.get());
+                    this.tag(BlockTags.SLABS).add(OreganizedBlocks.GLANCE_SLAB.get(),
+                            OreganizedBlocks.GLANCE_BRICKS_SLAB.get());
+                    this.tag(BlockTags.STAIRS).add(OreganizedBlocks.GLANCE_STAIRS.get(),
+                            OreganizedBlocks.GLANCE_BRICKS_STAIRS.get());
+                    this.tag(BlockTags.WALLS).add(OreganizedBlocks.GLANCE_WALL.get(),
+                            OreganizedBlocks.GLANCE_BRICKS_WALL.get());
                     this.tag(RegistryHandler.ENGRAVED_TEXTURED_BLOCKS_BLOCKTAG).add(Blocks.STONE_BRICKS,
-                            Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.NETHER_BRICKS, Blocks.RED_NETHER_BRICKS, Blocks.BRICKS, Blocks.CUT_COPPER, Blocks.EXPOSED_CUT_COPPER, Blocks.WEATHERED_CUT_COPPER, Blocks.OXIDIZED_CUT_COPPER, Blocks.WAXED_CUT_COPPER, Blocks.WAXED_EXPOSED_CUT_COPPER, Blocks.WAXED_WEATHERED_CUT_COPPER, Blocks.WAXED_OXIDIZED_CUT_COPPER, Blocks.DEEPSLATE_BRICKS, Blocks.END_STONE_BRICKS, Blocks.QUARTZ_BRICKS, Blocks.PRISMARINE_BRICKS, RegistryHandler.GLANCE_BRICKS.get());
+                            Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.NETHER_BRICKS, Blocks.RED_NETHER_BRICKS, Blocks.BRICKS, Blocks.CUT_COPPER, Blocks.EXPOSED_CUT_COPPER, Blocks.WEATHERED_CUT_COPPER, Blocks.OXIDIZED_CUT_COPPER, Blocks.WAXED_CUT_COPPER, Blocks.WAXED_EXPOSED_CUT_COPPER, Blocks.WAXED_WEATHERED_CUT_COPPER, Blocks.WAXED_OXIDIZED_CUT_COPPER, Blocks.DEEPSLATE_BRICKS, Blocks.END_STONE_BRICKS, Blocks.QUARTZ_BRICKS, Blocks.PRISMARINE_BRICKS, OreganizedBlocks.GLANCE_BRICKS.get());
                     this.tag(RegistryHandler.ENGRAVEABLE_BLOCKTAG).add(Blocks.STONE, Blocks.STONE_BRICKS,
-                            RegistryHandler.ENGRAVED_STONE_BRICKS.get(), Blocks.POLISHED_BLACKSTONE_BRICKS, RegistryHandler.ENGRAVED_POLISHED_BLACKSTONE_BRICKS.get(), Blocks.NETHER_BRICKS, RegistryHandler.ENGRAVED_NETHER_BRICKS.get(), Blocks.RED_NETHER_BRICKS, RegistryHandler.ENGRAVED_RED_NETHER_BRICKS.get(), Blocks.BRICKS, RegistryHandler.ENGRAVED_BRICKS.get(), Blocks.CUT_COPPER, RegistryHandler.ENGRAVED_CUT_COPPER.get(), Blocks.EXPOSED_CUT_COPPER, RegistryHandler.ENGRAVED_EXPOSED_CUT_COPPER.get(), Blocks.WEATHERED_CUT_COPPER, RegistryHandler.ENGRAVED_WEATHERED_CUT_COPPER.get(), Blocks.OXIDIZED_CUT_COPPER, RegistryHandler.ENGRAVED_OXIDIZED_CUT_COPPER.get(), Blocks.WAXED_CUT_COPPER, RegistryHandler.ENGRAVED_WAXED_CUT_COPPER.get(), Blocks.WAXED_EXPOSED_CUT_COPPER, RegistryHandler.ENGRAVED_WAXED_EXPOSED_CUT_COPPER.get(), Blocks.WAXED_WEATHERED_CUT_COPPER, RegistryHandler.ENGRAVED_WAXED_WEATHERED_CUT_COPPER.get(), Blocks.WAXED_OXIDIZED_CUT_COPPER, RegistryHandler.ENGRAVED_WAXED_OXIDIZED_CUT_COPPER.get(), Blocks.DEEPSLATE_BRICKS, RegistryHandler.ENGRAVED_DEEPSLATE_BRICKS.get(), Blocks.END_STONE_BRICKS, RegistryHandler.ENGRAVED_END_STONE_BRICKS.get(), Blocks.QUARTZ_BRICKS, RegistryHandler.ENGRAVED_QUARTZ_BRICKS.get(), Blocks.PRISMARINE_BRICKS, RegistryHandler.ENGRAVED_PRISMARINE_BRICKS.get(), RegistryHandler.GLANCE_BRICKS.get(), RegistryHandler.ENGRAVED_GLANCE_BRICKS.get());
+                            RegistryHandler.ENGRAVED_STONE_BRICKS.get(), Blocks.POLISHED_BLACKSTONE_BRICKS, RegistryHandler.ENGRAVED_POLISHED_BLACKSTONE_BRICKS.get(), Blocks.NETHER_BRICKS, RegistryHandler.ENGRAVED_NETHER_BRICKS.get(), Blocks.RED_NETHER_BRICKS, RegistryHandler.ENGRAVED_RED_NETHER_BRICKS.get(), Blocks.BRICKS, RegistryHandler.ENGRAVED_BRICKS.get(), Blocks.CUT_COPPER, RegistryHandler.ENGRAVED_CUT_COPPER.get(), Blocks.EXPOSED_CUT_COPPER, RegistryHandler.ENGRAVED_EXPOSED_CUT_COPPER.get(), Blocks.WEATHERED_CUT_COPPER, RegistryHandler.ENGRAVED_WEATHERED_CUT_COPPER.get(), Blocks.OXIDIZED_CUT_COPPER, RegistryHandler.ENGRAVED_OXIDIZED_CUT_COPPER.get(), Blocks.WAXED_CUT_COPPER, RegistryHandler.ENGRAVED_WAXED_CUT_COPPER.get(), Blocks.WAXED_EXPOSED_CUT_COPPER, RegistryHandler.ENGRAVED_WAXED_EXPOSED_CUT_COPPER.get(), Blocks.WAXED_WEATHERED_CUT_COPPER, RegistryHandler.ENGRAVED_WAXED_WEATHERED_CUT_COPPER.get(), Blocks.WAXED_OXIDIZED_CUT_COPPER, RegistryHandler.ENGRAVED_WAXED_OXIDIZED_CUT_COPPER.get(), Blocks.DEEPSLATE_BRICKS, RegistryHandler.ENGRAVED_DEEPSLATE_BRICKS.get(), Blocks.END_STONE_BRICKS, RegistryHandler.ENGRAVED_END_STONE_BRICKS.get(), Blocks.QUARTZ_BRICKS, RegistryHandler.ENGRAVED_QUARTZ_BRICKS.get(), Blocks.PRISMARINE_BRICKS, RegistryHandler.ENGRAVED_PRISMARINE_BRICKS.get(), OreganizedBlocks.GLANCE_BRICKS.get(), RegistryHandler.ENGRAVED_GLANCE_BRICKS.get());
                 }
             };
             event.getGenerator().addProvider(blockTagsProvider);
@@ -132,12 +133,12 @@ public class Datagen {
                     MOD_ID, event.getExistingFileHelper()) {
                 @Override
                 protected void addTags() {
-                    this.tag(ItemTags.SLABS).add(RegistryHandler.GLANCE_SLAB_ITEM.get(),
-                            RegistryHandler.GLANCE_BRICKS_SLAB_ITEM.get());
-                    this.tag(ItemTags.STAIRS).add(RegistryHandler.GLANCE_STAIRS_ITEM.get(),
-                            RegistryHandler.GLANCE_BRICKS_STAIRS_ITEM.get());
-                    this.tag(ItemTags.WALLS).add(RegistryHandler.GLANCE_WALL_ITEM.get(),
-                            RegistryHandler.GLANCE_BRICKS_WALL_ITEM.get());
+                    this.tag(ItemTags.SLABS).add(OreganizedBlocks.GLANCE_SLAB.get().asItem(),
+                            OreganizedBlocks.GLANCE_BRICKS_SLAB.get().asItem());
+                    this.tag(ItemTags.STAIRS).add(OreganizedBlocks.GLANCE_STAIRS.get().asItem(),
+                            OreganizedBlocks.GLANCE_BRICKS_STAIRS.get().asItem());
+                    this.tag(ItemTags.WALLS).add(OreganizedBlocks.GLANCE_WALL.get().asItem(),
+                            OreganizedBlocks.GLANCE_BRICKS_WALL.get().asItem());
                     this.tag(RegistryHandler.EDIBLE_ITEMTAG).add(ForgeRegistries.ITEMS.getValues().stream().filter(Item::isEdible).toList().toArray(new Item[20]));
                 }
             });
@@ -153,9 +154,9 @@ public class Datagen {
                     //simpleBlock(RegistryHandler.DEEPSLATE_SILVER_ORE.get());
                     //simpleBlock(RegistryHandler.GLANCE.get());
                     //simpleBlock(RegistryHandler.SPOTTED_GLANCE.get());
-                    simpleBlock(RegistryHandler.POLISHED_GLANCE.get());
-                    simpleBlock(RegistryHandler.GLANCE_BRICKS.get());
-                    simpleBlock(RegistryHandler.CHISELED_GLANCE.get());
+                    simpleBlock(OreganizedBlocks.POLISHED_GLANCE.get());
+                    simpleBlock(OreganizedBlocks.GLANCE_BRICKS.get());
+                    simpleBlock(OreganizedBlocks.CHISELED_GLANCE.get());
                     simpleBlock(RegistryHandler.SHRAPNEL_BOMB.get(), cubeBottomTop(RegistryHandler.SHRAPNEL_BOMB.get()));
                     simpleBlock(RegistryHandler.WAXED_BLACK_CONCRETE_POWDER.get(),
                             cubeAll(Blocks.BLACK_CONCRETE_POWDER));
@@ -189,21 +190,21 @@ public class Datagen {
                             cubeAll(Blocks.WHITE_CONCRETE_POWDER));
                     simpleBlock(RegistryHandler.WAXED_YELLOW_CONCRETE_POWDER.get(),
                             cubeAll(Blocks.YELLOW_CONCRETE_POWDER));
-                    simpleBlock(RegistryHandler.WAXED_SPOTTED_GLANCE.get(),
-                            cubeAll(RegistryHandler.SPOTTED_GLANCE.get()));
-                    slabBlock(RegistryHandler.GLANCE_SLAB.get(), new ResourceLocation(MOD_ID,
-                            "block/" + RegistryHandler.GLANCE.get().getRegistryName().getPath()), new ResourceLocation(MOD_ID, "block/" + RegistryHandler.GLANCE.get().getRegistryName().getPath()));
-                    stairsBlock(RegistryHandler.GLANCE_STAIRS.get(), new ResourceLocation(MOD_ID,
-                            "block/" + RegistryHandler.GLANCE.get().getRegistryName().getPath()));
-                    slabBlock(RegistryHandler.GLANCE_BRICKS_SLAB.get(), new ResourceLocation(MOD_ID,
-                            "block/" + RegistryHandler.GLANCE_BRICKS.get().getRegistryName().getPath()), new ResourceLocation(MOD_ID, "block/" + RegistryHandler.GLANCE_BRICKS.get().getRegistryName().getPath()));
-                    stairsBlock(RegistryHandler.GLANCE_BRICKS_STAIRS.get(),
+                    simpleBlock(OreganizedBlocks.WAXED_SPOTTED_GLANCE.get(),
+                            cubeAll(OreganizedBlocks.SPOTTED_GLANCE.get()));
+                    slabBlock(OreganizedBlocks.GLANCE_SLAB.get(), new ResourceLocation(MOD_ID,
+                            "block/" + OreganizedBlocks.GLANCE.get().getRegistryName().getPath()), new ResourceLocation(MOD_ID, "block/" + OreganizedBlocks.GLANCE.get().getRegistryName().getPath()));
+                    stairsBlock(OreganizedBlocks.GLANCE_STAIRS.get(), new ResourceLocation(MOD_ID,
+                            "block/" + OreganizedBlocks.GLANCE.get().getRegistryName().getPath()));
+                    slabBlock(OreganizedBlocks.GLANCE_BRICKS_SLAB.get(), new ResourceLocation(MOD_ID,
+                            "block/" + OreganizedBlocks.GLANCE_BRICKS.get().getRegistryName().getPath()), new ResourceLocation(MOD_ID, "block/" + OreganizedBlocks.GLANCE_BRICKS.get().getRegistryName().getPath()));
+                    stairsBlock(OreganizedBlocks.GLANCE_BRICKS_STAIRS.get(),
                             new ResourceLocation(MOD_ID,
-                                    "block/" + RegistryHandler.GLANCE_BRICKS.get().getRegistryName().getPath()));
-                    wallBlock(RegistryHandler.GLANCE_WALL.get(), new ResourceLocation(MOD_ID,
-                            "block/" + RegistryHandler.GLANCE.get().getRegistryName().getPath()));
-                    wallBlock(RegistryHandler.GLANCE_BRICKS_WALL.get(), new ResourceLocation(MOD_ID,
-                            "block/" + RegistryHandler.GLANCE_BRICKS.get().getRegistryName().getPath()));
+                                    "block/" + OreganizedBlocks.GLANCE_BRICKS.get().getRegistryName().getPath()));
+                    wallBlock(OreganizedBlocks.GLANCE_WALL.get(), new ResourceLocation(MOD_ID,
+                            "block/" + OreganizedBlocks.GLANCE.get().getRegistryName().getPath()));
+                    wallBlock(OreganizedBlocks.GLANCE_BRICKS_WALL.get(), new ResourceLocation(MOD_ID,
+                            "block/" + OreganizedBlocks.GLANCE_BRICKS.get().getRegistryName().getPath()));
                     engravedBlock(RegistryHandler.ENGRAVED_NETHER_BRICKS.get(),
                             cubeAll(RegistryHandler.ENGRAVED_NETHER_BRICKS.get()),
                             cubeRotatedBottomTop(RegistryHandler.ENGRAVED_NETHER_BRICKS.get()));
@@ -389,33 +390,33 @@ public class Datagen {
                     event.getExistingFileHelper()) {
                 @Override
                 protected void registerModels() {
-                    //withExistingParent(RegistryHandler.DEEPSLATE_LEAD_ORE_ITEM.get().getRegistryName().getPath(),
+                    //withExistingParent(RegistryHandler.DEEPSLATE_LEAD_ORE.get().getRegistryName().getPath(),
                     // new ResourceLocation(Oreganized.MOD_ID,"block/deepslate_lead_ore"));
-                    //withExistingParent(RegistryHandler.DEEPSLATE_SILVER_ORE_ITEM.get().getRegistryName().getPath(),
+                    //withExistingParent(RegistryHandler.DEEPSLATE_SILVER_ORE.get().getRegistryName().getPath(),
                     // new ResourceLocation(Oreganized.MOD_ID,"block/deepslate_silver_ore"));
-                    //withExistingParent(RegistryHandler.GLANCE_ITEM.get().getRegistryName().getPath(), new
+                    //withExistingParent(RegistryHandler.GLANCE.get().getRegistryName().getPath(), new
                     // ResourceLocation(Oreganized.MOD_ID,"block/glance"));
-                    //withExistingParent(RegistryHandler.SPOTTED_GLANCE_ITEM.get().getRegistryName().getPath(), new
+                    //withExistingParent(RegistryHandler.SPOTTED_GLANCE.get().getRegistryName().getPath(), new
                     // ResourceLocation(Oreganized.MOD_ID,"block/spotted_glance"));
                     withExistingParent(RegistryHandler.SHRAPNEL_BOMB_ITEM.get().getRegistryName().getPath(),
                             new ResourceLocation(MOD_ID, "block/shrapnel_bomb"));
-                    withExistingParent(RegistryHandler.POLISHED_GLANCE_ITEM.get().getRegistryName().getPath(),
+                    withExistingParent(OreganizedBlocks.POLISHED_GLANCE.get().asItem().getRegistryName().getPath(),
                             new ResourceLocation(MOD_ID, "block/polished_glance"));
-                    withExistingParent(RegistryHandler.GLANCE_BRICKS_ITEM.get().getRegistryName().getPath(),
+                    withExistingParent(OreganizedBlocks.GLANCE_BRICKS.get().asItem().getRegistryName().getPath(),
                             new ResourceLocation(MOD_ID, "block/glance_bricks"));
-                    withExistingParent(RegistryHandler.CHISELED_GLANCE_ITEM.get().getRegistryName().getPath(),
+                    withExistingParent(OreganizedBlocks.CHISELED_GLANCE.get().asItem().getRegistryName().getPath(),
                             new ResourceLocation(MOD_ID, "block/chiseled_glance"));
-                    withExistingParent(RegistryHandler.GLANCE_SLAB_ITEM.get().getRegistryName().getPath(),
+                    withExistingParent(OreganizedBlocks.GLANCE_SLAB.get().asItem().getRegistryName().getPath(),
                             new ResourceLocation(MOD_ID, "block/glance_slab"));
-                    withExistingParent(RegistryHandler.GLANCE_STAIRS_ITEM.get().getRegistryName().getPath(),
+                    withExistingParent(OreganizedBlocks.GLANCE_STAIRS.get().asItem().getRegistryName().getPath(),
                             new ResourceLocation(MOD_ID, "block/glance_stairs"));
-                    withExistingParent(RegistryHandler.GLANCE_BRICKS_SLAB_ITEM.get().getRegistryName().getPath(),
+                    withExistingParent(OreganizedBlocks.GLANCE_BRICKS_SLAB.get().asItem().getRegistryName().getPath(),
                             new ResourceLocation(MOD_ID, "block/glance_bricks_slab"));
-                    withExistingParent(RegistryHandler.GLANCE_BRICKS_STAIRS_ITEM.get().getRegistryName().getPath(),
+                    withExistingParent(OreganizedBlocks.GLANCE_BRICKS_STAIRS.get().asItem().getRegistryName().getPath(),
                             new ResourceLocation(MOD_ID, "block/glance_bricks_stairs"));
-                    wallInventory(RegistryHandler.GLANCE_WALL_ITEM.get().getRegistryName().getPath(),
+                    wallInventory(OreganizedBlocks.GLANCE_WALL.get().asItem().getRegistryName().getPath(),
                             new ResourceLocation(MOD_ID, "block/glance"));
-                    wallInventory(RegistryHandler.GLANCE_BRICKS_WALL_ITEM.get().getRegistryName().getPath(),
+                    wallInventory(OreganizedBlocks.GLANCE_BRICKS_WALL.get().asItem().getRegistryName().getPath(),
                             new ResourceLocation(MOD_ID, "block/glance_bricks"));
                     withExistingParent(RegistryHandler.WAXED_WHITE_CONCRETE_POWDER.get().getRegistryName().getPath(),
                             new ResourceLocation(MOD_ID, "block/white_concrete_powder"));
@@ -449,7 +450,7 @@ public class Datagen {
                             new ResourceLocation(MOD_ID, "block/red_concrete_powder"));
                     withExistingParent(RegistryHandler.WAXED_YELLOW_CONCRETE_POWDER.get().getRegistryName().getPath(),
                             new ResourceLocation(MOD_ID, "block/yellow_concrete_powder"));
-                    withExistingParent(RegistryHandler.WAXED_SPOTTED_GLANCE.get().getRegistryName().getPath(),
+                    withExistingParent(OreganizedBlocks.WAXED_SPOTTED_GLANCE.get().getRegistryName().getPath(),
                             new ResourceLocation(MOD_ID, "block/spotted_glance"));
                 }
             });
@@ -517,15 +518,15 @@ public class Datagen {
 
     public static class ModBlockLoot extends BlockLoot {
         private static final List<Block> BLOCKS =
-                new ArrayList<>(List.of(RegistryHandler.GLANCE_BRICKS.get(),
-                        RegistryHandler.POLISHED_GLANCE.get(),
-                        RegistryHandler.CHISELED_GLANCE.get(),
-                        RegistryHandler.GLANCE_STAIRS.get(),
-                        RegistryHandler.GLANCE_SLAB.get(),
-                        RegistryHandler.GLANCE_BRICKS_STAIRS.get(),
-                        RegistryHandler.GLANCE_BRICKS_SLAB.get(),
-                        RegistryHandler.GLANCE_WALL.get(),
-                        RegistryHandler.GLANCE_BRICKS_WALL.get(),
+                new ArrayList<>(List.of(OreganizedBlocks.GLANCE_BRICKS.get(),
+                        OreganizedBlocks.POLISHED_GLANCE.get(),
+                        OreganizedBlocks.CHISELED_GLANCE.get(),
+                        OreganizedBlocks.GLANCE_STAIRS.get(),
+                        OreganizedBlocks.GLANCE_SLAB.get(),
+                        OreganizedBlocks.GLANCE_BRICKS_STAIRS.get(),
+                        OreganizedBlocks.GLANCE_BRICKS_SLAB.get(),
+                        OreganizedBlocks.GLANCE_WALL.get(),
+                        OreganizedBlocks.GLANCE_BRICKS_WALL.get(),
                         RegistryHandler.WAXED_WHITE_CONCRETE_POWDER.get(),
                         RegistryHandler.WAXED_ORANGE_CONCRETE_POWDER.get(),
                         RegistryHandler.WAXED_MAGENTA_CONCRETE_POWDER.get(),
@@ -542,7 +543,7 @@ public class Datagen {
                         RegistryHandler.WAXED_GREEN_CONCRETE_POWDER.get(),
                         RegistryHandler.WAXED_RED_CONCRETE_POWDER.get(),
                         RegistryHandler.WAXED_BLACK_CONCRETE_POWDER.get(),
-                        RegistryHandler.WAXED_SPOTTED_GLANCE.get(),
+                        OreganizedBlocks.WAXED_SPOTTED_GLANCE.get(),
                         RegistryHandler.SHRAPNEL_BOMB.get()));
         private static final Map<Block, Block> ENGRAVED_BLOCKS = new HashMap();
 
@@ -582,8 +583,8 @@ public class Datagen {
                     Blocks.END_STONE_BRICKS, RegistryHandler.ENGRAVED_QUARTZ_BRICKS.get(),
                     Blocks.QUARTZ_BRICKS, RegistryHandler.ENGRAVED_PRISMARINE_BRICKS.get(),
                     Blocks.PRISMARINE_BRICKS, RegistryHandler.ENGRAVED_GLANCE_BRICKS.get(),
-                    RegistryHandler.GLANCE_BRICKS.get(),
-                    RegistryHandler.WAXED_SPOTTED_GLANCE.get());
+                    OreganizedBlocks.GLANCE_BRICKS.get(),
+                    OreganizedBlocks.WAXED_SPOTTED_GLANCE.get());
             BLOCKS.forEach(this::dropSelf);
             ENGRAVED_BLOCKS.forEach(this::dropOther);
         }

@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 import me.gleep.oreganized.blocks.client.ShrapnelBombRenderer;
 import me.gleep.oreganized.capabilities.CapabilityHandler;
+import me.gleep.oreganized.registry.OreganizedBlocks;
+import me.gleep.oreganized.registry.OreganizedEntityTypes;
 import me.gleep.oreganized.registry.OreganizedItems;
 import me.gleep.oreganized.util.RegistryHandler;
 import me.gleep.oreganized.util.SimpleNetwork;
@@ -37,8 +39,9 @@ public class Oreganized {
 
     public Oreganized() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        //OreganizedBlocks.BLOCKS.register(bus);
         OreganizedItems.ITEMS.register(bus);
+        OreganizedBlocks.BLOCKS.register(bus);
+        OreganizedEntityTypes.ENTITIES.register(bus);
         RegistryHandler.init();
         bus.addListener(this::setup);
         bus.addListener(this::doClientStuff);
@@ -84,7 +87,7 @@ public class Oreganized {
                 Map.entry(RegistryHandler.WAXED_GREEN_CONCRETE_POWDER.get(), Blocks.GREEN_CONCRETE_POWDER),
                 Map.entry(RegistryHandler.WAXED_RED_CONCRETE_POWDER.get(), Blocks.RED_CONCRETE_POWDER),
                 Map.entry(RegistryHandler.WAXED_BLACK_CONCRETE_POWDER.get(), Blocks.BLACK_CONCRETE_POWDER),
-                Map.entry(RegistryHandler.WAXED_SPOTTED_GLANCE.get(), RegistryHandler.SPOTTED_GLANCE.get())
+                Map.entry(OreganizedBlocks.WAXED_SPOTTED_GLANCE.get(), OreganizedBlocks.SPOTTED_GLANCE.get())
         );
     }
 
@@ -133,7 +136,7 @@ public class Oreganized {
         ItemBlockRenderTypes.setRenderLayer(RegistryHandler.SILVER_ORNAMENT_BARS.get(), RenderType.cutout());
 
 
-        ItemBlockRenderTypes.setRenderLayer(RegistryHandler.MOLTEN_LEAD_BLOCK.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(OreganizedBlocks.MOLTEN_LEAD_BLOCK.get(), RenderType.translucent());
 
         event.enqueueWork(() -> ItemProperties.register(OreganizedItems.SILVER_INGOT.get(),
                 new ResourceLocation(Oreganized.MOD_ID + ":shine"),
