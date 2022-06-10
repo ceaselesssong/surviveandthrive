@@ -4,21 +4,32 @@ import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 import me.gleep.oreganized.blocks.client.ShrapnelBombRenderer;
 import me.gleep.oreganized.capabilities.CapabilityHandler;
-import me.gleep.oreganized.registry.OreganizedBlocks;
-import me.gleep.oreganized.registry.OreganizedEntityTypes;
-import me.gleep.oreganized.registry.OreganizedItems;
+import me.gleep.oreganized.entities.PrimedShrapnelBomb;
+import me.gleep.oreganized.events.ModEvents;
+import me.gleep.oreganized.registry.*;
 import me.gleep.oreganized.util.RegistryHandler;
 import me.gleep.oreganized.util.SimpleNetwork;
-import me.gleep.oreganized.events.*;
 import me.gleep.oreganized.world.gen.OreganizedFeatures;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
+import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DispensibleContainerItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -42,6 +53,8 @@ public class Oreganized {
         OreganizedItems.ITEMS.register(bus);
         OreganizedBlocks.BLOCKS.register(bus);
         OreganizedEntityTypes.ENTITIES.register(bus);
+        OreganizedEffects.EFFECTS.register(bus);
+        OreganizedPotions.POTIONS.register(bus);
         RegistryHandler.init();
         bus.addListener(this::setup);
         bus.addListener(this::doClientStuff);
@@ -58,6 +71,56 @@ public class Oreganized {
         event.enqueueWork(() -> {
             OreganizedFeatures.registerOreFeatures();
             SimpleNetwork.register();
+
+            PotionBrewing.addMix(Potions.WATER, OreganizedItems.LEAD_INGOT.get(), OreganizedPotions.STUNNING.get());
+            PotionBrewing.addMix(OreganizedPotions.STUNNING.get(), Items.REDSTONE, OreganizedPotions.LONG_STUNNING.get());
+            PotionBrewing.addMix(OreganizedPotions.STUNNING.get(), Items.GLOWSTONE_DUST, OreganizedPotions.STRONG_STUNNING.get());
+
+            DispenserBlock.registerBehavior( OreganizedItems.MOLTEN_LEAD_BUCKET.get(), new DefaultDispenseItemBehavior() {
+                private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
+
+                /**
+                 * Dispense the specified stack, play the dispense sound and spawn particles.
+                 */
+                public ItemStack execute(BlockSource p_123561_, ItemStack p_123562_) {
+                    DispensibleContainerItem dispensiblecontaineritem = (DispensibleContainerItem)p_123562_.getItem();
+                    BlockPos blockpos = p_123561_.getPos().relative(p_123561_.getBlockState().getValue(DispenserBlock.FACING));
+                    Level level = p_123561_.getLevel();
+                    if (dispensiblecontaineritem.emptyContents((Player)null, level, blockpos, (BlockHitResult)null)) {
+                        dispensiblecontaineritem.checkExtraContent((Player)null, level, p_123562_, blockpos);
+                        return new ItemStack( Items.BUCKET);
+                    } else {
+                        return this.defaultDispenseItemBehavior.dispense(p_123561_, p_123562_);
+                    }
+                }
+            } );
+
+            DispenserBlock.registerBehavior(RegistryHandler.SHRAPNEL_BOMB_ITEM.get(), new DefaultDispenseItemBehavior() {
+
+                private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
+
+                public ItemStack execute(BlockSource pSource, ItemStack pStack) {
+                    Direction direction = pSource.getBlockState().getValue(DispenserBlock.FACING);
+                    Level level = pSource.getLevel();
+                    double d0 = pSource.x() + (double)(direction.getStepX());
+                    double d1 = pSource.y() + (double)(direction.getStepY());
+                    double d2 = pSource.z() + (double)(direction.getStepZ());
+                    BlockPos blockpos = pSource.getPos().relative(direction);
+
+                    PrimedShrapnelBomb primedbomb = new PrimedShrapnelBomb(level, d0, d1, d2, null);
+                    primedbomb.setDeltaMovement(0.0D, 0.0D, 0.0D);
+                    level.addFreshEntity(primedbomb);
+                    pStack.shrink(1);
+                    return pStack;
+                }
+
+                /**
+                 * Play the dispense sound from the specified block.
+                 */
+                protected void playSound(BlockSource pSource) {
+                    pSource.getLevel().levelEvent(1000, pSource.getPos(), 0);
+                }
+            });
         });
 
         ModEvents.ENGRAVED_COPPER_BLOCKS = ImmutableList.of(RegistryHandler.ENGRAVED_CUT_COPPER.get(),
