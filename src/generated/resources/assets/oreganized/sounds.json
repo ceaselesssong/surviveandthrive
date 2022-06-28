@@ -1,0 +1,26 @@
+{
+  "music.disc.pillaged": {
+    "sounds": [
+      {
+        "name": "oreganized:music/disc/pillaged",
+        "stream": true
+      }
+    ]
+  },
+  "music.disc.18": {
+    "sounds": [
+      {
+        "name": "oreganized:music/disc/pillaged",
+        "stream": true
+      }
+    ]
+  },
+  "music.disc.shulk": {
+    "sounds": [
+      {
+        "name": "oreganized:music/disc/pillaged",
+        "stream": true
+      }
+    ]
+  }
+}
