@@ -1,7 +1,6 @@
 package me.gleep.oreganized.world.gen;
 
-import me.gleep.oreganized.registry.OreganizedBlocks;
-import me.gleep.oreganized.util.RegistryHandler;
+import me.gleep.oreganized.registry.OBlocks;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -26,22 +25,22 @@ public class OreganizedFeatures {
 
 
     public static void registerOreFeatures() {
-        List<OreConfiguration.TargetBlockState> silverOre = List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, OreganizedBlocks.SILVER_ORE.get().defaultBlockState()),
-                OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, OreganizedBlocks.DEEPSLATE_SILVER_ORE.get().defaultBlockState()));
-        List<OreConfiguration.TargetBlockState> leadOre = List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, OreganizedBlocks.LEAD_ORE.get().defaultBlockState()),
-                OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, OreganizedBlocks.DEEPSLATE_LEAD_ORE.get().defaultBlockState()));
+        List<OreConfiguration.TargetBlockState> silverOre = List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, OBlocks.SILVER_ORE.get().defaultBlockState()),
+                OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, OBlocks.DEEPSLATE_SILVER_ORE.get().defaultBlockState()));
+        List<OreConfiguration.TargetBlockState> leadOre = List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, OBlocks.LEAD_ORE.get().defaultBlockState()),
+                OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, OBlocks.DEEPSLATE_LEAD_ORE.get().defaultBlockState()));
 
-        SILVER_ORE_LOW = registerPlacedOreFeature("silver_ore", new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(silverOre, 4)), // Vein size of 9
-                CountPlacement.of(2), // How rare the ore is, closer to 0, the rarer it is.
+        SILVER_ORE_LOW = registerPlacedOreFeature("silver_ore", new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(silverOre, 4)),
+                CountPlacement.of(4),
                 InSquarePlacement.spread(),
                 BiomeFilter.biome(),
-                HeightRangePlacement.triangle(VerticalAnchor.absolute(-15), VerticalAnchor.absolute(5))); // Triangle distribution between y values, uniform would be a flat chance between the values while triangle has a 'peak' of chance.
-        SILVER_ORE_HIGH = registerPlacedOreFeature("silver_ore_high", new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(silverOre, 2)), // Vein size of 9
-                CountPlacement.of(2),
+                HeightRangePlacement.triangle(VerticalAnchor.absolute(-15), VerticalAnchor.absolute(5)));
+        SILVER_ORE_HIGH = registerPlacedOreFeature("silver_ore_high", new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(silverOre, 2)),
+                CountPlacement.of(4),
                 InSquarePlacement.spread(),
                 BiomeFilter.biome(),
                 HeightRangePlacement.triangle(VerticalAnchor.absolute(140), VerticalAnchor.absolute(160)));
-        LEAD_ORE = registerPlacedOreFeature("lead_ore", new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(leadOre, 8)), // Vein size of 8
+        LEAD_ORE = registerPlacedOreFeature("lead_ore", new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(leadOre, 8)),
                 CountPlacement.of(10),
                 InSquarePlacement.spread(),
                 BiomeFilter.biome(),
