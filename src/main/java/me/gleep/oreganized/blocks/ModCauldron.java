@@ -1,8 +1,8 @@
 package me.gleep.oreganized.blocks;
 
-import me.gleep.oreganized.registry.OreganizedBlocks;
-import me.gleep.oreganized.registry.OreganizedItems;
-import me.gleep.oreganized.util.RegistryHandler;
+import me.gleep.oreganized.registry.OBlocks;
+import me.gleep.oreganized.registry.OItems;
+import me.gleep.oreganized.registry.OTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -35,7 +35,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.Random;
 
-import static me.gleep.oreganized.util.RegistryHandler.FIRE_SOURCE_BLOCKTAG;
 import static net.minecraft.world.phys.shapes.BooleanOp.ONLY_FIRST;
 
 public class ModCauldron extends Block {
@@ -78,7 +77,7 @@ public class ModCauldron extends Block {
             if (blockState.getValue(LEVEL) == 1) {
                 level.removeBlock(pos, false);
                 level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
-                level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY() + 0.5D, pos.getZ(), OreganizedBlocks.LEAD_BLOCK.get().asItem().getDefaultInstance()));
+                level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY() + 0.5D, pos.getZ(), OBlocks.LEAD_BLOCK.get().asItem().getDefaultInstance()));
                 return InteractionResult.sidedSuccess(level.isClientSide);
             } else return InteractionResult.PASS;
         } else {
@@ -97,9 +96,9 @@ public class ModCauldron extends Block {
                     if (!player.getAbilities().instabuild) {
                         itemstack.shrink(1);
                         if (itemstack.isEmpty()) {
-                            player.setItemInHand(hand, new ItemStack(OreganizedItems.MOLTEN_LEAD_BUCKET.get()));
-                        } else if (!player.getInventory().add(new ItemStack(OreganizedItems.MOLTEN_LEAD_BUCKET.get()))) {
-                            player.drop(new ItemStack(OreganizedItems.MOLTEN_LEAD_BUCKET.get()), false);
+                            player.setItemInHand(hand, new ItemStack(OItems.MOLTEN_LEAD_BUCKET.get()));
+                        } else if (!player.getInventory().add(new ItemStack(OItems.MOLTEN_LEAD_BUCKET.get()))) {
+                            player.drop(new ItemStack(OItems.MOLTEN_LEAD_BUCKET.get()), false);
                         }
                     }
                     player.awardStat(Stats.USE_CAULDRON);
@@ -129,7 +128,7 @@ public class ModCauldron extends Block {
             if (!worldIn.isClientSide) {
                 BlockPos newPos = new BlockPos(pos.getX(), pos.getY() - 1.0D, pos.getZ());
                 BlockState block = worldIn.getBlockState(newPos);
-                if (block.is(FIRE_SOURCE_BLOCKTAG)) {
+                if (block.is(OTags.Blocks.FIRE_SOURCE)) {
                     this.setLeadLevel(worldIn, pos, state, state.getValue(LEVEL) + 1);
                 } else {
                     this.setLeadLevel(worldIn, pos, state, 1);

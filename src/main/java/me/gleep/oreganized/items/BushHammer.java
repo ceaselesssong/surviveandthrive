@@ -6,6 +6,7 @@ import me.gleep.oreganized.capabilities.engravedblockscap.CapabilityEngravedBloc
 import me.gleep.oreganized.capabilities.engravedblockscap.EngravedBlocks;
 import me.gleep.oreganized.capabilities.engravedblockscap.IEngravedBlocks;
 import me.gleep.oreganized.items.tiers.OreganizedTiers;
+import me.gleep.oreganized.registry.OTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextColor;
@@ -28,6 +29,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.Random;
@@ -57,7 +59,7 @@ public class BushHammer extends DiggerItem{
     );*/
 
     public BushHammer() {
-        super(2.5F, -2.8F, OreganizedTiers.LEAD, BUSH_HAMMER_BREAKABLE_BLOCKTAG,
+        super(2.5F, -2.8F, OreganizedTiers.LEAD, OTags.Blocks.MINEABLE_WITH_BUSH_HAMMER,
                 new Properties().tab(CreativeModeTab.TAB_TOOLS).stacksTo(1)
         );
     }
@@ -69,12 +71,14 @@ public class BushHammer extends DiggerItem{
     }
 
     @Override
-    public InteractionResult useOn( UseOnContext pContext ) {
-        BlockPos pPos = pContext.getClickedPos();
-        Level pLevel = pContext.getLevel();
-        if (pLevel.getBlockState( pPos ).is(ENGRAVED_TEXTURED_BLOCKS_BLOCKTAG)) {
-            String name = pLevel.getBlockState( pContext.getClickedPos() ).getBlock().getRegistryName().getPath();
-            String modid = pLevel.getBlockState( pContext.getClickedPos() ).getBlock().getRegistryName().getNamespace();
+    public @NotNull InteractionResult useOn(UseOnContext context) {
+        Level level = context.getLevel();
+        BlockPos blockPos = context.getClickedPos();
+        BlockState blockState = level.getBlockState(blockPos);
+        Block block = blockState.getBlock();
+        /*if (blockState.is(ENGRAVED_TEXTURED_BLOCKS_BLOCKTAG)) {
+            String name = block.getRegistryName().getPath();
+            String modid = block.getRegistryName().getNamespace();
             Block blockToConvert;
             if ( modid.equals( "minecraft" ) ) {
                 blockToConvert = ForgeRegistries.BLOCKS.getValue(
@@ -90,26 +94,28 @@ public class BushHammer extends DiggerItem{
                 blockToConvert = ForgeRegistries.BLOCKS.getValue(
                         new ResourceLocation( modid, "engraved_" + name ) );
             }
-            if (blockToConvert != Blocks.AIR) pLevel.setBlockAndUpdate( pContext.getClickedPos() , blockToConvert.defaultBlockState());
-        }
-        if (pLevel.getBlockState(pContext.getClickedPos()).is(ENGRAVEABLE_BLOCKTAG)) {
+            if (blockToConvert != Blocks.AIR) level.setBlockAndUpdate( context.getClickedPos() , blockToConvert.defaultBlockState());
+        }*/
+        if (blockState.is(OTags.Blocks.ENGRAVABLE)) {
             IEngravedBlocks cap = Minecraft.getInstance().player.level.getCapability(CapabilityEngravedBlocks.ENGRAVED_BLOCKS_CAPABILITY).orElse(null);
-            EngravedBlocks.Face clickedFace = getFaceFromDirection(pContext.getClickedFace(), pContext.getHorizontalDirection());
-            if (cap.getEngravedFaces().get(pContext.getClickedPos()) == null ||( evaluateFace(cap, clickedFace, pContext.getClickedPos()) && (cap.getEngravedFaces().get(pContext.getClickedPos()).get(clickedFace).equals("")
-                    || cap.getEngravedFaces().get(pContext.getClickedPos()).get(clickedFace).equals("\n\n\n\n\n\n\n")))) {
-                if (!pLevel.isClientSide()) {
-                    ServerPlayer player = (ServerPlayer) pContext.getPlayer();
-                    CHANNEL.sendTo(new BushHammerClickPacket(pPos, clickedFace, player.level.getBlockState(pPos).getBlock()),
+            EngravedBlocks.Face clickedFace = getFaceFromDirection(context.getClickedFace(), context.getHorizontalDirection());
+
+            if (cap.getEngravedFaces().get(context.getClickedPos()) == null ||( evaluateFace(cap, clickedFace, context.getClickedPos()) && (cap.getEngravedFaces().get(context.getClickedPos()).get(clickedFace).equals("")
+                    || cap.getEngravedFaces().get(context.getClickedPos()).get(clickedFace).equals("\n\n\n\n\n\n\n")))) {
+                if (!level.isClientSide()) {
+                    ServerPlayer player = (ServerPlayer) context.getPlayer();
+                    CHANNEL.sendTo(new BushHammerClickPacket(blockPos, clickedFace, player.level.getBlockState(blockPos).getBlock()),
                             player.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
-                    if (!player.gameMode.isCreative()) pContext.getItemInHand().hurt(5, new Random(), player);
+                    context.getPlayer().swing(context.getHand());
+                    if (!player.gameMode.isCreative()) context.getItemInHand().hurt(5, new Random(), player);
                 }
                 return InteractionResult.SUCCESS;
             }
         } else {
-            if (pContext.getPlayer() != null) {
+            if (context.getPlayer() != null) {
                 TranslatableComponent mes = new TranslatableComponent("engraving.fail");
                 mes.setStyle(mes.getStyle().withColor(TextColor.fromLegacyFormat(ChatFormatting.WHITE)).withBold(true));
-                pContext.getPlayer().displayClientMessage(mes,true);
+                context.getPlayer().displayClientMessage(mes,true);
             }
         }
         return InteractionResult.PASS;

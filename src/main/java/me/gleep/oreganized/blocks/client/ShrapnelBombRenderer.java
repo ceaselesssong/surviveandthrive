@@ -2,6 +2,7 @@ package me.gleep.oreganized.blocks.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
+import me.gleep.oreganized.registry.OBlocks;
 import me.gleep.oreganized.util.RegistryHandler;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -38,7 +39,7 @@ public class ShrapnelBombRenderer extends EntityRenderer<PrimedTnt> {
         pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(-90.0F));
         pMatrixStack.translate(-0.5D, -0.5D, 0.5D);
         pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(90.0F));
-        TntMinecartRenderer.renderWhiteSolidBlock(RegistryHandler.SHRAPNEL_BOMB.get().defaultBlockState(), pMatrixStack, pBuffer, pPackedLight, i / 5 % 2 == 0);
+        TntMinecartRenderer.renderWhiteSolidBlock(OBlocks.SHRAPNEL_BOMB.get().defaultBlockState(), pMatrixStack, pBuffer, pPackedLight, i / 5 % 2 == 0);
         pMatrixStack.popPose();
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
     }

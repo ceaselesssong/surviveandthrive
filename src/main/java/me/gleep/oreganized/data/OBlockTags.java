@@ -50,12 +50,10 @@ public class OBlockTags extends BlockTagsProvider {
                 Blocks.PRISMARINE_BRICKS, RegistryHandler.ENGRAVED_PRISMARINE_BRICKS.get(),
                 OBlocks.GLANCE_BRICKS.get(), RegistryHandler.ENGRAVED_GLANCE_BRICKS.get()
         );
-        tag(CRYSTAL_GLASS).add(
-                RegistryHandler.BLACK_CRYSTAL_GLASS.get()
-        );
-        tag(CRYSTAL_GLASS_PANES).add(
-                RegistryHandler.BLACK_CRYSTAL_GLASS.get()
-        );
+        for (int i = 0; OBlocks.CRYSTAL_GLASS.size() > i; i++) {
+            tag(CRYSTAL_GLASS).add(OBlocks.CRYSTAL_GLASS.get(i).get());
+            tag(CRYSTAL_GLASS_PANES).add(OBlocks.CRYSTAL_GLASS.get(i).get());
+        }
 
         // Oreganized Forge
         tag(ORES_SILVER).add(OBlocks.SILVER_ORE.get(), OBlocks.DEEPSLATE_SILVER_ORE.get());

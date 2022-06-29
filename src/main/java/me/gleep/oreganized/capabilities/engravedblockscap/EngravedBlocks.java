@@ -1,12 +1,14 @@
 package me.gleep.oreganized.capabilities.engravedblockscap;
 
 import com.mojang.math.Vector3f;
+import me.gleep.oreganized.Oreganized;
 import me.gleep.oreganized.util.GeneralUtility;
 import me.gleep.oreganized.util.messages.UpdateServerEngravedBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.HashMap;

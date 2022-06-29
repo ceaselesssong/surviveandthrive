@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:nuggets/silver",
+    "#forge:nuggets/lead",
+    "#forge:nuggets/electrum",
+    "#forge:nuggets/netherite"
+  ]
+}

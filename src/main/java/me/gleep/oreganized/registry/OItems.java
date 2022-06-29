@@ -5,7 +5,6 @@ import me.gleep.oreganized.armors.OreganizedArmorMaterials;
 import me.gleep.oreganized.items.*;
 import me.gleep.oreganized.items.tiers.ElectrumPickaxeItem;
 import me.gleep.oreganized.items.tiers.OreganizedTiers;
-import me.gleep.oreganized.util.RegistryHandler;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
@@ -15,14 +14,15 @@ import net.minecraftforge.registries.RegistryObject;
 
 import static me.gleep.oreganized.util.RegistryHandler.*;
 
-public class OreganizedItems {
+public class OItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Oreganized.MOD_ID);
 
     // Discs
-    public static final RegistryObject<Item> MUSIC_DISC_PILLAGED_ITEM = ITEMS.register("music_disc_pillaged", () -> new ModMusicDisc(13, MUSIC_DISC_PILLAGED));
-    public static final RegistryObject<Item> MUSIC_DISC_18_ITEM = ITEMS.register("music_disc_18", () -> new ModMusicDisc(14, MUSIC_DISC_18));
-    public static final RegistryObject<Item> MUSIC_DISC_SHULK_ITEM = ITEMS.register("music_disc_shulk", () -> new ModMusicDisc(15, MUSIC_DISC_SHULK));
+    public static final RegistryObject<Item> MUSIC_DISC_PILLAGED = ITEMS.register("music_disc_pillaged", () -> new RecordItem(13, OSoundEvents.MUSIC_DISC_PILLAGED, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> MUSIC_DISC_18 = ITEMS.register("music_disc_18", () -> new RecordItem(14, OSoundEvents.MUSIC_DISC_18, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> MUSIC_DISC_SHULK = ITEMS.register("music_disc_shulk", () -> new RecordItem(15, OSoundEvents.MUSIC_DISC_SHULK, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    //public static final RegistryObject<Item> MUSIC_DISC_STRUCTURE = ITEMS.register("music_disc_structure", () -> new RecordItem(16, OSoundEvents.MUSIC_DISC_STRUCTURE, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
     // Crafting Materials
     public static final RegistryObject<Item> RAW_SILVER = ITEMS.register("raw_silver", ItemBase::new);
@@ -63,7 +63,7 @@ public class OreganizedItems {
 
     public static final RegistryObject<Item> LEAD_BOLT = ITEMS.register("lead_bolt", ItemBase::new);
 
-    public static final RegistryObject<Item> MOLTEN_LEAD_BUCKET = ITEMS.register("molten_lead_bucket", () -> new SolidBucketItem(OreganizedBlocks.MOLTEN_LEAD_BLOCK.get(),
+    public static final RegistryObject<Item> MOLTEN_LEAD_BUCKET = ITEMS.register("molten_lead_bucket", () -> new SolidBucketItem(OBlocks.MOLTEN_LEAD_BLOCK.get(),
             SoundEvents.BUCKET_EMPTY_LAVA, new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS).stacksTo(1))
     );
 
@@ -80,5 +80,4 @@ public class OreganizedItems {
     public static final RegistryObject<Item> ELECTRUM_BOOTS = ITEMS.register("electrum_boots",
             () -> new ElectrumArmorItem(OreganizedArmorMaterials.ELECTRUM, EquipmentSlot.FEET)
     );
-
 }

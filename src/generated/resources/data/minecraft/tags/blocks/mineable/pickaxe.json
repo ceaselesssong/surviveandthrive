@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "oreganized:raw_lead_block",
     "oreganized:deepslate_lead_ore",
     "oreganized:raw_silver_block",
     "oreganized:deepslate_silver_ore",
@@ -38,7 +37,6 @@
     "oreganized:engraved_end_stone_bricks",
     "oreganized:engraved_quartz_bricks",
     "oreganized:engraved_prismarine_bricks",
-    "oreganized:engraved_glance_bricks",
-    "oreganized:electrum_block"
+    "oreganized:engraved_glance_bricks"
   ]
 }

@@ -2,7 +2,6 @@ package me.gleep.oreganized.events;
 
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.gleep.oreganized.armors.STABase;
 import me.gleep.oreganized.blocks.EngravedBlock;
@@ -14,24 +13,18 @@ import me.gleep.oreganized.capabilities.engravedblockscap.IEngravedBlocks;
 import me.gleep.oreganized.capabilities.stunning.CapabilityStunning;
 import me.gleep.oreganized.capabilities.stunning.IStunning;
 import me.gleep.oreganized.items.BushHammer;
-import me.gleep.oreganized.items.ElectrumArmorItem;
-import me.gleep.oreganized.potion.ModPotions;
-import me.gleep.oreganized.registry.OreganizedBlocks;
-import me.gleep.oreganized.registry.OreganizedItems;
+import me.gleep.oreganized.registry.OBlocks;
+import me.gleep.oreganized.registry.OEffects;
+import me.gleep.oreganized.registry.OItems;
+import me.gleep.oreganized.registry.OTags;
 import me.gleep.oreganized.tools.STSBase;
-import me.gleep.oreganized.util.RegistryHandler;
 import me.gleep.oreganized.util.messages.UpdateClientEngravedBlocks;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementList;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.ServerAdvancementManager;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -41,31 +34,20 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.piston.PistonStructureResolver;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
-import net.minecraftforge.client.event.MovementInputUpdateEvent;
-import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
@@ -73,14 +55,12 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.PistonEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
 
@@ -120,10 +100,10 @@ public class ModEvents {
 
         if(stack.getItem() instanceof STSBase){
             int count = (int) Math.round( ((double) stack.getOrCreateTag().getInt( "TintedDamage" ) / (double) STSBase.MAX_TINT_DURABILITY) * 9D );
-            item = new ItemStack( OreganizedItems.SILVER_NUGGET.get() , count );
+            item = new ItemStack( OItems.SILVER_NUGGET.get() , count );
         }else if(stack.getItem() instanceof STABase){
             int count = (int) Math.round( ((double) stack.getOrCreateTag().getInt( "TintedDamage" ) / (double) STABase.MAX_TINT_DURABILITY) * 9D );
-            item = new ItemStack( OreganizedItems.SILVER_NUGGET.get() , count );
+            item = new ItemStack( OItems.SILVER_NUGGET.get() , count );
         }
 
         pl.drop( item , true );
@@ -190,10 +170,10 @@ public class ModEvents {
         Level level = event.getWorld();
 
         if(level.getBlockState( pos ).equals( Blocks.CAULDRON.defaultBlockState() )){
-            if(item.getItem().equals( OreganizedBlocks.LEAD_BLOCK.get().asItem() )){
+            if(item.getItem().equals( OBlocks.LEAD_BLOCK.get().asItem() )){
                 if(!level.isClientSide()){
                     level.removeBlock( pos , false );
-                    level.setBlockAndUpdate( pos , OreganizedBlocks.LEAD_CAULDRON.get().defaultBlockState() );
+                    level.setBlockAndUpdate( pos , OBlocks.LEAD_CAULDRON.get().defaultBlockState() );
                     if(!event.getPlayer().isCreative()) item.shrink( 1 );
                     level.playSound( (Player) null , pos , SoundEvents.STONE_PLACE , SoundSource.BLOCKS , 1.0F , 1.0F );
                     event.getPlayer().awardStat( Stats.USE_CAULDRON );
@@ -202,10 +182,10 @@ public class ModEvents {
                     event.setCancellationResult( InteractionResult.sidedSuccess( level.isClientSide() ) );
                     event.setCanceled( true );
                 }
-            }else if(item.getItem().equals( OreganizedItems.MOLTEN_LEAD_BUCKET.get() )){
+            }else if(item.getItem().equals( OItems.MOLTEN_LEAD_BUCKET.get() )){
                 if(!level.isClientSide()){
                     level.removeBlock( pos , false );
-                    level.setBlockAndUpdate( pos , OreganizedBlocks.LEAD_CAULDRON.get().defaultBlockState().setValue( ModCauldron.LEVEL , 3 ) );
+                    level.setBlockAndUpdate( pos , OBlocks.LEAD_CAULDRON.get().defaultBlockState().setValue( ModCauldron.LEVEL , 3 ) );
                     if(!event.getPlayer().isCreative())
                         event.getPlayer().setItemInHand( InteractionHand.MAIN_HAND , new ItemStack( Items.BUCKET , 1 ) );
                     level.playSound( (Player) null , pos , SoundEvents.BUCKET_EMPTY_LAVA , SoundSource.BLOCKS , 1.0F , 1.0F );
@@ -217,6 +197,13 @@ public class ModEvents {
                     event.setCanceled( true );
                 }
             }
+        }
+
+        IEngravedBlocks cap = Minecraft.getInstance().player.level.getCapability(CapabilityEngravedBlocks.ENGRAVED_BLOCKS_CAPABILITY).orElse(null);
+        if (cap.isEngraved(pos) && item.getItem() instanceof AxeItem) {
+            event.getPlayer().swing(event.getHand());
+            level.playSound(event.getPlayer(), pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
+            cap.removeEngravedBlock(pos);
         }
     }
 
@@ -273,7 +260,7 @@ public class ModEvents {
         BlockState state = world.getBlockState( pos );
         ItemStack currentitem = event.getPlayer().getItemInHand( event.getPlayer().getUsedItemHand() );
 
-        if (currentitem.getItem().equals(OreganizedItems.BUSH_HAMMER.get())) {
+        if (currentitem.getItem().equals(OItems.BUSH_HAMMER.get())) {
             for (Block b : BushHammer.EFFECTIVE_ON.keySet()) {
                 if (state.getBlock().equals( b ) && !event.getPlayer().isCreative()){
                     world.setBlock( pos , BushHammer.EFFECTIVE_ON.get( b ).defaultBlockState() , 2 );
@@ -292,15 +279,15 @@ public class ModEvents {
         if (event.getItem().getItem().isEdible()) {
             if (event.getEntityLiving() instanceof Player player) {
                 for (int i = 0; i < 9; i++){
-                    if (player.getInventory().items.get( i ).is(LEAD_INGOTS_ITEMTAG) || player.getInventory().items.get( i ).is(LEAD_SOURCE_ITEMTAG)) {
-                        player.addEffect( new MobEffectInstance( ModPotions.STUNNED , 40 * 20 ) );
-                        player.addEffect( new MobEffectInstance( MobEffects.POISON , 200 ) );
+                    if (player.getInventory().items.get( i ).is(OTags.Items.INGOTS_LEAD) || player.getInventory().items.get( i ).is(OTags.Items.LEAD_SOURCE)) {
+                        player.addEffect( new MobEffectInstance( OEffects.STUNNING.get(), 40 * 20 ) );
+                        player.addEffect( new MobEffectInstance( MobEffects.POISON, 200 ) );
                         return;
                     }
                 }
-                if (player.getInventory().offhand.get( 0 ).is(LEAD_INGOTS_ITEMTAG) || player.getInventory().items.get( 0 ).is(LEAD_SOURCE_ITEMTAG)) {
-                    player.addEffect( new MobEffectInstance( ModPotions.STUNNED , 40 * 20 ) );
-                    player.addEffect( new MobEffectInstance( MobEffects.POISON , 200 ) );
+                if (player.getInventory().offhand.get( 0 ).is(OTags.Items.INGOTS_LEAD) || player.getInventory().items.get( 0 ).is(OTags.Items.LEAD_SOURCE)) {
+                    player.addEffect( new MobEffectInstance( OEffects.STUNNING.get(), 40 * 20 ) );
+                    player.addEffect( new MobEffectInstance( MobEffects.POISON, 200 ) );
                 }
             }
         }
@@ -309,34 +296,22 @@ public class ModEvents {
     /**
      * Event to change fluid fog density for rendering
      */
-    @OnlyIn(Dist.CLIENT)
+    /*@OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void getFogDensity (EntityViewRenderEvent.FogDensity event) {
         Camera info = event.getCamera();
         BlockState blockState = info.getBlockAtCamera();
 
-        if (blockState.getBlock().equals( OreganizedBlocks.MOLTEN_LEAD_BLOCK.get() )) {
+        if (blockState.getBlock().equals( OBlocks.MOLTEN_LEAD_BLOCK.get() )) {
             RenderSystem.enableCull();
             event.setDensity( 1.4F );
             event.setCanceled( true );
         }
-    }
+    }*/
 
     /**
      * Event to change the fluid fog color for rendering
      */
-    @OnlyIn(Dist.CLIENT)
-    @SubscribeEvent
-    public static void getFogColor( EntityViewRenderEvent.FogColors event ){
-        Camera info = event.getCamera();
-        BlockState blockState = info.getBlockAtCamera();
-
-        if(blockState.getBlock().equals( OreganizedBlocks.MOLTEN_LEAD_BLOCK.get() )){
-            event.setRed( 57F / 256F );
-            event.setGreen( 57F / 256F );
-            event.setBlue( 95F / 256F );
-        }
-    }
 
     @SubscribeEvent
     public static void onEntityDeath( LivingDeathEvent event ){
@@ -350,10 +325,10 @@ public class ModEvents {
                 nbt.putBoolean( "Shine" , true );
 
                 for(ItemStack stack : player.getInventory().items){
-                    if(stack.getItem().equals( OreganizedItems.SILVER_INGOT.get() )) stack.setTag( nbt );
+                    if(stack.getItem().equals( OItems.SILVER_INGOT.get() )) stack.setTag( nbt );
                 }
 
-                if(player.getInventory().offhand.get( 0 ).getItem().equals( OreganizedItems.SILVER_INGOT.get() )){
+                if(player.getInventory().offhand.get( 0 ).getItem().equals( OItems.SILVER_INGOT.get() )){
                     player.getInventory().offhand.get( 0 ).setTag( nbt );
                 }
             }
@@ -392,7 +367,7 @@ public class ModEvents {
                         String text = entry.getValue();
                         if(text.equals( "" ) || text.equals( "\n\n\n\n\n\n\n" )) count++;
                     }
-                    if(!level.getBlockState( pos ).is(ENGRAVEABLE_BLOCKTAG) || count == 12){
+                    if(!level.getBlockState( pos ).is(OTags.Blocks.ENGRAVABLE) || count == 12){
                         capability.removeEngravedBlock( pos );
                         CHANNEL.send( PacketDistributor.ALL.noArg() , new UpdateClientEngravedBlocks( capability.getEngravedBlocks() ,
                                 capability.getEngravedFaces() , capability.getEngravedColors() ) );

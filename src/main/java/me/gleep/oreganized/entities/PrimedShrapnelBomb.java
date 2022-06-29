@@ -1,12 +1,10 @@
 package me.gleep.oreganized.entities;
 
-import me.gleep.oreganized.potion.ModPotions;
+import me.gleep.oreganized.registry.OEffects;
+import me.gleep.oreganized.registry.OEntityTypes;
+import me.gleep.oreganized.registry.OParticleTypes;
 import me.gleep.oreganized.util.RegistryHandler;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -26,7 +24,7 @@ public class PrimedShrapnelBomb extends PrimedTnt {
     }
 
     public PrimedShrapnelBomb(Level p_32079_, double p_32080_, double p_32081_, double p_32082_, @Nullable LivingEntity p_32083_) {
-        this(RegistryHandler.SHRAPNEL_BOMB_ENTITY.get(), p_32079_);
+        this(OEntityTypes.SHRAPNEL_BOMB.get(), p_32079_);
         this.setPos(p_32080_, p_32081_, p_32082_);
         double d0 = p_32079_.random.nextDouble() * (double)((float)Math.PI * 2F);
         this.setDeltaMovement(-Math.sin(d0) * 0.02D, (double)0.2F, -Math.cos(d0) * 0.02D);
@@ -40,7 +38,7 @@ public class PrimedShrapnelBomb extends PrimedTnt {
     @Override
     protected void explode() {
         this.level.explode(this, this.getX(), this.getY(0.0625D), this.getZ(), 6.0F, Explosion.BlockInteraction.NONE);
-        if(!this.level.isClientSide()) ((ServerLevel)this.level).sendParticles(RegistryHandler.LEAD_SHRAPNEL.get(), this.getX(), this.getY(0.0625D) ,
+        if(!this.level.isClientSide()) ((ServerLevel)this.level).sendParticles(OParticleTypes.LEAD_SHRAPNEL.get(), this.getX(), this.getY(0.0625D) ,
                 this.getZ() , 100, 0.0D , 0.0D , 0.0D, 5 );
         for (Entity entity :this.level.getEntities(this, new AABB(this.getX() - 30, this.getY() - 4, this.getZ() - 30,
                 this.getX() + 30, this.getY() + 4, this.getZ() + 30))){
@@ -58,7 +56,7 @@ public class PrimedShrapnelBomb extends PrimedTnt {
             if(shouldPoison){
                 if(entity instanceof LivingEntity livingEntity){
                     livingEntity.hurt(DamageSource.MAGIC, 2);
-                    livingEntity.addEffect( new MobEffectInstance( ModPotions.STUNNED , 40 * 20 ) );
+                    livingEntity.addEffect( new MobEffectInstance(OEffects.STUNNING.get(), 40 * 20 ) );
                     livingEntity.addEffect( new MobEffectInstance( MobEffects.POISON , 260 ) );
                 }
             }

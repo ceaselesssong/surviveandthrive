@@ -3,8 +3,7 @@ package me.gleep.oreganized.events;
 import me.gleep.oreganized.Oreganized;
 import me.gleep.oreganized.capabilities.engravedblockscap.CapabilityEngravedBlocks;
 import me.gleep.oreganized.capabilities.stunning.CapabilityStunning;
-import me.gleep.oreganized.registry.OreganizedItems;
-import me.gleep.oreganized.util.RegistryHandler;
+import me.gleep.oreganized.registry.OItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
@@ -30,7 +29,7 @@ public class ModBusEvents{
     }
     @SubscribeEvent
     public static void registerDispenserBehaviour( RegistryEvent.Register<Item> event ){
-        DispenserBlock.registerBehavior( OreganizedItems.MOLTEN_LEAD_BUCKET.get(), new DefaultDispenseItemBehavior() {
+        DispenserBlock.registerBehavior( OItems.MOLTEN_LEAD_BUCKET.get(), new DefaultDispenseItemBehavior() {
             private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
 
             /**

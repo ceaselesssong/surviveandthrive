@@ -1,7 +1,9 @@
 package me.gleep.oreganized.blocks;
 
-import me.gleep.oreganized.registry.OreganizedBlocks;
-import me.gleep.oreganized.registry.OreganizedItems;
+import me.gleep.oreganized.registry.OBlocks;
+import me.gleep.oreganized.registry.OItems;
+import me.gleep.oreganized.registry.OParticleTypes;
+import me.gleep.oreganized.registry.OTags;
 import me.gleep.oreganized.util.ModDamageSource;
 import me.gleep.oreganized.util.RegistryHandler;
 import net.minecraft.core.BlockPos;
@@ -29,7 +31,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -41,16 +42,12 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.Random;
 
-public class MoltenLeadBlock extends Block implements BucketPickup{
+public class MoltenLeadBlock extends Block implements BucketPickup {
 
     private static final BooleanProperty MOVING = BooleanProperty.create( "ismoving" );
 
-    public MoltenLeadBlock(){
-        super( BlockBehaviour.Properties.of( (new Material.Builder( MaterialColor.COLOR_PURPLE )).noCollider().notSolidBlocking().nonSolid().liquid().build() )
-                .strength( -1.0F , 3600000.0F )
-                .noDrops()
-                .requiresCorrectToolForDrops()
-        );
+    public MoltenLeadBlock(BlockBehaviour.Properties properties){
+        super(properties);
     }
 
     @Override
@@ -59,15 +56,15 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
     }
 
     @Override
-    public boolean skipRendering( BlockState p_60532_ , BlockState p_60533_ , Direction p_60534_ ){
-        return super.skipRendering( p_60532_ , p_60533_ , p_60534_ );
+    public boolean skipRendering(BlockState pState, BlockState pAdjacentBlockState, Direction pDirection){
+        return pAdjacentBlockState.is(this);
     }
 
     @Override
     public BlockState updateShape( BlockState pState , Direction pDirection , BlockState neighbour , LevelAccessor pLevel , BlockPos pPos , BlockPos neighbourPos ){
         if(pLevel.isWaterAt( neighbourPos )){
             pLevel.levelEvent( 1501 , pPos , 0 );
-            return OreganizedBlocks.LEAD_BLOCK.get().defaultBlockState();
+            return OBlocks.LEAD_BLOCK.get().defaultBlockState();
         }
         if(pDirection == Direction.DOWN){
             pLevel.scheduleTick( pPos , this , 30 );
@@ -78,7 +75,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
     @Override
     public void neighborChanged( BlockState p_60509_ , Level level , BlockPos pos , Block p_60512_ , BlockPos neighbourPos , boolean p_60514_ ){
         if(level.getFluidState( neighbourPos ).is( FluidTags.WATER )){
-            level.setBlockAndUpdate( pos , OreganizedBlocks.LEAD_BLOCK.get().defaultBlockState() );
+            level.setBlockAndUpdate( pos , OBlocks.LEAD_BLOCK.get().defaultBlockState() );
 
             level.levelEvent( 1501 , pos , 0 );
         } //else if (level.getFluidState(neighbourPos).is(FluidTags.LAVA)) {}
@@ -116,17 +113,12 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
         return false;
     }
 
-
-    @Override
-    public int getLightBlock( BlockState p_60585_ , BlockGetter p_60586_ , BlockPos p_60587_ ){
-        return 8;
-    }
-
     @Override
     public VoxelShape getCollisionShape( BlockState p_60572_ , BlockGetter p_60573_ , BlockPos p_60574_ , CollisionContext p_60575_ ){
         if(((EntityCollisionContext) p_60575_).getEntity() != null){
             if(!(((EntityCollisionContext) p_60575_).getEntity() instanceof LivingEntity)) return Shapes.empty();
             LivingEntity entity = (LivingEntity) ((EntityCollisionContext) p_60575_).getEntity();
+            if(entity.getType().is(OTags.Entities.LIGHTER_THAN_LEAD)) return Shapes.block();
             for(ItemStack item : entity.getArmorSlots()){
                 if(item.getItem().equals( Items.IRON_BOOTS )) return Shapes.block();
             }
@@ -138,7 +130,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
     public VoxelShape getShape( BlockState p_60555_ , BlockGetter p_60556_ , BlockPos p_60557_ , CollisionContext p_60558_ ){
         if(((EntityCollisionContext) p_60558_).getEntity() != null){
             return p_60558_.isHoldingItem( Items.BUCKET )
-                    || p_60558_.isHoldingItem( OreganizedItems.MOLTEN_LEAD_BUCKET.get() ) ? Shapes.block() : Shapes.empty();
+                    || p_60558_.isHoldingItem( OItems.MOLTEN_LEAD_BUCKET.get() ) ? Shapes.block() : Shapes.empty();
         }
 
         return Shapes.block();
@@ -162,7 +154,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
     public void entityInside( BlockState p_60495_ , Level p_60496_ , BlockPos p_60497_ , Entity p_60498_ ){
         if(p_60498_ instanceof LivingEntity){
             p_60498_.setSecondsOnFire( 10 );
-            p_60498_.hurt( ModDamageSource.MOLTEN_LEAD , 3.0F );
+            p_60498_.hurt( ModDamageSource.MOLTEN_LEAD , 0.0F );
             p_60498_.makeStuckInBlock( p_60495_ , new Vec3( (double) 0.7F , 1.0D , (double) 0.7F ) );
         }
 
@@ -176,7 +168,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
             p_152719_.levelEvent( 2001 , p_152720_ , Block.getId( p_152721_ ) );
         }
 
-        return new ItemStack( OreganizedItems.MOLTEN_LEAD_BUCKET.get() , 1 );
+        return new ItemStack( OItems.MOLTEN_LEAD_BUCKET.get() , 1 );
     }
 
     @Override
@@ -192,7 +184,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
                 pLevel.setBlock( pPos , pState.setValue( MOVING , true ) , 3 );
             }else{
                 pLevel.levelEvent( 1501 , pPos , 0 );
-                pLevel.setBlock( pPos , OreganizedBlocks.LEAD_BLOCK.get().defaultBlockState() , 3 );
+                pLevel.setBlock( pPos , OBlocks.LEAD_BLOCK.get().defaultBlockState() , 3 );
             }
         }else{
             if(!pOldState.getFluidState().is( FluidTags.WATER )){
@@ -200,7 +192,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
                 pLevel.scheduleTick( pPos , this , 300 );
             }else{
                 pLevel.levelEvent( 1501 , pPos , 0 );
-                pLevel.setBlock( pPos , OreganizedBlocks.LEAD_BLOCK.get().defaultBlockState() , 3 );
+                pLevel.setBlock( pPos , OBlocks.LEAD_BLOCK.get().defaultBlockState() , 3 );
             }
         }
     }
@@ -212,7 +204,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
                 || pLevel.getBlockState(pPos.below()).is(BlockTags.SMALL_FLOWERS)
                 || pLevel.getBlockState(pPos.below()).is(BlockTags.TALL_FLOWERS)){
             pLevel.setBlock( pPos , Blocks.AIR.defaultBlockState() , 67 );
-            pLevel.setBlock( pPos.below() , OreganizedBlocks.MOLTEN_LEAD_BLOCK.get().defaultBlockState() , 67 );
+            pLevel.setBlock( pPos.below() , OBlocks.MOLTEN_LEAD_BLOCK.get().defaultBlockState() , 67 );
         }
     }
 
@@ -227,7 +219,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
 
     private void trySpawnDripParticles( Level pLevel , BlockPos pPos , BlockState pState ){
         if(pState.getFluidState().isEmpty() && !(pLevel.random.nextFloat() < 0.5F)){
-            VoxelShape voxelshape = OreganizedBlocks.LEAD_BLOCK.get().defaultBlockState().getCollisionShape( pLevel , pPos );
+            VoxelShape voxelshape = OBlocks.LEAD_BLOCK.get().defaultBlockState().getCollisionShape( pLevel , pPos );
             double d0 = voxelshape.max( Direction.Axis.Y );
             if(d0 >= 1.0D){
                 double d1 = voxelshape.min( Direction.Axis.Y );
@@ -252,7 +244,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup{
     }
 
     private void spawnFluidParticle( Level pParticleData , double pX1 , double pX2 , double pZ1 , double pZ2 , double pY ){
-        pParticleData.addParticle( RegistryHandler.DRIPPING_LEAD.get() , Mth.lerp( pParticleData.random.nextDouble() , pX1 , pX2 ) , pY , Mth.lerp( pParticleData.random.nextDouble() , pZ1 , pZ2 ) , 0.0D , 0.0D , 0.0D );
+        pParticleData.addParticle( OParticleTypes.DRIPPING_LEAD.get() , Mth.lerp( pParticleData.random.nextDouble() , pX1 , pX2 ) , pY , Mth.lerp( pParticleData.random.nextDouble() , pZ1 , pZ2 ) , 0.0D , 0.0D , 0.0D );
     }
 
     private boolean scheduleFallingTick( LevelAccessor pLevel , BlockPos pPos , int pDelay ){

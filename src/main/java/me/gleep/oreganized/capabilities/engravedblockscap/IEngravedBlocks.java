@@ -2,6 +2,7 @@ package me.gleep.oreganized.capabilities.engravedblockscap;
 
 import me.gleep.oreganized.capabilities.engravedblockscap.EngravedBlocks.Face;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.HashMap;
 import java.util.HashSet;

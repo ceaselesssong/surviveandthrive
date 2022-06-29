@@ -1,5 +1,6 @@
 package me.gleep.oreganized.particles;
 
+import me.gleep.oreganized.registry.OParticleTypes;
 import me.gleep.oreganized.util.RegistryHandler;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
@@ -156,15 +157,15 @@ public class CustomDrippingParticle extends TextureSheetParticle{
     }
 
     @OnlyIn(Dist.CLIENT)
-    static class LeadFallProvider implements ParticleProvider<SimpleParticleType> {
+    public static class LeadFallProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        LeadFallProvider( SpriteSet pSprites) {
+        public LeadFallProvider(SpriteSet pSprites) {
             this.sprite = pSprites;
         }
 
         public Particle createParticle(SimpleParticleType pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
-            CustomDrippingParticle.FallAndLandParticle dripparticle = new CustomDrippingParticle.FallAndLandParticle(pLevel, pX, pY, pZ, Fluids.LAVA, RegistryHandler.LANDING_LEAD.get());
+            CustomDrippingParticle.FallAndLandParticle dripparticle = new CustomDrippingParticle.FallAndLandParticle(pLevel, pX, pY, pZ, Fluids.LAVA, OParticleTypes.LANDING_LEAD.get());
             dripparticle.setColor(0.35F, 0.24F, 0.43F);
             dripparticle.pickSprite(this.sprite);
             return dripparticle;
@@ -172,15 +173,15 @@ public class CustomDrippingParticle extends TextureSheetParticle{
     }
 
     @OnlyIn(Dist.CLIENT)
-    static class LeadHangProvider implements ParticleProvider<SimpleParticleType> {
+    public static class LeadHangProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        LeadHangProvider( SpriteSet pSprites) {
+        public LeadHangProvider(SpriteSet pSprites) {
             this.sprite = pSprites;
         }
 
         public Particle createParticle(SimpleParticleType pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
-            CustomDrippingParticle.CoolingDripHangParticle dripparticle$coolingdriphangparticle = new CustomDrippingParticle.CoolingDripHangParticle(pLevel, pX, pY, pZ, Fluids.LAVA, RegistryHandler.FALLING_LEAD.get());
+            CustomDrippingParticle.CoolingDripHangParticle dripparticle$coolingdriphangparticle = new CustomDrippingParticle.CoolingDripHangParticle(pLevel, pX, pY, pZ, Fluids.LAVA, OParticleTypes.FALLING_LEAD.get());
             dripparticle$coolingdriphangparticle.setColor(0.35F, 0.24F, 0.43F);
             dripparticle$coolingdriphangparticle.pickSprite(this.sprite);
             return dripparticle$coolingdriphangparticle;
@@ -188,10 +189,10 @@ public class CustomDrippingParticle extends TextureSheetParticle{
     }
 
     @OnlyIn(Dist.CLIENT)
-    static class LeadLandProvider implements ParticleProvider<SimpleParticleType> {
+    public static class LeadLandProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        LeadLandProvider( SpriteSet pSprites) {
+        public LeadLandProvider(SpriteSet pSprites) {
             this.sprite = pSprites;
         }
 
