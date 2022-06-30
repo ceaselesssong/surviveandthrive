@@ -1,5 +1,5 @@
 {
-  "music.disc.pillaged": {
+  "music.disc.18": {
     "sounds": [
       {
         "name": "oreganized:music/disc/pillaged",
@@ -7,7 +7,7 @@
       }
     ]
   },
-  "music.disc.18": {
+  "music.disc.pillaged": {
     "sounds": [
       {
         "name": "oreganized:music/disc/pillaged",

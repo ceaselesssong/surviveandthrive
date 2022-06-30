@@ -54,7 +54,7 @@ public class Datagen {
     @SubscribeEvent
     public static void genData(GatherDataEvent event) {
         if (event.includeServer()) {
-            event.getGenerator().addProvider(new LootTableProvider(event.getGenerator()) {
+            event.getGenerator().addProvider(true, new LootTableProvider(event.getGenerator()) {
 
                 @Override
                 protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>,
@@ -96,10 +96,10 @@ public class Datagen {
                             Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.NETHER_BRICKS, Blocks.RED_NETHER_BRICKS, Blocks.BRICKS, Blocks.CUT_COPPER, Blocks.EXPOSED_CUT_COPPER, Blocks.WEATHERED_CUT_COPPER, Blocks.OXIDIZED_CUT_COPPER, Blocks.WAXED_CUT_COPPER, Blocks.WAXED_EXPOSED_CUT_COPPER, Blocks.WAXED_WEATHERED_CUT_COPPER, Blocks.WAXED_OXIDIZED_CUT_COPPER, Blocks.DEEPSLATE_BRICKS, Blocks.END_STONE_BRICKS, Blocks.QUARTZ_BRICKS, Blocks.PRISMARINE_BRICKS, OBlocks.GLANCE_BRICKS.get());
                 }
             };
-            event.getGenerator().addProvider(blockTagsProvider);
+            event.getGenerator().addProvider(true, blockTagsProvider);
 
             //blockstate
-            event.getGenerator().addProvider(new BlockStateProvider(event.getGenerator(), MOD_ID,
+            event.getGenerator().addProvider(true, new BlockStateProvider(event.getGenerator(), MOD_ID,
                     event.getExistingFileHelper()) {
                 @Override
                 protected void registerStatesAndModels() {
@@ -148,18 +148,18 @@ public class Datagen {
                     simpleBlock(OBlocks.WAXED_SPOTTED_GLANCE.get(),
                             cubeAll(OBlocks.SPOTTED_GLANCE.get()));
                     slabBlock(OBlocks.GLANCE_SLAB.get(), new ResourceLocation(MOD_ID,
-                            "block/" + OBlocks.GLANCE.get().getRegistryName().getPath()), new ResourceLocation(MOD_ID, "block/" + OBlocks.GLANCE.get().getRegistryName().getPath()));
+                            "block/" + OBlocks.GLANCE.get().getName()), new ResourceLocation(MOD_ID, "block/" + OBlocks.GLANCE.get().getName()));
                     stairsBlock(OBlocks.GLANCE_STAIRS.get(), new ResourceLocation(MOD_ID,
-                            "block/" + OBlocks.GLANCE.get().getRegistryName().getPath()));
+                            "block/" + OBlocks.GLANCE.get().getName()));
                     slabBlock(OBlocks.GLANCE_BRICKS_SLAB.get(), new ResourceLocation(MOD_ID,
-                            "block/" + OBlocks.GLANCE_BRICKS.get().getRegistryName().getPath()), new ResourceLocation(MOD_ID, "block/" + OBlocks.GLANCE_BRICKS.get().getRegistryName().getPath()));
+                            "block/" + OBlocks.GLANCE_BRICKS.get().getName()), new ResourceLocation(MOD_ID, "block/" + OBlocks.GLANCE_BRICKS.get().getName()));
                     stairsBlock(OBlocks.GLANCE_BRICKS_STAIRS.get(),
                             new ResourceLocation(MOD_ID,
-                                    "block/" + OBlocks.GLANCE_BRICKS.get().getRegistryName().getPath()));
+                                    "block/" + OBlocks.GLANCE_BRICKS.get().getName()));
                     wallBlock(OBlocks.GLANCE_WALL.get(), new ResourceLocation(MOD_ID,
-                            "block/" + OBlocks.GLANCE.get().getRegistryName().getPath()));
+                            "block/" + OBlocks.GLANCE.get().getName()));
                     wallBlock(OBlocks.GLANCE_BRICKS_WALL.get(), new ResourceLocation(MOD_ID,
-                            "block/" + OBlocks.GLANCE_BRICKS.get().getRegistryName().getPath()));
+                            "block/" + OBlocks.GLANCE_BRICKS.get().getName()));
                     engravedBlock(RegistryHandler.ENGRAVED_NETHER_BRICKS.get(),
                             cubeAll(RegistryHandler.ENGRAVED_NETHER_BRICKS.get()),
                             cubeRotatedBottomTop(RegistryHandler.ENGRAVED_NETHER_BRICKS.get()));
@@ -250,29 +250,29 @@ public class Datagen {
                 }
 
                 private ModelFile cubeRotatedBottomTop(Block block) {
-                    BlockModelBuilder model = models().getBuilder(block.getRegistryName().getPath() +
+                    BlockModelBuilder model = models().getBuilder(block.getName() +
                             "_rotated_bottom");
                     model.parent(models().getExistingFile(new ResourceLocation(MOD_ID, "block" +
                             "/cube_rotated_bottom_top")));
                     model.texture("top", new ResourceLocation(MOD_ID,
-                            "block/" + block.getRegistryName().getPath()));
+                            "block/" + block.getName()));
                     model.texture("bottom", new ResourceLocation(MOD_ID,
-                            "block/" + block.getRegistryName().getPath()));
+                            "block/" + block.getName()));
                     model.texture("side", new ResourceLocation(MOD_ID,
-                            "block/" + block.getRegistryName().getPath()));
+                            "block/" + block.getName()));
                     return model;
                 }
 
                 private ModelFile cubeBottomTop(Block block) {
-                    BlockModelBuilder model = models().getBuilder(block.getRegistryName().getPath());
+                    BlockModelBuilder model = models().getBuilder(block.getName().toString());
                     model.parent(models().getExistingFile(new ResourceLocation("minecraft", "block" +
                             "/cube_bottom_top")));
                     model.texture("top", new ResourceLocation(MOD_ID,
-                            "block/" + block.getRegistryName().getPath() + "_top"));
+                            "block/" + block.getName() + "_top"));
                     model.texture("bottom", new ResourceLocation(MOD_ID,
-                            "block/" + block.getRegistryName().getPath() + "_bottom"));
+                            "block/" + block.getName() + "_bottom"));
                     model.texture("side", new ResourceLocation(MOD_ID,
-                            "block/" + block.getRegistryName().getPath() + "_side"));
+                            "block/" + block.getName() + "_side"));
                     return model;
                 }
 
@@ -290,19 +290,19 @@ public class Datagen {
                 private void crystalGlassBlock(Block block) {
                     getVariantBuilder(block).partialState().with(CrystalGlassColored.TYPE, CrystalGlassColored.NORMAL).modelForState()
                             .modelFile(cubeAll(block)).addModel().partialState().with(CrystalGlassColored.TYPE, CrystalGlassColored.ROTATED)
-                            .modelForState().modelFile(models().cubeAll(block.getRegistryName().getPath() + "_rot",
-                                    new ResourceLocation(MOD_ID, "block/" + block.getRegistryName().getPath() + "_rot"))).addModel()
+                            .modelForState().modelFile(models().cubeAll(block.getName() + "_rot",
+                                    new ResourceLocation(MOD_ID, "block/" + block.getName() + "_rot"))).addModel()
                             .partialState().with(CrystalGlassColored.TYPE, CrystalGlassColored.INNER)
-                            .modelForState().modelFile(models().cubeAll(block.getRegistryName().getPath() + "_in",
-                                    new ResourceLocation(MOD_ID, "block/" + block.getRegistryName().getPath() + "_in"))).addModel()
+                            .modelForState().modelFile(models().cubeAll(block.getName() + "_in",
+                                    new ResourceLocation(MOD_ID, "block/" + block.getName() + "_in"))).addModel()
                             .partialState().with(CrystalGlassColored.TYPE, CrystalGlassColored.OUTER)
-                            .modelForState().modelFile(models().cubeAll(block.getRegistryName().getPath() + "_out",
-                                    new ResourceLocation(MOD_ID, "block/" + block.getRegistryName().getPath() + "_out"))).addModel();
+                            .modelForState().modelFile(models().cubeAll(block.getName() + "_out",
+                                    new ResourceLocation(MOD_ID, "block/" + block.getName() + "_out"))).addModel();
                 }
 
                 private void crystalPaneBlock(Block paneBlock, Block glassBlock) {
-                    String baseName = glassBlock.getRegistryName().getPath();
-                    String paneName = paneBlock.getRegistryName().getPath();
+                    String baseName = glassBlock.getName().toString();
+                    String paneName = paneBlock.getName().toString();
                     MultiPartBlockStateBuilder builder = getMultipartBuilder(paneBlock);
                     for (int i = 0; i < 4; i++) {
                         int finalI = i;
@@ -341,71 +341,71 @@ public class Datagen {
             });
 
             //items
-            event.getGenerator().addProvider(new ItemModelProvider(event.getGenerator(), MOD_ID,
+            event.getGenerator().addProvider(true, new ItemModelProvider(event.getGenerator(), MOD_ID,
                     event.getExistingFileHelper()) {
                 @Override
                 protected void registerModels() {
-                    //withExistingParent(RegistryHandler.DEEPSLATE_LEAD_ORE.get().getRegistryName().getPath(),
+                    //withExistingParent(RegistryHandler.DEEPSLATE_LEAD_ORE.get().getName(),
                     // new ResourceLocation(Oreganized.MOD_ID,"block/deepslate_lead_ore"));
-                    //withExistingParent(RegistryHandler.DEEPSLATE_SILVER_ORE.get().getRegistryName().getPath(),
+                    //withExistingParent(RegistryHandler.DEEPSLATE_SILVER_ORE.get().getName(),
                     // new ResourceLocation(Oreganized.MOD_ID,"block/deepslate_silver_ore"));
-                    //withExistingParent(RegistryHandler.GLANCE.get().getRegistryName().getPath(), new
+                    //withExistingParent(RegistryHandler.GLANCE.get().getName(), new
                     // ResourceLocation(Oreganized.MOD_ID,"block/glance"));
-                    //withExistingParent(RegistryHandler.SPOTTED_GLANCE.get().getRegistryName().getPath(), new
+                    //withExistingParent(RegistryHandler.SPOTTED_GLANCE.get().getName(), new
                     // ResourceLocation(Oreganized.MOD_ID,"block/spotted_glance"));
-                    withExistingParent(OBlocks.SHRAPNEL_BOMB.get().asItem().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.SHRAPNEL_BOMB.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/shrapnel_bomb"));
-                    withExistingParent(OBlocks.POLISHED_GLANCE.get().asItem().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.POLISHED_GLANCE.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/polished_glance"));
-                    withExistingParent(OBlocks.GLANCE_BRICKS.get().asItem().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.GLANCE_BRICKS.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/glance_bricks"));
-                    withExistingParent(OBlocks.CHISELED_GLANCE.get().asItem().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.CHISELED_GLANCE.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/chiseled_glance"));
-                    withExistingParent(OBlocks.GLANCE_SLAB.get().asItem().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.GLANCE_SLAB.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/glance_slab"));
-                    withExistingParent(OBlocks.GLANCE_STAIRS.get().asItem().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.GLANCE_STAIRS.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/glance_stairs"));
-                    withExistingParent(OBlocks.GLANCE_BRICKS_SLAB.get().asItem().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.GLANCE_BRICKS_SLAB.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/glance_bricks_slab"));
-                    withExistingParent(OBlocks.GLANCE_BRICKS_STAIRS.get().asItem().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.GLANCE_BRICKS_STAIRS.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/glance_bricks_stairs"));
-                    wallInventory(OBlocks.GLANCE_WALL.get().asItem().getRegistryName().getPath(),
+                    wallInventory(OBlocks.GLANCE_WALL.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/glance"));
-                    wallInventory(OBlocks.GLANCE_BRICKS_WALL.get().asItem().getRegistryName().getPath(),
+                    wallInventory(OBlocks.GLANCE_BRICKS_WALL.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/glance_bricks"));
-                    withExistingParent(OBlocks.WAXED_WHITE_CONCRETE_POWDER.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_WHITE_CONCRETE_POWDER.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/white_concrete_powder"));
-                    withExistingParent(OBlocks.WAXED_BLACK_CONCRETE_POWDER.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_BLACK_CONCRETE_POWDER.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/black_concrete_powder"));
-                    withExistingParent(OBlocks.WAXED_BLUE_CONCRETE_POWDER.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_BLUE_CONCRETE_POWDER.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/blue_concrete_powder"));
-                    withExistingParent(OBlocks.WAXED_BROWN_CONCRETE_POWDER.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_BROWN_CONCRETE_POWDER.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/brown_concrete_powder"));
-                    withExistingParent(OBlocks.WAXED_CYAN_CONCRETE_POWDER.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_CYAN_CONCRETE_POWDER.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/cyan_concrete_powder"));
-                    withExistingParent(OBlocks.WAXED_GRAY_CONCRETE_POWDER.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_GRAY_CONCRETE_POWDER.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/gray_concrete_powder"));
-                    withExistingParent(OBlocks.WAXED_GREEN_CONCRETE_POWDER.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_GREEN_CONCRETE_POWDER.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/green_concrete_powder"));
-                    withExistingParent(OBlocks.WAXED_LIGHT_BLUE_CONCRETE_POWDER.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_LIGHT_BLUE_CONCRETE_POWDER.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/light_blue_concrete_powder"));
-                    withExistingParent(OBlocks.WAXED_LIGHT_GRAY_CONCRETE_POWDER.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_LIGHT_GRAY_CONCRETE_POWDER.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/light_gray_concrete_powder"));
-                    withExistingParent(OBlocks.WAXED_LIME_CONCRETE_POWDER.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_LIME_CONCRETE_POWDER.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/lime_concrete_powder"));
-                    withExistingParent(OBlocks.WAXED_MAGENTA_CONCRETE_POWDER.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_MAGENTA_CONCRETE_POWDER.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/magenta_concrete_powder"));
-                    withExistingParent(OBlocks.WAXED_ORANGE_CONCRETE_POWDER.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_ORANGE_CONCRETE_POWDER.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/orange_concrete_powder"));
-                    withExistingParent(OBlocks.WAXED_PINK_CONCRETE_POWDER.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_PINK_CONCRETE_POWDER.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/pink_concrete_powder"));
-                    withExistingParent(OBlocks.WAXED_PURPLE_CONCRETE_POWDER.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_PURPLE_CONCRETE_POWDER.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/purple_concrete_powder"));
-                    withExistingParent(OBlocks.WAXED_RED_CONCRETE_POWDER.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_RED_CONCRETE_POWDER.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/red_concrete_powder"));
-                    withExistingParent(OBlocks.WAXED_YELLOW_CONCRETE_POWDER.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_YELLOW_CONCRETE_POWDER.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/yellow_concrete_powder"));
-                    withExistingParent(OBlocks.WAXED_SPOTTED_GLANCE.get().getRegistryName().getPath(),
+                    withExistingParent(OBlocks.WAXED_SPOTTED_GLANCE.get().getName().toString(),
                             new ResourceLocation(MOD_ID, "block/spotted_glance"));
                 }
             });

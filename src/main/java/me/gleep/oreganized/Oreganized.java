@@ -45,7 +45,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -62,13 +61,12 @@ public class Oreganized {
 
     public Oreganized() {
 
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        bus.addListener(this::setup);
-        bus.addListener(this::doClientStuff);
-        bus.addListener(this::registerRenderers);
-        bus.addListener(this::gatherData);
-
-        MinecraftForge.EVENT_BUS.addListener(OreganizedFeatures::onBiomeLoadingEvent);
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus eventBus = MinecraftForge.EVENT_BUS;
+        modEventBus.addListener(this::setup);
+        modEventBus.addListener(this::doClientStuff);
+        modEventBus.addListener(this::registerRenderers);
+        modEventBus.addListener(this::gatherData);
 
         DeferredRegister<?>[] registers = {
                 //OBlockEntities.BLOCK_ENTITIES,
@@ -80,17 +78,19 @@ public class Oreganized {
                 OParticleTypes.PARTICLES,
                 OPotions.POTIONS,
                 OSoundEvents.SOUNDS,
+                OStructures.STRUCTURE_TYPES,
                 OStructures.STRUCTURES,
         };
 
         for (DeferredRegister<?> register : registers) {
-            register.register(bus);
+            register.register(modEventBus);
         }
+        eventBus.register(this);
+        eventBus.register(new CapabilityHandler());
 
         // TODO: Divide into individual files in registry package
         RegistryHandler.init();
 
-        MinecraftForge.EVENT_BUS.register( new CapabilityHandler() );
         //MinecraftForge.EVENT_BUS.register( new StunnedOverlayRenderer() );
     }
 
@@ -289,15 +289,15 @@ public class Oreganized {
             //generator.addProvider(new OBlockStates(generator, helper));
             //generator.addProvider(new OItemModels(generator, helper));
             //generator.addProvider(new OLang(generator));
-            generator.addProvider(new OSoundDefinitions(generator, helper));
+            generator.addProvider(true, new OSoundDefinitions(generator, helper));
         }
         if(event.includeServer()) {
             // TODO
             //generator.addProvider(new ORecipes(generator));
             //generator.addProvider(new OLootTables(generator));
             OBlockTags blockTags = new OBlockTags(generator, helper);
-            generator.addProvider(blockTags);
-            generator.addProvider(new OItemTags(generator, blockTags, helper));
+            generator.addProvider(true, blockTags);
+            generator.addProvider(true, new OItemTags(generator, blockTags, helper));
             //generator.addProvider(new OEntityTags(generator, helper));
             //generator.addProvider(new OAdvancements(generator, helper));
             //generator.addProvider(new OFluidTags(generator, helper));

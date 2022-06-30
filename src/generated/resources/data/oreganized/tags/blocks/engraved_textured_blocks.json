@@ -1,5 +1,4 @@
 {
-  "replace": false,
   "values": [
     "minecraft:stone_bricks",
     "minecraft:polished_blackstone_bricks",
@@ -18,6 +17,6 @@
     "minecraft:end_stone_bricks",
     "minecraft:quartz_bricks",
     "minecraft:prismarine_bricks",
-    "oreganized:glance_bricks"
+    "minecraft:air"
   ]
 }

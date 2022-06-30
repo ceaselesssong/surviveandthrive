@@ -39,7 +39,7 @@ public class NBTHelper {
     private static CompoundTag writeItemStack(ItemStack i){
         CompoundTag nbt = new CompoundTag();
         nbt.putInt("count", i.getCount());
-        nbt.putString("item", i.getItem().getRegistryName().toString());
+        nbt.putString("item", i.getDisplayName().toString());
         return nbt;
     }
 }

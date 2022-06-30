@@ -5,6 +5,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -12,7 +13,6 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 import java.util.List;
 
@@ -56,7 +56,7 @@ public class OreganizedFeatures {
         return PlacementUtils.register(regName, Holder.direct(feature), placementModifiers);
     }
 
-    public static void onBiomeLoadingEvent(BiomeLoadingEvent event) {
+    /*public static void onBiomeLoadingEvent(BiomeGenerationSettings event) {
         // Check that we're not in the nether or end to save on resources.
         if (event.getCategory() == Biome.BiomeCategory.NETHER || event.getCategory() == Biome.BiomeCategory.THEEND) return;
 
@@ -68,5 +68,5 @@ public class OreganizedFeatures {
         event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, SILVER_ORE_LOW);
         event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, SILVER_ORE_HIGH);
         event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, LEAD_ORE);
-    }
+    }*/
 }

@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -118,12 +119,7 @@ public class ModCauldron extends Block {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
-        this.tick(state, worldIn, pos, random);
-    }
-
-    @Override
-    public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
+    public void animateTick(BlockState state, Level worldIn, BlockPos pos, RandomSource random) {
         if (state.getValue(LEVEL) > 0 && state.getValue(LEVEL) != 3) {
             if (!worldIn.isClientSide) {
                 BlockPos newPos = new BlockPos(pos.getX(), pos.getY() - 1.0D, pos.getZ());

@@ -1,7 +1,6 @@
 {
-  "replace": false,
   "values": [
-    "oreganized:glance_wall",
-    "oreganized:glance_bricks_wall"
+    "minecraft:air",
+    "minecraft:air"
   ]
 }

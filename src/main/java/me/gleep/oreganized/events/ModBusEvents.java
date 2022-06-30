@@ -16,9 +16,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.registries.NewRegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.RegisterEvent;
 
 @Mod.EventBusSubscriber(modid = Oreganized.MOD_ID,bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModBusEvents{
@@ -28,7 +29,7 @@ public class ModBusEvents{
         CapabilityStunning.register( event );
     }
     @SubscribeEvent
-    public static void registerDispenserBehaviour( RegistryEvent.Register<Item> event ){
+    public static void registerDispenserBehaviour(RegisterEvent event){
         DispenserBlock.registerBehavior( OItems.MOLTEN_LEAD_BUCKET.get(), new DefaultDispenseItemBehavior() {
             private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
 

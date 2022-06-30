@@ -17,7 +17,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -41,7 +41,7 @@ public class EngraveScreen extends Screen{
     private int textColor;
 
     public EngraveScreen( IEngravedBlocks cap , BlockPos blockPos , EngravedBlocks.Face clickedFace, Block clickedBlock ){
-        super( new TranslatableComponent( "engraving.edit" ) );
+        super(Component.translatable("engraving.edit"));
         this.cap = cap;
         this.blockPos = blockPos;
         this.clickedFace = clickedFace;
@@ -130,7 +130,7 @@ public class EngraveScreen extends Screen{
         pPoseStack.translate( (double) (this.width / 2 - 51.5) , 58 , 50.0D );
         pPoseStack.scale( 0.4f, 0.4f, 0.4f );
         String id = this.minecraft.getBlockRenderer().getBlockModelShaper().getTexture(clickedBlock.defaultBlockState(), this.minecraft.level, this.blockPos).getName().getNamespace();
-        ResourceLocation texture = new ResourceLocation(id, "textures/block/" + clickedBlock.getRegistryName().getPath() + ".png" );
+        ResourceLocation texture = new ResourceLocation(id, "textures/block/" + clickedBlock.getName() + ".png" );
         this.minecraft.textureManager.bindForSetup( texture );
         RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
         RenderSystem.setShaderTexture(0, texture );
@@ -208,7 +208,7 @@ public class EngraveScreen extends Screen{
                     bufferbuilder.vertex( matrix4f , (float) l2 , (float) l , 0.0F ).color( 0 , 0 , 255 , 255 ).endVertex();
                     bufferbuilder.vertex( matrix4f , (float) k2 , (float) l , 0.0F ).color( 0 , 0 , 255 , 255 ).endVertex();
                     bufferbuilder.end();
-                    BufferUploader.end( bufferbuilder );
+                    BufferUploader.reset();
                     RenderSystem.disableColorLogicOp();
                     RenderSystem.enableTexture();
                 }

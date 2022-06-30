@@ -1,6 +1,5 @@
 {
-  "replace": false,
   "values": [
-    "oreganized:raw_silver"
+    "minecraft:air"
   ]
 }

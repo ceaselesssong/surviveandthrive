@@ -28,7 +28,7 @@ public class BushHammerClickPacket{
 
     public void encode( FriendlyByteBuf buffer ) {
         CompoundTag tag = new CompoundTag();
-        tag.putString( "block", block.getRegistryName().toString() );
+        tag.putString( "block", block.getName().toString() );
         tag.putIntArray( "BlockPos", new int[] {pos.getX(), pos.getY(), pos.getZ()} );
         buffer.writeNbt( tag );
         buffer.writeEnum( face );

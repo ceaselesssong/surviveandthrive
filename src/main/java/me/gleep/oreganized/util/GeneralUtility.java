@@ -1,16 +1,26 @@
 package me.gleep.oreganized.util;
 
+import com.mojang.blaze3d.platform.NativeImage;
 import me.gleep.oreganized.capabilities.engravedblockscap.CapabilityEngravedBlocks;
 import me.gleep.oreganized.capabilities.engravedblockscap.IEngravedBlocks;
 import me.gleep.oreganized.screens.EngraveScreen;
 import me.gleep.oreganized.util.messages.BushHammerClickPacket;
 import me.gleep.oreganized.util.messages.UpdateClientEngravedBlocks;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.AbstractTexture;
+import net.minecraft.client.renderer.texture.SimpleTexture;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.FastBufferedInputStream;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.fml.loading.ModJarURLHandler;
+import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -35,15 +45,15 @@ public class GeneralUtility{
 
     public static int getBrightestColorFromBlock( Block block, BlockPos blockPos ){
         InputStream is;
-        BufferedImage image;
+        @NotNull NativeImage image;
         Block localBlock = block;
-        if( block.getRegistryName().getPath().contains( "copper" ) ){
+        if( block.getName().toString().contains( "copper" ) ){
             localBlock = Blocks.COPPER_BLOCK;
         }
         try {
             String id = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper().getTexture(localBlock.defaultBlockState(), Minecraft.getInstance().level, blockPos).getName().getNamespace();
-            is = Minecraft.getInstance().getResourceManager().getResource((new ResourceLocation(id, "textures/block/" + localBlock.getRegistryName().getPath() + ".png" ))).getInputStream();
-            image = ImageIO.read(is);
+            //is = Minecraft.getInstance().getResourceManager().getResource((new ResourceLocation(id, "textures/block/" + localBlock.getName() + ".png" )));
+            image = MinecraftForgeClient.getImageLayer(new ResourceLocation(id, "textures/block/" + localBlock.getName() + ".png"), Minecraft.getInstance().getResourceManager());
         }catch(IOException e){
             e.printStackTrace();
             return 0;
@@ -51,7 +61,7 @@ public class GeneralUtility{
         int color = 0;
         for (int x = 0; x < image.getWidth(); x++) {
             for(int y = 0; y < image.getHeight(); y++){
-                int c = image.getRGB( x, y);
+                int c = image.getPixelRGBA( x, y);
                 int color1 = (((c >> 16) & 0xFF) << 16) + (((c >> 8) & 0xFF) << 8) + ((c) & 0xFF);
                 if(color1 > color){
                     color = color1;

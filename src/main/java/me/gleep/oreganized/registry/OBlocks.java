@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -19,6 +20,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.List;
 import java.util.function.Supplier;
 
+@Mod.EventBusSubscriber(modid = Oreganized.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class OBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Oreganized.MOD_ID);
@@ -26,7 +28,7 @@ public class OBlocks {
     public static final RegistryObject<Block> MOLTEN_LEAD_BLOCK = register("molten_lead_block", () ->
             new MoltenLeadBlock(BlockBehaviour.Properties.of(OMaterials.MOLTEN_LEAD).strength( -1.0F , 3600000.0F )
                     .sound(OSoundTypes.MOLTEN_LEAD).dynamicShape()
-                    .lightLevel((i) -> 8).noDrops().requiresCorrectToolForDrops()));
+                    .lightLevel((i) -> 8).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> LEAD_CAULDRON = register("cauldron", ModCauldron::new);
 
     // Glance
@@ -45,13 +47,13 @@ public class OBlocks {
     public static final RegistryObject<Block> SPOTTED_GLANCE = register("spotted_glance", SpottedGlance::new, CreativeModeTab.TAB_BUILDING_BLOCKS);
     public static final RegistryObject<Block> WAXED_SPOTTED_GLANCE = register("waxed_spotted_glance", () -> new Block(BlockBehaviour.Properties.copy(SPOTTED_GLANCE.get())), CreativeModeTab.TAB_BUILDING_BLOCKS);
     // Ores
-    public static final RegistryObject<Block> SILVER_ORE = register("silver_ore", () -> new OreBlock(BlockBehaviour.Properties.copy(Blocks.GOLD_ORE)), CreativeModeTab.TAB_BUILDING_BLOCKS);
-    public static final RegistryObject<Block> DEEPSLATE_SILVER_ORE = register("deepslate_silver_ore", () -> new OreBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_GOLD_ORE)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> SILVER_ORE = register("silver_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.GOLD_ORE)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> DEEPSLATE_SILVER_ORE = register("deepslate_silver_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_GOLD_ORE)), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
-    public static final RegistryObject<Block> LEAD_ORE = register("lead_ore", () -> new OreBlock(BlockBehaviour.Properties.of(Material.METAL)
+    public static final RegistryObject<Block> LEAD_ORE = register("lead_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.METAL)
             .strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.STONE), UniformInt.of(0, 3)), CreativeModeTab.TAB_BUILDING_BLOCKS
     );
-    public static final RegistryObject<Block> DEEPSLATE_LEAD_ORE = register("deepslate_lead_ore", () -> new OreBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_GOLD_ORE)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> DEEPSLATE_LEAD_ORE = register("deepslate_lead_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_GOLD_ORE)), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
     // Storage Blocks
     public static final RegistryObject<Block> RAW_SILVER_BLOCK = register("raw_silver_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.RAW_IRON_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS);

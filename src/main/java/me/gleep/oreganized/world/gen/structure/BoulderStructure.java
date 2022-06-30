@@ -1,34 +1,20 @@
 package me.gleep.oreganized.world.gen.structure;
 
 import com.mojang.serialization.Codec;
-import me.gleep.oreganized.Oreganized;
+import me.gleep.oreganized.registry.OStructures;
+import me.gleep.oreganized.world.gen.structure.pieces.BoulderPieces;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructureSets;
-import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
-import net.minecraft.world.level.levelgen.structure.PostPlacementProcessor;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
-import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
-import org.apache.logging.log4j.Level;
+import net.minecraft.world.level.levelgen.structure.*;
 
 import java.util.Optional;
 
-public class BoulderStructure extends StructureFeature<JigsawConfiguration> {
+public class BoulderStructure extends Structure {
+    public static final Codec<BoulderStructure> CODEC = simpleCodec(BoulderStructure::new);
 
-    public BoulderStructure(Codec<JigsawConfiguration> codec) {
-        super(codec, (context) -> {
-            JigsawConfiguration boulderConfig = new JigsawConfiguration(context.config().startPool(), 10);
-            PieceGeneratorSupplier.Context<JigsawConfiguration> boulderContext = new PieceGeneratorSupplier.Context<>(context.chunkGenerator(), context.biomeSource(), context.seed(), context.chunkPos(), boulderConfig, context.heightAccessor(), context.validBiome(), context.structureManager(), context.registryAccess());
-            BlockPos boulderPos = context.chunkPos().getMiddleBlockPosition(0);
-            int topLandY = context.chunkGenerator().getFirstFreeHeight(boulderPos.getX(), boulderPos.getZ(), Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor());
-            boulderPos = boulderPos.above(topLandY - 7);
-            return JigsawPlacement.addPieces(boulderContext, PoolElementStructurePiece::new, boulderPos, true, false);
-        });
+    public BoulderStructure(Structure.StructureSettings settings) {
+        super(settings);
     }
 
     /**
@@ -41,5 +27,20 @@ public class BoulderStructure extends StructureFeature<JigsawConfiguration> {
     @Override
     public GenerationStep.Decoration step() {
         return GenerationStep.Decoration.UNDERGROUND_DECORATION;
+    }
+
+    @Override
+    public Optional<GenerationStub> findGenerationPoint(GenerationContext context) {
+        BlockPos boulderPos = context.chunkPos().getMiddleBlockPosition(0);
+        int topLandY = context.chunkGenerator().getFirstFreeHeight(boulderPos.getX(), boulderPos.getZ(), Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor(), context.randomState());
+        BlockPos finalBoulderPos = boulderPos.above(topLandY - 7);
+        return Optional.of(new Structure.GenerationStub(boulderPos, (builder) -> {
+            builder.addPiece(new BoulderPieces.BoulderPiece(context.structureTemplateManager(), finalBoulderPos));
+        }));
+    }
+
+    @Override
+    public StructureType<?> type() {
+        return OStructures.BOULDER_TYPE.get();
     }
 }

@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -198,7 +199,7 @@ public class MoltenLeadBlock extends Block implements BucketPickup {
     }
 
     @Override
-    public void tick( BlockState pState , ServerLevel pLevel , BlockPos pPos , Random pRandom ){
+    public void animateTick( BlockState pState , Level pLevel , BlockPos pPos , RandomSource pRandom ){
         if (pLevel.getBlockState(pPos.below()).getBlock() == Blocks.AIR || pLevel.getBlockState(pPos.below()).is(BlockTags.REPLACEABLE_PLANTS)
                 || pLevel.getBlockState(pPos.below()).getFluidState().is(FluidTags.WATER)
                 || pLevel.getBlockState(pPos.below()).is(BlockTags.SMALL_FLOWERS)

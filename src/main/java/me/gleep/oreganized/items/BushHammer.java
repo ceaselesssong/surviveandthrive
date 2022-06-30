@@ -9,13 +9,17 @@ import me.gleep.oreganized.items.tiers.OreganizedTiers;
 import me.gleep.oreganized.registry.OTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
+import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.TranslatableComponent;
+import  net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import me.gleep.oreganized.util.messages.BushHammerClickPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -107,15 +111,17 @@ public class BushHammer extends DiggerItem{
                     CHANNEL.sendTo(new BushHammerClickPacket(blockPos, clickedFace, player.level.getBlockState(blockPos).getBlock()),
                             player.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
                     context.getPlayer().swing(context.getHand());
-                    if (!player.gameMode.isCreative()) context.getItemInHand().hurt(5, new Random(), player);
+                    if (!player.gameMode.isCreative()) context.getItemInHand().hurt(5, RandomSource.create(), player);
                 }
                 return InteractionResult.SUCCESS;
             }
         } else {
             if (context.getPlayer() != null) {
-                TranslatableComponent mes = new TranslatableComponent("engraving.fail");
-                mes.setStyle(mes.getStyle().withColor(TextColor.fromLegacyFormat(ChatFormatting.WHITE)).withBold(true));
-                context.getPlayer().displayClientMessage(mes,true);
+                String translatable = "engraving.fail";
+                Component message = Component.empty();
+                Style style = message.getStyle().withColor(TextColor.fromLegacyFormat(ChatFormatting.WHITE)).withBold(true);
+                message = Component.translatable(translatable, style);
+                context.getPlayer().displayClientMessage(message,true);
             }
         }
         return InteractionResult.PASS;

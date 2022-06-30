@@ -1,6 +1,5 @@
 {
-  "replace": false,
   "values": [
-    "oreganized:netherite_nugget"
+    "minecraft:air"
   ]
 }

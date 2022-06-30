@@ -3,10 +3,7 @@ package me.gleep.oreganized.items;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import me.gleep.oreganized.client.model.ElectrumArmorModel;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,7 +11,6 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
 
 import me.gleep.oreganized.Oreganized;
 import me.gleep.oreganized.armors.OreganizedArmorMaterials;
@@ -23,7 +19,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IItemRenderProperties;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 

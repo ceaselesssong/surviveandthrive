@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -95,7 +96,7 @@ public class ExposerBlock extends DirectionalBlock implements EntityBlock {
     }
 
     @Override
-    public void tick(BlockState p_60462_, ServerLevel p_60463_, BlockPos p_60464_, Random p_60465_) {
+    public void animateTick(BlockState p_60462_, Level p_60463_, BlockPos p_60464_, RandomSource p_60465_) {
         int dist = 4;
 
         List<Entity> list = p_60463_.getEntities((Entity) null,
