@@ -1,22 +1,11 @@
 package me.gleep.oreganized.util;
 
-import me.gleep.oreganized.blocks.*;
-import me.gleep.oreganized.entities.PrimedShrapnelBomb;
-import me.gleep.oreganized.entities.tileentities.ExposerBlockEntity;
-import me.gleep.oreganized.items.BlockItemBase;
-import me.gleep.oreganized.world.gen.structure.BoulderStructure;
+import me.gleep.oreganized.block.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;

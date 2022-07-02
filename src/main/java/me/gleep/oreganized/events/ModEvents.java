@@ -2,29 +2,21 @@ package me.gleep.oreganized.events;
 
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.systems.RenderSystem;
-import me.gleep.oreganized.armors.STABase;
-import me.gleep.oreganized.blocks.EngravedBlock;
-import me.gleep.oreganized.blocks.EngravedWeatheringCopperBlock;
-import me.gleep.oreganized.blocks.ModCauldron;
+import me.gleep.oreganized.block.EngravedBlock;
+import me.gleep.oreganized.block.EngravedWeatheringCopperBlock;
+import me.gleep.oreganized.block.ModCauldron;
 import me.gleep.oreganized.capabilities.engravedblockscap.CapabilityEngravedBlocks;
 import me.gleep.oreganized.capabilities.engravedblockscap.EngravedBlocks;
 import me.gleep.oreganized.capabilities.engravedblockscap.IEngravedBlocks;
-import me.gleep.oreganized.capabilities.stunning.CapabilityStunning;
-import me.gleep.oreganized.capabilities.stunning.IStunning;
-import me.gleep.oreganized.items.BushHammer;
+import me.gleep.oreganized.item.tool.BushHammerItem;
 import me.gleep.oreganized.registry.OBlocks;
-import me.gleep.oreganized.registry.OEffects;
 import me.gleep.oreganized.registry.OItems;
 import me.gleep.oreganized.registry.OTags;
-import me.gleep.oreganized.tools.STSBase;
 import me.gleep.oreganized.util.messages.UpdateClientEngravedBlocks;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -32,9 +24,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
@@ -47,12 +36,7 @@ import net.minecraft.world.level.block.piston.PistonStructureResolver;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -62,53 +46,12 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.util.Map;
-import java.util.UUID;
 
 import static me.gleep.oreganized.Oreganized.MOD_ID;
-import static me.gleep.oreganized.util.RegistryHandler.*;
 import static me.gleep.oreganized.util.SimpleNetwork.CHANNEL;
 
 @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModEvents {
-    private static final UUID ELECTRUM_BOOST_MODIFIER = UUID.fromString("ea10ee7a-da1a-4153-a4ae-53b5d2a09dbb");
-
-    /**
-     * Event to handle Stunning effect properly
-     */
-    @SubscribeEvent
-    public static void tickEntityStunning( final LivingEvent.LivingUpdateEvent event ){
-        LivingEntity entity = event.getEntityLiving();
-        Level level = entity.getLevel();
-        IStunning stunningCap = entity.getCapability(CapabilityStunning.STUNNING_CAPABILITY, null ).orElse(null);
-        if (stunningCap != null) {
-            if(stunningCap.getRemainingStunTime() > 0) {
-                stunningCap.setRemainingStunTime(stunningCap.getRemainingStunTime() - 1);
-                BlockPos previousPos = stunningCap.getPreviousPos();
-                entity.setPos(previousPos.getX(), previousPos.getY(), previousPos.getZ());
-            }
-        }
-    }
-
-    /**
-     * Event to handle Silver Tinted Swords break
-     */
-    @SubscribeEvent
-    public static void onToolBreakEvent( final PlayerDestroyItemEvent event ){
-        ItemStack stack = event.getOriginal();
-        Player pl = event.getPlayer();
-        ItemStack item = ItemStack.EMPTY;
-
-        if(stack.getItem() instanceof STSBase){
-            int count = (int) Math.round( ((double) stack.getOrCreateTag().getInt( "TintedDamage" ) / (double) STSBase.MAX_TINT_DURABILITY) * 9D );
-            item = new ItemStack( OItems.SILVER_NUGGET.get() , count );
-        }else if(stack.getItem() instanceof STABase){
-            int count = (int) Math.round( ((double) stack.getOrCreateTag().getInt( "TintedDamage" ) / (double) STABase.MAX_TINT_DURABILITY) * 9D );
-            item = new ItemStack( OItems.SILVER_NUGGET.get() , count );
-        }
-
-        pl.drop( item , true );
-    }
-
     public static ImmutableBiMap <Block, EngravedWeatheringCopperBlock> ENGRAVED_WAXED_COPPER_BLOCKS;
     public static ImmutableBiMap <Block, Block> WAXED_BLOCKS;
     public static ImmutableList <Block> ENGRAVED_COPPER_BLOCKS;
@@ -208,48 +151,6 @@ public class ModEvents {
     }
 
     /**
-     * Event to handle entities in mod fluid
-     */
-    /*@SubscribeEvent
-    public static void onEntityUpdate(final LivingEvent.LivingUpdateEvent event) {
-        if (event.getEntity() instanceof LivingEntity) {
-            LivingEntity entity = event.getEntityLiving();
-            Tag<Fluid> tag = FluidTags.getAllTags().getTag(new ResourceLocation(Oreganized.MOD_ID + ":lead"));
-
-            if (entity.updateFluidHeightAndDoFluidPushing(tag, 0.009D)) {
-                entity.setSecondsOnFire(10);
-                entity.hurt(ModDamageSource.MOLTEN_LEAD, 3.0F);
-
-                Vec3 travelVector = new Vec3((double)entity.xxa, (double)entity.yya, (double)entity.zza);
-                double d0 = 0.08D;
-                AttributeInstance gravity = entity.getAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get());
-                boolean flag = entity.getDeltaMovement().y <= 0.0D;
-                d0 = gravity.getValue();
-
-                double d7 = entity.getY();
-                entity.moveRelative(0.01F, travelVector);
-                entity.move(MoverType.SELF, entity.getDeltaMovement());
-                if (entity.getFluidHeight(tag) <= entity.getFluidJumpThreshold()) {
-                    entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.2D, (double)0.4F, 0.2D));
-                    Vec3 vector3d3 = entity.getFluidFallingAdjustedMovement(d0, flag, entity.getDeltaMovement());
-                    entity.setDeltaMovement(vector3d3);
-                } else {
-                    entity.setDeltaMovement(entity.getDeltaMovement().scale(0.2D));
-                }
-
-                if (!entity.isNoGravity()) {
-                    entity.setDeltaMovement(entity.getDeltaMovement().add(0.0D, -d0 / 4.0D, 0.0D));
-                }
-
-                Vec3 vector3d4 = entity.getDeltaMovement();
-                if (entity.horizontalCollision && entity.isFree(vector3d4.x, vector3d4.y + (double)0.2F - entity.getY() + d7, vector3d4.z)) {
-                    entity.setDeltaMovement(vector3d4.x, (double)0.3F, vector3d4.z);
-                }
-            }
-        }
-    }*/
-
-    /**
      * Event to handle block cracking and damaging BushHammer item
      */
     @OnlyIn(Dist.CLIENT)
@@ -261,9 +162,9 @@ public class ModEvents {
         ItemStack currentitem = event.getPlayer().getItemInHand( event.getPlayer().getUsedItemHand() );
 
         if (currentitem.getItem().equals(OItems.BUSH_HAMMER.get())) {
-            for (Block b : BushHammer.EFFECTIVE_ON.keySet()) {
+            for (Block b : BushHammerItem.EFFECTIVE_ON.keySet()) {
                 if (state.getBlock().equals( b ) && !event.getPlayer().isCreative()){
-                    world.setBlock( pos , BushHammer.EFFECTIVE_ON.get( b ).defaultBlockState() , 2 );
+                    world.setBlock( pos , BushHammerItem.EFFECTIVE_ON.get( b ).defaultBlockState() , 2 );
                     currentitem.hurtAndBreak( 1 , event.getPlayer() , ( player ) -> {
                         player.broadcastBreakEvent( event.getPlayer().getUsedItemHand() );
                     } );
@@ -272,67 +173,6 @@ public class ModEvents {
             }
         }
 
-    }
-
-    @SubscribeEvent
-    public static void applyLeadEffect( LivingEntityUseItemEvent.Finish event ) {
-        if (event.getItem().getItem().isEdible()) {
-            if (event.getEntityLiving() instanceof Player player) {
-                for (int i = 0; i < 9; i++){
-                    if (player.getInventory().items.get( i ).is(OTags.Items.INGOTS_LEAD) || player.getInventory().items.get( i ).is(OTags.Items.LEAD_SOURCE)) {
-                        player.addEffect( new MobEffectInstance( OEffects.STUNNING.get(), 40 * 20 ) );
-                        player.addEffect( new MobEffectInstance( MobEffects.POISON, 200 ) );
-                        return;
-                    }
-                }
-                if (player.getInventory().offhand.get( 0 ).is(OTags.Items.INGOTS_LEAD) || player.getInventory().items.get( 0 ).is(OTags.Items.LEAD_SOURCE)) {
-                    player.addEffect( new MobEffectInstance( OEffects.STUNNING.get(), 40 * 20 ) );
-                    player.addEffect( new MobEffectInstance( MobEffects.POISON, 200 ) );
-                }
-            }
-        }
-    }
-
-    /**
-     * Event to change fluid fog density for rendering
-     */
-    /*@OnlyIn(Dist.CLIENT)
-    @SubscribeEvent
-    public static void getFogDensity (EntityViewRenderEvent.FogDensity event) {
-        Camera info = event.getCamera();
-        BlockState blockState = info.getBlockAtCamera();
-
-        if (blockState.getBlock().equals( OBlocks.MOLTEN_LEAD_BLOCK.get() )) {
-            RenderSystem.enableCull();
-            event.setDensity( 1.4F );
-            event.setCanceled( true );
-        }
-    }*/
-
-    /**
-     * Event to change the fluid fog color for rendering
-     */
-
-    @SubscribeEvent
-    public static void onEntityDeath( LivingDeathEvent event ){
-        if(event.getSource().getDirectEntity() instanceof Player){
-            Player player = (Player) event.getSource().getDirectEntity();
-            LivingEntity living = event.getEntityLiving();
-
-            if(living.isInvertedHealAndHarm()){
-                CompoundTag nbt = new CompoundTag();
-                nbt.putLong( "t" , player.level.getGameTime() );
-                nbt.putBoolean( "Shine" , true );
-
-                for(ItemStack stack : player.getInventory().items){
-                    if(stack.getItem().equals( OItems.SILVER_INGOT.get() )) stack.setTag( nbt );
-                }
-
-                if(player.getInventory().offhand.get( 0 ).getItem().equals( OItems.SILVER_INGOT.get() )){
-                    player.getInventory().offhand.get( 0 ).setTag( nbt );
-                }
-            }
-        }
     }
 
 

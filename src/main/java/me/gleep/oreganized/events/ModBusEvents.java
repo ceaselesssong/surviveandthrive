@@ -2,21 +2,18 @@ package me.gleep.oreganized.events;
 
 import me.gleep.oreganized.Oreganized;
 import me.gleep.oreganized.capabilities.engravedblockscap.CapabilityEngravedBlocks;
-import me.gleep.oreganized.capabilities.stunning.CapabilityStunning;
 import me.gleep.oreganized.registry.OItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DispensibleContainerItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.registries.NewRegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegisterEvent;
@@ -26,7 +23,6 @@ public class ModBusEvents{
     @SubscribeEvent
     public static void registerCapabilities( RegisterCapabilitiesEvent event ){
         CapabilityEngravedBlocks.register( event );
-        CapabilityStunning.register( event );
     }
     @SubscribeEvent
     public static void registerDispenserBehaviour(RegisterEvent event){

@@ -1,12 +1,10 @@
 package me.gleep.oreganized.entities.tileentities;
 
-import me.gleep.oreganized.blocks.ExposerBlock;
+import me.gleep.oreganized.block.ExposerBlock;
 import me.gleep.oreganized.registry.OBlockEntities;
-import me.gleep.oreganized.util.RegistryHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 

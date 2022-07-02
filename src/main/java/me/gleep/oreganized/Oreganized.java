@@ -2,7 +2,7 @@ package me.gleep.oreganized;
 
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
-import me.gleep.oreganized.blocks.client.ShrapnelBombRenderer;
+import me.gleep.oreganized.block.client.ShrapnelBombRenderer;
 import me.gleep.oreganized.capabilities.CapabilityHandler;
 import me.gleep.oreganized.client.OreganizedClient;
 import me.gleep.oreganized.data.OBlockTags;

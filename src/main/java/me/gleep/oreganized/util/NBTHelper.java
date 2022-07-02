@@ -1,6 +1,5 @@
 package me.gleep.oreganized.util;
 
-import me.gleep.oreganized.items.SilverMirror;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 

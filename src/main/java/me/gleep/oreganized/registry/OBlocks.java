@@ -1,7 +1,7 @@
 package me.gleep.oreganized.registry;
 
 import me.gleep.oreganized.Oreganized;
-import me.gleep.oreganized.blocks.*;
+import me.gleep.oreganized.block.*;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;

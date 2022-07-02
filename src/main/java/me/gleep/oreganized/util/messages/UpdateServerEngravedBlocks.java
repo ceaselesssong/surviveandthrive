@@ -1,6 +1,6 @@
 package me.gleep.oreganized.util.messages;
 
-import me.gleep.oreganized.blocks.EngravedBlock;
+import me.gleep.oreganized.block.EngravedBlock;
 import me.gleep.oreganized.capabilities.engravedblockscap.CapabilityEngravedBlocks;
 import me.gleep.oreganized.capabilities.engravedblockscap.EngravedBlocks;
 import me.gleep.oreganized.capabilities.engravedblockscap.IEngravedBlocks;
@@ -16,8 +16,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import static me.gleep.oreganized.blocks.EngravedBlock.ISZAXISDOWN;
-import static me.gleep.oreganized.blocks.EngravedBlock.ISZAXISUP;
+import static me.gleep.oreganized.block.EngravedBlock.ISZAXISDOWN;
+import static me.gleep.oreganized.block.EngravedBlock.ISZAXISUP;
 import static me.gleep.oreganized.util.SimpleNetwork.CHANNEL;
 
 public class UpdateServerEngravedBlocks{
