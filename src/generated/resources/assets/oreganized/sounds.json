@@ -1,4 +1,10 @@
 {
+  "entity.shrapnel_bomb.primed": {
+    "sounds": [
+      "random/fuse"
+    ],
+    "subtitle": "subtitles.entity.shrapnel_bomb.primed"
+  },
   "music.disc.18": {
     "sounds": [
       {

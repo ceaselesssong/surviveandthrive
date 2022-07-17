@@ -1,8 +1,0 @@
-{
-  "parent": "oreganized:block/cube_rotated_bottom_top",
-  "textures": {
-    "top": "oreganized:block/engraved_deepslate_bricks",
-    "bottom": "oreganized:block/engraved_deepslate_bricks",
-    "side": "oreganized:block/engraved_deepslate_bricks"
-  }
-}

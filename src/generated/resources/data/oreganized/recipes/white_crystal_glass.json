@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:white_stained_glass"
+    },
+    "B": {
+      "tag": "forge:ingots/lead"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "result": {
+    "item": "oreganized:white_crystal_glass"
+  }
+}

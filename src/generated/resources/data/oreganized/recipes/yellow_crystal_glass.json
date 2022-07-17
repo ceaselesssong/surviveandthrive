@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:yellow_stained_glass"
+    },
+    "B": {
+      "tag": "forge:ingots/lead"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "result": {
+    "item": "oreganized:yellow_crystal_glass"
+  }
+}

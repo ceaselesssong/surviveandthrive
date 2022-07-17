@@ -1,0 +1,24 @@
+// 1.19	2022-07-10T12:37:41.048072763	Oreganized Block Tags
+7a2d68d81bc5ee59f9a2f4ba68ddb39bfd9c875d data/forge/tags/blocks/glass.json
+d96b4f83e03abe39a1b97d92b7818c8f6b2e5c68 data/forge/tags/blocks/glass_panes.json
+4e9173550595ca2ada5744dc749553e93b05954f data/forge/tags/blocks/ore_rates/singular.json
+4e9173550595ca2ada5744dc749553e93b05954f data/forge/tags/blocks/ores.json
+dc9cc2dca9fa3a28a0458ec282e3e0fe81999ee1 data/forge/tags/blocks/ores/lead.json
+bb86ac7ab19373da790ec5711f473614e4b62d79 data/forge/tags/blocks/ores/silver.json
+367d69870d9a11ff9049e8f3ba71b3cb7396eee3 data/forge/tags/blocks/storage_blocks.json
+7a1e2c391ad442cdc57f69ce1737207bc52bfb84 data/forge/tags/blocks/storage_blocks/electrum.json
+bb0420ecbadc747d984fcef0fe7fc67586bc3231 data/forge/tags/blocks/storage_blocks/lead.json
+4fb94c8b6f6641d27d70e8ff338e81cee30a321c data/forge/tags/blocks/storage_blocks/raw_lead.json
+05f4708355ed88fe57116020dd93ac53f3098dba data/forge/tags/blocks/storage_blocks/raw_silver.json
+bff6697a058fddfe9e14615bc043fcb2071fd6fc data/forge/tags/blocks/storage_blocks/silver.json
+7a1e2c391ad442cdc57f69ce1737207bc52bfb84 data/minecraft/tags/blocks/beacon_base_blocks.json
+82c03c405a971b2a7fc3fd43a9fb6c221f463ce0 data/minecraft/tags/blocks/cauldrons.json
+7a2d68d81bc5ee59f9a2f4ba68ddb39bfd9c875d data/minecraft/tags/blocks/impermeable.json
+5a8e60c552af80b2db83e902fa1815f0de135415 data/minecraft/tags/blocks/mineable/pickaxe.json
+18d101d6d861d499b4d27ac8d272972b51567954 data/minecraft/tags/blocks/slabs.json
+0cf9d7544e86c09563b78276d5c89d9043425222 data/minecraft/tags/blocks/stairs.json
+a4acb3623320f801e89e3451f8b7d9e2246f99d0 data/minecraft/tags/blocks/walls.json
+8a4260a519a095e1c7ae01a46a060b752181db1b data/oreganized/tags/blocks/crystal_glass.json
+da4735d89f606e1f2dd3959668141d3c1475bb67 data/oreganized/tags/blocks/crystal_glass_panes.json
+0aeb22ec4f744ac52f3d7dca351527125251ff7a data/oreganized/tags/blocks/engravable.json
+6b73bb0ce38222c428d54ee64e82ffa1d96c64d7 data/oreganized/tags/blocks/fire_source.json

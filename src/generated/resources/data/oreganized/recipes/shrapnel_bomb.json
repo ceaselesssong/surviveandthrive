@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "tag": "forge:gunpowder"
+    },
+    "B": {
+      "tag": "forge:nuggets/lead"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "BAB",
+    "ABA"
+  ],
+  "result": {
+    "item": "oreganized:shrapnel_bomb"
+  }
+}

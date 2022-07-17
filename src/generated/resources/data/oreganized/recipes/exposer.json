@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "tag": "minecraft:stone_crafting_materials"
+    },
+    "B": {
+      "tag": "forge:dusts/redstone"
+    },
+    "C": {
+      "tag": "forge:ingots/silver"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "BBC",
+    "AAA"
+  ],
+  "result": {
+    "item": "oreganized:exposer"
+  }
+}

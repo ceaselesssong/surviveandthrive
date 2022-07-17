@@ -3,7 +3,7 @@
     "#forge:ingots/lead",
     "#forge:nuggets/lead",
     "#forge:ores/lead",
-    "minecraft:air",
-    "minecraft:air"
+    "oreganized:bush_hammer",
+    "oreganized:molten_lead_bucket"
   ]
 }

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "oreganized:glance"
-  },
-  "result": "oreganized:glance_wall",
-  "count": 1
-}

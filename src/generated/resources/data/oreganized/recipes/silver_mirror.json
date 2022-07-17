@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "tag": "forge:ingots/gold"
+    },
+    "B": {
+      "tag": "forge:ingots/silver"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "ABA",
+    " A "
+  ],
+  "result": {
+    "item": "oreganized:silver_mirror"
+  }
+}

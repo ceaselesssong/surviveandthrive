@@ -20,8 +20,8 @@ apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 version = project.oreganized_version
-group = 'me.gleep.oreganized.modid' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'Oreganized_Mod-'+project.mc_version
+group = 'galena.oreganized.modid'
+archivesBaseName = 'Oreganized-'+project.mc_version
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -109,7 +109,7 @@ repositories {
     maven {
         // location of a maven mirror for JEI files, as a fallback
         name = "ModMaven"
-        url = "https://modmaven.k-4u.nl"
+        url = "https://modmaven.dev"
     }
 
     maven {
@@ -123,8 +123,13 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${project.mc_version}-${project.forge_version}"
 
-    //compileOnly fg.deobf("mezz.jei:jei-${project.mc_version}:${jei_version}:api")
-    //runtimeOnly fg.deobf("mezz.jei:jei-${project.mc_version}:${jei_version}")
+    // compile against the JEI API but do not include it at runtime
+    //compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
+    //compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
+    // at runtime, use the full JEI jar for Forge
+    //runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
+
+    implementation fg.deobf("curse.maven:detailab-520755:3865073")
 
     // For testing and showcasing with pretty shaders:
     //runtimeOnly fg.deobf("curse.maven:oculus-581495:3821406")
@@ -145,11 +150,11 @@ jar {
     manifest {
         attributes([
                 "Specification-Title"     : "oreganized",
-                "Specification-Vendor"    : "oreganizedsareus",
+                "Specification-Vendor"    : "galena",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : "${project.oreganized_version}",
-                "Implementation-Vendor"   : "oreganizedsareus",
+                "Implementation-Vendor"   : "galena",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
                 //"MixinConfigs": "oreganized.mixins.json"
         ])
