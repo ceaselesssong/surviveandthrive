@@ -16,7 +16,7 @@
     <img alt="Twitter" src="https://img.shields.io/twitter/follow/Oreganized_mod?label=&color=ff8c5a&labelColor=525474&style=for-the-badge&logo=Twitter&logoColor=white">
   </a>
   
-  <a href="https://twitter.com/Oreganized_mod">
+  <a href="https://www.patreon.com/teamgalena">
     <img alt="Patreon" src="https://img.shields.io/badge/Patreon-Team_Galena?label=&color=ff8c5a&labelColor=525474&style=for-the-badge&logo=Patreon&logoColor=white">
   </a>
 </p>
