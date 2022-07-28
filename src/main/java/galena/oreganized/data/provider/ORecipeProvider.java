@@ -1,7 +1,7 @@
 package galena.oreganized.data.provider;
 
 import galena.oreganized.Oreganized;
-import galena.oreganized.registry.OTags;
+import galena.oreganized.content.index.OTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;

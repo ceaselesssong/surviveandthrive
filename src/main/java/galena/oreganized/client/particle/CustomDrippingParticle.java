@@ -1,6 +1,6 @@
 package galena.oreganized.client.particle;
 
-import galena.oreganized.registry.OParticleTypes;
+import galena.oreganized.content.index.OParticleTypes;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.BlockPos;

@@ -2,9 +2,8 @@ package galena.oreganized.client;
 
 import galena.oreganized.Oreganized;
 import galena.oreganized.client.render.entity.ShrapnelBombRender;
-import galena.oreganized.entity.ShrapnelBomb;
-import galena.oreganized.registry.OBlocks;
-import galena.oreganized.registry.OEntityTypes;
+import galena.oreganized.content.index.OBlocks;
+import galena.oreganized.content.index.OEntityTypes;
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;

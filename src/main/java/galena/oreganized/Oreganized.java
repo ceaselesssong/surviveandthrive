@@ -1,12 +1,11 @@
 package galena.oreganized;
 
-import com.redlimerl.detailab.api.DetailArmorBarAPI;
-import com.redlimerl.detailab.api.render.ArmorBarRenderManager;
-import com.redlimerl.detailab.api.render.ItemBarRenderManager;
-import com.redlimerl.detailab.api.render.TextureOffset;
+//import com.redlimerl.detailab.api.DetailArmorBarAPI;
+//import com.redlimerl.detailab.api.render.ArmorBarRenderManager;
+//import com.redlimerl.detailab.api.render.TextureOffset;
 import galena.oreganized.client.OreganizedClient;
+import galena.oreganized.content.index.*;
 import galena.oreganized.data.*;
-import galena.oreganized.registry.*;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -18,13 +17,13 @@ import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -88,14 +87,14 @@ public class Oreganized {
             }
         });
 
-        if (ModList.get().isLoaded("detailab")) {
+        /*if (ModList.get().isLoaded("detailab")) {
             ResourceLocation texture = new ResourceLocation(MOD_ID, "textures/gui/armor_bar.png");
             DetailArmorBarAPI.customArmorBarBuilder().armor((ArmorItem) OItems.ELECTRUM_CHESTPLATE.get(), (ArmorItem) OItems.ELECTRUM_HELMET.get(), (ArmorItem) OItems.ELECTRUM_LEGGINGS.get(), (ArmorItem) OItems.ELECTRUM_BOOTS.get())
                     .render((ItemStack itemStack) ->
                             new ArmorBarRenderManager(texture, 18, 18,
                                     new TextureOffset(9, 9), new TextureOffset(0, 9), new TextureOffset(9, 0), new TextureOffset(0, 0))
                     ).register();
-        }
+        }*/
     }
 
     public void gatherData(GatherDataEvent event) {

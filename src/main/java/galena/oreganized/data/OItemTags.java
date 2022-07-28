@@ -1,9 +1,8 @@
 package galena.oreganized.data;
 
 import galena.oreganized.Oreganized;
-import galena.oreganized.registry.OBlocks;
-import galena.oreganized.registry.OItems;
-import galena.oreganized.registry.OTags;
+import galena.oreganized.content.index.OItems;
+import galena.oreganized.content.index.OTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -16,7 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 
-import static galena.oreganized.registry.OTags.Items.*;
+import static galena.oreganized.content.index.OTags.Items.*;
 
 public class OItemTags extends ItemTagsProvider {
 

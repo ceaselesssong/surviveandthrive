@@ -2,21 +2,11 @@ package galena.oreganized.data;
 
 import galena.oreganized.Oreganized;
 import galena.oreganized.data.provider.OLangProvider;
-import galena.oreganized.registry.OBlocks;
-import galena.oreganized.registry.OEffects;
-import galena.oreganized.registry.OItems;
-import galena.oreganized.registry.OPotions;
+import galena.oreganized.content.index.OBlocks;
+import galena.oreganized.content.index.OEffects;
+import galena.oreganized.content.index.OItems;
+import galena.oreganized.content.index.OPotions;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.RecordItem;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.LanguageProvider;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.function.Supplier;
 
 public class OLang extends OLangProvider {
 

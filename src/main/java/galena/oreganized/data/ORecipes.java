@@ -1,15 +1,13 @@
 package galena.oreganized.data;
 
 import galena.oreganized.data.provider.ORecipeProvider;
-import galena.oreganized.item.OItem;
-import galena.oreganized.registry.OBlocks;
-import galena.oreganized.registry.OItems;
-import galena.oreganized.registry.OTags;
+import galena.oreganized.content.index.OBlocks;
+import galena.oreganized.content.index.OItems;
+import galena.oreganized.content.index.OTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;

@@ -1,9 +1,9 @@
 package galena.oreganized.data.provider;
 
-import galena.oreganized.block.CrystalGlassBlock;
-import galena.oreganized.block.CrystalGlassPaneBlock;
-import galena.oreganized.block.EngraveableBlock;
-import galena.oreganized.block.MoltenLeadCauldronBlock;
+import galena.oreganized.content.block.CrystalGlassBlock;
+import galena.oreganized.content.block.CrystalGlassPaneBlock;
+import galena.oreganized.content.block.EngraveableBlock;
+import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
