@@ -56,4 +56,8 @@ public class OItems {
             () -> new ElectrumArmorItem(OArmorMaterials.ELECTRUM, EquipmentSlot.LEGS));
     public static final RegistryObject<Item> ELECTRUM_BOOTS = ITEMS.register("electrum_boots",
             () -> new ElectrumArmorItem(OArmorMaterials.ELECTRUM, EquipmentSlot.FEET));
+
+    // Compatibility
+    /*public static final RegistryObject<Item> ELECTRUM_KNIFE = ITEMS.register("electrum_knife",
+            () -> new KnifeItem(OItemTiers.ELECTRUM, 0.5F, -1.8F, (new Item.Properties()).tab(ModList.get().isLoaded(FarmersDelight.MODID) ? FarmersDelight.CREATIVE_TAB : null);*/
 }

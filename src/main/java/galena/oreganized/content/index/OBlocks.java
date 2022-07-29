@@ -27,9 +27,8 @@ public class OBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Oreganized.MOD_ID);
 
 
-    public static final RegistryObject<Block> MOLTEN_LEAD = register("molten_lead_block", () ->
-            new MoltenLeadBlock(BlockBehaviour.Properties.of(OMaterials.MOLTEN_LEAD).strength(-1.0F, 3600000.0F)
-                    .dynamicShape().lightLevel((light) -> 8)));
+    public static final RegistryObject<LiquidBlock> MOLTEN_LEAD = register("molten_lead_block", () ->
+            new MoltenLeadBlock(OFluids.MOLTEN_LEAD, BlockBehaviour.Properties.of(OMaterials.MOLTEN_LEAD)));
     public static final RegistryObject<Block> MOLTEN_LEAD_CAULDRON = register("molten_lead_cauldron", () -> new MoltenLeadCauldronBlock(BlockBehaviour.Properties.copy(Blocks.LAVA_CAULDRON).lightLevel(moltenStageEmission())));
 
     // Glance

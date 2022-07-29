@@ -59,6 +59,7 @@ public class Oreganized {
                 OSoundEvents.SOUNDS,
                 OStructures.STRUCTURE_TYPES,
                 OStructures.STRUCTURES,
+                OBiomeModifiers.BIOME_MODIFIERS,
         };
 
         for (DeferredRegister<?> register : registers) {
@@ -68,6 +69,8 @@ public class Oreganized {
 
     private void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            OConfiguredFeatures.register();
+            OPlacedFeatures.register();
             OCauldronInteractions.register();
 
             PotionBrewing.addMix(Potions.WATER, OItems.LEAD_INGOT.get(), OPotions.STUNNING.get());

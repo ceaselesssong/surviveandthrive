@@ -21,10 +21,12 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BucketPickup;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -33,8 +35,9 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
-public class MoltenLeadBlock extends Block implements BucketPickup {
+public class MoltenLeadBlock extends LiquidBlock {
     /*
         The following code is a mishmash of PowderSnowBlock with some extras taken from Fluid classes.
      */
@@ -42,8 +45,8 @@ public class MoltenLeadBlock extends Block implements BucketPickup {
 
     private static final VoxelShape FALLING_COLLISION_SHAPE = Shapes.box(0.0D, 0.0D, 0.0D, 1.0D, (double)0.9F, 1.0D);
 
-    public MoltenLeadBlock(BlockBehaviour.Properties properties) {
-        super(properties);
+    public MoltenLeadBlock(Supplier<? extends FlowingFluid> fluid, Properties properties) {
+        super(fluid, properties.noCollission().strength(-1.0F, 3600000.0F).noLootTable().lightLevel((state) -> 8));
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
