@@ -3,10 +3,12 @@ package galena.oreganized.content.block;
 import galena.oreganized.content.index.OCauldronInteractions;
 import galena.oreganized.content.index.OTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractCauldronBlock;
@@ -20,16 +22,21 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import java.util.Map;
 import java.util.function.ToIntFunction;
 
 public class MoltenLeadCauldronBlock extends AbstractCauldronBlock {
 
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
-    public MoltenLeadCauldronBlock(BlockBehaviour.Properties properties) {
+    public MoltenLeadCauldronBlock(Properties p_151946_, Map<Item, CauldronInteraction> p_151947_) {
+        super(p_151946_, p_151947_);
+    }
+
+    /*public MoltenLeadCauldronBlock(BlockBehaviour.Properties properties) {
         super(properties, OCauldronInteractions.LEAD);
         registerDefaultState(this.getStateDefinition().any().setValue(AGE, 0));
-    }
+    }*/
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(AGE);

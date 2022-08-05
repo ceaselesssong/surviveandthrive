@@ -42,10 +42,12 @@ public class OBlockStates extends OBlockStateProvider {
         simpleBlock(OBlocks.RAW_LEAD_BLOCK);
         simpleBlock(OBlocks.LEAD_BLOCK);
         simpleBlock(OBlocks.ELECTRUM_BLOCK);
-        simpleBlock(OBlocks.MOLTEN_LEAD);
+        //simpleBlock(OBlocks.MOLTEN_LEAD);
         simpleBlock(OBlocks.SHRAPNEL_BOMB.get(), cubeBottomTop(OBlocks.SHRAPNEL_BOMB));
 
-        moltenCauldron(OBlocks.MOLTEN_LEAD_CAULDRON, OBlocks.LEAD_BLOCK);
+        exposer(OBlocks.EXPOSER);
+
+        //moltenCauldron(OBlocks.MOLTEN_LEAD_CAULDRON, OBlocks.LEAD_BLOCK);
 
         for (int i = 0; OBlocks.CRYSTAL_GLASS.size() > i; i++) {
             Supplier<? extends Block> crystalGlassBlock = OBlocks.CRYSTAL_GLASS.get(i);

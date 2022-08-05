@@ -1,4 +1,4 @@
-// 1.19	2022-07-10T12:37:41.048072763	Oreganized Block Tags
+// 1.19	2022-07-30T13:10:31.994678843	Oreganized Block Tags
 7a2d68d81bc5ee59f9a2f4ba68ddb39bfd9c875d data/forge/tags/blocks/glass.json
 d96b4f83e03abe39a1b97d92b7818c8f6b2e5c68 data/forge/tags/blocks/glass_panes.json
 4e9173550595ca2ada5744dc749553e93b05954f data/forge/tags/blocks/ore_rates/singular.json
@@ -12,7 +12,6 @@ bb0420ecbadc747d984fcef0fe7fc67586bc3231 data/forge/tags/blocks/storage_blocks/l
 05f4708355ed88fe57116020dd93ac53f3098dba data/forge/tags/blocks/storage_blocks/raw_silver.json
 bff6697a058fddfe9e14615bc043fcb2071fd6fc data/forge/tags/blocks/storage_blocks/silver.json
 7a1e2c391ad442cdc57f69ce1737207bc52bfb84 data/minecraft/tags/blocks/beacon_base_blocks.json
-82c03c405a971b2a7fc3fd43a9fb6c221f463ce0 data/minecraft/tags/blocks/cauldrons.json
 7a2d68d81bc5ee59f9a2f4ba68ddb39bfd9c875d data/minecraft/tags/blocks/impermeable.json
 5a8e60c552af80b2db83e902fa1815f0de135415 data/minecraft/tags/blocks/mineable/pickaxe.json
 18d101d6d861d499b4d27ac8d272972b51567954 data/minecraft/tags/blocks/slabs.json

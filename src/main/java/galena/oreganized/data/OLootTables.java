@@ -47,8 +47,8 @@ public class OLootTables extends LootTableProvider {
     public static class Blocks extends OBlockLootProvider {
 
         protected void addTables() {
-            dropNothing(OBlocks.MOLTEN_LEAD);
-            cauldron(OBlocks.MOLTEN_LEAD_CAULDRON);
+            //dropNothing(OBlocks.MOLTEN_LEAD);
+            //cauldron(OBlocks.MOLTEN_LEAD_CAULDRON);
 
             dropSelf(OBlocks.GLANCE);
             dropSelf(OBlocks.POLISHED_GLANCE);
@@ -74,7 +74,7 @@ public class OLootTables extends LootTableProvider {
             dropSelf(OBlocks.EXPOSER);
             dropSelf(OBlocks.SHRAPNEL_BOMB);
 
-            dropOther(OBlocks.MOLTEN_LEAD_CAULDRON, CAULDRON);
+            //dropOther(OBlocks.MOLTEN_LEAD_CAULDRON, CAULDRON);
 
             for (int i = 0; OBlocks.CRYSTAL_GLASS.size() > i; i++) {
                 dropAsSilk(OBlocks.CRYSTAL_GLASS.get(i));

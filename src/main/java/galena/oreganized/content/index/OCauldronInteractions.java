@@ -23,7 +23,7 @@ import static galena.oreganized.content.block.MoltenLeadCauldronBlock.*;
 
 public interface OCauldronInteractions extends CauldronInteraction {
 
-    CauldronInteraction FILL_MOLTEN_LEAD = (state, world, pos, player, hand, stack) ->
+    /*CauldronInteraction FILL_MOLTEN_LEAD = (state, world, pos, player, hand, stack) ->
             CauldronInteraction.emptyBucket(world, pos, player, hand, stack, OBlocks.MOLTEN_LEAD_CAULDRON.get().defaultBlockState().setValue(AGE, 3), SoundEvents.BUCKET_EMPTY_LAVA);
 
     CauldronInteraction EMPTY_MOLTEN_LEAD = (state, world, pos, player, hand, stack) ->
@@ -62,5 +62,5 @@ public interface OCauldronInteractions extends CauldronInteraction {
         }
 
         return InteractionResult.sidedSuccess(world.isClientSide);
-    }
+    }*/
 }

@@ -4,11 +4,13 @@ import galena.oreganized.Oreganized;
 import galena.oreganized.client.render.entity.ShrapnelBombRender;
 import galena.oreganized.content.index.OBlocks;
 import galena.oreganized.content.index.OEntityTypes;
+import galena.oreganized.content.index.OFluids;
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ViewportEvent;
@@ -29,8 +31,6 @@ public class OreganizedClient {
         RenderType mipped = RenderType.cutoutMipped();
         RenderType translucent = RenderType.translucent();
 
-        render(OBlocks.MOLTEN_LEAD, translucent);
-
         for (int i = 0; OBlocks.CRYSTAL_GLASS.size() > i; i++) {
             render(OBlocks.CRYSTAL_GLASS.get(i), translucent);
             render(OBlocks.CRYSTAL_GLASS_PANES.get(i), translucent);
@@ -45,12 +45,12 @@ public class OreganizedClient {
     @Mod.EventBusSubscriber(modid = Oreganized.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
     public static class ForgeBusEvents {
 
-        @SubscribeEvent
+        /*@SubscribeEvent
         public static void renderMoltenLeadFogColor(ViewportEvent.ComputeFogColor event) {
             Camera camera = event.getCamera();
-            BlockState state = camera.getBlockAtCamera();
+            FluidState fluidState = camera.getBlockAtCamera().getFluidState();
 
-            if(state.is(OBlocks.MOLTEN_LEAD.get())) {
+            if(fluidState.getType().isSame(OFluids.MOLTEN_LEAD.get())) {
                 event.setRed(57F / 255F);
                 event.setGreen(57F / 255F);
                 event.setBlue(95F / 255F);
@@ -59,12 +59,12 @@ public class OreganizedClient {
         @SubscribeEvent
         public static void renderMoltenLeadFogDensity(ViewportEvent.RenderFog event) {
             Camera camera = event.getCamera();
-            BlockState state = camera.getBlockAtCamera();
+            FluidState fluidState = camera.getBlockAtCamera().getFluidState();
 
-            if(state.is(OBlocks.MOLTEN_LEAD.get())) {
+            if(fluidState.getType().isSame(OFluids.MOLTEN_LEAD.get())) {
                 event.setFarPlaneDistance(15.0F);
                 event.setCanceled(true);
             }
-        }
+        }*/
     }
 }

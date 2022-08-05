@@ -8,9 +8,12 @@ import galena.oreganized.content.item.SilverMirrorItem;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.common.item.KnifeItem;
 
 public class OItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Oreganized.MOD_ID);
@@ -45,7 +48,7 @@ public class OItems {
 
     // Misc Tools
     public static final RegistryObject<Item> SILVER_MIRROR = ITEMS.register("silver_mirror", () -> new SilverMirrorItem(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TOOLS)));
-    public static final RegistryObject<Item> MOLTEN_LEAD_BUCKET = ITEMS.register("molten_lead_bucket", () -> new SolidBucketItem(OBlocks.MOLTEN_LEAD.get(), SoundEvents.BUCKET_EMPTY_LAVA, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_MISC)));
+    //public static final RegistryObject<Item> MOLTEN_LEAD_BUCKET = ITEMS.register("molten_lead_bucket", () -> new BucketItem(OFluids.MOLTEN_LEAD.get(), new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_MISC)));
 
     // Armor
     public static final RegistryObject<Item> ELECTRUM_HELMET = ITEMS.register("electrum_helmet",
@@ -58,6 +61,6 @@ public class OItems {
             () -> new ElectrumArmorItem(OArmorMaterials.ELECTRUM, EquipmentSlot.FEET));
 
     // Compatibility
-    /*public static final RegistryObject<Item> ELECTRUM_KNIFE = ITEMS.register("electrum_knife",
-            () -> new KnifeItem(OItemTiers.ELECTRUM, 0.5F, -1.8F, (new Item.Properties()).tab(ModList.get().isLoaded(FarmersDelight.MODID) ? FarmersDelight.CREATIVE_TAB : null);*/
+    public static final RegistryObject<Item> ELECTRUM_KNIFE = ITEMS.register("electrum_knife",
+            () -> new KnifeItem(OItemTiers.ELECTRUM, 0.5F, -1.8F, (new Item.Properties()).tab(ModList.get().isLoaded(FarmersDelight.MODID) ? FarmersDelight.CREATIVE_TAB : null)));
 }

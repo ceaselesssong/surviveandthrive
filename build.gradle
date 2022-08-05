@@ -103,12 +103,13 @@ dependencies {
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
     // compile against the JEI API but do not include it at runtime
-    //compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    //compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
+    //compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
+    //compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
     // at runtime, use the full JEI jar for Forge
-    //runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    //runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
 
     //implementation fg.deobf("curse.maven:detailab-520755:3865073")
+    implementation fg.deobf("curse.maven:farmers-delight-398521:3916069")
 
     runtimeOnly fg.deobf("curse.maven:catalogue-459701:3873264")
     runtimeOnly fg.deobf("curse.maven:configured-457570:3872190")

@@ -1,9 +1,6 @@
 package galena.oreganized.data.provider;
 
-import galena.oreganized.content.block.CrystalGlassBlock;
-import galena.oreganized.content.block.CrystalGlassPaneBlock;
-import galena.oreganized.content.block.EngraveableBlock;
-import galena.oreganized.content.block.MoltenLeadCauldronBlock;
+import galena.oreganized.content.block.*;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -15,6 +12,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.function.Supplier;
 
 import static galena.oreganized.Oreganized.MOD_ID;
+import static net.minecraftforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 
 public abstract class OBlockStateProvider extends BlockStateProvider {
 
@@ -78,6 +76,38 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
         model.texture("bottom", texture(name(block) + "_bottom"));
         model.texture("side", texture(name(block) + "_side"));
         return model;
+    }
+
+    public ModelFile directionalBlockModel(Supplier<? extends Block> block, String name, String side, String front, String back, String top) {
+        return models().withExistingParent(name, BLOCK_FOLDER + "/observer")
+                .texture("bottom", texture(back))
+                .texture("side", texture(side))
+                .texture("top", texture(top))
+                .texture("front", texture(front))
+                .texture("particle", texture(front));
+    }
+
+    public void exposer(Supplier<? extends Block> block) {
+        getVariantBuilder(block.get()).forAllStates(state -> {
+            // Annoyingly complicated method to convert the blockstate's levels (0,1,2,3,4,5,6,7) to 4 frames (0,1,2,3)
+            int level = Math.round((ExposerBlock.TexturedFrames - 1) / (float)(state.getValue(ExposerBlock.LEVEL) + 1));
+            Direction facing = state.getValue(ExposerBlock.FACING);
+            int x = 0;
+            int y = 0;
+            //if (facing == Direction.NORTH) do nothing;
+            if (facing == Direction.EAST) y = 90;
+            if (facing == Direction.SOUTH) y = 180;
+            if (facing == Direction.WEST) y = 270;
+            if (facing == Direction.DOWN) x = 90;
+            if (facing == Direction.UP) x = 270;
+
+            String name = name(block) + "_level_" + level;
+            String side = name(block) + "_side";
+            String back = state.getValue(ExposerBlock.LEVEL) < 7 ? name(block) + "_back_on" : name(block) + "_back";
+            String top = name(block) + "_top";
+
+            return ConfiguredModel.builder().modelFile(directionalBlockModel(block, name + "_" + facing, side, name, back, top)).rotationX(x).rotationY(y).build();
+        });
     }
 
     public ModelFile cauldronModel(Supplier<? extends Block> block, ResourceLocation texture, int age) {

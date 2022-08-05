@@ -52,7 +52,7 @@ public class Oreganized {
                 OBlocks.BLOCKS,
                 OEffects.EFFECTS,
                 OEntityTypes.ENTITIES,
-                //OFluids.FLUIDS,
+                OFluids.FLUIDS,
                 OItems.ITEMS,
                 OParticleTypes.PARTICLES,
                 OPotions.POTIONS,
@@ -71,7 +71,7 @@ public class Oreganized {
         event.enqueueWork(() -> {
             OConfiguredFeatures.register();
             OPlacedFeatures.register();
-            OCauldronInteractions.register();
+            //OCauldronInteractions.register();
 
             PotionBrewing.addMix(Potions.WATER, OItems.LEAD_INGOT.get(), OPotions.STUNNING.get());
             PotionBrewing.addMix(OPotions.STUNNING.get(), Items.REDSTONE, OPotions.LONG_STUNNING.get());

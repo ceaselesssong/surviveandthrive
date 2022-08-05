@@ -35,7 +35,7 @@ public class OItemModels extends OItemModelProvider {
         normalItem(OItems.ELECTRUM_INGOT);
         normalItem(OItems.ELECTRUM_NUGGET);
         normalItem(OItems.NETHERITE_NUGGET);
-        normalItem(OItems.MOLTEN_LEAD_BUCKET);
+        //normalItem(OItems.MOLTEN_LEAD_BUCKET);
         normalItem(OItems.ELECTRUM_HELMET);
         normalItem(OItems.ELECTRUM_CHESTPLATE);
         normalItem(OItems.ELECTRUM_LEGGINGS);
@@ -47,6 +47,7 @@ public class OItemModels extends OItemModelProvider {
         toolItem(OItems.ELECTRUM_PICKAXE);
         toolItem(OItems.ELECTRUM_AXE);
         toolItem(OItems.ELECTRUM_HOE);
+        toolItem(OItems.ELECTRUM_KNIFE);
 
         block(OBlocks.GLANCE);
         block(OBlocks.POLISHED_GLANCE);
@@ -68,6 +69,7 @@ public class OItemModels extends OItemModelProvider {
         block(OBlocks.RAW_LEAD_BLOCK);
         block(OBlocks.LEAD_BLOCK);
         block(OBlocks.ELECTRUM_BLOCK);
+        block(OBlocks.EXPOSER, "exposer_level_0_south");
         block(OBlocks.SHRAPNEL_BOMB);
 
         for (int i = 0; OBlocks.CRYSTAL_GLASS.size() > i; i++) {
