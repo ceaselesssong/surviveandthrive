@@ -3,6 +3,7 @@ package galena.oreganized.data;
 import galena.oreganized.Oreganized;
 import galena.oreganized.content.index.OItems;
 import galena.oreganized.content.index.OTags;
+import galena.oreganized.integration.farmersdelight.FDCompatRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;

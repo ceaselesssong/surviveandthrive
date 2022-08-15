@@ -6,6 +6,7 @@ package galena.oreganized;
 import galena.oreganized.client.OreganizedClient;
 import galena.oreganized.content.index.*;
 import galena.oreganized.data.*;
+import galena.oreganized.integration.CompatHandler;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -45,8 +46,6 @@ public class Oreganized {
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::gatherData);
 
-
-
         DeferredRegister<?>[] registers = {
                 //OBlockEntities.BLOCK_ENTITIES,
                 OBlocks.BLOCKS,
@@ -65,6 +64,8 @@ public class Oreganized {
         for (DeferredRegister<?> register : registers) {
             register.register(modEventBus);
         }
+
+        CompatHandler.register();
     }
 
     private void setup(FMLCommonSetupEvent event) {
