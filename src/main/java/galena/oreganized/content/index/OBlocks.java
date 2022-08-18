@@ -28,8 +28,8 @@ public class OBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Oreganized.MOD_ID);
 
 
-    //public static final RegistryObject<LiquidBlock> MOLTEN_LEAD = register("molten_lead", () ->
-            //new MoltenLeadBlock(OFluids.MOLTEN_LEAD, BlockBehaviour.Properties.copy(Blocks.LAVA).color(MaterialColor.COLOR_PURPLE)));
+    public static final RegistryObject<LiquidBlock> MOLTEN_LEAD = register("molten_lead", () ->
+            new MoltenLeadBlock(OFluids.MOLTEN_LEAD, BlockBehaviour.Properties.copy(Blocks.LAVA).color(MaterialColor.COLOR_PURPLE)));
     //public static final RegistryObject<Block> MOLTEN_LEAD_CAULDRON = register("molten_lead_cauldron", () -> new MoltenLeadCauldronBlock(BlockBehaviour.Properties.copy(Blocks.LAVA_CAULDRON).lightLevel(moltenStageEmission())));
 
     // Glance

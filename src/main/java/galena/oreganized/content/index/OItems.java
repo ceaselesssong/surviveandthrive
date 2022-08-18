@@ -24,18 +24,18 @@ public class OItems {
     public static final RegistryObject<RecordItem> MUSIC_DISC_SHULK = ITEMS.register("music_disc_shulk", () -> new RecordItem(15, OSoundEvents.MUSIC_DISC_SHULK, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
 
     // Crafting Materials
-    public static final RegistryObject<Item> RAW_SILVER = ITEMS.register("raw_silver", () -> new OItem(CreativeModeTab.TAB_MATERIALS));
-    public static final RegistryObject<Item> SILVER_INGOT = ITEMS.register("silver_ingot", () -> new OItem(CreativeModeTab.TAB_MATERIALS));
-    public static final RegistryObject<Item> SILVER_NUGGET = ITEMS.register("silver_nugget", () -> new OItem(CreativeModeTab.TAB_MATERIALS));
+    public static final RegistryObject<Item> RAW_SILVER = ITEMS.register("raw_silver", () -> new OItem(Items.GOLD_INGOT));
+    public static final RegistryObject<Item> SILVER_INGOT = ITEMS.register("silver_ingot", () -> new OItem(RAW_SILVER.get()));
+    public static final RegistryObject<Item> SILVER_NUGGET = ITEMS.register("silver_nugget", () -> new OItem(Items.GOLD_NUGGET));
 
-    public static final RegistryObject<Item> RAW_LEAD = ITEMS.register("raw_lead", () -> new OItem(CreativeModeTab.TAB_MATERIALS));
-    public static final RegistryObject<Item> LEAD_INGOT = ITEMS.register("lead_ingot", () -> new OItem(CreativeModeTab.TAB_MATERIALS));
-    public static final RegistryObject<Item> LEAD_NUGGET = ITEMS.register("lead_nugget", () -> new OItem(CreativeModeTab.TAB_MATERIALS));
+    public static final RegistryObject<Item> RAW_LEAD = ITEMS.register("raw_lead", () -> new OItem(SILVER_INGOT.get()));
+    public static final RegistryObject<Item> LEAD_INGOT = ITEMS.register("lead_ingot", () -> new OItem(RAW_LEAD.get()));
+    public static final RegistryObject<Item> LEAD_NUGGET = ITEMS.register("lead_nugget", () -> new OItem(SILVER_NUGGET.get()));
 
-    public static final RegistryObject<Item> ELECTRUM_INGOT = ITEMS.register("electrum_ingot", () -> new OItem(CreativeModeTab.TAB_MATERIALS));
-    public static final RegistryObject<Item> ELECTRUM_NUGGET = ITEMS.register("electrum_nugget", () -> new OItem(CreativeModeTab.TAB_MATERIALS));
+    public static final RegistryObject<Item> ELECTRUM_INGOT = ITEMS.register("electrum_ingot", () -> new OItem(Items.NETHERITE_INGOT));
+    public static final RegistryObject<Item> NETHERITE_NUGGET = ITEMS.register("netherite_nugget", () -> new OItem(LEAD_NUGGET.get()));
+    public static final RegistryObject<Item> ELECTRUM_NUGGET = ITEMS.register("electrum_nugget", () -> new OItem(NETHERITE_NUGGET.get()));
 
-    public static final RegistryObject<Item> NETHERITE_NUGGET = ITEMS.register("netherite_nugget", () -> new OItem(CreativeModeTab.TAB_MATERIALS));
 
     // Tools
     public static final RegistryObject<Item> BUSH_HAMMER = ITEMS.register("bush_hammer", () -> new BushHammerItem(OItemTiers.LEAD, 2.5F, -2.8F, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_TOOLS)));
@@ -48,7 +48,7 @@ public class OItems {
 
     // Misc Tools
     public static final RegistryObject<Item> SILVER_MIRROR = ITEMS.register("silver_mirror", () -> new SilverMirrorItem(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TOOLS)));
-    //public static final RegistryObject<Item> MOLTEN_LEAD_BUCKET = ITEMS.register("molten_lead_bucket", () -> new BucketItem(OFluids.MOLTEN_LEAD.get(), new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> MOLTEN_LEAD_BUCKET = ITEMS.register("molten_lead_bucket", () -> new BucketItem(OFluids.MOLTEN_LEAD, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_MISC)));
 
     // Armor
     public static final RegistryObject<Item> ELECTRUM_HELMET = ITEMS.register("electrum_helmet",

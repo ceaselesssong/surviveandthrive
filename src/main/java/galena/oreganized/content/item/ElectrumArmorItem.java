@@ -5,17 +5,16 @@ import com.google.common.collect.Multimap;
 import galena.oreganized.Oreganized;
 import galena.oreganized.client.model.ElectrumArmorModel;
 import galena.oreganized.content.index.OArmorMaterials;
+import galena.oreganized.content.index.OItems;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
@@ -63,5 +62,18 @@ public class ElectrumArmorItem extends ArmorItem {
                 return new ElectrumArmorModel<>(ElectrumArmorModel.createBodyLayer().bakeRoot(), armorSlot);
             }
         });
+    }
+
+    @Override
+    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
+        if (this.allowedIn(tab))
+            OItem.insert(new ItemStack(this), false, items, stack -> {
+                Item item = stack.getItem();
+                Item piece = this.asItem();
+                return piece == OItems.ELECTRUM_HELMET.get() && item == Items.NETHERITE_BOOTS ||
+                        piece == OItems.ELECTRUM_CHESTPLATE.get() && item == OItems.ELECTRUM_HELMET.get() ||
+                        piece == OItems.ELECTRUM_LEGGINGS.get() && item == OItems.ELECTRUM_CHESTPLATE.get() ||
+                        piece == OItems.ELECTRUM_BOOTS.get() && item == OItems.ELECTRUM_LEGGINGS.get();
+            });
     }
 }

@@ -36,7 +36,7 @@ public class OItemModels extends OItemModelProvider {
         normalItem(OItems.ELECTRUM_INGOT);
         normalItem(OItems.ELECTRUM_NUGGET);
         normalItem(OItems.NETHERITE_NUGGET);
-        //normalItem(OItems.MOLTEN_LEAD_BUCKET);
+        normalItem(OItems.MOLTEN_LEAD_BUCKET);
         normalItem(OItems.ELECTRUM_HELMET);
         normalItem(OItems.ELECTRUM_CHESTPLATE);
         normalItem(OItems.ELECTRUM_LEGGINGS);

@@ -1,8 +1,8 @@
 package galena.oreganized;
 
-//import com.redlimerl.detailab.api.DetailArmorBarAPI;
-//import com.redlimerl.detailab.api.render.ArmorBarRenderManager;
-//import com.redlimerl.detailab.api.render.TextureOffset;
+import com.redlimerl.detailab.api.DetailArmorBarAPI;
+import com.redlimerl.detailab.api.render.ArmorBarRenderManager;
+import com.redlimerl.detailab.api.render.TextureOffset;
 import galena.oreganized.client.OreganizedClient;
 import galena.oreganized.content.index.*;
 import galena.oreganized.data.*;
@@ -16,10 +16,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fluids.FluidInteractionRegistry;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -52,6 +54,7 @@ public class Oreganized {
                 OEffects.EFFECTS,
                 OEntityTypes.ENTITIES,
                 OFluids.FLUIDS,
+                OFluids.TYPES,
                 OItems.ITEMS,
                 OParticleTypes.PARTICLES,
                 OPotions.POTIONS,
@@ -69,6 +72,10 @@ public class Oreganized {
     }
 
     private void setup(FMLCommonSetupEvent event) {
+        FluidInteractionRegistry.addInteraction(OFluids.MOLTEN_LEAD_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
+                ForgeMod.WATER_TYPE.get(),
+                fluidState -> OBlocks.LEAD_BLOCK.get().defaultBlockState()
+        ));
         event.enqueueWork(() -> {
             OConfiguredFeatures.register();
             OPlacedFeatures.register();
@@ -91,14 +98,14 @@ public class Oreganized {
             }
         });
 
-        /*if (ModList.get().isLoaded("detailab")) {
+        if (ModList.get().isLoaded("detailab")) {
             ResourceLocation texture = new ResourceLocation(MOD_ID, "textures/gui/armor_bar.png");
             DetailArmorBarAPI.customArmorBarBuilder().armor((ArmorItem) OItems.ELECTRUM_CHESTPLATE.get(), (ArmorItem) OItems.ELECTRUM_HELMET.get(), (ArmorItem) OItems.ELECTRUM_LEGGINGS.get(), (ArmorItem) OItems.ELECTRUM_BOOTS.get())
                     .render((ItemStack itemStack) ->
                             new ArmorBarRenderManager(texture, 18, 18,
                                     new TextureOffset(9, 9), new TextureOffset(0, 9), new TextureOffset(9, 0), new TextureOffset(0, 0))
                     ).register();
-        }*/
+        }
     }
 
     public void gatherData(GatherDataEvent event) {
