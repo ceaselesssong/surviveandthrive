@@ -1,6 +1,7 @@
 package galena.oreganized.content.index;
 
 import galena.oreganized.Oreganized;
+import galena.oreganized.content.MoltenMetal;
 import galena.oreganized.content.block.*;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
@@ -28,9 +29,6 @@ public class OBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Oreganized.MOD_ID);
 
 
-    public static final RegistryObject<LiquidBlock> MOLTEN_LEAD = register("molten_lead", () ->
-            new MoltenLeadBlock(OFluids.MOLTEN_LEAD, BlockBehaviour.Properties.copy(Blocks.LAVA).color(MaterialColor.COLOR_PURPLE)));
-    //public static final RegistryObject<Block> MOLTEN_LEAD_CAULDRON = register("molten_lead_cauldron", () -> new MoltenLeadCauldronBlock(BlockBehaviour.Properties.copy(Blocks.LAVA_CAULDRON).lightLevel(moltenStageEmission())));
 
     // Glance
     public static final RegistryObject<Block> GLANCE = register("glance", () -> new Block(BlockBehaviour.Properties.of(OMaterials.GLANCE).explosionResistance(6).strength(1.5F)), CreativeModeTab.TAB_BUILDING_BLOCKS);
@@ -118,6 +116,12 @@ public class OBlocks {
     );
 
     // Waxed Concrete Powder
+
+    // Fluids and Cauldrons
+    public static final RegistryObject<LiquidBlock> MOLTEN_LEAD = register("molten_lead", () ->
+            new MoltenLeadBlock(OFluids.MOLTEN_LEAD, BlockBehaviour.Properties.copy(Blocks.LAVA).color(MaterialColor.COLOR_PURPLE)));
+    //public static final RegistryObject<Block> MOLTEN_LEAD_CAULDRON = register("molten_lead_cauldron", () -> new MoltenCauldronBlock(new MoltenMetal(LEAD_BLOCK, OFluids.MOLTEN_LEAD)));
+
 
 
     public static <B extends Block> RegistryObject<B> register(String name, Supplier<? extends B> block, CreativeModeTab tab) {

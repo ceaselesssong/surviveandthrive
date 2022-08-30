@@ -32,11 +32,14 @@ public class CrystalGlassPaneBlock extends IronBarsBlock implements ICrystalGlas
         builder.add(TYPE);
     }
 
+    @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(TYPE, context.getPlayer().isCrouching() ? ROTATED : NORMAL);
+        boolean flag = context.getPlayer() != null;
+        return this.defaultBlockState().setValue(TYPE, flag && context.getPlayer().isCrouching() ? ROTATED : NORMAL);
     }
 
+    @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState adjState, LevelAccessor world, BlockPos pos, BlockPos adjPos) {
         Block centerBlock = state.getBlock();
         Block aboveBlock = world.getBlockState(pos.above()).getBlock();
@@ -59,19 +62,5 @@ public class CrystalGlassPaneBlock extends IronBarsBlock implements ICrystalGlas
             }
         }
         return super.updateShape(state, direction, adjState, world, pos, adjPos);
-    }
-
-    private void updatePattern(BlockPos centerPos, LevelAccessor world) {
-        BlockState aboveState = world.getBlockState(centerPos.above());
-        BlockState centerState = world.getBlockState(centerPos);
-        BlockState belowState = world.getBlockState(centerPos.below());
-
-        if (centerState.getBlock() == aboveState.getBlock() && centerState.getBlock() == belowState.getBlock()) {
-            if (aboveState.getValue(TYPE) == ROTATED && centerState.getValue(TYPE) == ROTATED && belowState.getValue(TYPE) == NORMAL) {
-                world.setBlock(centerPos, centerState.setValue(TYPE, OUTER), 3);
-            } else if (aboveState.getValue(TYPE) == NORMAL && centerState.getValue(TYPE) == NORMAL && belowState.getValue(TYPE) == ROTATED) {
-                world.setBlock(centerPos, centerState.setValue(TYPE, INNER), 3);
-            }
-        }
     }
 }

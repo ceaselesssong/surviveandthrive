@@ -10,6 +10,7 @@ import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -38,6 +39,7 @@ public class OItemTags extends ItemTagsProvider {
         tag(CONSUMABLE).add(ForgeRegistries.ITEMS.getValues().stream().filter(Item::isEdible).toList().toArray(new Item[20]));
         copy(OTags.Blocks.CRYSTAL_GLASS, CRYSTAL_GLASS);
         copy(OTags.Blocks.CRYSTAL_GLASS_PANES, CRYSTAL_GLASS_PANES);
+        tag(LIGHTER_THAN_LEAD).add(Items.IRON_BOOTS);
 
         // Oreganized Forge
         tag(RAW_MATERIALS_SILVER).add(OItems.RAW_SILVER.get());

@@ -42,7 +42,6 @@ public class OBlockStates extends OBlockStateProvider {
         simpleBlock(OBlocks.RAW_LEAD_BLOCK);
         simpleBlock(OBlocks.LEAD_BLOCK);
         simpleBlock(OBlocks.ELECTRUM_BLOCK);
-        //simpleBlock(OBlocks.MOLTEN_LEAD);
         simpleBlock(OBlocks.SHRAPNEL_BOMB.get(), cubeBottomTop(OBlocks.SHRAPNEL_BOMB));
 
         exposer(OBlocks.EXPOSER);

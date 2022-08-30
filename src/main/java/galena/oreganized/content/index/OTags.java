@@ -18,6 +18,7 @@ public class OTags {
         public static final TagKey<Item> CONSUMABLE = tag("consumable");
         public static final TagKey<Item> CRYSTAL_GLASS = tag("crystal_glass");
         public static final TagKey<Item> CRYSTAL_GLASS_PANES = tag("crystal_glass_panes");
+        public static final TagKey<Item> LIGHTER_THAN_LEAD = tag("lighter_than_lead");
 
         public static final TagKey<Item> RAW_MATERIALS_SILVER = forgeTag("raw_materials/silver");
         public static final TagKey<Item> RAW_MATERIALS_LEAD = forgeTag("raw_materials/lead");
@@ -44,7 +45,7 @@ public class OTags {
         private static TagKey<Item> tag(String name) {
             return ItemTags.create(new ResourceLocation(Oreganized.MOD_ID, name));
         }
-        private static final TagKey<Item> forgeTag(String name) {
+        private static TagKey<Item> forgeTag(String name) {
             return ItemTags.create(new ResourceLocation(ForgeVersion.MOD_ID, name));
         }
     }
@@ -53,6 +54,7 @@ public class OTags {
 
         public static final TagKey<Block> MINEABLE_WITH_BUSH_HAMMER = tag("mineable/bush_hammer");
         public static final TagKey<Block> ENGRAVABLE = tag("engravable");
+        public static final TagKey<Block> ENGRAVABLE_NEEDS_PLATE = tag("engravable/needs_plate");
         public static final TagKey<Block> FIRE_SOURCE = tag("fire_source");
         public static final TagKey<Block> CRYSTAL_GLASS = tag("crystal_glass");
         public static final TagKey<Block> CRYSTAL_GLASS_PANES = tag("crystal_glass_panes");

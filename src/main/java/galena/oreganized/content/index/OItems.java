@@ -19,9 +19,9 @@ public class OItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Oreganized.MOD_ID);
 
     // Discs
-    public static final RegistryObject<RecordItem> MUSIC_DISC_PILLAGED = ITEMS.register("music_disc_pillaged", () -> new RecordItem(13, OSoundEvents.MUSIC_DISC_PILLAGED, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
-    public static final RegistryObject<RecordItem> MUSIC_DISC_18 = ITEMS.register("music_disc_18", () -> new RecordItem(14, OSoundEvents.MUSIC_DISC_18, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
-    public static final RegistryObject<RecordItem> MUSIC_DISC_SHULK = ITEMS.register("music_disc_shulk", () -> new RecordItem(15, OSoundEvents.MUSIC_DISC_SHULK, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<RecordItem> MUSIC_DISC_PILLAGED = ITEMS.register("music_disc_pillaged", () -> new RecordItem(13, OSoundEvents.MUSIC_DISC_PILLAGED, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC), 2780));
+    public static final RegistryObject<RecordItem> MUSIC_DISC_18 = ITEMS.register("music_disc_18", () -> new RecordItem(14, OSoundEvents.MUSIC_DISC_18, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC), 2680));
+    public static final RegistryObject<RecordItem> MUSIC_DISC_SHULK = ITEMS.register("music_disc_shulk", () -> new RecordItem(15, OSoundEvents.MUSIC_DISC_SHULK, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC), 2180));
 
     // Crafting Materials
     public static final RegistryObject<Item> RAW_SILVER = ITEMS.register("raw_silver", () -> new OItem(Items.GOLD_INGOT));

@@ -3,6 +3,9 @@ package galena.oreganized.content.item;
 import com.google.common.collect.ImmutableMap;
 import galena.oreganized.content.index.OTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DiggerItem;
@@ -31,8 +34,15 @@ public class BushHammerItem extends DiggerItem {
         Player player = context.getPlayer();
         BlockState state = world.getBlockState(pos);
         ItemStack item = context.getItemInHand();
+        Direction facing = context.getClickedFace();
         Optional<BlockState> emptyState = Optional.empty();
-
+        if (state.is(OTags.Blocks.ENGRAVABLE) && player != null && !world.isClientSide) {
+            Direction direction = facing.getAxis() == Direction.Axis.Y ? player.getDirection().getOpposite() : facing;
+            world.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
+            return InteractionResult.sidedSuccess(world.isClientSide);
+        }
         return InteractionResult.PASS;
     }
+
+
 }

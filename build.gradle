@@ -108,7 +108,7 @@ dependencies {
     // at runtime, use the full JEI jar for Forge
     //runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
 
-    implementation fg.deobf("curse.maven:detailab-520755:3871769")
+    implementation fg.deobf("curse.maven:detailab-520755:3920487")
     compileOnly fg.deobf("curse.maven:farmers-delight-398521:3916069")
     runtimeOnly fg.deobf("curse.maven:farmers-delight-398521:3916069")
 

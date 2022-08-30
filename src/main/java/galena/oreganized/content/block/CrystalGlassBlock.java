@@ -1,5 +1,6 @@
 package galena.oreganized.content.block;
 
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.DyeColor;
@@ -13,7 +14,10 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class CrystalGlassBlock extends AbstractGlassBlock implements ICrystalGlass {
 
     private final DyeColor color;
@@ -29,16 +33,19 @@ public class CrystalGlassBlock extends AbstractGlassBlock implements ICrystalGla
         return this.color;
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(TYPE);
     }
 
+    @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(TYPE, context.getPlayer().isCrouching() ? ROTATED : NORMAL);
     }
 
+    @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState adjState, LevelAccessor world, BlockPos pos, BlockPos adjPos) {
         Block centerBlock = state.getBlock();
         Block aboveBlock = world.getBlockState(pos.above()).getBlock();
@@ -61,19 +68,5 @@ public class CrystalGlassBlock extends AbstractGlassBlock implements ICrystalGla
             }
         }
         return super.updateShape(state, direction, adjState, world, pos, adjPos);
-    }
-
-    private void updatePattern(BlockPos centerPos, LevelAccessor world) {
-        BlockState aboveState = world.getBlockState(centerPos.above());
-        BlockState centerState = world.getBlockState(centerPos);
-        BlockState belowState = world.getBlockState(centerPos.below());
-
-        if (centerState.getBlock() == aboveState.getBlock() && centerState.getBlock() == belowState.getBlock()) {
-            if (aboveState.getValue(TYPE) == ROTATED && centerState.getValue(TYPE) == ROTATED && belowState.getValue(TYPE) == NORMAL) {
-                world.setBlock(centerPos, centerState.setValue(TYPE, OUTER), 3);
-            } else if (aboveState.getValue(TYPE) == NORMAL && centerState.getValue(TYPE) == NORMAL && belowState.getValue(TYPE) == ROTATED) {
-                world.setBlock(centerPos, centerState.setValue(TYPE, INNER), 3);
-            }
-        }
     }
 }
