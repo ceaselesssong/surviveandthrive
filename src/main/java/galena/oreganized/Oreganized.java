@@ -1,5 +1,6 @@
 package galena.oreganized;
 
+import com.google.common.collect.ImmutableBiMap;
 import com.redlimerl.detailab.api.DetailArmorBarAPI;
 import com.redlimerl.detailab.api.render.ArmorBarRenderManager;
 import com.redlimerl.detailab.api.render.TextureOffset;
@@ -76,6 +77,7 @@ public class Oreganized {
                 ForgeMod.WATER_TYPE.get(),
                 fluidState -> OBlocks.LEAD_BLOCK.get().defaultBlockState()
         ));
+
         event.enqueueWork(() -> {
             OConfiguredFeatures.register();
             OPlacedFeatures.register();
@@ -85,6 +87,10 @@ public class Oreganized {
             PotionBrewing.addMix(OPotions.STUNNING.get(), Items.REDSTONE, OPotions.LONG_STUNNING.get());
             PotionBrewing.addMix(OPotions.STUNNING.get(), Items.GLOWSTONE_DUST, OPotions.STRONG_STUNNING.get());
         });
+
+        OBlocks.WAXED_BLOCKS = ImmutableBiMap.of(
+                OBlocks.WAXED_SPOTTED_GLANCE.get(), OBlocks.SPOTTED_GLANCE.get()
+        );
     }
 
     private void clientSetup(FMLClientSetupEvent event) {

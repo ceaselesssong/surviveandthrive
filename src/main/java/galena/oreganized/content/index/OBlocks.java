@@ -1,5 +1,6 @@
 package galena.oreganized.content.index;
 
+import com.google.common.collect.ImmutableBiMap;
 import galena.oreganized.Oreganized;
 import galena.oreganized.content.MoltenMetal;
 import galena.oreganized.content.block.*;
@@ -28,6 +29,7 @@ public class OBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Oreganized.MOD_ID);
 
+    public static ImmutableBiMap<Block, Block> WAXED_BLOCKS;
 
 
     // Glance
@@ -42,7 +44,7 @@ public class OBlocks {
     public static final RegistryObject<WallBlock> GLANCE_WALL = register("glance_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(GLANCE.get())), CreativeModeTab.TAB_BUILDING_BLOCKS);
     public static final RegistryObject<WallBlock> GLANCE_BRICK_WALL = register("glance_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(GLANCE_BRICKS.get())), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
-    public static final RegistryObject<Block> SPOTTED_GLANCE = register("spotted_glance", () -> new Block(BlockBehaviour.Properties.copy(GLANCE.get())), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> SPOTTED_GLANCE = register("spotted_glance", () -> new SpottedGlanceBlock(BlockBehaviour.Properties.copy(GLANCE.get())), CreativeModeTab.TAB_BUILDING_BLOCKS);
     public static final RegistryObject<Block> WAXED_SPOTTED_GLANCE = register("waxed_spotted_glance", () -> new Block(BlockBehaviour.Properties.copy(SPOTTED_GLANCE.get())), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
     // Ores
