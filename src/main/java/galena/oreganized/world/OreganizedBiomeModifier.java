@@ -1,8 +1,8 @@
 package galena.oreganized.world;
 
 import com.mojang.serialization.Codec;
-import galena.oreganized.content.index.OBiomeModifiers;
-import galena.oreganized.content.index.OPlacedFeatures;
+import galena.oreganized.index.OBiomeModifiers;
+import galena.oreganized.index.OPlacedFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;

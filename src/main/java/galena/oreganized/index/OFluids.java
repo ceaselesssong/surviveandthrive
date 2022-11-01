@@ -1,4 +1,4 @@
-package galena.oreganized.content.index;
+package galena.oreganized.index;
 
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;

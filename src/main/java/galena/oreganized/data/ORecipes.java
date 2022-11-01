@@ -1,9 +1,9 @@
 package galena.oreganized.data;
 
 import galena.oreganized.data.provider.ORecipeProvider;
-import galena.oreganized.content.index.OBlocks;
-import galena.oreganized.content.index.OItems;
-import galena.oreganized.content.index.OTags;
+import galena.oreganized.index.OBlocks;
+import galena.oreganized.index.OItems;
+import galena.oreganized.index.OTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;

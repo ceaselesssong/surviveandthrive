@@ -2,10 +2,10 @@ package galena.oreganized.data;
 
 import galena.oreganized.Oreganized;
 import galena.oreganized.data.provider.OLangProvider;
-import galena.oreganized.content.index.OBlocks;
-import galena.oreganized.content.index.OEffects;
-import galena.oreganized.content.index.OItems;
-import galena.oreganized.content.index.OPotions;
+import galena.oreganized.index.OBlocks;
+import galena.oreganized.index.OEffects;
+import galena.oreganized.index.OItems;
+import galena.oreganized.index.OPotions;
 import net.minecraft.data.DataGenerator;
 
 public class OLang extends OLangProvider {

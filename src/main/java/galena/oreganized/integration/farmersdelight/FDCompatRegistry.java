@@ -1,7 +1,7 @@
 package galena.oreganized.integration.farmersdelight;
 
-import galena.oreganized.content.index.OItemTiers;
-import galena.oreganized.content.index.OItems;
+import galena.oreganized.index.OItemTiers;
+import galena.oreganized.index.OItems;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.FarmersDelight;

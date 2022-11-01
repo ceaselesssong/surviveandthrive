@@ -1,4 +1,4 @@
-package galena.oreganized.content.index;
+package galena.oreganized.index;
 
 import galena.oreganized.Oreganized;
 import net.minecraft.resources.ResourceLocation;

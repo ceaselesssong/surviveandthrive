@@ -3,7 +3,7 @@ package galena.oreganized.client.render.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import galena.oreganized.Oreganized;
-import galena.oreganized.content.index.OEffects;
+import galena.oreganized.index.OEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.ForgeGui;

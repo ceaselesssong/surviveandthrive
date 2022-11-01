@@ -1,4 +1,4 @@
-package galena.oreganized.content.index;
+package galena.oreganized.index;
 
 import com.mojang.serialization.Codec;
 import galena.oreganized.Oreganized;

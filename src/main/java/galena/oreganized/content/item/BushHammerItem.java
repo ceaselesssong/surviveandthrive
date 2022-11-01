@@ -1,7 +1,7 @@
 package galena.oreganized.content.item;
 
 import com.google.common.collect.ImmutableMap;
-import galena.oreganized.content.index.OTags;
+import galena.oreganized.index.OTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;

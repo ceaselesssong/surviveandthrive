@@ -1,7 +1,7 @@
 package galena.oreganized.world.event;
 
 import galena.oreganized.Oreganized;
-import galena.oreganized.content.index.OBlocks;
+import galena.oreganized.index.OBlocks;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;

@@ -1,4 +1,4 @@
-package galena.oreganized.content.index;
+package galena.oreganized.index;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;

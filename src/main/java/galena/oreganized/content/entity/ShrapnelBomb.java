@@ -1,8 +1,8 @@
 package galena.oreganized.content.entity;
 
-import galena.oreganized.content.index.OEffects;
-import galena.oreganized.content.index.OEntityTypes;
-import galena.oreganized.content.index.OParticleTypes;
+import galena.oreganized.index.OEffects;
+import galena.oreganized.index.OEntityTypes;
+import galena.oreganized.index.OParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;

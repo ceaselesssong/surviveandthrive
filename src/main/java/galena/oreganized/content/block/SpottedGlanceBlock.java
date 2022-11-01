@@ -1,7 +1,7 @@
 package galena.oreganized.content.block;
 
-import galena.oreganized.content.index.OBlocks;
-import galena.oreganized.content.index.OItems;
+import galena.oreganized.index.OBlocks;
+import galena.oreganized.index.OItems;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

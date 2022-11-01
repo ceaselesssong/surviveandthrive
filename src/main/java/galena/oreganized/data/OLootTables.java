@@ -3,9 +3,9 @@ package galena.oreganized.data;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import galena.oreganized.data.provider.OBlockLootProvider;
-import galena.oreganized.content.index.OBlocks;
-import galena.oreganized.content.index.OEntityTypes;
-import galena.oreganized.content.index.OItems;
+import galena.oreganized.index.OBlocks;
+import galena.oreganized.index.OEntityTypes;
+import galena.oreganized.index.OItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.EntityLoot;
 import net.minecraft.data.loot.LootTableProvider;
@@ -23,8 +23,6 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-
-import static net.minecraft.world.level.block.Blocks.CAULDRON;
 
 public class OLootTables extends LootTableProvider {
 

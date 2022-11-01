@@ -1,7 +1,7 @@
 package galena.oreganized.content.block;
 
 import galena.oreganized.content.MoltenMetal;
-import galena.oreganized.content.index.OTags;
+import galena.oreganized.index.OTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.server.level.ServerLevel;

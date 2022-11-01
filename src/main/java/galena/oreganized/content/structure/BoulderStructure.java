@@ -1,7 +1,7 @@
 package galena.oreganized.content.structure;
 
 import com.mojang.serialization.Codec;
-import galena.oreganized.content.index.OStructures;
+import galena.oreganized.index.OStructures;
 import galena.oreganized.content.structure.pieces.BoulderPieces;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.levelgen.GenerationStep;

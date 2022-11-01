@@ -1,19 +1,15 @@
-package galena.oreganized.content.index;
+package galena.oreganized.index;
 
 import galena.oreganized.Oreganized;
 import galena.oreganized.content.item.BushHammerItem;
 import galena.oreganized.content.item.ElectrumArmorItem;
 import galena.oreganized.content.item.OItem;
 import galena.oreganized.content.item.SilverMirrorItem;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import vectorwing.farmersdelight.FarmersDelight;
-import vectorwing.farmersdelight.common.item.KnifeItem;
 
 public class OItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Oreganized.MOD_ID);

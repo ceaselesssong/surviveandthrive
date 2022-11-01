@@ -1,10 +1,9 @@
 package galena.oreganized.content.fluid;
 
-import galena.oreganized.content.index.OParticleTypes;
+import galena.oreganized.index.OParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;

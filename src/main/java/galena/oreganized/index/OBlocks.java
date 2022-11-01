@@ -1,8 +1,7 @@
-package galena.oreganized.content.index;
+package galena.oreganized.index;
 
 import com.google.common.collect.ImmutableBiMap;
 import galena.oreganized.Oreganized;
-import galena.oreganized.content.MoltenMetal;
 import galena.oreganized.content.block.*;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
@@ -21,8 +20,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
 import java.util.function.Supplier;
-
-import static galena.oreganized.content.block.MoltenLeadCauldronBlock.moltenStageEmission;
 
 @Mod.EventBusSubscriber(modid = Oreganized.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class OBlocks {

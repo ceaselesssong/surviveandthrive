@@ -1,4 +1,4 @@
-package galena.oreganized.content.index;
+package galena.oreganized.index;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;

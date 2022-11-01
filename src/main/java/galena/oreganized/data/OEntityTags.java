@@ -1,7 +1,7 @@
 package galena.oreganized.data;
 
 import galena.oreganized.Oreganized;
-import galena.oreganized.content.index.OTags;
+import galena.oreganized.index.OTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.world.entity.EntityType;

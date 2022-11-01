@@ -1,7 +1,7 @@
 package galena.oreganized.data;
 
 import galena.oreganized.Oreganized;
-import galena.oreganized.content.index.OBlocks;
+import galena.oreganized.index.OBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.tags.BlockTags;
@@ -11,7 +11,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 
 import javax.annotation.Nullable;
 
-import static galena.oreganized.content.index.OTags.Blocks.*;
+import static galena.oreganized.index.OTags.Blocks.*;
 
 public class OBlockTags extends BlockTagsProvider {
 

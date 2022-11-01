@@ -1,6 +1,6 @@
 package galena.oreganized.content.effect;
 
-import galena.oreganized.content.index.OEffects;
+import galena.oreganized.index.OEffects;
 import net.minecraft.client.player.Input;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;

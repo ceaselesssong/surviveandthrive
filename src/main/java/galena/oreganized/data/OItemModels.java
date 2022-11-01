@@ -2,9 +2,8 @@ package galena.oreganized.data;
 
 import galena.oreganized.Oreganized;
 import galena.oreganized.data.provider.OItemModelProvider;
-import galena.oreganized.content.index.OBlocks;
-import galena.oreganized.content.index.OItems;
-import galena.oreganized.integration.farmersdelight.FDCompatRegistry;
+import galena.oreganized.index.OBlocks;
+import galena.oreganized.index.OItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;

@@ -1,4 +1,4 @@
-package galena.oreganized.content.index;
+package galena.oreganized.index;
 
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;

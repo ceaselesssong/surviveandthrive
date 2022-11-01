@@ -1,7 +1,7 @@
 package galena.oreganized.content.structure.pieces;
 
 import galena.oreganized.Oreganized;
-import galena.oreganized.content.index.OStructures;
+import galena.oreganized.index.OStructures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;

@@ -1,7 +1,7 @@
 package galena.oreganized.content.block;
 
 import galena.oreganized.content.entity.ShrapnelBomb;
-import galena.oreganized.content.index.OSoundEvents;
+import galena.oreganized.index.OSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;

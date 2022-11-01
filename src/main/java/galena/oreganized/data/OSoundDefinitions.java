@@ -1,7 +1,7 @@
 package galena.oreganized.data;
 
 import galena.oreganized.Oreganized;
-import galena.oreganized.content.index.OSoundEvents;
+import galena.oreganized.index.OSoundEvents;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinitionsProvider;

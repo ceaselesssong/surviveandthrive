@@ -3,7 +3,7 @@ package galena.oreganized.client.render.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import galena.oreganized.content.entity.ShrapnelBomb;
-import galena.oreganized.content.index.OBlocks;
+import galena.oreganized.index.OBlocks;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
