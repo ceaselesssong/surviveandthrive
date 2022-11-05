@@ -18,16 +18,17 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fluids.FluidInteractionRegistry;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,11 +44,11 @@ public class Oreganized {
 
     public Oreganized() {
 
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        IEventBus eventBus = MinecraftForge.EVENT_BUS;
-        modEventBus.addListener(this::setup);
-        modEventBus.addListener(this::clientSetup);
-        modEventBus.addListener(this::gatherData);
+        final IEventBus bus = Bus.MOD.bus().get();
+        final ModLoadingContext context = ModLoadingContext.get();
+        bus.addListener(this::setup);
+        bus.addListener(this::clientSetup);
+        bus.addListener(this::gatherData);
 
         DeferredRegister<?>[] registers = {
                 //OBlockEntities.BLOCK_ENTITIES,
@@ -66,10 +67,13 @@ public class Oreganized {
         };
 
         for (DeferredRegister<?> register : registers) {
-            register.register(modEventBus);
+            register.register(bus);
         }
 
         CompatHandler.register();
+
+        context.registerConfig(ModConfig.Type.COMMON, OreganizedConfig.COMMON_SPEC);
+        //context.registerConfig(ModConfig.Type.CLIENT, OreganizedConfig.CLIENT_SPEC);
     }
 
     private void setup(FMLCommonSetupEvent event) {
@@ -117,23 +121,21 @@ public class Oreganized {
     public void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
         ExistingFileHelper helper = event.getExistingFileHelper();
+        boolean client = event.includeClient();
+        boolean server = event.includeServer();
 
-        if(event.includeClient()) {
-            generator.addProvider(true, new OBlockStates(generator, helper));
-            generator.addProvider(true, new OItemModels(generator, helper));
-            generator.addProvider(true, new OLang(generator));
-            generator.addProvider(true, new OSoundDefinitions(generator, helper));
-        }
-        if(event.includeServer()) {
-            // TODO
-            generator.addProvider(true, new ORecipes(generator));
-            generator.addProvider(true, new OLootTables(generator));
-            OBlockTags blockTags = new OBlockTags(generator, helper);
-            generator.addProvider(true, blockTags);
-            generator.addProvider(true, new OItemTags(generator, blockTags, helper));
-            generator.addProvider(true, new OEntityTags(generator, helper));
-            //generator.addProvider(new OAdvancements(generator, helper));
-            //generator.addProvider(new OFluidTags(generator, helper));
-        }
+        generator.addProvider(client, new OBlockStates(generator, helper));
+        generator.addProvider(client, new OItemModels(generator, helper));
+        generator.addProvider(client, new OLang(generator));
+        generator.addProvider(client, new OSoundDefinitions(generator, helper));
+
+        generator.addProvider(server, new ORecipes(generator));
+        generator.addProvider(server, new OLootTables(generator));
+        OBlockTags blockTags = new OBlockTags(generator, helper);
+        generator.addProvider(server, blockTags);
+        generator.addProvider(server, new OItemTags(generator, blockTags, helper));
+        generator.addProvider(server, new OEntityTags(generator, helper));
+        generator.addProvider(server, new OAdvancements(generator, helper));
+        //generator.addProvider(server, new OFluidTags(generator, helper));
     }
 }

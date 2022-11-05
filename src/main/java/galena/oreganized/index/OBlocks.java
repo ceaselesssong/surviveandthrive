@@ -121,8 +121,6 @@ public class OBlocks {
             new MoltenLeadBlock(OFluids.MOLTEN_LEAD, BlockBehaviour.Properties.copy(Blocks.LAVA).color(MaterialColor.COLOR_PURPLE)));
     //public static final RegistryObject<Block> MOLTEN_LEAD_CAULDRON = register("molten_lead_cauldron", () -> new MoltenCauldronBlock(new MoltenMetal(LEAD_BLOCK, OFluids.MOLTEN_LEAD)));
 
-
-
     public static <B extends Block> RegistryObject<B> register(String name, Supplier<? extends B> block, CreativeModeTab tab) {
         RegistryObject<B> blocks = BLOCKS.register(name, block);
         OItems.ITEMS.register(name, () -> new BlockItem(blocks.get(), new Item.Properties().tab(tab)));

@@ -16,7 +16,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'maven-publish'
 
-archivesBaseName = "${mod_name} ${minecraft_version}-"
+archivesBaseName = "${mod_name} ${minecraft_version}"
 
 mixin {
     add sourceSets.main, "${mod_id}.refmap.json"
@@ -76,25 +76,18 @@ sourceSets.main.resources.srcDir 'src/generated/resources'
 
 repositories {
     maven {
-        // Location of the maven that hosts JEI files (and TiC)
-        name 'Progwml6 maven'
-        url 'https://dvs1.progwml6.com/files/maven'
+        // location of the maven that hosts JEI files
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
     }
     maven {
-        // Location of a maven mirror for JEI files, as a fallback
-        name 'ModMaven'
-        url 'https://modmaven.k-4u.nl'
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.dev"
     }
     maven {
-        // Location of the maven for vazkii's mods
-        name 'blamejared'
-        url 'https://maven.blamejared.com'
-    }
-    maven {
-        url 'https://www.cursemaven.com'
-        content {
-            includeGroup "curse.maven"
-        }
+        name = "Curse Maven"
+        url = "https://www.cursemaven.com"
     }
 }
 
@@ -102,12 +95,7 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
-    // compile against the JEI API but do not include it at runtime
-    //compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
-    //compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
-    // at runtime, use the full JEI jar for Forge
-    //runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
-
+    /// Compatabilities
     implementation fg.deobf("curse.maven:detailab-520755:3920487")
     compileOnly fg.deobf("curse.maven:farmers-delight-398521:3916069")
     runtimeOnly fg.deobf("curse.maven:farmers-delight-398521:3916069")
@@ -116,12 +104,22 @@ dependencies {
     //runtimeOnly fg.deobf("curse.maven:tinkers-construct-74072:3829979")
     //runtimeOnly fg.deobf("curse.maven:mantle-74924:3829975")
 
+    ///
+
+    /// Utilities for the development environment
+    runtimeOnly fg.deobf("curse.maven:jade-324717:4054920")
+    // compile against the JEI API but do not include it at runtime
+    compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
+    compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
+    // at runtime, use the full JEI jar for Forge
+    runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
+
     runtimeOnly fg.deobf("curse.maven:catalogue-459701:3873264")
     runtimeOnly fg.deobf("curse.maven:configured-457570:3872190")
 
-    // For testing and showcasing with pretty shaders:
-    //runtimeOnly fg.deobf("curse.maven:oculus-581495:3821406")
-    //runtimeOnly fg.deobf("curse.maven:rubidium-574856:3749094")
+    runtimeOnly fg.deobf("curse.maven:oculus-581495:3973908")
+    runtimeOnly fg.deobf("curse.maven:rubidium-574856:3973894")
+    ///
 }
 
 jar {
