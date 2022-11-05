@@ -93,11 +93,11 @@ public abstract class OLangProvider implements DataProvider {
     }
 
     public void addAdvTitle(String advancementTitle, String name) {
-        add("advancements.oreganized." + advancementTitle + ".title", name);
+        add("advancements." + advancementTitle + ".title", name);
     }
 
     public void addAdvDesc(String advancementTitle, String name) {
-        add("advancements.oreganized." + advancementTitle + ".desc", name);
+        add("advancements." + advancementTitle + ".description", name);
     }
 
     public void addSubtitle(String category, String subtitleName, String name) {

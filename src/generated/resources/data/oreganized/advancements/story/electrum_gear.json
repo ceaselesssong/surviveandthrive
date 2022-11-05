@@ -1,0 +1,53 @@
+{
+  "parent": "oreganized:story/obtain_silver",
+  "criteria": {
+    "has_all_electrum_armor": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "oreganized:electrum_helmet"
+            ]
+          },
+          {
+            "items": [
+              "oreganized:electrum_chestplate"
+            ]
+          },
+          {
+            "items": [
+              "oreganized:electrum_leggings"
+            ]
+          },
+          {
+            "items": [
+              "oreganized:electrum_boots"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.story.electrum_gear.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "oreganized:electrum_chestplate",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.story.electrum_gear.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_all_electrum_armor"
+    ]
+  ]
+}

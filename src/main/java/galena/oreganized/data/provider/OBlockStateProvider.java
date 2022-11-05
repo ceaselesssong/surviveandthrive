@@ -173,36 +173,4 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
         model.texture("texture", textureLoc);
         return model;
     }
-
-    public void engraveableBlock(Block block) {
-        Boolean engravedTexture = ResourceLocation.isValidResourceLocation(texture("engraved/" + name(block)).toString());
-        if (engravedTexture) {
-            getVariantBuilder(block).partialState().with(EngraveableBlock.NORTH, Boolean.TRUE).modelForState()
-                    .modelFile(engravedFace(block, Boolean.TRUE)).addModel()
-                    .partialState().with(EngraveableBlock.NORTH, Boolean.FALSE).modelForState()
-                    .modelFile(engravedFace(block, Boolean.FALSE)).addModel()
-                    .partialState().with(EngraveableBlock.EAST, Boolean.TRUE).modelForState()
-                    .modelFile(engravedFace(block, Boolean.TRUE)).rotationY(90).uvLock(true).addModel()
-                    .partialState().with(EngraveableBlock.EAST, Boolean.FALSE).modelForState()
-                    .modelFile(engravedFace(block, Boolean.FALSE)).rotationY(90).uvLock(true).addModel()
-                    .partialState().with(EngraveableBlock.SOUTH, Boolean.TRUE).modelForState()
-                    .modelFile(engravedFace(block, Boolean.TRUE)).rotationY(180).uvLock(true).addModel()
-                    .partialState().with(EngraveableBlock.SOUTH, Boolean.FALSE).modelForState()
-                    .modelFile(engravedFace(block, Boolean.FALSE)).rotationY(180).uvLock(true).addModel()
-                    .partialState().with(EngraveableBlock.WEST, Boolean.TRUE).modelForState()
-                    .modelFile(engravedFace(block, Boolean.TRUE)).rotationY(270).uvLock(true).addModel()
-                    .partialState().with(EngraveableBlock.WEST, Boolean.FALSE).modelForState()
-                    .modelFile(engravedFace(block, Boolean.FALSE)).rotationY(270).uvLock(true).addModel()
-                    .partialState().with(EngraveableBlock.UP, Boolean.TRUE).modelForState()
-                    .modelFile(engravedFace(block, Boolean.TRUE)).rotationX(270).uvLock(true).addModel()
-                    .partialState().with(EngraveableBlock.UP, Boolean.FALSE).modelForState()
-                    .modelFile(engravedFace(block, Boolean.FALSE)).rotationX(270).uvLock(true).addModel()
-                    .partialState().with(EngraveableBlock.DOWN, Boolean.TRUE).modelForState()
-                    .modelFile(engravedFace(block, Boolean.TRUE)).rotationX(90).uvLock(true).addModel()
-                    .partialState().with(EngraveableBlock.DOWN, Boolean.FALSE).modelForState()
-                    .modelFile(engravedFace(block, Boolean.FALSE)).rotationX(90).uvLock(true).addModel();
-        } else {
-            simpleBlock(block);
-        }
-    }
 }

@@ -28,6 +28,17 @@ public class OLang extends OLangProvider {
         addEffect(OEffects.STUNNING, "Stunning");
         addPotion(OPotions.STUNNING, "Stunning");
 
+        addAdvTitle("adventure.mirror_mirror", "Mirror, Mirror who is the fairest?");
+        addAdvDesc("adventure.mirror_mirror", "Obtain a Silver Mirror");
+        addAdvTitle("story.melting_point", "Melting Point");
+        addAdvDesc("story.melting_point", "Pick up Molten Lead from a cauldron");
+        addAdvTitle("story.obtain_silver", "Every Stone has a Silver Lining");
+        addAdvDesc("story.obtain_silver", "Smelt Raw Silver");
+        addAdvTitle("story.electrum_gear", "Cover me in... Wings?");
+        addAdvDesc("story.electrum_gear", "Obtain a full set of electrum armor");
+        addAdvTitle("story.eat_with_lead", "Like the Romans");
+        addAdvDesc("story.eat_with_lead", "Eat anything with lead in your hotbar");
+
         // JEED compat
         add("effect.oreganized.stunning.description", "Paralyzes the victim periodically with random intervals");
 

@@ -1,0 +1,37 @@
+{
+  "parent": "minecraft:adventure/root",
+  "criteria": {
+    "has_silver_mirror": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "oreganized:silver_mirror"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.adventure.mirror_mirror.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "oreganized:silver_mirror"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.adventure.mirror_mirror.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_silver_mirror"
+    ]
+  ]
+}
