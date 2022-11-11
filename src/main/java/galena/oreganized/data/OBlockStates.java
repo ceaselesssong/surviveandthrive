@@ -5,6 +5,7 @@ import galena.oreganized.data.provider.OBlockStateProvider;
 import galena.oreganized.index.OBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.function.Supplier;
@@ -44,6 +45,23 @@ public class OBlockStates extends OBlockStateProvider {
         simpleBlock(OBlocks.ELECTRUM_BLOCK);
         simpleBlock(OBlocks.SHRAPNEL_BOMB.get(), cubeBottomTop(OBlocks.SHRAPNEL_BOMB));
 
+        waxedBlock(OBlocks.WAXED_WHITE_CONCRETE_POWDER, Blocks.WHITE_CONCRETE_POWDER);
+        waxedBlock(OBlocks.WAXED_ORANGE_CONCRETE_POWDER, Blocks.ORANGE_CONCRETE_POWDER);
+        waxedBlock(OBlocks.WAXED_MAGENTA_CONCRETE_POWDER, Blocks.MAGENTA_CONCRETE_POWDER);
+        waxedBlock(OBlocks.WAXED_LIGHT_BLUE_CONCRETE_POWDER, Blocks.LIGHT_BLUE_CONCRETE_POWDER);
+        waxedBlock(OBlocks.WAXED_YELLOW_CONCRETE_POWDER, Blocks.YELLOW_CONCRETE_POWDER);
+        waxedBlock(OBlocks.WAXED_LIME_CONCRETE_POWDER, Blocks.LIME_CONCRETE_POWDER);
+        waxedBlock(OBlocks.WAXED_PINK_CONCRETE_POWDER, Blocks.PINK_CONCRETE_POWDER);
+        waxedBlock(OBlocks.WAXED_GRAY_CONCRETE_POWDER, Blocks.GRAY_CONCRETE_POWDER);
+        waxedBlock(OBlocks.WAXED_LIGHT_GRAY_CONCRETE_POWDER, Blocks.LIGHT_GRAY_CONCRETE_POWDER);
+        waxedBlock(OBlocks.WAXED_CYAN_CONCRETE_POWDER, Blocks.CYAN_CONCRETE_POWDER);
+        waxedBlock(OBlocks.WAXED_PURPLE_CONCRETE_POWDER, Blocks.PURPLE_CONCRETE_POWDER);
+        waxedBlock(OBlocks.WAXED_BLUE_CONCRETE_POWDER, Blocks.BLUE_CONCRETE_POWDER);
+        waxedBlock(OBlocks.WAXED_BROWN_CONCRETE_POWDER, Blocks.BROWN_CONCRETE_POWDER);
+        waxedBlock(OBlocks.WAXED_GREEN_CONCRETE_POWDER, Blocks.GREEN_CONCRETE_POWDER);
+        waxedBlock(OBlocks.WAXED_RED_CONCRETE_POWDER, Blocks.RED_CONCRETE_POWDER);
+        waxedBlock(OBlocks.WAXED_BLACK_CONCRETE_POWDER, Blocks.BLACK_CONCRETE_POWDER);
+
         exposer(OBlocks.EXPOSER);
 
         //moltenCauldron(OBlocks.MOLTEN_LEAD_CAULDRON, OBlocks.LEAD_BLOCK);
@@ -53,7 +71,6 @@ public class OBlockStates extends OBlockStateProvider {
             crystalGlassBlock(crystalGlassBlock);
             crystalGlassPaneBlock(OBlocks.CRYSTAL_GLASS_PANES.get(i), crystalGlassBlock);
         }
-
     }
 
 }

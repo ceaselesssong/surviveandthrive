@@ -78,6 +78,10 @@ public class OLootTables extends LootTableProvider {
                 dropAsSilk(OBlocks.CRYSTAL_GLASS.get(i));
                 dropAsSilk(OBlocks.CRYSTAL_GLASS_PANES.get(i));
             }
+
+            for (Supplier<? extends Block> blocks : OBlocks.WAXED_CONRETE_POWDER) {
+                dropSelf(blocks);
+            }
         }
 
         protected Iterable<Block> getKnownBlocks() {

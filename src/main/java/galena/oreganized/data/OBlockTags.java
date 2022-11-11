@@ -8,6 +8,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -20,7 +21,7 @@ public class OBlockTags extends BlockTagsProvider {
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "Oreganized Block Tags";
     }
 
@@ -35,6 +36,10 @@ public class OBlockTags extends BlockTagsProvider {
             tag(CRYSTAL_GLASS_PANES).add(OBlocks.CRYSTAL_GLASS_PANES.get(i).get());
         }
         tag(FIRE_SOURCE).addTag(BlockTags.FIRE).addTag(BlockTags.CAMPFIRES);
+        tag(STONE_TYPES_GLANCE).add(
+                OBlocks.POLISHED_GLANCE.get(), OBlocks.GLANCE_BRICKS.get(), OBlocks.CHISELED_GLANCE.get(),
+                OBlocks.GLANCE_BRICK_STAIRS.get(), OBlocks.GLANCE_BRICK_WALL.get()
+        );
 
         // Oreganized Forge
         tag(ORES_SILVER).add(OBlocks.SILVER_ORE.get(), OBlocks.DEEPSLATE_SILVER_ORE.get());
@@ -61,6 +66,8 @@ public class OBlockTags extends BlockTagsProvider {
         tag(Tags.Blocks.STORAGE_BLOCKS).addTags(STORAGE_BLOCKS_SILVER, STORAGE_BLOCKS_LEAD, STORAGE_BLOCKS_ELECTRUM, STORAGE_BLOCKS_RAW_SILVER, STORAGE_BLOCKS_RAW_LEAD);
         tag(Tags.Blocks.GLASS).addTag(CRYSTAL_GLASS);
         tag(Tags.Blocks.GLASS_PANES).addTag(CRYSTAL_GLASS_PANES);
+        tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(OBlocks.LEAD_ORE.get(), OBlocks.SILVER_ORE.get());
+        tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(OBlocks.DEEPSLATE_LEAD_ORE.get(), OBlocks.DEEPSLATE_SILVER_ORE.get());
 
         // Mineables!
         /*tag(MINEABLE_WITH_BUSH_HAMMER).add(

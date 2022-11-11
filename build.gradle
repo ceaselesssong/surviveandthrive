@@ -97,8 +97,15 @@ dependencies {
 
     /// Compatabilities
     implementation fg.deobf("curse.maven:detailab-520755:3920487")
+
     compileOnly fg.deobf("curse.maven:farmers-delight-398521:3916069")
     runtimeOnly fg.deobf("curse.maven:farmers-delight-398521:3916069")
+
+    compileOnly fg.deobf("curse.maven:shield-expansion-583318:4046471")
+    runtimeOnly fg.deobf("curse.maven:shield-expansion-583318:4046471")
+
+    compileOnly fg.deobf("curse.maven:create-328085:4011414")
+    runtimeOnly fg.deobf("curse.maven:create-328085:4011414")
 
     //compileOnly fg.deobf("curse.maven:tinkers-construct-74072:3829979")
     //runtimeOnly fg.deobf("curse.maven:tinkers-construct-74072:3829979")

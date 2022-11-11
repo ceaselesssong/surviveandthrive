@@ -76,5 +76,9 @@ public class OItemModels extends OItemModelProvider {
             block(crystalGlassBlock);
             blockFlat(OBlocks.CRYSTAL_GLASS_PANES.get(i), crystalGlassBlock);
         }
+
+        for (Supplier<? extends Block> blocks : OBlocks.WAXED_CONRETE_POWDER) {
+            withExistingParent(blockName(blocks), "minecraft:block/" + blockName(blocks).replace("waxed_", ""));
+        }
     }
 }

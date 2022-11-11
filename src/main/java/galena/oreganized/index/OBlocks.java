@@ -115,6 +115,28 @@ public class OBlocks {
     );
 
     // Waxed Concrete Powder
+    public static final RegistryObject<Block> WAXED_WHITE_CONCRETE_POWDER = register("waxed_white_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_CONCRETE_POWDER)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> WAXED_ORANGE_CONCRETE_POWDER = register("waxed_orange_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.ORANGE_CONCRETE_POWDER)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> WAXED_MAGENTA_CONCRETE_POWDER = register("waxed_magenta_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.MAGENTA_CONCRETE_POWDER)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> WAXED_LIGHT_BLUE_CONCRETE_POWDER = register("waxed_light_blue_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.LIGHT_BLUE_CONCRETE_POWDER)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> WAXED_YELLOW_CONCRETE_POWDER = register("waxed_yellow_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.YELLOW_CONCRETE_POWDER)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> WAXED_LIME_CONCRETE_POWDER = register("waxed_lime_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.LIME_CONCRETE_POWDER)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> WAXED_PINK_CONCRETE_POWDER = register("waxed_pink_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.PINK_CONCRETE_POWDER)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> WAXED_GRAY_CONCRETE_POWDER = register("waxed_gray_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.GRAY_CONCRETE_POWDER)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> WAXED_LIGHT_GRAY_CONCRETE_POWDER = register("waxed_light_gray_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.LIGHT_GRAY_CONCRETE_POWDER)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> WAXED_CYAN_CONCRETE_POWDER = register("waxed_cyan_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.CYAN_CONCRETE_POWDER)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> WAXED_PURPLE_CONCRETE_POWDER = register("waxed_purple_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.PURPLE_CONCRETE_POWDER)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> WAXED_BLUE_CONCRETE_POWDER = register("waxed_blue_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.BLUE_CONCRETE_POWDER)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> WAXED_BROWN_CONCRETE_POWDER = register("waxed_brown_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.BROWN_CONCRETE_POWDER)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> WAXED_GREEN_CONCRETE_POWDER = register("waxed_green_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.GREEN_CONCRETE_POWDER)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> WAXED_RED_CONCRETE_POWDER = register("waxed_red_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.RED_CONCRETE_POWDER)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<Block> WAXED_BLACK_CONCRETE_POWDER = register("waxed_black_concrete_powder", () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.BLACK_CONCRETE_POWDER)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final List<RegistryObject<Block>> WAXED_CONRETE_POWDER = List.of(
+            WAXED_WHITE_CONCRETE_POWDER, WAXED_ORANGE_CONCRETE_POWDER, WAXED_MAGENTA_CONCRETE_POWDER, WAXED_LIGHT_BLUE_CONCRETE_POWDER,
+            WAXED_YELLOW_CONCRETE_POWDER, WAXED_LIME_CONCRETE_POWDER, WAXED_PINK_CONCRETE_POWDER, WAXED_GRAY_CONCRETE_POWDER,
+            WAXED_LIGHT_GRAY_CONCRETE_POWDER, WAXED_CYAN_CONCRETE_POWDER, WAXED_PURPLE_CONCRETE_POWDER, WAXED_BLUE_CONCRETE_POWDER,
+            WAXED_BROWN_CONCRETE_POWDER, WAXED_GREEN_CONCRETE_POWDER, WAXED_RED_CONCRETE_POWDER, WAXED_BLACK_CONCRETE_POWDER
+    );
 
     // Fluids and Cauldrons
     public static final RegistryObject<LiquidBlock> MOLTEN_LEAD = register("molten_lead", () ->

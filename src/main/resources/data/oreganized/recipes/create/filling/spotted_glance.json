@@ -1,0 +1,23 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "item": "oreganized:glance"
+    },
+    {
+      "fluidTag": "forge:molten_lead",
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "oreganized:spotted_glance"
+    }
+  ],
+  "conditions": [
+    {
+      "modid": "farmersdelight",
+      "type": "forge:mod_loaded"
+    }
+  ]
+}

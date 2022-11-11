@@ -1,6 +1,7 @@
 package galena.oreganized.data;
 
 import galena.oreganized.Oreganized;
+import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OItems;
 import galena.oreganized.index.OTags;
 import net.minecraft.data.DataGenerator;
@@ -39,6 +40,7 @@ public class OItemTags extends ItemTagsProvider {
         copy(OTags.Blocks.CRYSTAL_GLASS, CRYSTAL_GLASS);
         copy(OTags.Blocks.CRYSTAL_GLASS_PANES, CRYSTAL_GLASS_PANES);
         tag(LIGHTER_THAN_LEAD).add(Items.IRON_BOOTS);
+        copy(OTags.Blocks.STONE_TYPES_GLANCE, STONE_TYPES_GLANCE);
 
         // Oreganized Forge
         tag(RAW_MATERIALS_SILVER).add(OItems.RAW_SILVER.get());
@@ -52,6 +54,10 @@ public class OItemTags extends ItemTagsProvider {
         tag(NUGGETS_LEAD).add(OItems.LEAD_NUGGET.get());
         tag(NUGGETS_ELECTRUM).add(OItems.ELECTRUM_INGOT.get());
         tag(NUGGETS_NETHERITE).add(OItems.NETHERITE_NUGGET.get());
+
+        tag(BUCKETS_MOLTEN_LEAD).add(OItems.MOLTEN_LEAD_BUCKET.get());
+        tag(TOOLS_BUSH_HAMMER).add(OItems.BUSH_HAMMER.get());
+
 
         copy(OTags.Blocks.ORES_SILVER, ORES_SILVER);
         copy(OTags.Blocks.ORES_LEAD, ORES_LEAD);
@@ -78,5 +84,7 @@ public class OItemTags extends ItemTagsProvider {
         tag(Tags.Items.GLASS).addTags(CRYSTAL_GLASS);
         tag(Tags.Items.GLASS_PANES).addTags(CRYSTAL_GLASS_PANES);
         tag(Tags.Items.RAW_MATERIALS).addTags(RAW_MATERIALS_SILVER, RAW_MATERIALS_LEAD);
+        copy(Tags.Blocks.ORES_IN_GROUND_STONE, Tags.Items.ORES_IN_GROUND_STONE);
+        copy(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, Tags.Items.ORES_IN_GROUND_DEEPSLATE);
     }
 }

@@ -62,7 +62,7 @@ public class PlayerEvents {
             if (event.getEntity() instanceof ServerPlayer player) CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(player, pos, itemStack);
 
             event.getEntity().swing(event.getHand());
-            event.getItemStack().shrink(1);
+            if (!event.getEntity().isCreative()) event.getItemStack().shrink(1);
             Block waxedBlock = OBlocks.WAXED_BLOCKS.inverse().get(state.getBlock());
             if (!world.isClientSide() && waxedBlock != null) world.setBlock(pos, waxedBlock.defaultBlockState(), 11);
             world.levelEvent(event.getEntity(), 3003, pos, 0);

@@ -1,7 +1,9 @@
 package galena.oreganized.data.provider;
 
+import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import galena.oreganized.Oreganized;
 import galena.oreganized.index.OTags;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -14,8 +16,12 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.ConditionalAdvancement;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -27,7 +33,7 @@ public class ORecipeProvider extends RecipeProvider {
     }
 
     public ShapedRecipeBuilder makeSlab(Supplier<? extends Block> slabOut, Supplier<? extends Block> blockIn) {
-        return ShapedRecipeBuilder.shaped(slabOut.get(), 4)
+        return ShapedRecipeBuilder.shaped(slabOut.get(), 6)
                 .pattern("AAA")
                 .define('A', blockIn.get())
                 .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(blockIn.get()).getPath(), has(blockIn.get()));
@@ -110,7 +116,7 @@ public class ORecipeProvider extends RecipeProvider {
     }
 
     private void oreSmeltingRecipe(ItemLike result, List<ItemLike> ingredients, float xp, String group, Consumer<FinishedRecipe> consumer) {
-        for(ItemLike ingredient : ingredients) {
+        for (ItemLike ingredient : ingredients) {
             smeltingRecipe(result, ingredient, xp, 1).group(group).save(consumer, new ResourceLocation(Oreganized.MOD_ID, "smelt_" + ForgeRegistries.ITEMS.getKey(ingredient.asItem()).getPath()));
         }
     }
@@ -134,7 +140,7 @@ public class ORecipeProvider extends RecipeProvider {
     }
 
     private void oreBlastingRecipe(ItemLike result, List<ItemLike> ingredients, float xp, String group, Consumer<FinishedRecipe> consumer) {
-        for(ItemLike ingredient : ingredients) {
+        for (ItemLike ingredient : ingredients) {
             blastingRecipe(result, ingredient, xp, 1).group(group).save(consumer, new ResourceLocation(Oreganized.MOD_ID, "blast_" + ForgeRegistries.ITEMS.getKey(ingredient.asItem()).getPath()));
         }
     }
@@ -186,23 +192,23 @@ public class ORecipeProvider extends RecipeProvider {
         return makeWaxed(blockOut, blockIn.get());
     }
 
-    public void makeSlabStonecutting(Supplier<? extends Block> blockOut, Supplier<Block> blockIn) {
-        makeSlab(blockOut, blockIn);
-        stonecutting(blockIn, blockOut.get(), 2);
+    public void makeSlabStonecutting(Supplier<? extends Block> blockOut, Supplier<Block> blockIn, Consumer<FinishedRecipe> consumer) {
+        makeSlab(blockOut, blockIn).save(consumer);
+        stonecutting(blockIn, blockOut.get(), 2).save(consumer, "oreganized:stonecutting/" + ForgeRegistries.ITEMS.getKey(blockOut.get().asItem()));
     }
 
-    public void makeStairsStonecutting(Supplier<? extends Block> blockOut, Supplier<Block> blockIn) {
-        makeStairs(blockOut, blockIn);
-        stonecutting(blockIn, blockOut.get());
+    public void makeStairsStonecutting(Supplier<? extends Block> blockOut, Supplier<Block> blockIn, Consumer<FinishedRecipe> consumer) {
+        makeStairs(blockOut, blockIn).save(consumer);
+        stonecutting(blockIn, blockOut.get()).save(consumer, "oreganized:stonecutting/" + ForgeRegistries.ITEMS.getKey(blockOut.get().asItem()));
     }
 
-    public void makeWallStonecutting(Supplier<? extends Block> blockOut, Supplier<Block> blockIn) {
-        makeWall(blockOut, blockIn);
-        stonecutting(blockIn, blockOut.get());
+    public void makeWallStonecutting(Supplier<? extends Block> blockOut, Supplier<Block> blockIn, Consumer<FinishedRecipe> consumer) {
+        makeWall(blockOut, blockIn).save(consumer);
+        stonecutting(blockIn, blockOut.get()).save(consumer, "oreganized:stonecutting/" + ForgeRegistries.ITEMS.getKey(blockOut.get().asItem()));
     }
 
-    public void makeChiseledStonecutting(Supplier<? extends Block> blockOut, Supplier<Block> blockIn, Supplier<SlabBlock> slabIn) {
-        makeChiseled(blockOut, slabIn);
-        stonecutting(blockIn, blockOut.get());
+    public void makeChiseledStonecutting(Supplier<? extends Block> blockOut, Supplier<Block> blockIn, Supplier<SlabBlock> slabIn, Consumer<FinishedRecipe> consumer) {
+        makeChiseled(blockOut, slabIn).save(consumer);
+        stonecutting(blockIn, blockOut.get()).save(consumer, "oreganized:stonecutting/" + ForgeRegistries.ITEMS.getKey(blockOut.get().asItem()));
     }
 }

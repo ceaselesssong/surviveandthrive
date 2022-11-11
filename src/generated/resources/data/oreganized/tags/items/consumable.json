@@ -106,6 +106,10 @@
     "farmersdelight:stuffed_pumpkin",
     "farmersdelight:honey_glazed_ham",
     "farmersdelight:shepherds_pie",
-    "farmersdelight:dog_food"
+    "farmersdelight:dog_food",
+    "create:bar_of_chocolate",
+    "create:sweet_roll",
+    "create:chocolate_glazed_berries",
+    "create:honeyed_apple"
   ]
 }

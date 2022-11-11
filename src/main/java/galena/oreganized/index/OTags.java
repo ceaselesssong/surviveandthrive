@@ -19,6 +19,7 @@ public class OTags {
         public static final TagKey<Item> CRYSTAL_GLASS = tag("crystal_glass");
         public static final TagKey<Item> CRYSTAL_GLASS_PANES = tag("crystal_glass_panes");
         public static final TagKey<Item> LIGHTER_THAN_LEAD = tag("lighter_than_lead");
+        public static final TagKey<Item> STONE_TYPES_GLANCE = tag("stone_types/glance");
 
         public static final TagKey<Item> RAW_MATERIALS_SILVER = forgeTag("raw_materials/silver");
         public static final TagKey<Item> RAW_MATERIALS_LEAD = forgeTag("raw_materials/lead");
@@ -41,6 +42,8 @@ public class OTags {
 
         public static final TagKey<Item> STORAGE_BLOCKS_RAW_SILVER = forgeTag("storage_blocks/raw_silver");
         public static final TagKey<Item> STORAGE_BLOCKS_RAW_LEAD = forgeTag("storage_blocks/raw_lead");
+        public static final TagKey<Item> BUCKETS_MOLTEN_LEAD = forgeTag("buckets/molten_lead");
+        public static final TagKey<Item> TOOLS_BUSH_HAMMER = forgeTag("tools/bush_hammer");
 
         private static TagKey<Item> tag(String name) {
             return ItemTags.create(new ResourceLocation(Oreganized.MOD_ID, name));
@@ -58,6 +61,7 @@ public class OTags {
         public static final TagKey<Block> FIRE_SOURCE = tag("fire_source");
         public static final TagKey<Block> CRYSTAL_GLASS = tag("crystal_glass");
         public static final TagKey<Block> CRYSTAL_GLASS_PANES = tag("crystal_glass_panes");
+        public static final TagKey<Block> STONE_TYPES_GLANCE = tag("stone_types/glance");
 
         public static final TagKey<Block> ORES_SILVER = forgeTag("ores/silver");
         public static final TagKey<Block> ORES_LEAD = forgeTag("ores/lead");
@@ -68,6 +72,7 @@ public class OTags {
 
         public static final TagKey<Block> STORAGE_BLOCKS_RAW_SILVER = forgeTag("storage_blocks/raw_silver");
         public static final TagKey<Block> STORAGE_BLOCKS_RAW_LEAD = forgeTag("storage_blocks/raw_lead");
+
         private static TagKey<Block> tag(String name) {
             return BlockTags.create(new ResourceLocation(Oreganized.MOD_ID, name));
         }
@@ -87,7 +92,7 @@ public class OTags {
 
     public static class Fluids {
 
-        public static final TagKey<Fluid> MOLTEN_LEAD = tag("molten_lead");
+        public static final TagKey<Fluid> MOLTEN_LEAD = forgeTag("molten_lead");
 
         private static TagKey<Fluid> tag(String name) {
             return FluidTags.create(new ResourceLocation(Oreganized.MOD_ID, name));
@@ -101,6 +106,7 @@ public class OTags {
     public static class Biomes {
 
         public static final TagKey<Biome> HAS_BOULDER = tag("has_structure/boulder");
+        public static final TagKey<Biome> RICH_IN_LEAD_ORE = tag("rich_in_lead_ore");
 
         private static TagKey<Biome> tag(String name) {
             return BiomeTags.create(new ResourceLocation(Oreganized.MOD_ID, name).toString());

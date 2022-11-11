@@ -1,0 +1,21 @@
+
+{
+  "type": "create:splashing",
+  "ingredients": [
+    {
+      "item": "create:crushed_silver_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "oreganized:silver_nugget",
+      "count": 9
+    }
+  ],
+  "conditions": [
+    {
+      "modid": "create",
+      "type": "forge:mod_loaded"
+    }
+  ]
+}
