@@ -2,10 +2,7 @@ package galena.oreganized.data;
 
 import galena.oreganized.Oreganized;
 import galena.oreganized.data.provider.OLangProvider;
-import galena.oreganized.index.OBlocks;
-import galena.oreganized.index.OEffects;
-import galena.oreganized.index.OItems;
-import galena.oreganized.index.OPotions;
+import galena.oreganized.index.*;
 import net.minecraft.data.DataGenerator;
 
 public class OLang extends OLangProvider {
@@ -18,6 +15,8 @@ public class OLang extends OLangProvider {
         addDisc(OItems.MUSIC_DISC_PILLAGED, "JamiesName", "Pillaged");
         addDisc(OItems.MUSIC_DISC_18, "JamiesName", "18");
         addDisc(OItems.MUSIC_DISC_SHULK, "JamiesName", "Shulk");
+
+        addItem(OItems.SHRAPNEL_BOMB_MINECART, "Minecart with Shrapnel Bomb");
 
         addBlock(OBlocks.RAW_SILVER_BLOCK, "Block of Raw Silver");
         addBlock(OBlocks.RAW_LEAD_BLOCK, "Block of Raw Lead");
@@ -55,6 +54,9 @@ public class OLang extends OLangProvider {
         }
         for (int i = 0; OItems.ITEMS.getEntries().size() > i; i++) {
             tryItem(OItems.ITEMS.getEntries().stream().toList().get(i));
+        }
+        for (int i = 0; OEntityTypes.ENTITIES.getEntries().size() > i; i++) {
+            tryEntity(OEntityTypes.ENTITIES.getEntries().stream().toList().get(i));
         }
     }
 }

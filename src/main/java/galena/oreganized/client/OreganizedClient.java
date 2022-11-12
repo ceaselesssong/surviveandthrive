@@ -7,6 +7,7 @@ import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEntityTypes;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.TntMinecartRenderer;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -39,6 +40,7 @@ public class OreganizedClient {
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(OEntityTypes.SHRAPNEL_BOMB.get(), ShrapnelBombRender::new);
+        event.registerEntityRenderer(OEntityTypes.SHRAPNEL_BOMB_MINECART.get(), TntMinecartRenderer::new);
     }
 
     @SubscribeEvent

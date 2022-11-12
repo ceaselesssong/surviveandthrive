@@ -3,11 +3,10 @@ package galena.oreganized.index;
 import com.google.common.collect.ImmutableBiMap;
 import galena.oreganized.Oreganized;
 import galena.oreganized.content.block.*;
+import galena.oreganized.content.item.OBlockItem;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
@@ -64,8 +63,8 @@ public class OBlocks {
     public static final RegistryObject<Block> ELECTRUM_BLOCK = register("electrum_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(5.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.METAL)), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
     // Redstone components
-    public static final RegistryObject<Block> EXPOSER = register("exposer", () -> new ExposerBlock(BlockBehaviour.Properties.copy(Blocks.OBSERVER)), CreativeModeTab.TAB_REDSTONE);
-    public static final RegistryObject<Block> SHRAPNEL_BOMB = register("shrapnel_bomb", () -> new ShrapnelBombBlock(BlockBehaviour.Properties.copy(Blocks.TNT)), CreativeModeTab.TAB_REDSTONE);
+    public static final RegistryObject<Block> EXPOSER = register("exposer", () -> new ExposerBlock(BlockBehaviour.Properties.copy(Blocks.OBSERVER)), Items.OBSERVER);
+    public static final RegistryObject<Block> SHRAPNEL_BOMB = register("shrapnel_bomb", () -> new ShrapnelBombBlock(BlockBehaviour.Properties.copy(Blocks.TNT)), Items.TNT);
 
     // Crystal Glass
     public static final RegistryObject<Block> BLACK_CRYSTAL_GLASS = register("black_crystal_glass", () -> new CrystalGlassBlock(DyeColor.BLACK, BlockBehaviour.Properties.copy(Blocks.BLACK_STAINED_GLASS)), CreativeModeTab.TAB_BUILDING_BLOCKS);
@@ -145,7 +144,13 @@ public class OBlocks {
 
     public static <B extends Block> RegistryObject<B> register(String name, Supplier<? extends B> block, CreativeModeTab tab) {
         RegistryObject<B> blocks = BLOCKS.register(name, block);
-        OItems.ITEMS.register(name, () -> new BlockItem(blocks.get(), new Item.Properties().tab(tab)));
+        OItems.ITEMS.register(name, () -> new OBlockItem(blocks.get(), tab));
+        return blocks;
+    }
+
+    public static <B extends Block> RegistryObject<B> register(String name, Supplier<? extends B> block, ItemLike followItem) {
+        RegistryObject<B> blocks = BLOCKS.register(name, block);
+        OItems.ITEMS.register(name, () -> new OBlockItem(blocks.get(), followItem));
         return blocks;
     }
 

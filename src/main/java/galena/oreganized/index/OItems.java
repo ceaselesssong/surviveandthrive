@@ -1,11 +1,9 @@
 package galena.oreganized.index;
 
 import galena.oreganized.Oreganized;
-import galena.oreganized.content.item.BushHammerItem;
-import galena.oreganized.content.item.ElectrumArmorItem;
-import galena.oreganized.content.item.OItem;
-import galena.oreganized.content.item.SilverMirrorItem;
+import galena.oreganized.content.item.*;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -55,4 +53,7 @@ public class OItems {
             () -> new ElectrumArmorItem(OArmorMaterials.ELECTRUM, EquipmentSlot.LEGS));
     public static final RegistryObject<Item> ELECTRUM_BOOTS = ITEMS.register("electrum_boots",
             () -> new ElectrumArmorItem(OArmorMaterials.ELECTRUM, EquipmentSlot.FEET));
+
+    // Transportation
+    public static final RegistryObject<Item> SHRAPNEL_BOMB_MINECART = ITEMS.register("shrapnel_bomb_minecart", () -> new OMinecartItem(AbstractMinecart.Type.TNT, Items.TNT_MINECART));
 }

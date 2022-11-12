@@ -1,5 +1,6 @@
 package galena.oreganized.data;
 
+import com.google.common.collect.ImmutableList;
 import galena.oreganized.data.provider.ORecipeProvider;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OItems;
@@ -12,6 +13,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -21,12 +23,20 @@ import java.util.function.Supplier;
 
 public class ORecipes extends ORecipeProvider {
 
+    protected static final ImmutableList<ItemLike> LEAD_SMELTABLES = ImmutableList.of(OBlocks.LEAD_ORE.get(), OBlocks.DEEPSLATE_LEAD_ORE.get(), OItems.RAW_LEAD.get());
+    protected static final ImmutableList<ItemLike> SILVER_SMELTABLES = ImmutableList.of(OBlocks.SILVER_ORE.get(), OBlocks.DEEPSLATE_SILVER_ORE.get(), OItems.RAW_SILVER.get());
+
     public ORecipes(DataGenerator gen) {
         super(gen);
     }
 
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+        oreSmelting(consumer, LEAD_SMELTABLES, OItems.LEAD_INGOT.get(), 0.7F, 200, "oreganized:lead_ingot");
+        oreBlasting(consumer, LEAD_SMELTABLES, OItems.LEAD_INGOT.get(), 0.7F, 100, "oreganized:lead_ingot");
+        oreSmelting(consumer, SILVER_SMELTABLES, OItems.SILVER_INGOT.get(), 1.0F, 200, "oreganized:silver_ingot");
+        oreBlasting(consumer, SILVER_SMELTABLES, OItems.SILVER_INGOT.get(), 1.0F, 100, "oreganized:silver_ingot");
+
         quadTransform(OBlocks.POLISHED_GLANCE, OBlocks.GLANCE).save(consumer);
         quadTransform(OBlocks.GLANCE_BRICKS, OBlocks.POLISHED_GLANCE).save(consumer);
 
@@ -187,8 +197,11 @@ public class ORecipes extends ORecipeProvider {
                 .unlockedBy("has_gunpowder", has(Tags.Items.GUNPOWDER))
                 .unlockedBy("has_lead_nugget", has(OTags.Items.NUGGETS_LEAD))
                 .save(consumer);
+
+        ShapelessRecipeBuilder.shapeless(OItems.SHRAPNEL_BOMB_MINECART.get())
+                .requires(OBlocks.SHRAPNEL_BOMB.get())
+                .requires(Items.MINECART)
+                .unlockedBy("has_shrapnel_bomb", has(OBlocks.SHRAPNEL_BOMB.get()))
+                .save(consumer);
     }
-
-
-
 }

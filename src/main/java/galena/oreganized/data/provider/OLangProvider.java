@@ -167,6 +167,12 @@ public abstract class OLangProvider implements DataProvider {
         data.putIfAbsent(key, value);
     }
 
+    public void tryEntity(Supplier<? extends EntityType<?>> entity) {
+        String key = entity.get().getDescriptionId();
+        String value = formatString(ForgeRegistries.ENTITY_TYPES.getKey(entity.get()).getPath());
+        data.putIfAbsent(key, value);
+    }
+
     private String formatString(String key) {
         String[] strArr = key.split("_");
         StringBuffer res = new StringBuffer();

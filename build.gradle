@@ -98,8 +98,8 @@ dependencies {
     /// Compatabilities
     implementation fg.deobf("curse.maven:detailab-520755:3920487")
 
-    compileOnly fg.deobf("curse.maven:farmers-delight-398521:3916069")
-    runtimeOnly fg.deobf("curse.maven:farmers-delight-398521:3916069")
+    compileOnly fg.deobf("curse.maven:farmers-delight-398521:3999157")
+    runtimeOnly fg.deobf("curse.maven:farmers-delight-398521:3999157")
 
     compileOnly fg.deobf("curse.maven:shield-expansion-583318:4046471")
     runtimeOnly fg.deobf("curse.maven:shield-expansion-583318:4046471")
@@ -107,10 +107,15 @@ dependencies {
     compileOnly fg.deobf("curse.maven:create-328085:4011414")
     runtimeOnly fg.deobf("curse.maven:create-328085:4011414")
 
+    compileOnly fg.deobf("curse.maven:nethers-delight-496394:3971576")
+    runtimeOnly fg.deobf("curse.maven:nethers-delight-496394:3971576")
+
     //compileOnly fg.deobf("curse.maven:tinkers-construct-74072:3829979")
     //runtimeOnly fg.deobf("curse.maven:tinkers-construct-74072:3829979")
     //runtimeOnly fg.deobf("curse.maven:mantle-74924:3829975")
 
+    runtimeOnly fg.deobf("curse.maven:supplementaries-412082:4073933")
+    runtimeOnly fg.deobf("curse.maven:selene-499980:4077941")
     ///
 
     /// Utilities for the development environment
@@ -122,7 +127,7 @@ dependencies {
     runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
 
     runtimeOnly fg.deobf("curse.maven:catalogue-459701:3873264")
-    runtimeOnly fg.deobf("curse.maven:configured-457570:3872190")
+    runtimeOnly fg.deobf("curse.maven:configured-457570:4011355")
 
     runtimeOnly fg.deobf("curse.maven:oculus-581495:3973908")
     runtimeOnly fg.deobf("curse.maven:rubidium-574856:3973894")
