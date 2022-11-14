@@ -37,11 +37,7 @@ public class BushHammerItem extends DiggerItem {
         ItemStack item = context.getItemInHand();
         Direction facing = context.getClickedFace();
         Optional<BlockState> emptyState = Optional.empty();
-        if (!world.isClientSide && OreganizedConfig.COMMON.engraving.get()) {
-            Direction direction = facing.getAxis() == Direction.Axis.Y ? player.getDirection().getOpposite() : facing;
-            world.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
-            return InteractionResult.sidedSuccess(world.isClientSide);
-        }
+
         return InteractionResult.PASS;
     }
 
