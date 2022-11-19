@@ -1,26 +1,38 @@
 package galena.oreganized.content.block;
 
+import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OTags;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Optional;
@@ -30,12 +42,82 @@ import java.util.function.Supplier;
 @MethodsReturnNonnullByDefault
 public class MoltenLeadBlock extends LiquidBlock {
 
+    private static final BooleanProperty MOVING = BooleanProperty.create( "moving" );
+
     public static final VoxelShape STABLE_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D);
 
     public MoltenLeadBlock(Supplier<? extends FlowingFluid> fluid, Properties properties) {
         super(fluid, properties.noCollission().strength(-1.0F, 3600000.0F).noLootTable().lightLevel((state) -> 8));
     }
 
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder <Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(MOVING);
+    }
+
+    @Override
+    public BlockState updateShape(BlockState pState, Direction pDirection, BlockState neighbour, LevelAccessor pLevel, BlockPos pPos, BlockPos neighbourPos) {
+        if(pDirection == Direction.DOWN){
+            pLevel.scheduleTick( pPos , this , 30 );
+        }
+        return super.updateShape( pState , pDirection , neighbour , pLevel , pPos , neighbourPos );
+    }
+
+    @Nullable
+    @Override
+    public BlockPathTypes getBlockPathType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {
+        return BlockPathTypes.WALKABLE;
+    }
+
+    @Override
+    public boolean canEntityDestroy( BlockState state , BlockGetter world , BlockPos pos , Entity entity ){
+        return false;
+    }
+
+    @Override
+    public void onPlace( BlockState pState , Level pLevel , BlockPos pPos , BlockState pOldState , boolean pIsMoving ){
+        if (pIsMoving){
+            if(!pOldState.getFluidState().is( FluidTags.WATER )){
+                scheduleFallingTick( pLevel , pPos , 30 );
+                pLevel.setBlock( pPos , pState.setValue( MOVING , true ) , 3 );
+            }else{
+                pLevel.levelEvent( 1501 , pPos , 0 );
+                pLevel.setBlock( pPos , OBlocks.LEAD_BLOCK.get().defaultBlockState() , 3 );
+            }
+        } else {
+            if(!pOldState.getFluidState().is( FluidTags.WATER )){
+                pLevel.setBlock( pPos , pState.setValue( MOVING , false ) , 3 );
+                pLevel.scheduleTick( pPos , this , 300 );
+            }else{
+                pLevel.levelEvent( 1501 , pPos , 0 );
+                pLevel.setBlock( pPos , OBlocks.LEAD_BLOCK.get().defaultBlockState() , 3 );
+            }
+        }
+        super.onPlace(pState, pLevel, pPos, pOldState, pIsMoving);
+    }
+
+    @Override
+    public void tick(BlockState pState , ServerLevel pLevel , BlockPos pPos , RandomSource pRandom ){
+        if (pLevel.getBlockState(pPos.below()).getBlock() == Blocks.AIR || pLevel.getBlockState(pPos.below()).is(BlockTags.REPLACEABLE_PLANTS)
+                || pLevel.getBlockState(pPos.below()).getFluidState().is(FluidTags.WATER)
+                || pLevel.getBlockState(pPos.below()).is(BlockTags.SMALL_FLOWERS)
+                || pLevel.getBlockState(pPos.below()).is(BlockTags.TALL_FLOWERS)){
+            pLevel.setBlock( pPos , Blocks.AIR.defaultBlockState() , 67 );
+            pLevel.setBlock( pPos.below() , OBlocks.MOLTEN_LEAD.get().defaultBlockState() , 67 );
+        }
+    }
+
+    private boolean scheduleFallingTick( LevelAccessor pLevel , BlockPos pPos , int pDelay ){
+        if(pLevel.getBlockState( pPos.below() ).getBlock() == Blocks.AIR || pLevel.getBlockState(pPos.below()).is(BlockTags.REPLACEABLE_PLANTS)
+                || pLevel.getBlockState( pPos.below() ).getFluidState().is(FluidTags.WATER)
+                || pLevel.getBlockState( pPos.below() ).is(BlockTags.SMALL_FLOWERS)
+                || pLevel.getBlockState(pPos.below()).is(BlockTags.TALL_FLOWERS)){
+            pLevel.scheduleTick( pPos , this , pDelay );
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public VoxelShape getCollisionShape(BlockState blockState, BlockGetter world, BlockPos blockPos, CollisionContext ctx) {

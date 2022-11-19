@@ -114,6 +114,9 @@ dependencies {
     //runtimeOnly fg.deobf("curse.maven:tinkers-construct-74072:3829979")
     //runtimeOnly fg.deobf("curse.maven:mantle-74924:3829975")
 
+    /*
+        If 'Data' fails to run try comment out the below dependencies
+     */
     runtimeOnly fg.deobf("curse.maven:supplementaries-412082:4073933")
     runtimeOnly fg.deobf("curse.maven:selene-499980:4077941")
     ///

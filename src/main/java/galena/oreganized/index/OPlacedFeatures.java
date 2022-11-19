@@ -2,42 +2,27 @@ package galena.oreganized.index;
 
 import galena.oreganized.Oreganized;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
 
 public class OPlacedFeatures {
 
-    public static void register() {
+    public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, Oreganized.MOD_ID);
 
-    }
+    // Ores
+    public static final RegistryObject<PlacedFeature> LEAD_ORE = PLACED_FEATURES.register("lead_ore", () -> new PlacedFeature(OConfiguredFeatures.LEAD_ORE.getHolder().get(), OrePlacements.commonOrePlacement(30, HeightRangePlacement.triangle(VerticalAnchor.absolute(-40), VerticalAnchor.absolute(-20)))));
+    public static final RegistryObject<PlacedFeature> LEAD_ORE_EXTRA = PLACED_FEATURES.register("lead_ore_extra", () -> new PlacedFeature(OConfiguredFeatures.LEAD_ORE.getHolder().get(), OrePlacements.commonOrePlacement(16, HeightRangePlacement.uniform(VerticalAnchor.absolute(50), VerticalAnchor.absolute(80)))));
 
-    public static final Holder<PlacedFeature> SILVER_ORE_LOW = registerPlacedFeature("silver_ore", OConfiguredFeatures.SILVER_ORE_LOW, commonOrePlacement(4, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(48))));
-
-    public static <FC extends FeatureConfiguration> Holder<PlacedFeature> registerPlacedFeature(String id, Holder<ConfiguredFeature<FC, ?>> feature, PlacementModifier... placementModifiers) {
-        return registerPlacedFeature(id, feature, List.of(placementModifiers));
-    }
-
-    public static <FC extends FeatureConfiguration> Holder<PlacedFeature> registerPlacedFeature(String id, Holder<ConfiguredFeature<FC, ?>> feature, List<PlacementModifier> placementModifiers) {
-        ResourceLocation modLoc = new ResourceLocation(Oreganized.MOD_ID, id);
-        if (BuiltinRegistries.PLACED_FEATURE.keySet().contains(modLoc))
-            throw new IllegalStateException("Placed Feature ID: \"" + modLoc + "\" already exists in the Placed Features registry!");
-
-        PlacedFeature placedFeature = new PlacedFeature(Holder.hackyErase(feature), List.copyOf(placementModifiers));
-
-        return BuiltinRegistries.register(BuiltinRegistries.PLACED_FEATURE, modLoc, placedFeature);
-    }
-
-    private static List<PlacementModifier> orePlacement(PlacementModifier modifier, PlacementModifier modifier2) {
-        return List.of(modifier, InSquarePlacement.spread(), modifier2, BiomeFilter.biome());
-    }
-
-    private static List<PlacementModifier> commonOrePlacement(int count, PlacementModifier modifier) {
-        return orePlacement(CountPlacement.of(count), modifier);
-    }
+    public static final RegistryObject<PlacedFeature> SILVER_ORE = PLACED_FEATURES.register("silver_ore", () -> new PlacedFeature(OConfiguredFeatures.SILVER_ORE.getHolder().get(), OrePlacements.commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(-15), VerticalAnchor.absolute(5)))));
+    public static final RegistryObject<PlacedFeature> SILVER_ORE_EXTRA = PLACED_FEATURES.register("silver_ore_extra", () -> new PlacedFeature(OConfiguredFeatures.SILVER_ORE.getHolder().get(), OrePlacements.commonOrePlacement(1, HeightRangePlacement.triangle(VerticalAnchor.absolute(140), VerticalAnchor.absolute(180)))));
 }

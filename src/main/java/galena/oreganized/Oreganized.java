@@ -65,9 +65,11 @@ public class Oreganized {
                 OParticleTypes.PARTICLES,
                 OPotions.POTIONS,
                 OSoundEvents.SOUNDS,
+                OConfiguredFeatures.CONFIGURED_FEATURES,
+                OPlacedFeatures.PLACED_FEATURES,
                 OStructures.STRUCTURE_TYPES,
                 OStructures.STRUCTURES,
-                OBiomeModifiers.BIOME_MODIFIERS,
+                OPaintingVariants.PAINTING_VARIANTS,
         };
 
         for (DeferredRegister<?> register : registers) {
@@ -87,8 +89,6 @@ public class Oreganized {
         ));
 
         event.enqueueWork(() -> {
-            OConfiguredFeatures.register();
-            OPlacedFeatures.register();
             //OCauldronInteractions.register();
 
             PotionBrewing.addMix(Potions.WATER, OItems.LEAD_INGOT.get(), OPotions.STUNNING.get());
@@ -161,5 +161,6 @@ public class Oreganized {
         generator.addProvider(server, new OAdvancements(generator, helper));
         generator.addProvider(server, new OFluidTags(generator, helper));
         generator.addProvider(server, new OBiomeTags(generator, helper));
+        generator.addProvider(server, new OPaintingVariantTags(generator, helper));
     }
 }

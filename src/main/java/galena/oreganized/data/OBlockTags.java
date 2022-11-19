@@ -28,9 +28,6 @@ public class OBlockTags extends BlockTagsProvider {
     @Override
     protected void addTags() {
         // Oreganized
-        tag(ENGRAVABLE).add(
-                Blocks.STONE, Blocks.BRICKS
-        );
         for (int i = 0; OBlocks.CRYSTAL_GLASS.size() > i; i++) {
             tag(CRYSTAL_GLASS).add(OBlocks.CRYSTAL_GLASS.get(i).get());
             tag(CRYSTAL_GLASS_PANES).add(OBlocks.CRYSTAL_GLASS_PANES.get(i).get());
@@ -93,8 +90,16 @@ public class OBlockTags extends BlockTagsProvider {
                 OBlocks.LEAD_ORE.get(),
                 OBlocks.LEAD_BLOCK.get(),
                 OBlocks.SILVER_BLOCK.get()//,
-                //RegistryHandler.ENGRAVED_STONE_BRICKS.get(), RegistryHandler.ENGRAVED_POLISHED_BLACKSTONE_BRICKS.get(), RegistryHandler.ENGRAVED_NETHER_BRICKS.get(), RegistryHandler.ENGRAVED_RED_NETHER_BRICKS.get(), RegistryHandler.ENGRAVED_BRICKS.get(), RegistryHandler.ENGRAVED_CUT_COPPER.get(), RegistryHandler.ENGRAVED_EXPOSED_CUT_COPPER.get(), RegistryHandler.ENGRAVED_WEATHERED_CUT_COPPER.get(), RegistryHandler.ENGRAVED_OXIDIZED_CUT_COPPER.get(), RegistryHandler.ENGRAVED_WAXED_CUT_COPPER.get(), RegistryHandler.ENGRAVED_WAXED_EXPOSED_CUT_COPPER.get(), RegistryHandler.ENGRAVED_WAXED_WEATHERED_CUT_COPPER.get(), RegistryHandler.ENGRAVED_WAXED_OXIDIZED_CUT_COPPER.get(), RegistryHandler.ENGRAVED_DEEPSLATE_BRICKS.get(), RegistryHandler.ENGRAVED_END_STONE_BRICKS.get(), RegistryHandler.ENGRAVED_QUARTZ_BRICKS.get(), RegistryHandler.ENGRAVED_PRISMARINE_BRICKS.get(), RegistryHandler.ENGRAVED_GLANCE_BRICKS.get()
         );
 
+        tag(BlockTags.NEEDS_STONE_TOOL).add(
+                OBlocks.LEAD_ORE.get(),
+                OBlocks.DEEPSLATE_LEAD_ORE.get()
+        );
+
+        tag(BlockTags.NEEDS_IRON_TOOL).add(
+                OBlocks.SILVER_ORE.get(),
+                OBlocks.DEEPSLATE_SILVER_ORE.get()
+        );
     }
 }
