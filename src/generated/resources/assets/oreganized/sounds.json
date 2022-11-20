@@ -5,26 +5,10 @@
     ],
     "subtitle": "subtitles.entity.shrapnel_bomb.primed"
   },
-  "music.disc.18": {
+  "music.disc.structure": {
     "sounds": [
       {
-        "name": "oreganized:music/disc/pillaged",
-        "stream": true
-      }
-    ]
-  },
-  "music.disc.pillaged": {
-    "sounds": [
-      {
-        "name": "oreganized:music/disc/pillaged",
-        "stream": true
-      }
-    ]
-  },
-  "music.disc.shulk": {
-    "sounds": [
-      {
-        "name": "oreganized:music/disc/pillaged",
+        "name": "oreganized:music/disc/structure",
         "stream": true
       }
     ]

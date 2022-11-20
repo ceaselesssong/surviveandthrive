@@ -14,18 +14,9 @@ public class OSoundDefinitions extends SoundDefinitionsProvider {
 
     @Override
     public void registerSounds() {
-        this.add(OSoundEvents.MUSIC_DISC_PILLAGED, definition().with(
-                sound(Oreganized.MOD_ID + ":music/disc/pillaged").stream()
-        ));
-        this.add(OSoundEvents.MUSIC_DISC_18, definition().with(
-                sound(Oreganized.MOD_ID + ":music/disc/pillaged").stream()
-        ));
-        this.add(OSoundEvents.MUSIC_DISC_SHULK, definition().with(
-                sound(Oreganized.MOD_ID + ":music/disc/pillaged").stream()
-        ));
-        /*this.add(OSoundEvents.MUSIC_DISC_STRUCTURE, definition().with(
+        this.add(OSoundEvents.MUSIC_DISC_STRUCTURE, definition().with(
                 sound(Oreganized.MOD_ID + ":music/disc/structure").stream()
-        ));*/
+        ));
 
         this.add(OSoundEvents.SHRAPNEL_BOMB_PRIMED, definition().with(
                 sound("minecraft:random/fuse")

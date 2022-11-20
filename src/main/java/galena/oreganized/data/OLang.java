@@ -12,9 +12,7 @@ public class OLang extends OLangProvider {
     }
     @Override
     protected void addTranslations() {
-        addDisc(OItems.MUSIC_DISC_PILLAGED, "JamiesName", "Pillaged");
-        addDisc(OItems.MUSIC_DISC_18, "JamiesName", "18");
-        addDisc(OItems.MUSIC_DISC_SHULK, "JamiesName", "Shulk");
+        addDisc(OItems.MUSIC_DISC_STRUCTURE, "Firch", "structure");
 
         addItem(OItems.SHRAPNEL_BOMB_MINECART, "Minecart with Shrapnel Bomb");
 

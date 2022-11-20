@@ -12,9 +12,6 @@ public class OSoundEvents {
 
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Oreganized.MOD_ID);
 
-    public static final RegistryObject<SoundEvent> MUSIC_DISC_PILLAGED = register("music.disc.pillaged");
-    public static final RegistryObject<SoundEvent> MUSIC_DISC_18 = register("music.disc.18");
-    public static final RegistryObject<SoundEvent> MUSIC_DISC_SHULK = register("music.disc.shulk");
     public static final RegistryObject<SoundEvent> MUSIC_DISC_STRUCTURE = register("music.disc.structure");
 
     public static final RegistryObject<SoundEvent> SHRAPNEL_BOMB_PRIMED = register("entity.shrapnel_bomb.primed");
