@@ -1,6 +1,8 @@
 {
   "advancements.adventure.mirror_mirror.description": "Obtain a Silver Mirror",
   "advancements.adventure.mirror_mirror.title": "Mirror, Mirror who is the fairest?",
+  "advancements.story.disc_smith.description": "Submerge a broken music disc into molten lead",
+  "advancements.story.disc_smith.title": "Disc Smith",
   "advancements.story.eat_with_lead.description": "Eat anything with lead in your hotbar",
   "advancements.story.eat_with_lead.title": "Like the Romans",
   "advancements.story.electrum_gear.description": "Obtain a full set of electrum armor",
@@ -45,6 +47,7 @@
   "block.oreganized.magenta_crystal_glass": "Magenta Crystal Glass",
   "block.oreganized.magenta_crystal_glass_pane": "Magenta Crystal Glass Pane",
   "block.oreganized.molten_lead": "Molten Lead",
+  "block.oreganized.molten_lead_cauldron": "Molten Lead Cauldron",
   "block.oreganized.orange_crystal_glass": "Orange Crystal Glass",
   "block.oreganized.orange_crystal_glass_pane": "Orange Crystal Glass Pane",
   "block.oreganized.pink_crystal_glass": "Pink Crystal Glass",
@@ -83,12 +86,14 @@
   "block.oreganized.yellow_crystal_glass_pane": "Yellow Crystal Glass Pane",
   "effect.oreganized.stunning": "Stunning",
   "effect.oreganized.stunning.description": "Paralyzes the victim periodically with random intervals",
+  "entity.oreganized.boltarang": "Boltarang",
   "entity.oreganized.shrapnel_bomb": "Shrapnel Bomb",
   "entity.oreganized.shrapnel_bomb_minecart": "Shrapnel Bomb Minecart",
   "item.minecraft.lingering_potion.effect.stunning": "Lingering Potion of Stunning",
   "item.minecraft.potion.effect.stunning": "Potion of Stunning",
   "item.minecraft.splash_potion.effect.stunning": "Splash Potion of Stunning",
   "item.minecraft.tipped_arrow.effect.stunning": "Arrow of Stunning",
+  "item.oreganized.boltarang": "Boltarang",
   "item.oreganized.bush_hammer": "Bush Hammer",
   "item.oreganized.electrum_axe": "Electrum Axe",
   "item.oreganized.electrum_boots": "Electrum Boots",
@@ -116,5 +121,7 @@
   "item.oreganized.silver_ingot": "Silver Ingot",
   "item.oreganized.silver_mirror": "Silver Mirror",
   "item.oreganized.silver_nugget": "Silver Nugget",
-  "subtitles.entity.shrapnel_bomb.primed": "Shrapnel Bomb fizzes"
+  "subtitles.entity.shrapnel_bomb.primed": "Shrapnel Bomb fizzes",
+  "tooltip.oreganized.wip.description": "Usages for this item will be available in a future release",
+  "tooltip.oreganized.wip.title": "Work In Progress"
 }

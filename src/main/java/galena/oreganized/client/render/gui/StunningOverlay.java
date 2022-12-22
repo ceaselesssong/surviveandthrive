@@ -12,10 +12,6 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 @OnlyIn(Dist.CLIENT)
 public class StunningOverlay implements IGuiOverlay {
-
-    protected static final ResourceLocation STUNNING_LOCATION = new ResourceLocation(Oreganized.MOD_ID, "textures/misc/stunning.png");
-    protected static final ResourceLocation STUNNING_VIGNETTE_LOCATION = new ResourceLocation(Oreganized.MOD_ID, "textures/misc/stunning_vignette.png");
-
     @Override
     public void render(ForgeGui gui, PoseStack poseStack, float partialTick, int width, int height) {
         Minecraft minecraft = Minecraft.getInstance();

@@ -1,8 +1,8 @@
 package galena.oreganized.index;
 
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
@@ -34,7 +34,7 @@ public enum OItemTiers implements Tier {
     private final float speed;
     private final float damage;
     private final int enchantmentValue;
-    private final LazyLoadedValue<Ingredient> repairIngredient;
+    private final Supplier<Ingredient> repairIngredient;
 
     OItemTiers(int level, int durability, float speed, float damage, int enchantmentValue, Supplier<Ingredient> repairIngredient) {
         this.level = level;
@@ -42,7 +42,7 @@ public enum OItemTiers implements Tier {
         this.speed = speed;
         this.damage = damage;
         this.enchantmentValue = enchantmentValue;
-        this.repairIngredient = new LazyLoadedValue<>(repairIngredient);
+        this.repairIngredient = repairIngredient;
     }
 
     public int getUses() {
@@ -65,7 +65,7 @@ public enum OItemTiers implements Tier {
         return this.enchantmentValue;
     }
 
-    public Ingredient getRepairIngredient() {
+    public @NotNull Ingredient getRepairIngredient() {
         return this.repairIngredient.get();
     }
 }

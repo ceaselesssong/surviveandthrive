@@ -110,6 +110,10 @@ dependencies {
     compileOnly fg.deobf("curse.maven:nethers-delight-496394:3971576")
     runtimeOnly fg.deobf("curse.maven:nethers-delight-496394:3971576")
 
+    compileOnly fg.deobf("curse.maven:quark-243121:4140000")
+    runtimeOnly fg.deobf("curse.maven:quark-243121:4140000")
+    runtimeOnly fg.deobf("curse.maven:autoreglib-250363:4100299")
+
     //compileOnly fg.deobf("curse.maven:tinkers-construct-74072:3829979")
     //runtimeOnly fg.deobf("curse.maven:tinkers-construct-74072:3829979")
     //runtimeOnly fg.deobf("curse.maven:mantle-74924:3829975")

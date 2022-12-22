@@ -5,14 +5,12 @@ import galena.oreganized.OreganizedConfig;
 import galena.oreganized.index.OTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DiggerItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -41,5 +39,9 @@ public class BushHammerItem extends DiggerItem {
         return InteractionResult.PASS;
     }
 
-
+    @Override
+    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
+        if (this.allowedIn(tab))
+            OItem.insert(new ItemStack(this), false, items, stack -> stack.getItem() == Items.FLINT_AND_STEEL);
+    }
 }

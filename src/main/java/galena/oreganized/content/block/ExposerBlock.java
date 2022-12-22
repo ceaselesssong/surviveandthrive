@@ -1,6 +1,7 @@
 package galena.oreganized.content.block;
 
 import galena.oreganized.content.ISilver;
+import galena.oreganized.content.entity.ExposerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -8,30 +9,43 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DirectionalBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import org.jetbrains.annotations.Nullable;
 
-public class ExposerBlock extends DirectionalBlock implements ISilver {
+public class ExposerBlock extends DirectionalBlock implements ISilver, EntityBlock {
 
-    public static final IntegerProperty LEVEL = BlockStateProperties.AGE_7;
+    public static final IntegerProperty LEVEL = IntegerProperty.create("level", 0, 7);
     public static final int TexturedFrames = 4;
 
 
     public ExposerBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.SOUTH).setValue(LEVEL, 7));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.SOUTH).setValue(LEVEL, 0));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, LEVEL);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new ExposerBlockEntity(pos, state);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> entityType) {
+        return ExposerBlockEntity::tick;
     }
 
     @Override
@@ -52,7 +66,7 @@ public class ExposerBlock extends DirectionalBlock implements ISilver {
     @Override
     public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         int dist = getUndeadDistance(world, pos, null, TexturedFrames);
-        world.setBlockAndUpdate(pos, state.setValue(LEVEL, dist - 1));
+        world.setBlockAndUpdate(pos, state.setValue(LEVEL, LEVEL.getPossibleValues().size() - dist));
         world.scheduleTick(pos, state.getBlock(), 1);
         this.updateNeighborsInFront(world, pos, state);
     }
@@ -76,7 +90,7 @@ public class ExposerBlock extends DirectionalBlock implements ISilver {
 
     @Override
     public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction direction) {
-        if (state.getValue(FACING) == direction) return 0;
-        return state.getValue(LEVEL);
+        if (state.getValue(FACING) == direction.getOpposite()) return 0;
+        return state.getValue(LEVEL) * 2;
     }
 }

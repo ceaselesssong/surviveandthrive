@@ -6,6 +6,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
 import java.util.Optional;
@@ -14,16 +15,29 @@ import java.util.function.Predicate;
 @ParametersAreNonnullByDefault
 public class OItem extends Item {
 
-    private static Item followItem;
+    @Nullable
+    private final Item followItem;
+
+    public OItem(Properties properties) {
+        super(properties);
+        this.followItem = null;
+    }
+
+    public OItem(Properties properties, ItemLike follow) {
+        super(properties.tab(Objects.requireNonNull(follow.asItem().getItemCategory())));
+        this.followItem = follow.asItem();
+    }
 
     public OItem() {
         super(new Properties());
+        this.followItem = null;
     }
 
     public OItem(CreativeModeTab tab) {
         super(new Properties()
                 .tab(tab)
         );
+        this.followItem = null;
     }
 
     public OItem(int stackSize, CreativeModeTab tab) {
@@ -31,6 +45,7 @@ public class OItem extends Item {
                 .tab(tab)
                 .stacksTo(stackSize)
         );
+        this.followItem = null;
     }
 
     public OItem(boolean inflammable, CreativeModeTab tab) {
@@ -38,18 +53,20 @@ public class OItem extends Item {
                 .tab(tab)
                 .fireResistant()
         );
+        this.followItem = null;
     }
 
     public OItem(ItemLike follow) {
         super(new Properties()
                 .tab(Objects.requireNonNull(follow.asItem().getItemCategory()))
         );
-        followItem = follow.asItem();
+        this.followItem = follow.asItem();
     }
 
     @Override
     public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
-        if (this.allowedIn(tab))
+        if (this.followItem == null) super.fillItemCategory(tab, items);
+        if (this.allowedIn(tab) && this.followItem != null)
             insert(new ItemStack(this), false, items, stack -> stack.getItem() == followItem);
     }
 

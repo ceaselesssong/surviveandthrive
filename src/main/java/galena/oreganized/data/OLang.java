@@ -35,11 +35,16 @@ public class OLang extends OLangProvider {
         addAdvDesc("story.electrum_gear", "Obtain a full set of electrum armor");
         addAdvTitle("story.eat_with_lead", "Like the Romans");
         addAdvDesc("story.eat_with_lead", "Eat anything with lead in your hotbar");
+        addAdvTitle("story.disc_smith", "Disc Smith");
+        addAdvDesc("story.disc_smith", "Submerge a broken music disc into molten lead");
 
         // JEED compat
         add("effect.oreganized.stunning.description", "Paralyzes the victim periodically with random intervals");
 
         addSubtitle("entity", "shrapnel_bomb.primed", "Shrapnel Bomb fizzes");
+
+        add("tooltip.oreganized.wip.title", "Work In Progress");
+        add("tooltip.oreganized.wip.description", "Usages for this item will be available in a future release");
 
         /*
             Automatically create translations for blocks and items based on their registry name.

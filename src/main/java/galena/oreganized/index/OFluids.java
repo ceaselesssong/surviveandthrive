@@ -54,7 +54,7 @@ public class OFluids {
 
                         @Override
                         public ResourceLocation getOverlayTexture() {
-                            return new ResourceLocation(Oreganized.MOD_ID, "misc/stunning_overlay");
+                            return new ResourceLocation(Oreganized.MOD_ID, "fluid/molten_lead_flowing");
                         }
 
                         @Override

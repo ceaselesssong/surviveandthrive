@@ -5,16 +5,17 @@ import com.redlimerl.detailab.api.DetailArmorBarAPI;
 import com.redlimerl.detailab.api.render.ArmorBarRenderManager;
 import com.redlimerl.detailab.api.render.TextureOffset;
 import galena.oreganized.client.OreganizedClient;
+import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.data.*;
+import galena.oreganized.data.modifiers.OBiomeModifier;
 import galena.oreganized.index.*;
 import galena.oreganized.integration.CompatHandler;
+import galena.oreganized.integration.CompatHandlerClient;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Block;
@@ -55,7 +56,7 @@ public class Oreganized {
         bus.addListener(this::gatherData);
 
         DeferredRegister<?>[] registers = {
-                //OBlockEntities.BLOCK_ENTITIES,
+                OBlockEntities.BLOCK_ENTITIES,
                 OBlocks.BLOCKS,
                 OEffects.EFFECTS,
                 OEntityTypes.ENTITIES,
@@ -65,10 +66,10 @@ public class Oreganized {
                 OParticleTypes.PARTICLES,
                 OPotions.POTIONS,
                 OSoundEvents.SOUNDS,
-                OConfiguredFeatures.CONFIGURED_FEATURES,
-                OPlacedFeatures.PLACED_FEATURES,
-                OStructures.STRUCTURE_TYPES,
                 OStructures.STRUCTURES,
+                OFeatures.FEATURES,
+                OFeatures.Configured.CONFIGURED_FEATURES,
+                OFeatures.Placed.PLACED_FEATURES,
                 OPaintingVariants.PAINTING_VARIANTS,
         };
 
@@ -78,7 +79,7 @@ public class Oreganized {
 
         CompatHandler.register();
 
-        context.registerConfig(ModConfig.Type.COMMON, OreganizedConfig.COMMON_SPEC);
+        //context.registerConfig(ModConfig.Type.COMMON, OreganizedConfig.COMMON_SPEC);
         //context.registerConfig(ModConfig.Type.CLIENT, OreganizedConfig.CLIENT_SPEC);
     }
 
@@ -89,7 +90,28 @@ public class Oreganized {
         ));
 
         event.enqueueWork(() -> {
-            //OCauldronInteractions.register();
+
+            Map<Item, CauldronInteraction> EMPTY = CauldronInteraction.EMPTY;
+            Map<Item, CauldronInteraction> WATER = CauldronInteraction.WATER;
+            Map<Item, CauldronInteraction> LAVA = CauldronInteraction.LAVA;
+            Map<Item, CauldronInteraction> POWDER_SNOW = CauldronInteraction.POWDER_SNOW;
+            Map<Item, CauldronInteraction> LEAD = MoltenLeadCauldronBlock.INTERACTION_MAP;
+
+            EMPTY.put(OItems.MOLTEN_LEAD_BUCKET.get(), MoltenLeadCauldronBlock.FILL_MOLTEN_LEAD);
+            WATER.put(OItems.MOLTEN_LEAD_BUCKET.get(), MoltenLeadCauldronBlock.FILL_MOLTEN_LEAD);
+            LAVA.put(OItems.MOLTEN_LEAD_BUCKET.get(), MoltenLeadCauldronBlock.FILL_MOLTEN_LEAD);
+            POWDER_SNOW.put(OItems.MOLTEN_LEAD_BUCKET.get(), MoltenLeadCauldronBlock.FILL_MOLTEN_LEAD);
+            LEAD.put(OItems.MOLTEN_LEAD_BUCKET.get(), MoltenLeadCauldronBlock.FILL_MOLTEN_LEAD);
+
+            EMPTY.put(OBlocks.LEAD_BLOCK.get().asItem(), MoltenLeadCauldronBlock.FILL_LEAD_BLOCK);
+            WATER.put(OBlocks.LEAD_BLOCK.get().asItem(), MoltenLeadCauldronBlock.FILL_LEAD_BLOCK);
+            LAVA.put(OBlocks.LEAD_BLOCK.get().asItem(), MoltenLeadCauldronBlock.FILL_LEAD_BLOCK);
+            POWDER_SNOW.put(OBlocks.LEAD_BLOCK.get().asItem(), MoltenLeadCauldronBlock.FILL_LEAD_BLOCK);
+
+            LEAD.put(Items.AIR, MoltenLeadCauldronBlock.EMPTY_LEAD_BLOCK);
+            LEAD.put(Items.BUCKET, MoltenLeadCauldronBlock.EMPTY_MOLTEN_LEAD);
+
+            CauldronInteraction.addDefaultInteractions(MoltenLeadCauldronBlock.INTERACTION_MAP);
 
             PotionBrewing.addMix(Potions.WATER, OItems.LEAD_INGOT.get(), OPotions.STUNNING.get());
             PotionBrewing.addMix(OPotions.STUNNING.get(), Items.REDSTONE, OPotions.LONG_STUNNING.get());
@@ -121,6 +143,7 @@ public class Oreganized {
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
+        CompatHandlerClient.setup(event);
         OreganizedClient.registerBlockRenderers();
 
         ItemProperties.register(OItems.SILVER_MIRROR.get(), new ResourceLocation("level"), (stack, world, entity, seed) -> {
@@ -162,5 +185,6 @@ public class Oreganized {
         generator.addProvider(server, new OFluidTags(generator, helper));
         generator.addProvider(server, new OBiomeTags(generator, helper));
         generator.addProvider(server, new OPaintingVariantTags(generator, helper));
+        generator.addProvider(server, OBiomeModifier.register(event));
     }
 }

@@ -6,6 +6,8 @@ import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OItems;
 import galena.oreganized.integration.farmersdelight.FDCompatRegistry;
 import galena.oreganized.integration.nethersdelight.NDCompatRegistry;
+import galena.oreganized.integration.quark.QCompatRegistry;
+import galena.oreganized.integration.quark.entity.Boltarang;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -74,11 +76,38 @@ public class OItemModels extends OItemModelProvider {
         block(OBlocks.EXPOSER, "exposer_level_0_south");
         block(OBlocks.SHRAPNEL_BOMB);
 
-        for (int i = 0; OBlocks.CRYSTAL_GLASS.size() > i; i++) {
-            Supplier<? extends Block> crystalGlassBlock = OBlocks.CRYSTAL_GLASS.get(i);
-            block(crystalGlassBlock);
-            blockFlat(OBlocks.CRYSTAL_GLASS_PANES.get(i), crystalGlassBlock);
-        }
+        block(OBlocks.WHITE_CRYSTAL_GLASS);
+        blockFlat(OBlocks.WHITE_CRYSTAL_GLASS_PANE, OBlocks.WHITE_CRYSTAL_GLASS);
+        block(OBlocks.ORANGE_CRYSTAL_GLASS);
+        blockFlat(OBlocks.ORANGE_CRYSTAL_GLASS_PANE, OBlocks.ORANGE_CRYSTAL_GLASS);
+        block(OBlocks.MAGENTA_CRYSTAL_GLASS);
+        blockFlat(OBlocks.MAGENTA_CRYSTAL_GLASS_PANE, OBlocks.MAGENTA_CRYSTAL_GLASS);
+        block(OBlocks.LIGHT_BLUE_CRYSTAL_GLASS);
+        blockFlat(OBlocks.LIGHT_BLUE_CRYSTAL_GLASS_PANE, OBlocks.LIGHT_BLUE_CRYSTAL_GLASS);
+        block(OBlocks.YELLOW_CRYSTAL_GLASS);
+        blockFlat(OBlocks.YELLOW_CRYSTAL_GLASS_PANE, OBlocks.YELLOW_CRYSTAL_GLASS);
+        block(OBlocks.LIME_CRYSTAL_GLASS);
+        blockFlat(OBlocks.LIME_CRYSTAL_GLASS_PANE, OBlocks.LIME_CRYSTAL_GLASS);
+        block(OBlocks.PINK_CRYSTAL_GLASS);
+        blockFlat(OBlocks.PINK_CRYSTAL_GLASS_PANE, OBlocks.PINK_CRYSTAL_GLASS);
+        block(OBlocks.GRAY_CRYSTAL_GLASS);
+        blockFlat(OBlocks.GRAY_CRYSTAL_GLASS_PANE, OBlocks.GRAY_CRYSTAL_GLASS);
+        block(OBlocks.LIGHT_GRAY_CRYSTAL_GLASS);
+        blockFlat(OBlocks.LIGHT_GRAY_CRYSTAL_GLASS_PANE, OBlocks.LIGHT_GRAY_CRYSTAL_GLASS);
+        block(OBlocks.CYAN_CRYSTAL_GLASS);
+        blockFlat(OBlocks.CYAN_CRYSTAL_GLASS_PANE, OBlocks.CYAN_CRYSTAL_GLASS);
+        block(OBlocks.PURPLE_CRYSTAL_GLASS);
+        blockFlat(OBlocks.PURPLE_CRYSTAL_GLASS_PANE, OBlocks.PURPLE_CRYSTAL_GLASS);
+        block(OBlocks.BLUE_CRYSTAL_GLASS);
+        blockFlat(OBlocks.BLUE_CRYSTAL_GLASS_PANE, OBlocks.BLUE_CRYSTAL_GLASS);
+        block(OBlocks.BROWN_CRYSTAL_GLASS);
+        blockFlat(OBlocks.BROWN_CRYSTAL_GLASS_PANE, OBlocks.BROWN_CRYSTAL_GLASS);
+        block(OBlocks.GREEN_CRYSTAL_GLASS);
+        blockFlat(OBlocks.GREEN_CRYSTAL_GLASS_PANE, OBlocks.GREEN_CRYSTAL_GLASS);
+        block(OBlocks.RED_CRYSTAL_GLASS);
+        blockFlat(OBlocks.RED_CRYSTAL_GLASS_PANE, OBlocks.RED_CRYSTAL_GLASS);
+        block(OBlocks.BLACK_CRYSTAL_GLASS);
+        blockFlat(OBlocks.BLACK_CRYSTAL_GLASS_PANE, OBlocks.BLACK_CRYSTAL_GLASS);
 
         for (Supplier<? extends Block> blocks : OBlocks.WAXED_CONRETE_POWDER) {
             withExistingParent(blockName(blocks), "minecraft:block/" + blockName(blocks).replace("waxed_", ""));

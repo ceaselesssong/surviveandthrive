@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import galena.oreganized.Oreganized;
 import galena.oreganized.index.OEffects;
+import galena.oreganized.index.OFluids;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
@@ -27,5 +28,8 @@ public class OGui extends ForgeGui {
             this.renderTextureOverlay(STUNNING_VIGNETTE_LOCATION, 1);
             this.renderTextureOverlay(STUNNING_LOCATION, 0.8F);
         }
+
+        if (this.minecraft.player.isEyeInFluidType(OFluids.MOLTEN_LEAD_TYPE.get()))
+            this.renderTextureOverlay(STUNNING_VIGNETTE_LOCATION, 1);
     }
 }

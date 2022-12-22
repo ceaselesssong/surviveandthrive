@@ -46,7 +46,7 @@ public class OLootTables extends LootTableProvider {
 
         protected void addTables() {
             //dropNothing(OBlocks.MOLTEN_LEAD);
-            //cauldron(OBlocks.MOLTEN_LEAD_CAULDRON);
+            cauldron(OBlocks.MOLTEN_LEAD_CAULDRON);
 
             dropSelf(OBlocks.GLANCE);
             dropSelf(OBlocks.POLISHED_GLANCE);

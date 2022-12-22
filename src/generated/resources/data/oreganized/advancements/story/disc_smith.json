@@ -1,0 +1,57 @@
+{
+  "parent": "oreganized:story/melting_point",
+  "criteria": {
+    "has_structure_disc": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "oreganized:music_disc_structure"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "use_disc_on_lead_cauldron": {
+      "conditions": {
+        "item": {
+          "items": [
+            "minecraft:music_disc_11"
+          ]
+        },
+        "location": {
+          "block": {
+            "blocks": [
+              "oreganized:molten_lead_cauldron"
+            ]
+          }
+        }
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.story.disc_smith.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "oreganized:music_disc_structure"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.story.disc_smith.title"
+    }
+  },
+  "requirements": [
+    [
+      "use_disc_on_lead_cauldron"
+    ],
+    [
+      "has_structure_disc"
+    ]
+  ]
+}

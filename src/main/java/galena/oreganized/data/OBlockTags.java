@@ -55,7 +55,7 @@ public class OBlockTags extends BlockTagsProvider {
         tag(BlockTags.SLABS).add(OBlocks.GLANCE_SLAB.get(), OBlocks.GLANCE_BRICK_SLAB.get());
         tag(BlockTags.BEACON_BASE_BLOCKS).add(OBlocks.ELECTRUM_BLOCK.get());
         tag(BlockTags.IMPERMEABLE).addTag(CRYSTAL_GLASS);
-        //tag(BlockTags.CAULDRONS).add(OBlocks.MOLTEN_LEAD_CAULDRON.get());
+        tag(BlockTags.CAULDRONS).add(OBlocks.MOLTEN_LEAD_CAULDRON.get());
 
         // Forge
         tag(Tags.Blocks.ORES).addTags(ORES_SILVER, ORES_LEAD);

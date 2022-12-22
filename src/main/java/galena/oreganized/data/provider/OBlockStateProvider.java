@@ -103,7 +103,7 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
 
             String name = name(block) + "_level_" + level;
             String side = name(block) + "_side";
-            String back = state.getValue(ExposerBlock.LEVEL) < 7 ? name(block) + "_back_on" : name(block) + "_back";
+            String back = state.getValue(ExposerBlock.LEVEL) > 0 ? name(block) + "_back_on" : name(block) + "_back";
             String top = name(block) + "_top";
 
             return ConfiguredModel.builder().modelFile(directionalBlockModel(block, name + "_" + facing, side, name, back, top)).rotationX(x).rotationY(y).build();

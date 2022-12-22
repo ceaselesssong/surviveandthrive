@@ -1,7 +1,7 @@
 {
   "textures": {
-    "1": "oreganized:item/electrum_shield",
-    "particle": "oreganized:item/electrum_shield"
+    "1": "oreganized:item/shields",
+    "particle": "oreganized:item/shields"
   },
   "elements": [
     {

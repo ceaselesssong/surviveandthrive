@@ -37,6 +37,9 @@ public class ORecipes extends ORecipeProvider {
         oreSmelting(consumer, SILVER_SMELTABLES, OItems.SILVER_INGOT.get(), 1.0F, 200, "oreganized:silver_ingot");
         oreBlasting(consumer, SILVER_SMELTABLES, OItems.SILVER_INGOT.get(), 1.0F, 100, "oreganized:silver_ingot");
 
+        smeltingRecipe(OItems.LEAD_NUGGET.get(), OItems.BUSH_HAMMER.get(), 0.1F).save(consumer, "oreganized:lead_nugget_from_smelting");
+        blastingRecipe(OItems.LEAD_NUGGET.get(), OItems.BUSH_HAMMER.get(), 0.1F).save(consumer, "oreganized:lead_nugget_from_blasting");
+
         quadTransform(OBlocks.POLISHED_GLANCE, OBlocks.GLANCE).save(consumer);
         quadTransform(OBlocks.GLANCE_BRICKS, OBlocks.POLISHED_GLANCE).save(consumer);
 

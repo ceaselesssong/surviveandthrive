@@ -11,9 +11,13 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class OAdvancements extends AdvancementProvider {
@@ -115,6 +119,22 @@ public class OAdvancements extends AdvancementProvider {
                     .addCriterion("has_molten_lead_bucket", InventoryChangeTrigger.TriggerInstance.hasItems(OItems.MOLTEN_LEAD_BUCKET.get()))
                     //.addCriterion("item_used_on_cauldron", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock()))
                     .save(consumer, "oreganized:story/melting_point");
+
+            Advancement disc_smith = Advancement.Builder.advancement()
+                    .parent(melting_point)
+                    .display(
+                            OItems.MUSIC_DISC_STRUCTURE.get(),
+                            Component.translatable("advancements.story.disc_smith.title"),
+                            Component.translatable("advancements.story.disc_smith.description"),
+                            null,
+                            FrameType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("use_disc_on_lead_cauldron", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock(new LocationPredicate.Builder().setBlock(new BlockPredicate(null, Set.of(OBlocks.MOLTEN_LEAD_CAULDRON.get()), StatePropertiesPredicate.ANY, NbtPredicate.ANY)), ItemPredicate.Builder.item().of(Items.MUSIC_DISC_11)))
+                    .addCriterion("has_structure_disc", InventoryChangeTrigger.TriggerInstance.hasItems(OItems.MUSIC_DISC_STRUCTURE.get()))
+                    .save(consumer, "oreganized:story/disc_smith");
         }
 
         protected Advancement getAdv(String loc) {

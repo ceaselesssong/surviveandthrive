@@ -1,6 +1,8 @@
 package galena.oreganized.content.block;
 
 import galena.oreganized.index.OBlocks;
+import galena.oreganized.index.OEffects;
+import galena.oreganized.index.OItems;
 import galena.oreganized.index.OTags;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
@@ -11,10 +13,15 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -32,6 +39,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -44,7 +52,7 @@ public class MoltenLeadBlock extends LiquidBlock {
 
     private static final BooleanProperty MOVING = BooleanProperty.create( "moving" );
 
-    public static final VoxelShape STABLE_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D);
+    public static final VoxelShape STABLE_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D);
 
     public MoltenLeadBlock(Supplier<? extends FlowingFluid> fluid, Properties properties) {
         super(fluid, properties.noCollission().strength(-1.0F, 3600000.0F).noLootTable().lightLevel((state) -> 8));
@@ -121,10 +129,23 @@ public class MoltenLeadBlock extends LiquidBlock {
 
     @Override
     public VoxelShape getCollisionShape(BlockState blockState, BlockGetter world, BlockPos blockPos, CollisionContext ctx) {
-        if (ctx instanceof EntityCollisionContext eCtx && eCtx.getEntity() != null) {
+        if (ctx instanceof EntityCollisionContext eCtx && eCtx.getEntity() != null)
             return ctx.isAbove(STABLE_SHAPE, blockPos, true) && blockState.getValue(LEVEL) == 0 && isEntityLighterThanLead(eCtx.getEntity()) ? STABLE_SHAPE : Shapes.empty();
-        }
+
         return super.getCollisionShape(blockState, world, blockPos, ctx);
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter blockWorld, BlockPos pos, CollisionContext context) {
+        if (context.isHoldingItem(OItems.MOLTEN_LEAD_BUCKET.get()))
+            return blockWorld.getBlockState(pos.above()) != state ? STABLE_SHAPE : Shapes.block();
+
+        return Shapes.empty();
+    }
+
+    @Override
+    public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+        return state.is(Blocks.LAVA);
     }
 
 
@@ -135,6 +156,10 @@ public class MoltenLeadBlock extends LiquidBlock {
                 entity.makeStuckInBlock(state, new Vec3(0.9F, 1.0D, 0.9F));
             }
 
+            if (entity instanceof LivingEntity living && living.isUsingItem() && living.getUseItemRemainingTicks() == 0 && living.getItemInHand(living.getUsedItemHand()).isEdible()) {
+                living.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 40 * 20));
+                living.addEffect(new MobEffectInstance(MobEffects.POISON, 200));
+            }
             entity.setSecondsOnFire(10);
             if (!world.isClientSide) entity.setSharedFlagOnFire(true);
         }

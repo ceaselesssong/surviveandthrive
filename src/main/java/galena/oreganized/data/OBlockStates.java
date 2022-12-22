@@ -64,13 +64,40 @@ public class OBlockStates extends OBlockStateProvider {
 
         exposer(OBlocks.EXPOSER);
 
-        //moltenCauldron(OBlocks.MOLTEN_LEAD_CAULDRON, OBlocks.LEAD_BLOCK);
+        moltenCauldron(OBlocks.MOLTEN_LEAD_CAULDRON, OBlocks.LEAD_BLOCK);
 
-        for (int i = 0; OBlocks.CRYSTAL_GLASS.size() > i; i++) {
-            Supplier<? extends Block> crystalGlassBlock = OBlocks.CRYSTAL_GLASS.get(i);
-            crystalGlassBlock(crystalGlassBlock);
-            crystalGlassPaneBlock(OBlocks.CRYSTAL_GLASS_PANES.get(i), crystalGlassBlock);
-        }
+        crystalGlassBlock(OBlocks.WHITE_CRYSTAL_GLASS);
+        crystalGlassPaneBlock(OBlocks.WHITE_CRYSTAL_GLASS_PANE, OBlocks.WHITE_CRYSTAL_GLASS);
+        crystalGlassBlock(OBlocks.ORANGE_CRYSTAL_GLASS);
+        crystalGlassPaneBlock(OBlocks.ORANGE_CRYSTAL_GLASS_PANE, OBlocks.ORANGE_CRYSTAL_GLASS);
+        crystalGlassBlock(OBlocks.MAGENTA_CRYSTAL_GLASS);
+        crystalGlassPaneBlock(OBlocks.MAGENTA_CRYSTAL_GLASS_PANE, OBlocks.MAGENTA_CRYSTAL_GLASS);
+        crystalGlassBlock(OBlocks.LIGHT_BLUE_CRYSTAL_GLASS);
+        crystalGlassPaneBlock(OBlocks.LIGHT_BLUE_CRYSTAL_GLASS_PANE, OBlocks.LIGHT_BLUE_CRYSTAL_GLASS);
+        crystalGlassBlock(OBlocks.YELLOW_CRYSTAL_GLASS);
+        crystalGlassPaneBlock(OBlocks.YELLOW_CRYSTAL_GLASS_PANE, OBlocks.YELLOW_CRYSTAL_GLASS);
+        crystalGlassBlock(OBlocks.LIME_CRYSTAL_GLASS);
+        crystalGlassPaneBlock(OBlocks.LIME_CRYSTAL_GLASS_PANE, OBlocks.LIME_CRYSTAL_GLASS);
+        crystalGlassBlock(OBlocks.PINK_CRYSTAL_GLASS);
+        crystalGlassPaneBlock(OBlocks.PINK_CRYSTAL_GLASS_PANE, OBlocks.PINK_CRYSTAL_GLASS);
+        crystalGlassBlock(OBlocks.GRAY_CRYSTAL_GLASS);
+        crystalGlassPaneBlock(OBlocks.GRAY_CRYSTAL_GLASS_PANE, OBlocks.GRAY_CRYSTAL_GLASS);
+        crystalGlassBlock(OBlocks.LIGHT_GRAY_CRYSTAL_GLASS);
+        crystalGlassPaneBlock(OBlocks.LIGHT_GRAY_CRYSTAL_GLASS_PANE, OBlocks.LIGHT_GRAY_CRYSTAL_GLASS);
+        crystalGlassBlock(OBlocks.CYAN_CRYSTAL_GLASS);
+        crystalGlassPaneBlock(OBlocks.CYAN_CRYSTAL_GLASS_PANE, OBlocks.CYAN_CRYSTAL_GLASS);
+        crystalGlassBlock(OBlocks.PURPLE_CRYSTAL_GLASS);
+        crystalGlassPaneBlock(OBlocks.PURPLE_CRYSTAL_GLASS_PANE, OBlocks.PURPLE_CRYSTAL_GLASS);
+        crystalGlassBlock(OBlocks.BLUE_CRYSTAL_GLASS);
+        crystalGlassPaneBlock(OBlocks.BLUE_CRYSTAL_GLASS_PANE, OBlocks.BLUE_CRYSTAL_GLASS);
+        crystalGlassBlock(OBlocks.BROWN_CRYSTAL_GLASS);
+        crystalGlassPaneBlock(OBlocks.BROWN_CRYSTAL_GLASS_PANE, OBlocks.BROWN_CRYSTAL_GLASS);
+        crystalGlassBlock(OBlocks.GREEN_CRYSTAL_GLASS);
+        crystalGlassPaneBlock(OBlocks.GREEN_CRYSTAL_GLASS_PANE, OBlocks.GREEN_CRYSTAL_GLASS);
+        crystalGlassBlock(OBlocks.RED_CRYSTAL_GLASS);
+        crystalGlassPaneBlock(OBlocks.RED_CRYSTAL_GLASS_PANE, OBlocks.RED_CRYSTAL_GLASS);
+        crystalGlassBlock(OBlocks.BLACK_CRYSTAL_GLASS);
+        crystalGlassPaneBlock(OBlocks.BLACK_CRYSTAL_GLASS_PANE, OBlocks.BLACK_CRYSTAL_GLASS);
     }
 
 }
