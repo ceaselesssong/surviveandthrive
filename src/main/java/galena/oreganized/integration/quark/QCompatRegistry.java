@@ -16,9 +16,9 @@ import static galena.oreganized.index.OItems.ITEMS;
 
 public class QCompatRegistry {
 
-    public static final RegistryObject<EntityType<Boltarang>> BOLTARANG = ENTITIES.register("boltarang", () -> EntityType.Builder.<Boltarang>of(Boltarang::new, MobCategory.MISC).sized(0.4F, 0.4F).clientTrackingRange(4).updateInterval(10).build("bolterang"));
+    //public static final RegistryObject<EntityType<Boltarang>> BOLTARANG = ENTITIES.register("boltarang", () -> EntityType.Builder.<Boltarang>of(Boltarang::new, MobCategory.MISC).sized(0.4F, 0.4F).clientTrackingRange(4).updateInterval(10).build("bolterang"));
 
-    public static final RegistryObject<BoltarangItem> BOLTARANG_ITEM = ITEMS.register("boltarang", () -> new BoltarangItem(PickarangModule.flamerang));
+    //public static final RegistryObject<BoltarangItem> BOLTARANG_ITEM = ITEMS.register("boltarang", () -> new BoltarangItem(PickarangModule.flamerang));
 
     public static void register() {
 
@@ -26,6 +26,6 @@ public class QCompatRegistry {
 
     @OnlyIn(Dist.CLIENT)
     public static void clientSetup() {
-        EntityRenderers.register(BOLTARANG.get(), PickarangRenderer::new);
+        //EntityRenderers.register(BOLTARANG.get(), PickarangRenderer::new);
     }
 }

@@ -8,7 +8,7 @@ import vazkii.quark.content.tools.config.PickarangType;
 import vazkii.quark.content.tools.entity.rang.AbstractPickarang;
 import vazkii.quark.content.tools.entity.rang.Pickarang;
 import vazkii.quark.content.tools.module.PickarangModule;
-
+/*
 public class Boltarang extends AbstractPickarang<Pickarang> {
 
 
@@ -30,3 +30,4 @@ public class Boltarang extends AbstractPickarang<Pickarang> {
     }
 
 }
+*/

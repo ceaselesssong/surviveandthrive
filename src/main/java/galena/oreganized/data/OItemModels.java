@@ -7,7 +7,6 @@ import galena.oreganized.index.OItems;
 import galena.oreganized.integration.farmersdelight.FDCompatRegistry;
 import galena.oreganized.integration.nethersdelight.NDCompatRegistry;
 import galena.oreganized.integration.quark.QCompatRegistry;
-import galena.oreganized.integration.quark.entity.Boltarang;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
