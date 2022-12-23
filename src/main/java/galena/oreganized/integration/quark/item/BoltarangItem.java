@@ -7,7 +7,6 @@ import galena.oreganized.content.item.OItem;
 import galena.oreganized.index.OItemTiers;
 import galena.oreganized.index.OItems;
 import galena.oreganized.index.OTags;
-import galena.oreganized.integration.quark.entity.Boltarang;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -83,11 +82,11 @@ public class BoltarangItem extends OItem {
         if (!worldIn.isClientSide) {
             Inventory inventory = playerIn.getInventory();
             int slot = handIn == InteractionHand.OFF_HAND ? inventory.getContainerSize() - 1 : inventory.selected;
-            AbstractPickarang<?> entity = new Boltarang(worldIn, playerIn);
+            /*AbstractPickarang<?> entity = new Boltarang(worldIn, playerIn);
             entity.setThrowData(slot, itemstack);
             entity.shoot(playerIn, playerIn.getXRot(), playerIn.getYRot(), 0.0F, 1.5F + (float)eff * 0.325F, 0.0F);
             entity.setOwner(playerIn);
-            worldIn.addFreshEntity(entity);
+            worldIn.addFreshEntity(entity);*/
         }
 
         if (!playerIn.getAbilities().instabuild && PickarangModule.pickarangType.cooldown > 0) {

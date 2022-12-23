@@ -1,6 +1,5 @@
 package galena.oreganized.integration.quark;
 
-import galena.oreganized.integration.quark.entity.Boltarang;
 import galena.oreganized.integration.quark.item.BoltarangItem;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.EntityType;
