@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_oreganized:glance": {
+    "has_deepslate_silver_ore": {
       "conditions": {
         "items": [
           {
             "items": [
-              "oreganized:glance"
+              "oreganized:deepslate_silver_ore"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:stonecutting/glance_brick_slab_from_glance"
+        "recipe": "oreganized:blast_deepslate_silver_ore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_oreganized:glance",
+      "has_deepslate_silver_ore",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:stonecutting/glance_brick_slab_from_glance"
+      "oreganized:blast_deepslate_silver_ore"
     ]
   }
 }

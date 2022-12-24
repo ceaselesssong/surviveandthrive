@@ -11,8 +11,8 @@ import net.minecraftforge.client.gui.overlay.ForgeGui;
 
 public class OGui extends ForgeGui {
 
-    protected static final ResourceLocation STUNNING_LOCATION = new ResourceLocation(Oreganized.MOD_ID, "textures/misc/stunning_outline.png");
-    protected static final ResourceLocation STUNNING_VIGNETTE_LOCATION = new ResourceLocation(Oreganized.MOD_ID, "textures/misc/stunning_overlay.png");
+    protected static final ResourceLocation STUNNING_LOCATION = Oreganized.modLoc("textures/misc/stunning_outline.png");
+    protected static final ResourceLocation STUNNING_VIGNETTE_LOCATION = Oreganized.modLoc( "textures/misc/stunning_overlay.png");
 
     public OGui(Minecraft mc) {
         super(mc);

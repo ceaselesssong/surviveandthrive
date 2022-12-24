@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_deepslate_silver_ore": {
+    "has_glance": {
       "conditions": {
         "items": [
           {
             "items": [
-              "oreganized:deepslate_silver_ore"
+              "oreganized:glance"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:silver_ingot_from_blasting_deepslate_silver_ore"
+        "recipe": "oreganized:stonecutting/glance_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_deepslate_silver_ore",
+      "has_glance",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:silver_ingot_from_blasting_deepslate_silver_ore"
+      "oreganized:stonecutting/glance_stairs"
     ]
   }
 }

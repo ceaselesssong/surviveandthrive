@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_silver_ore": {
+    "has_glance_bricks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "oreganized:silver_ore"
+              "oreganized:glance_bricks"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:silver_ingot_from_smelting_silver_ore"
+        "recipe": "oreganized:stonecutting/glance_brick_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_silver_ore",
+      "has_glance_bricks",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:silver_ingot_from_smelting_silver_ore"
+      "oreganized:stonecutting/glance_brick_stairs"
     ]
   }
 }

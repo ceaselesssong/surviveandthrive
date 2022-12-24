@@ -21,7 +21,7 @@ import galena.oreganized.Oreganized;
 
 @OnlyIn(Dist.CLIENT)
 public class ElectrumArmorModel<T extends LivingEntity> extends HumanoidModel<T> {
-    public static final ModelLayerLocation ELECTRUM_ARMOR = new ModelLayerLocation(new ResourceLocation(Oreganized.MOD_ID, "electrum_armor"), "main");
+    public static final ModelLayerLocation ELECTRUM_ARMOR = new ModelLayerLocation(Oreganized.modLoc( "electrum_armor"), "main");
     private final EquipmentSlot slot;
     private final ModelPart Head;
     private final ModelPart Body;

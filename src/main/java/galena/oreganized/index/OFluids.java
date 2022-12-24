@@ -44,17 +44,17 @@ public class OFluids {
                     consumer.accept(new IClientFluidTypeExtensions() {
                         @Override
                         public ResourceLocation getStillTexture() {
-                            return new ResourceLocation(Oreganized.MOD_ID, "fluid/molten_lead");
+                            return Oreganized.modLoc("fluid/molten_lead");
                         }
 
                         @Override
                         public ResourceLocation getFlowingTexture() {
-                            return new ResourceLocation(Oreganized.MOD_ID, "fluid/molten_lead_flowing");
+                            return Oreganized.modLoc("fluid/molten_lead_flowing");
                         }
 
                         @Override
                         public ResourceLocation getOverlayTexture() {
-                            return new ResourceLocation(Oreganized.MOD_ID, "fluid/molten_lead_flowing");
+                            return Oreganized.modLoc("fluid/molten_lead_flowing");
                         }
 
                         @Override

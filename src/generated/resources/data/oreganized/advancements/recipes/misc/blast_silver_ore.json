@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_deepslate_lead_ore": {
+    "has_silver_ore": {
       "conditions": {
         "items": [
           {
             "items": [
-              "oreganized:deepslate_lead_ore"
+              "oreganized:silver_ore"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:lead_ingot_from_blasting_deepslate_lead_ore"
+        "recipe": "oreganized:blast_silver_ore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_deepslate_lead_ore",
+      "has_silver_ore",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:lead_ingot_from_blasting_deepslate_lead_ore"
+      "oreganized:blast_silver_ore"
     ]
   }
 }

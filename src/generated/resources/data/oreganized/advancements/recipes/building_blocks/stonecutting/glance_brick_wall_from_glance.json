@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_oreganized:glance": {
+    "has_glance": {
       "conditions": {
         "items": [
           {
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_oreganized:glance",
+      "has_glance",
       "has_the_recipe"
     ]
   ],

@@ -48,12 +48,12 @@ public final class OBiomeModifier {
 
     @SafeVarargs
     private static void addFeature(String name, TagKey<Biome> tagKey, GenerationStep.Decoration step, RegistryObject<PlacedFeature>... features) {
-        modifiers.put(new ResourceLocation(Oreganized.MOD_ID, "features/" + name),
+        modifiers.put(Oreganized.modLoc( "features/" + name),
                 new ForgeBiomeModifiers.AddFeaturesBiomeModifier(new HolderSet.Named<>(biomeRegistry, tagKey), featureSet(features), step));
     }
 
     private static void removeFeature(String name, TagKey<Biome> tagKey, GenerationStep.Decoration step, Holder<PlacedFeature> feature) {
-        modifiers.put(new ResourceLocation(Oreganized.MOD_ID, "features/" + name),
+        modifiers.put(Oreganized.modLoc( "features/" + name),
                 new ForgeBiomeModifiers.RemoveFeaturesBiomeModifier(new HolderSet.Named<>(biomeRegistry, tagKey), featureSet(feature), Set.of(step)));
     }
 

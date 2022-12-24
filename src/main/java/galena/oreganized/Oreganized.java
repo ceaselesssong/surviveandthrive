@@ -30,14 +30,12 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
 import java.util.Map;
 
 @Mod(Oreganized.MOD_ID)
@@ -45,7 +43,9 @@ public class Oreganized {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "oreganized";
 
-    public static final List<DyeColor> DYE_COLORS = List.of();
+    public static ResourceLocation modLoc(String location) {
+        return new ResourceLocation(MOD_ID, location);
+    }
 
     public Oreganized() {
 
@@ -155,7 +155,7 @@ public class Oreganized {
         });
 
         if (ModList.get().isLoaded("detailab")) {
-            ResourceLocation texture = new ResourceLocation(MOD_ID, "textures/gui/armor_bar.png");
+            ResourceLocation texture = modLoc("textures/gui/armor_bar.png");
             DetailArmorBarAPI.customArmorBarBuilder().armor((ArmorItem) OItems.ELECTRUM_CHESTPLATE.get(), (ArmorItem) OItems.ELECTRUM_HELMET.get(), (ArmorItem) OItems.ELECTRUM_LEGGINGS.get(), (ArmorItem) OItems.ELECTRUM_BOOTS.get())
                     .render((ItemStack itemStack) ->
                             new ArmorBarRenderManager(texture, 18, 18,

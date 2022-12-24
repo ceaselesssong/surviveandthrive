@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_oreganized:glance": {
+    "has_glance": {
       "conditions": {
         "items": [
           {
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "oreganized:stonecutting/oreganized:glance_slab"
+        "recipe": "oreganized:stonecutting/glance_brick_slab_from_glance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_oreganized:glance",
+      "has_glance",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "oreganized:stonecutting/oreganized:glance_slab"
+      "oreganized:stonecutting/glance_brick_slab_from_glance"
     ]
   }
 }

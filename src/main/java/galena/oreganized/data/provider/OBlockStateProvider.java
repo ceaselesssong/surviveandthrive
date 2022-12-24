@@ -1,5 +1,6 @@
 package galena.oreganized.data.provider;
 
+import galena.oreganized.Oreganized;
 import galena.oreganized.content.block.*;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
@@ -135,13 +136,13 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
         getVariantBuilder(block.get()).partialState().with(CrystalGlassBlock.TYPE, CrystalGlassBlock.NORMAL).modelForState()
                 .modelFile(cubeAll(block.get())).addModel().partialState().with(CrystalGlassBlock.TYPE, CrystalGlassBlock.ROTATED)
                 .modelForState().modelFile(models().cubeAll(name(block) + "_rot",
-                        new ResourceLocation(MOD_ID, "block/" + name(block) + "_rot"))).addModel()
+                        Oreganized.modLoc("block/" + name(block) + "_rot"))).addModel()
                 .partialState().with(CrystalGlassBlock.TYPE, CrystalGlassBlock.INNER)
                 .modelForState().modelFile(models().cubeAll(name(block) + "_in",
-                        new ResourceLocation(MOD_ID, "block/" + name(block) + "_in"))).addModel()
+                        Oreganized.modLoc("block/" + name(block) + "_in"))).addModel()
                 .partialState().with(CrystalGlassBlock.TYPE, CrystalGlassBlock.OUTER)
                 .modelForState().modelFile(models().cubeAll(name(block) + "_out",
-                        new ResourceLocation(MOD_ID, "block/" + name(block) + "_out"))).addModel();
+                        Oreganized.modLoc("block/" + name(block) + "_out"))).addModel();
     }
 
     public void crystalGlassPaneBlock(Supplier<? extends Block> pane, Supplier<? extends Block> fullBlock) {
@@ -154,12 +155,12 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
                 Direction dir = e.getKey();
                 if (dir.getAxis().isHorizontal()) {
                     boolean alt = dir == Direction.SOUTH;
-                    builder.part().modelFile(models().panePost(paneName + "_post" + suffixByIndex(finalI), new ResourceLocation(MOD_ID, "block/" + baseName + suffixByIndex(finalI)), new ResourceLocation(MOD_ID, "block/" + paneName + "_top"))).addModel().condition(CrystalGlassPaneBlock.TYPE, finalI).end()
-                            .part().modelFile(alt || dir == Direction.WEST ? models().paneSideAlt(paneName + "_side_alt" + suffixByIndex(finalI), new ResourceLocation(MOD_ID, "block/" + baseName + suffixByIndex(finalI)), new ResourceLocation(MOD_ID, "block/" + paneName + "_top")) :
-                                    models().paneSide(paneName + "_side" + suffixByIndex(finalI), new ResourceLocation(MOD_ID, "block/" + baseName + suffixByIndex(finalI)), new ResourceLocation(MOD_ID, "block/" + paneName + "_top"))).rotationY(dir.getAxis() == Direction.Axis.X ? 90 : 0).addModel()
+                    builder.part().modelFile(models().panePost(paneName + "_post" + suffixByIndex(finalI), Oreganized.modLoc("block/" + baseName + suffixByIndex(finalI)), Oreganized.modLoc("block/" + paneName + "_top"))).addModel().condition(CrystalGlassPaneBlock.TYPE, finalI).end()
+                            .part().modelFile(alt || dir == Direction.WEST ? models().paneSideAlt(paneName + "_side_alt" + suffixByIndex(finalI), Oreganized.modLoc("block/" + baseName + suffixByIndex(finalI)), Oreganized.modLoc("block/" + paneName + "_top")) :
+                                    models().paneSide(paneName + "_side" + suffixByIndex(finalI), Oreganized.modLoc("block/" + baseName + suffixByIndex(finalI)), Oreganized.modLoc("block/" + paneName + "_top"))).rotationY(dir.getAxis() == Direction.Axis.X ? 90 : 0).addModel()
                             .condition(e.getValue(), true).condition(CrystalGlassPaneBlock.TYPE, finalI).end()
-                            .part().modelFile(alt || dir == Direction.EAST ? models().paneNoSideAlt(paneName + "_noside_alt" + suffixByIndex(finalI), new ResourceLocation(MOD_ID, "block/" + baseName + suffixByIndex(finalI))) :
-                                    models().paneNoSide(paneName + "_noside" + suffixByIndex(finalI), new ResourceLocation(MOD_ID, "block/" + baseName + suffixByIndex(finalI)))).rotationY(dir == Direction.WEST ? 270 : dir == Direction.SOUTH ? 90 : 0).addModel()
+                            .part().modelFile(alt || dir == Direction.EAST ? models().paneNoSideAlt(paneName + "_noside_alt" + suffixByIndex(finalI), Oreganized.modLoc("block/" + baseName + suffixByIndex(finalI))) :
+                                    models().paneNoSide(paneName + "_noside" + suffixByIndex(finalI), Oreganized.modLoc("block/" + baseName + suffixByIndex(finalI)))).rotationY(dir == Direction.WEST ? 270 : dir == Direction.SOUTH ? 90 : 0).addModel()
                             .condition(e.getValue(), false).condition(CrystalGlassPaneBlock.TYPE, finalI);
                 }
             });

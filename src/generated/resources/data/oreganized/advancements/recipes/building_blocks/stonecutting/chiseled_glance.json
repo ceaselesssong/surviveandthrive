@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_lead_ore": {
+    "has_glance": {
       "conditions": {
         "items": [
           {
             "items": [
-              "oreganized:lead_ore"
+              "oreganized:glance"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:lead_ingot_from_blasting_lead_ore"
+        "recipe": "oreganized:stonecutting/chiseled_glance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_lead_ore",
+      "has_glance",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:lead_ingot_from_blasting_lead_ore"
+      "oreganized:stonecutting/chiseled_glance"
     ]
   }
 }

@@ -1,6 +1,7 @@
 package galena.oreganized.data;
 
 import com.google.common.collect.ImmutableList;
+import galena.oreganized.Oreganized;
 import galena.oreganized.data.provider.ORecipeProvider;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OItems;
@@ -11,6 +12,7 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
@@ -32,13 +34,11 @@ public class ORecipes extends ORecipeProvider {
 
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
-        oreSmelting(consumer, LEAD_SMELTABLES, OItems.LEAD_INGOT.get(), 0.7F, 200, "oreganized:lead_ingot");
-        oreBlasting(consumer, LEAD_SMELTABLES, OItems.LEAD_INGOT.get(), 0.7F, 100, "oreganized:lead_ingot");
-        oreSmelting(consumer, SILVER_SMELTABLES, OItems.SILVER_INGOT.get(), 1.0F, 200, "oreganized:silver_ingot");
-        oreBlasting(consumer, SILVER_SMELTABLES, OItems.SILVER_INGOT.get(), 1.0F, 100, "oreganized:silver_ingot");
+        ore(OItems.LEAD_INGOT.get(), LEAD_SMELTABLES,  0.7F, "oreganized:lead_ingot", consumer);
+        ore(OItems.SILVER_INGOT.get(), SILVER_SMELTABLES,  1.0F, "oreganized:silver_ingot", consumer);
 
-        smeltingRecipe(OItems.LEAD_NUGGET.get(), OItems.BUSH_HAMMER.get(), 0.1F).save(consumer, "oreganized:lead_nugget_from_smelting");
-        blastingRecipe(OItems.LEAD_NUGGET.get(), OItems.BUSH_HAMMER.get(), 0.1F).save(consumer, "oreganized:lead_nugget_from_blasting");
+        smeltingRecipe(OItems.LEAD_NUGGET.get(), OItems.BUSH_HAMMER.get(), 0.1F).save(consumer, Oreganized.modLoc( "lead_nugget_from_smelting"));
+        blastingRecipe(OItems.LEAD_NUGGET.get(), OItems.BUSH_HAMMER.get(), 0.1F).save(consumer, Oreganized.modLoc( "lead_nugget_from_blasting"));
 
         quadTransform(OBlocks.POLISHED_GLANCE, OBlocks.GLANCE).save(consumer);
         quadTransform(OBlocks.GLANCE_BRICKS, OBlocks.POLISHED_GLANCE).save(consumer);
@@ -52,15 +52,15 @@ public class ORecipes extends ORecipeProvider {
 
         compact(OItems.SILVER_INGOT.get(), OItems.SILVER_NUGGET.get()).save(consumer);
         compact(OItems.LEAD_INGOT.get(), OItems.LEAD_NUGGET.get()).save(consumer);
-        compact(OItems.ELECTRUM_INGOT.get(), OItems.ELECTRUM_NUGGET.get()).save(consumer, "oreganized:electrum_ingot_from_nuggets");
-        compact(Items.NETHERITE_INGOT, OItems.NETHERITE_NUGGET.get()).save(consumer, "oreganized:netherite_ingot_from_nuggets");
+        compact(OItems.ELECTRUM_INGOT.get(), OItems.ELECTRUM_NUGGET.get()).save(consumer, Oreganized.modLoc( "electrum_ingot_from_nuggets"));
+        compact(Items.NETHERITE_INGOT, OItems.NETHERITE_NUGGET.get()).save(consumer, Oreganized.modLoc( "netherite_ingot_from_nuggets"));
 
-        unCompact(OItems.SILVER_INGOT.get(), OBlocks.SILVER_BLOCK.get().asItem()).save(consumer, "oreganized:silver_ingot_from_block");
-        unCompact(OItems.LEAD_INGOT.get(), OBlocks.LEAD_BLOCK.get().asItem()).save(consumer, "oreganized:lead_ingot_from_block");
-        unCompact(OItems.ELECTRUM_INGOT.get(), OBlocks.ELECTRUM_BLOCK.get().asItem()).save(consumer, "oreganized:electrum_ingot_from_block");
+        unCompact(OItems.SILVER_INGOT.get(), OBlocks.SILVER_BLOCK.get().asItem()).save(consumer, Oreganized.modLoc( "silver_ingot_from_block"));
+        unCompact(OItems.LEAD_INGOT.get(), OBlocks.LEAD_BLOCK.get().asItem()).save(consumer, Oreganized.modLoc( "lead_ingot_from_block"));
+        unCompact(OItems.ELECTRUM_INGOT.get(), OBlocks.ELECTRUM_BLOCK.get().asItem()).save(consumer, Oreganized.modLoc( "electrum_ingot_from_block"));
 
-        unCompact(OItems.RAW_SILVER.get(), OBlocks.RAW_SILVER_BLOCK.get().asItem()).save(consumer, "oreganized:raw_silver_from_block");
-        unCompact(OItems.RAW_LEAD.get(), OBlocks.RAW_LEAD_BLOCK.get().asItem()).save(consumer, "oreganized:raw_lead_from_block");
+        unCompact(OItems.RAW_SILVER.get(), OBlocks.RAW_SILVER_BLOCK.get().asItem()).save(consumer, Oreganized.modLoc( "raw_silver_from_block"));
+        unCompact(OItems.RAW_LEAD.get(), OBlocks.RAW_LEAD_BLOCK.get().asItem()).save(consumer, Oreganized.modLoc( "raw_lead_from_block"));
 
         unCompact(OItems.SILVER_NUGGET.get(), OItems.SILVER_INGOT.get()).save(consumer);
         unCompact(OItems.LEAD_NUGGET.get(), OItems.LEAD_INGOT.get()).save(consumer);
@@ -78,28 +78,28 @@ public class ORecipes extends ORecipeProvider {
 
         makeChiseledStonecutting(OBlocks.CHISELED_GLANCE, OBlocks.GLANCE, OBlocks.GLANCE_SLAB, consumer);
 
-        stonecutting(OBlocks.GLANCE, OBlocks.POLISHED_GLANCE.get()).save(consumer, "oreganized:stonecutting/polished_glance");
-        stonecutting(OBlocks.GLANCE, OBlocks.GLANCE_BRICKS.get()).save(consumer, "oreganized:stonecutting/glance_bricks_from_glance");
-        stonecutting(OBlocks.GLANCE, OBlocks.GLANCE_BRICK_STAIRS.get()).save(consumer, "oreganized:stonecutting/glance_brick_stairs_from_glance");
-        stonecutting(OBlocks.GLANCE, OBlocks.GLANCE_BRICK_SLAB.get(), 2).save(consumer, "stonecutting/glance_brick_slab_from_glance");
-        stonecutting(OBlocks.GLANCE, OBlocks.GLANCE_BRICK_WALL.get()).save(consumer, "oreganized:stonecutting/glance_brick_wall_from_glance");
+        stonecutting(OBlocks.GLANCE, OBlocks.POLISHED_GLANCE.get()).save(consumer, Oreganized.modLoc( "stonecutting/polished_glance"));
+        stonecutting(OBlocks.GLANCE, OBlocks.GLANCE_BRICKS.get()).save(consumer, Oreganized.modLoc( "stonecutting/glance_bricks_from_glance"));
+        stonecutting(OBlocks.GLANCE, OBlocks.GLANCE_BRICK_STAIRS.get()).save(consumer, Oreganized.modLoc( "stonecutting/glance_brick_stairs_from_glance"));
+        stonecutting(OBlocks.GLANCE, OBlocks.GLANCE_BRICK_SLAB.get(), 2).save(consumer, Oreganized.modLoc( "stonecutting/glance_brick_slab_from_glance"));
+        stonecutting(OBlocks.GLANCE, OBlocks.GLANCE_BRICK_WALL.get()).save(consumer, Oreganized.modLoc( "stonecutting/glance_brick_wall_from_glance"));
 
-        stonecutting(OBlocks.POLISHED_GLANCE, OBlocks.GLANCE_BRICKS.get()).save(consumer, "oreganized:stonecutting/glance_bricks_from_polished");
-        stonecutting(OBlocks.POLISHED_GLANCE, OBlocks.GLANCE_BRICK_STAIRS.get()).save(consumer, "oreganized:stonecutting/glance_brick_stairs_from_polished");
-        stonecutting(OBlocks.POLISHED_GLANCE, OBlocks.GLANCE_BRICK_SLAB.get(), 2).save(consumer, "oreganized:stonecutting/glance_brick_slab_from_polished");
-        stonecutting(OBlocks.POLISHED_GLANCE, OBlocks.GLANCE_BRICK_WALL.get()).save(consumer, "oreganized:stonecutting/glance_brick_wall_from_polished");
+        stonecutting(OBlocks.POLISHED_GLANCE, OBlocks.GLANCE_BRICKS.get()).save(consumer, Oreganized.modLoc( "stonecutting/glance_bricks_from_polished"));
+        stonecutting(OBlocks.POLISHED_GLANCE, OBlocks.GLANCE_BRICK_STAIRS.get()).save(consumer, Oreganized.modLoc( "stonecutting/glance_brick_stairs_from_polished"));
+        stonecutting(OBlocks.POLISHED_GLANCE, OBlocks.GLANCE_BRICK_SLAB.get(), 2).save(consumer, Oreganized.modLoc( "stonecutting/glance_brick_slab_from_polished"));
+        stonecutting(OBlocks.POLISHED_GLANCE, OBlocks.GLANCE_BRICK_WALL.get()).save(consumer, Oreganized.modLoc( "stonecutting/glance_brick_wall_from_polished"));
 
         makeWaxed(OBlocks.WAXED_SPOTTED_GLANCE, OBlocks.SPOTTED_GLANCE).save(consumer);
 
-        smithingElectrum(Items.DIAMOND_SWORD, OItems.ELECTRUM_SWORD).save(consumer, "oreganized:electrum_sword");
-        smithingElectrum(Items.DIAMOND_SHOVEL, OItems.ELECTRUM_SHOVEL).save(consumer, "oreganized:electrum_shovel");
-        smithingElectrum(Items.DIAMOND_PICKAXE, OItems.ELECTRUM_PICKAXE).save(consumer, "oreganized:electrum_pickaxe");
-        smithingElectrum(Items.DIAMOND_AXE, OItems.ELECTRUM_AXE).save(consumer, "oreganized:electrum_axe");
-        smithingElectrum(Items.DIAMOND_HOE, OItems.ELECTRUM_HOE).save(consumer, "oreganized:electrum_hoe");
-        smithingElectrum(Items.DIAMOND_HELMET, OItems.ELECTRUM_HELMET).save(consumer, "oreganized:electrum_helmet");
-        smithingElectrum(Items.DIAMOND_CHESTPLATE, OItems.ELECTRUM_CHESTPLATE).save(consumer, "oreganized:electrum_chestplate");
-        smithingElectrum(Items.DIAMOND_LEGGINGS, OItems.ELECTRUM_LEGGINGS).save(consumer, "oreganized:electrum_leggings");
-        smithingElectrum(Items.DIAMOND_BOOTS, OItems.ELECTRUM_BOOTS).save(consumer, "oreganized:electrum_boots");
+        smithingElectrum(Items.DIAMOND_SWORD, OItems.ELECTRUM_SWORD).save(consumer, Oreganized.modLoc( "electrum_sword"));
+        smithingElectrum(Items.DIAMOND_SHOVEL, OItems.ELECTRUM_SHOVEL).save(consumer, Oreganized.modLoc( "electrum_shovel"));
+        smithingElectrum(Items.DIAMOND_PICKAXE, OItems.ELECTRUM_PICKAXE).save(consumer, Oreganized.modLoc( "electrum_pickaxe"));
+        smithingElectrum(Items.DIAMOND_AXE, OItems.ELECTRUM_AXE).save(consumer, Oreganized.modLoc( "electrum_axe"));
+        smithingElectrum(Items.DIAMOND_HOE, OItems.ELECTRUM_HOE).save(consumer, Oreganized.modLoc( "electrum_hoe"));
+        smithingElectrum(Items.DIAMOND_HELMET, OItems.ELECTRUM_HELMET).save(consumer, Oreganized.modLoc( "electrum_helmet"));
+        smithingElectrum(Items.DIAMOND_CHESTPLATE, OItems.ELECTRUM_CHESTPLATE).save(consumer, Oreganized.modLoc( "electrum_chestplate"));
+        smithingElectrum(Items.DIAMOND_LEGGINGS, OItems.ELECTRUM_LEGGINGS).save(consumer, Oreganized.modLoc( "electrum_leggings"));
+        smithingElectrum(Items.DIAMOND_BOOTS, OItems.ELECTRUM_BOOTS).save(consumer, Oreganized.modLoc( "electrum_boots"));
 
         crystalGlass(OBlocks.BLACK_CRYSTAL_GLASS, Blocks.BLACK_STAINED_GLASS).save(consumer);
         crystalGlass(OBlocks.BLUE_CRYSTAL_GLASS, Blocks.BLUE_STAINED_GLASS).save(consumer);

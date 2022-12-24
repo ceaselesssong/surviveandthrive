@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_lead_ore": {
+    "has_oreganized:raw_lead": {
       "conditions": {
         "items": [
           {
             "items": [
-              "oreganized:lead_ore"
+              "oreganized:raw_lead"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:lead_ingot_from_smelting_lead_ore"
+        "recipe": "oreganized:smelt_raw_lead"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_lead_ore",
+      "has_oreganized:raw_lead",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:lead_ingot_from_smelting_lead_ore"
+      "oreganized:smelt_raw_lead"
     ]
   }
 }

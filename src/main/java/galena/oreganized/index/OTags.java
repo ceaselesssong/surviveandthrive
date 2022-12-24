@@ -46,7 +46,7 @@ public class OTags {
         public static final TagKey<Item> TOOLS_BUSH_HAMMER = forgeTag("tools/bush_hammer");
 
         private static TagKey<Item> tag(String name) {
-            return ItemTags.create(new ResourceLocation(Oreganized.MOD_ID, name));
+            return ItemTags.create(Oreganized.modLoc(name));
         }
         private static TagKey<Item> forgeTag(String name) {
             return ItemTags.create(new ResourceLocation(ForgeVersion.MOD_ID, name));
@@ -74,7 +74,7 @@ public class OTags {
         public static final TagKey<Block> STORAGE_BLOCKS_RAW_LEAD = forgeTag("storage_blocks/raw_lead");
 
         private static TagKey<Block> tag(String name) {
-            return BlockTags.create(new ResourceLocation(Oreganized.MOD_ID, name));
+            return BlockTags.create(Oreganized.modLoc(name));
         }
         private static TagKey<Block> forgeTag(String name) {
             return BlockTags.create(new ResourceLocation(ForgeVersion.MOD_ID, name));
@@ -86,7 +86,7 @@ public class OTags {
         public static final TagKey<EntityType<?>> LIGHTER_THAN_LEAD = tag("lighter_than_lead");
 
         private static TagKey<EntityType<?>> tag(String name) {
-            return EntityTypeTags.create(new ResourceLocation(Oreganized.MOD_ID, name).toString());
+            return EntityTypeTags.create(Oreganized.modLoc(name).toString());
         }
     }
 
@@ -95,7 +95,7 @@ public class OTags {
         public static final TagKey<Fluid> MOLTEN_LEAD = forgeTag("molten_lead");
 
         private static TagKey<Fluid> tag(String name) {
-            return FluidTags.create(new ResourceLocation(Oreganized.MOD_ID, name));
+            return FluidTags.create(Oreganized.modLoc(name));
         }
 
         private static TagKey<Fluid> forgeTag(String name) {
@@ -109,7 +109,7 @@ public class OTags {
         public static final TagKey<Biome> RICH_IN_LEAD_ORE = tag("rich_in_lead_ore");
 
         private static TagKey<Biome> tag(String name) {
-            return BiomeTags.create(new ResourceLocation(Oreganized.MOD_ID, name).toString());
+            return BiomeTags.create(Oreganized.modLoc(name).toString());
         }
     }
 }

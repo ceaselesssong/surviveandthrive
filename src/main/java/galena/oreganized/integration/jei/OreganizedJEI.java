@@ -12,7 +12,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class OreganizedJEI implements IModPlugin {
 
-    private static final ResourceLocation ID = new ResourceLocation(Oreganized.MOD_ID, "jei_plugin");
+    private static final ResourceLocation ID = Oreganized.modLoc("jei_plugin");
 
     private IIngredientManager ingredientManager;
     @Override
