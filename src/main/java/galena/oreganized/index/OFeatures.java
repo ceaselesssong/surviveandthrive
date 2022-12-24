@@ -33,8 +33,8 @@ public class OFeatures {
 
         public static final DeferredRegister<ConfiguredFeature<?, ?>> CONFIGURED_FEATURES = DeferredRegister.create(Registry.CONFIGURED_FEATURE_REGISTRY, Oreganized.MOD_ID);
 
-        public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> SILVER_ORE_LOW = registerOre("silver_ore", OBlocks.SILVER_ORE, OBlocks.DEEPSLATE_SILVER_ORE, 4);
-        public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> SILVER_ORE_HIGH = registerOre("silver_ore_high", OBlocks.SILVER_ORE, OBlocks.DEEPSLATE_SILVER_ORE, 2);
+        public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> SILVER_ORE_LOW = registerOre("silver_ore", OBlocks.SILVER_ORE, OBlocks.DEEPSLATE_SILVER_ORE, 2);
+        public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> SILVER_ORE_HIGH = registerOre("silver_ore_high", OBlocks.SILVER_ORE, OBlocks.DEEPSLATE_SILVER_ORE, 1);
         public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> LEAD_ORE = registerOre("lead_ore", OBlocks.LEAD_ORE, OBlocks.DEEPSLATE_LEAD_ORE, 8);
         public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> LEAD_ORE_EXTRA = registerOre("lead_ore_extra", OBlocks.LEAD_ORE, OBlocks.DEEPSLATE_LEAD_ORE, 13);
 
@@ -52,13 +52,13 @@ public class OFeatures {
         public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, Oreganized.MOD_ID);
 
         public static final RegistryObject<PlacedFeature> SILVER_ORE_LOW = register("silver_ore", Configured.SILVER_ORE_LOW,
-                CountPlacement.of(4),
+                CountPlacement.of(2),
                 InSquarePlacement.spread(),
                 BiomeFilter.biome(),
                 HeightRangePlacement.triangle(VerticalAnchor.absolute(-15), VerticalAnchor.absolute(5))
         );
         public static final RegistryObject<PlacedFeature> SILVER_ORE_HIGH = register("silver_ore_high", Configured.SILVER_ORE_HIGH,
-                CountPlacement.of(4),
+                CountPlacement.of(1),
                 InSquarePlacement.spread(),
                 BiomeFilter.biome(),
                 HeightRangePlacement.triangle(VerticalAnchor.absolute(140), VerticalAnchor.absolute(160))
