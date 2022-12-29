@@ -33,8 +33,8 @@ public class OFeatures {
 
         public static final DeferredRegister<ConfiguredFeature<?, ?>> CONFIGURED_FEATURES = DeferredRegister.create(Registry.CONFIGURED_FEATURE_REGISTRY, Oreganized.MOD_ID);
 
-        public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> SILVER_ORE_LOW = registerOre("silver_ore", OBlocks.SILVER_ORE, OBlocks.DEEPSLATE_SILVER_ORE, 2);
-        public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> SILVER_ORE_HIGH = registerOre("silver_ore_high", OBlocks.SILVER_ORE, OBlocks.DEEPSLATE_SILVER_ORE, 1);
+        public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> SILVER_ORE_LOW = registerOre("silver_ore", OBlocks.SILVER_ORE, OBlocks.DEEPSLATE_SILVER_ORE, 3, 0.6F);
+        public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> SILVER_ORE_HIGH = registerOre("silver_ore_high", OBlocks.SILVER_ORE, OBlocks.DEEPSLATE_SILVER_ORE, 2, 0.8F);
         public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> LEAD_ORE = registerOre("lead_ore", OBlocks.LEAD_ORE, OBlocks.DEEPSLATE_LEAD_ORE, 8);
         public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> LEAD_ORE_EXTRA = registerOre("lead_ore_extra", OBlocks.LEAD_ORE, OBlocks.DEEPSLATE_LEAD_ORE, 13);
 
@@ -42,9 +42,13 @@ public class OFeatures {
             return CONFIGURED_FEATURES.register(name, feature);
         }
 
-        private static RegistryObject<ConfiguredFeature<OreConfiguration, ?>> registerOre(String name, Supplier<? extends Block> stoneOre, Supplier<? extends Block> deepslateOre, int size) {
+        private static RegistryObject<ConfiguredFeature<OreConfiguration, ?>> registerOre(String name, Supplier<? extends Block> stoneOre, Supplier<? extends Block> deepslateOre, int size, float discardChanceOnAirExposure) {
             return register(name, () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, stoneOre.get().defaultBlockState()),
-                    OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, deepslateOre.get().defaultBlockState())), size)));
+                    OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, deepslateOre.get().defaultBlockState())), size, discardChanceOnAirExposure)));
+        }
+
+        private static RegistryObject<ConfiguredFeature<OreConfiguration, ?>> registerOre(String name, Supplier<? extends Block> stoneOre, Supplier<? extends Block> deepslateOre, int size) {
+            return registerOre(name, stoneOre, deepslateOre, size, 0.0F);
         }
     }
 
@@ -58,10 +62,10 @@ public class OFeatures {
                 HeightRangePlacement.triangle(VerticalAnchor.absolute(-15), VerticalAnchor.absolute(5))
         );
         public static final RegistryObject<PlacedFeature> SILVER_ORE_HIGH = register("silver_ore_high", Configured.SILVER_ORE_HIGH,
-                CountPlacement.of(1),
+                CountPlacement.of(2),
                 InSquarePlacement.spread(),
                 BiomeFilter.biome(),
-                HeightRangePlacement.triangle(VerticalAnchor.absolute(140), VerticalAnchor.absolute(160))
+                HeightRangePlacement.uniform(VerticalAnchor.absolute(140), VerticalAnchor.absolute(160))
         );
         public static final RegistryObject<PlacedFeature> LEAD_ORE = register("lead_ore", Configured.LEAD_ORE,
                 CountPlacement.of(10),
