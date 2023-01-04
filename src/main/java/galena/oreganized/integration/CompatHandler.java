@@ -29,7 +29,7 @@ public class CompatHandler {
         if (farmersDelight) FDCompatRegistry.register();
         if (shieldexp) SECompatRegistry.register();
         if (nethersdelight) NDCompatRegistry.register();
-        //if (quark) QCompatRegistry.register();
+        if (quark) QCompatRegistry.register();
         if (tinkersConstruct) TCCompatRegistry.register();
     }
 }
