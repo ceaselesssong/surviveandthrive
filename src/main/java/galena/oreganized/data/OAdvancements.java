@@ -69,7 +69,7 @@ public class OAdvancements extends AdvancementProvider {
                     )
                     .addCriterion("stunned", EffectsChangedTrigger.TriggerInstance.hasEffects(MobEffectsPredicate.effects().and(OEffects.STUNNING.get())))
                     .addCriterion("has_lead", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OTags.Items.INGOTS_LEAD).build()))
-                    .addCriterion("eaten", ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(OTags.Items.CONSUMABLE).build()))
+                    .addCriterion("eaten", ConsumeItemTrigger.TriggerInstance.usedItem())
                     .save(consumer, "oreganized:story/eat_with_lead");
 
             Advancement obtain_silver = Advancement.Builder.advancement()
@@ -132,7 +132,7 @@ public class OAdvancements extends AdvancementProvider {
                             true,
                             false
                     )
-                    .addCriterion("use_disc_on_lead_cauldron", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock(new LocationPredicate.Builder().setBlock(new BlockPredicate(null, Set.of(OBlocks.MOLTEN_LEAD_CAULDRON.get()), StatePropertiesPredicate.ANY, NbtPredicate.ANY)), ItemPredicate.Builder.item().of(Items.MUSIC_DISC_11)))
+                    //.addCriterion("use_disc_on_lead_cauldron", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock(new LocationPredicate.Builder().setBlock(new BlockPredicate(null, Set.of(OBlocks.MOLTEN_LEAD_CAULDRON.get()), StatePropertiesPredicate.ANY, NbtPredicate.ANY)), ItemPredicate.Builder.item().of(Items.MUSIC_DISC_11)))
                     .addCriterion("has_structure_disc", InventoryChangeTrigger.TriggerInstance.hasItems(OItems.MUSIC_DISC_STRUCTURE.get()))
                     .save(consumer, "oreganized:story/disc_smith");
         }
