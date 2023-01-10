@@ -100,8 +100,8 @@ dependencies {
     compileOnly fg.deobf("curse.maven:farmers-delight-398521:3999157")
     runtimeOnly fg.deobf("curse.maven:farmers-delight-398521:3999157")
 
-    compileOnly fg.deobf("curse.maven:shield-expansion-583318:4046471")
-    runtimeOnly fg.deobf("curse.maven:shield-expansion-583318:4046471")
+    compileOnly fg.deobf("curse.maven:shield-expansion-583318:4325489")
+    runtimeOnly fg.deobf("curse.maven:shield-expansion-583318:4325489")
 
     compileOnly fg.deobf("curse.maven:create-328085:4011414")
     runtimeOnly fg.deobf("curse.maven:create-328085:4011414")
