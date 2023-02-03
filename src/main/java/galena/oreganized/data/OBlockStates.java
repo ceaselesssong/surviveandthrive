@@ -28,8 +28,10 @@ public class OBlockStates extends OBlockStateProvider {
         simpleBlock(OBlocks.GLANCE_BRICKS);
         simpleBlock(OBlocks.CHISELED_GLANCE);
         slabBlock(OBlocks.GLANCE_SLAB, OBlocks.GLANCE);
+        slabBlock(OBlocks.POLISHED_GLANCE_SLAB, OBlocks.POLISHED_GLANCE);
         slabBlock(OBlocks.GLANCE_BRICK_SLAB, OBlocks.GLANCE_BRICKS);
         stairsBlock(OBlocks.GLANCE_STAIRS, OBlocks.GLANCE);
+        stairsBlock(OBlocks.POLISHED_GLANCE_STAIRS, OBlocks.POLISHED_GLANCE);
         stairsBlock(OBlocks.GLANCE_BRICK_STAIRS, OBlocks.GLANCE_BRICKS);
         wallBlock(OBlocks.GLANCE_WALL, OBlocks.GLANCE);
         wallBlock(OBlocks.GLANCE_BRICK_WALL, OBlocks.GLANCE_BRICKS);

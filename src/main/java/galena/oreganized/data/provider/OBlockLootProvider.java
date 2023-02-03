@@ -20,7 +20,7 @@ public class OBlockLootProvider extends BlockLoot {
         super.dropSelf(block.get());
     }
 
-    public void slab(Supplier<? extends SlabBlock> slab) {
+    public void slab(Supplier<? extends Block> slab) {
         this.add(slab.get(), BlockLoot::createSlabItemTable);
     }
 

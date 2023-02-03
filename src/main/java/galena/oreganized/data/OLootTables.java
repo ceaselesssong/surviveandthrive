@@ -6,6 +6,7 @@ import galena.oreganized.data.provider.OBlockLootProvider;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEntityTypes;
 import galena.oreganized.index.OItems;
+import galena.oreganized.integration.quark.QCompatRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.EntityLoot;
 import net.minecraft.data.loot.LootTableProvider;
@@ -53,8 +54,10 @@ public class OLootTables extends LootTableProvider {
             dropSelf(OBlocks.GLANCE_BRICKS);
             dropSelf(OBlocks.CHISELED_GLANCE);
             slab(OBlocks.GLANCE_SLAB);
+            slab(OBlocks.POLISHED_GLANCE_SLAB);
             slab(OBlocks.GLANCE_BRICK_SLAB);
             dropSelf(OBlocks.GLANCE_STAIRS);
+            dropSelf(OBlocks.POLISHED_GLANCE_STAIRS);
             dropSelf(OBlocks.GLANCE_BRICK_STAIRS);
             dropSelf(OBlocks.GLANCE_WALL);
             dropSelf(OBlocks.GLANCE_BRICK_WALL);
@@ -71,6 +74,13 @@ public class OLootTables extends LootTableProvider {
             dropSelf(OBlocks.ELECTRUM_BLOCK);
             dropSelf(OBlocks.EXPOSER);
             dropSelf(OBlocks.SHRAPNEL_BOMB);
+
+            dropSelf(QCompatRegistry.GLANCE_PILLAR);
+            slab(QCompatRegistry.RAW_LEAD_BRICK_SLAB);
+            slab(QCompatRegistry.RAW_SILVER_BRICK_SLAB);
+            slab(QCompatRegistry.GLANCE_VERTICAL_SLAB);
+            slab(QCompatRegistry.POLISHED_GLANCE_VERTICAL_SLAB);
+            slab(QCompatRegistry.GLANCE_BRICK_VERTICAL_SLAB);
 
             for (int i = 0; OBlocks.CRYSTAL_GLASS.size() > i; i++) {
                 dropAsSilk(OBlocks.CRYSTAL_GLASS.get(i));

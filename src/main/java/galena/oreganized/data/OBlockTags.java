@@ -51,8 +51,8 @@ public class OBlockTags extends BlockTagsProvider {
 
         // Vanilla
         tag(BlockTags.WALLS).add(OBlocks.GLANCE_WALL.get(), OBlocks.GLANCE_BRICK_WALL.get());
-        tag(BlockTags.STAIRS).add(OBlocks.GLANCE_STAIRS.get(), OBlocks.GLANCE_BRICK_STAIRS.get());
-        tag(BlockTags.SLABS).add(OBlocks.GLANCE_SLAB.get(), OBlocks.GLANCE_BRICK_SLAB.get());
+        tag(BlockTags.STAIRS).add(OBlocks.GLANCE_STAIRS.get(), OBlocks.POLISHED_GLANCE_STAIRS.get(), OBlocks.GLANCE_BRICK_STAIRS.get());
+        tag(BlockTags.SLABS).add(OBlocks.GLANCE_SLAB.get(), OBlocks.POLISHED_GLANCE_SLAB.get(), OBlocks.GLANCE_BRICK_SLAB.get());
         tag(BlockTags.BEACON_BASE_BLOCKS).add(OBlocks.ELECTRUM_BLOCK.get());
         tag(BlockTags.IMPERMEABLE).addTag(CRYSTAL_GLASS);
         tag(BlockTags.CAULDRONS).add(OBlocks.MOLTEN_LEAD_CAULDRON.get());
@@ -87,6 +87,8 @@ public class OBlockTags extends BlockTagsProvider {
                 OBlocks.GLANCE_STAIRS.get(),
                 OBlocks.GLANCE_SLAB.get(),
                 OBlocks.POLISHED_GLANCE.get(),
+                OBlocks.POLISHED_GLANCE_STAIRS.get(),
+                OBlocks.POLISHED_GLANCE_SLAB.get(),
                 OBlocks.GLANCE_WALL.get(),
                 OBlocks.GLANCE_BRICKS.get(),
                 OBlocks.GLANCE_BRICK_STAIRS.get(),

@@ -26,6 +26,7 @@ public class QCompatRegistry {
     // Glance
     public static final RegistryObject<RotatedPillarBlock> GLANCE_PILLAR = OBlocks.register("glance_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(OBlocks.POLISHED_GLANCE.get())), CreativeModeTab.TAB_BUILDING_BLOCKS);
     public static final RegistryObject<VerticalSlabBlock> GLANCE_VERTICAL_SLAB = OBlocks.register("glance_vertical_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.copy(OBlocks.GLANCE_SLAB.get())), CreativeModeTab.TAB_BUILDING_BLOCKS);
+    public static final RegistryObject<VerticalSlabBlock> POLISHED_GLANCE_VERTICAL_SLAB = OBlocks.register("polished_glance_vertical_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.copy(OBlocks.POLISHED_GLANCE_SLAB.get())), CreativeModeTab.TAB_BUILDING_BLOCKS);
     public static final RegistryObject<VerticalSlabBlock> GLANCE_BRICK_VERTICAL_SLAB = OBlocks.register("glance_brick_vertical_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.copy(OBlocks.GLANCE_BRICK_SLAB.get())), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
     // Raw Ore deco blocks

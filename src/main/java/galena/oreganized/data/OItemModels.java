@@ -57,8 +57,10 @@ public class OItemModels extends OItemModelProvider {
         block(OBlocks.GLANCE_BRICKS);
         block(OBlocks.CHISELED_GLANCE);
         block(OBlocks.GLANCE_SLAB);
+        block(OBlocks.POLISHED_GLANCE_SLAB);
         block(OBlocks.GLANCE_BRICK_SLAB);
         block(OBlocks.GLANCE_STAIRS);
+        block(OBlocks.POLISHED_GLANCE_STAIRS);
         block(OBlocks.GLANCE_BRICK_STAIRS);
         wall(OBlocks.GLANCE_WALL, OBlocks.GLANCE);
         wall(OBlocks.GLANCE_BRICK_WALL, OBlocks.GLANCE_BRICKS);
