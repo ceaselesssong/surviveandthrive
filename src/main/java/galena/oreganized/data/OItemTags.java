@@ -36,7 +36,6 @@ public class OItemTags extends ItemTagsProvider {
         tag(LEAD_SOURCE).addTags(INGOTS_LEAD, NUGGETS_LEAD, ORES_LEAD).add(
                 OItems.BUSH_HAMMER.get(), OItems.MOLTEN_LEAD_BUCKET.get()
         );
-        tag(CONSUMABLE).add(ForgeRegistries.ITEMS.getValues().stream().filter(Item::isEdible).toList().toArray(Item[]::new));
         copy(OTags.Blocks.CRYSTAL_GLASS, CRYSTAL_GLASS);
         copy(OTags.Blocks.CRYSTAL_GLASS_PANES, CRYSTAL_GLASS_PANES);
         tag(LIGHTER_THAN_LEAD).add(Items.IRON_BOOTS);
@@ -52,7 +51,7 @@ public class OItemTags extends ItemTagsProvider {
 
         tag(NUGGETS_SILVER).add(OItems.SILVER_NUGGET.get());
         tag(NUGGETS_LEAD).add(OItems.LEAD_NUGGET.get());
-        tag(NUGGETS_ELECTRUM).add(OItems.ELECTRUM_INGOT.get());
+        tag(NUGGETS_ELECTRUM).add(OItems.ELECTRUM_NUGGET.get());
         tag(NUGGETS_NETHERITE).add(OItems.NETHERITE_NUGGET.get());
 
         tag(BUCKETS_MOLTEN_LEAD).add(OItems.MOLTEN_LEAD_BUCKET.get());

@@ -15,7 +15,6 @@ public class OTags {
     public static class Items {
 
         public static final TagKey<Item> LEAD_SOURCE = tag("lead_source");
-        public static final TagKey<Item> CONSUMABLE = tag("consumable");
         public static final TagKey<Item> CRYSTAL_GLASS = tag("crystal_glass");
         public static final TagKey<Item> CRYSTAL_GLASS_PANES = tag("crystal_glass_panes");
         public static final TagKey<Item> LIGHTER_THAN_LEAD = tag("lighter_than_lead");
