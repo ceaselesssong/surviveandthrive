@@ -5,12 +5,19 @@ import galena.oreganized.index.OItems;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -32,7 +39,16 @@ public class SpottedGlanceBlock extends Block {
     }
 
     private void dropLeadNuggets(LevelAccessor world, BlockPos pos) {
-        ItemStack leadNuggets = new ItemStack(OItems.LEAD_NUGGET.get(), world.getRandom().nextInt(2) + 1);
-        Containers.dropItemStack((Level) world, pos.getX(), pos.getY(), pos.getZ(), leadNuggets);
+        if (world instanceof ServerLevel) {
+            LootTable lootTable = world.getServer().getLootTables().get(new ResourceLocation("oreganized", "gameplay/spotted_glance"));
+
+            LootContext.Builder builder = new LootContext.Builder((ServerLevel) world)
+                    .withRandom(((ServerLevel) world).random)
+                    .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos));
+
+            var l = lootTable.getRandomItems(builder.create(LootContextParamSets.COMMAND));
+            ItemStack leadNuggets = l.iterator().next();
+            Containers.dropItemStack((Level) world, pos.getX(), pos.getY(), pos.getZ(), leadNuggets);
+        }
     }
 }
