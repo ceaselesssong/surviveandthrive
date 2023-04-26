@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:diamond_sword"
+  },
+  "addition": {
+    "tag": "modestmining:electrum_pieces"
+  },
+  "result": {
+    "item": "oreganized:electrum_sword"
+  },
+  "conditions": [
+    {
+      "modid": "modestmining",
+      "type": "forge:mod_loaded"
+    }
+  ]
+}

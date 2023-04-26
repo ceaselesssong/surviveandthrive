@@ -8,5 +8,11 @@
   },
   "result": {
     "item": "oreganized:electrum_sword"
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:tag_empty",
+      "tag": "modestmining:electrum_pieces"
+    }
+  ]
 }

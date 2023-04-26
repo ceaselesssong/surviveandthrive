@@ -1,4 +1,4 @@
-// 1.19.2	2022-12-12T20:41:21.771061861	Oreganized Item Tags
+// 1.19.2	2023-04-26T15:45:14.137528782	Oreganized Item Tags
 d8d286ea76e30a635512bc93d68815770003ff41 data/forge/tags/items/buckets/molten_lead.json
 7a2d68d81bc5ee59f9a2f4ba68ddb39bfd9c875d data/forge/tags/items/glass.json
 d96b4f83e03abe39a1b97d92b7818c8f6b2e5c68 data/forge/tags/items/glass_panes.json
@@ -7,7 +7,7 @@ e49cb4f6d619d05263a53690780f08940350b817 data/forge/tags/items/ingots.json
 a5caec7ffef5e22f645062fbd7b1228c4e2bf60f data/forge/tags/items/ingots/lead.json
 a38d481017d07adc5bcd423740718cac7cdaa829 data/forge/tags/items/ingots/silver.json
 ecba5d070ab794f58b1ecd4e50396e5f1501ff78 data/forge/tags/items/nuggets.json
-9115563bba2db6e89c2c107626da06ea199aa2c7 data/forge/tags/items/nuggets/electrum.json
+e6d8bf8310f21dfaeb310a9ab910735a569354bd data/forge/tags/items/nuggets/electrum.json
 3b248cf90493366509ef462ef2ab45c771ef6f8c data/forge/tags/items/nuggets/lead.json
 baec62ac3425b057aabc65f53f289a83c009337a data/forge/tags/items/nuggets/netherite.json
 c009685a7974533094c2347c1eeb929f9e00da3f data/forge/tags/items/nuggets/silver.json
@@ -28,10 +28,9 @@ bff6697a058fddfe9e14615bc043fcb2071fd6fc data/forge/tags/items/storage_blocks/si
 4c880b8d05c88b2f9b44580057a8b4d2fd6fddc4 data/forge/tags/items/tools/bush_hammer.json
 9115563bba2db6e89c2c107626da06ea199aa2c7 data/minecraft/tags/items/beacon_payment_items.json
 5978220d099c8bf975bbd69e364ac49628f6dec7 data/minecraft/tags/items/music_discs.json
-18d101d6d861d499b4d27ac8d272972b51567954 data/minecraft/tags/items/slabs.json
-0cf9d7544e86c09563b78276d5c89d9043425222 data/minecraft/tags/items/stairs.json
+e9873026bc587ab0729bda85f9d2a6ca7790d410 data/minecraft/tags/items/slabs.json
+e231a716e19756d6a2326e873062dab206b37184 data/minecraft/tags/items/stairs.json
 a4acb3623320f801e89e3451f8b7d9e2246f99d0 data/minecraft/tags/items/walls.json
-a6c5a4013d864565ed997c46140c58f8ee5c0669 data/oreganized/tags/items/consumable.json
 81fb1b18afaa14ae90800b23c32de565d1389bb3 data/oreganized/tags/items/crystal_glass.json
 f1dfddab1e3f2dec1e7ed1c3fbf9f6a7f261cf08 data/oreganized/tags/items/crystal_glass_panes.json
 f7810c755845dc955112f7b0cedf68260ad693cc data/oreganized/tags/items/lead_source.json

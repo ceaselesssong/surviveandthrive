@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "farmersdelight:diamond_knife"
+  },
+  "addition": {
+    "tag": "modestmining:electrum_pieces"
+  },
+  "result": {
+    "item": "oreganized:electrum_knife"
+  },
+  "conditions": [
+    {
+      "modid": "modestmining",
+      "type": "forge:mod_loaded"
+    },
+    {
+      "modid": "farmersdelight",
+      "type": "forge:mod_loaded"
+    }
+  ]
+}

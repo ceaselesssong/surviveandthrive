@@ -75,12 +75,12 @@ public class OLootTables extends LootTableProvider {
             dropSelf(OBlocks.EXPOSER);
             dropSelf(OBlocks.SHRAPNEL_BOMB);
 
-            dropSelf(QCompatRegistry.GLANCE_PILLAR);
-            slab(QCompatRegistry.RAW_LEAD_BRICK_SLAB);
-            slab(QCompatRegistry.RAW_SILVER_BRICK_SLAB);
-            slab(QCompatRegistry.GLANCE_VERTICAL_SLAB);
-            slab(QCompatRegistry.POLISHED_GLANCE_VERTICAL_SLAB);
-            slab(QCompatRegistry.GLANCE_BRICK_VERTICAL_SLAB);
+            //dropSelf(QCompatRegistry.GLANCE_PILLAR);
+            //slab(QCompatRegistry.RAW_LEAD_BRICK_SLAB);
+            //slab(QCompatRegistry.RAW_SILVER_BRICK_SLAB);
+            //slab(QCompatRegistry.GLANCE_VERTICAL_SLAB);
+            //slab(QCompatRegistry.POLISHED_GLANCE_VERTICAL_SLAB);
+            //slab(QCompatRegistry.GLANCE_BRICK_VERTICAL_SLAB);
 
             for (int i = 0; OBlocks.CRYSTAL_GLASS.size() > i; i++) {
                 dropAsSilk(OBlocks.CRYSTAL_GLASS.get(i));

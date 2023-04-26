@@ -13,6 +13,10 @@
     {
       "modid": "nethersdelight",
       "type": "forge:mod_loaded"
+    },
+    {
+      "type": "forge:tag_empty",
+      "tag": "modestmining:electrum_pieces"
     }
   ]
 }

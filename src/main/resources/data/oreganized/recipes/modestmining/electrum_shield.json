@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "shieldexp:diamond_shield"
+  },
+  "addition": {
+    "tag": "modestmining:electrum_platings"
+  },
+  "result": {
+    "item": "oreganized:electrum_shield"
+  },
+  "conditions": [
+    {
+      "modid": "modestmining",
+      "type": "forge:mod_loaded"
+    },
+    {
+      "modid": "shieldexp",
+      "type": "forge:mod_loaded"
+    }
+  ]
+}

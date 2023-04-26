@@ -2,11 +2,7 @@
   "parent": "minecraft:story/upgrade_tools",
   "criteria": {
     "eaten": {
-      "conditions": {
-        "item": {
-          "tag": "oreganized:consumable"
-        }
-      },
+      "conditions": {},
       "trigger": "minecraft:consume_item"
     },
     "has_lead": {

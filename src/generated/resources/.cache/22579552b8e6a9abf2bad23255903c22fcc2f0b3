@@ -1,4 +1,4 @@
-// 1.19.2	2022-11-28T19:10:55.527702069	Oreganized Loot Tables
+// 1.19.2	2023-04-26T15:45:14.136900787	Oreganized Loot Tables
 0cfa73831c075466c39360be7ce4755e59a5f8da data/oreganized/loot_tables/blocks/black_crystal_glass.json
 71d8ec7dc9eb667593d9f684600abd9f6d1f5bd6 data/oreganized/loot_tables/blocks/black_crystal_glass_pane.json
 03c4dbd47ced3a72deb8b79f023e191962ca002b data/oreganized/loot_tables/blocks/blue_crystal_glass.json
@@ -40,6 +40,8 @@ abf48d37c2092903482490b6105185b2a7da62dc data/oreganized/loot_tables/blocks/oran
 bc1e5be8102dd19b826a8f4e420d4151d855211a data/oreganized/loot_tables/blocks/pink_crystal_glass.json
 4289d14f4f8c982dde804c2454f08be3110b6c9c data/oreganized/loot_tables/blocks/pink_crystal_glass_pane.json
 a4d2db23ffe3eef4f086d448e5c08e3262b95174 data/oreganized/loot_tables/blocks/polished_glance.json
+2db3d81f7e2a3d45da2018fafc04b17921257625 data/oreganized/loot_tables/blocks/polished_glance_slab.json
+2073b9de267cc75edca5e73502545192a15ca094 data/oreganized/loot_tables/blocks/polished_glance_stairs.json
 1877a4718d7e78cabd74bd137b84ed030c41dcb3 data/oreganized/loot_tables/blocks/purple_crystal_glass.json
 51dc0d381b1fbca63710ddf9736a5cec73d392cb data/oreganized/loot_tables/blocks/purple_crystal_glass_pane.json
 dc526689fe3a7d49eefcd5a4b8dd8c75cdbdebd4 data/oreganized/loot_tables/blocks/raw_lead_block.json
