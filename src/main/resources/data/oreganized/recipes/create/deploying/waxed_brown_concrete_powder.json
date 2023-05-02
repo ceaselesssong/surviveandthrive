@@ -2,7 +2,7 @@
   "type": "create:deploying",
   "ingredients": [
     {
-      "item": "minecraft:yellow_concrete_powder"
+      "item": "minecraft:brown_concrete_powder"
     },
     {
       "item": "minecraft:honeycomb_block"
