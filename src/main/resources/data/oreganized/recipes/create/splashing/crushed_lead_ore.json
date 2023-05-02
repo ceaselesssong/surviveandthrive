@@ -10,6 +10,10 @@
     {
       "item": "oreganized:lead_nugget",
       "count": 9
+    },
+    {
+      "item": "oreganized:silver_nugget",
+      "chance": 0.5
     }
   ],
   "conditions": [
