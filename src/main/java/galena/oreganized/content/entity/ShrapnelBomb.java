@@ -1,5 +1,6 @@
 package galena.oreganized.content.entity;
 
+import galena.oreganized.OreganizedConfig;
 import galena.oreganized.index.OEffects;
 import galena.oreganized.index.OEntityTypes;
 import galena.oreganized.index.OParticleTypes;
@@ -54,7 +55,7 @@ public class ShrapnelBomb extends PrimedTnt {
             }
             if (shouldPoison && entity instanceof LivingEntity living) {
                 living.hurt(DamageSource.MAGIC, 2);
-                living.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 800));
+                if (OreganizedConfig.stunningFromConfig()) living.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 800));
                 living.addEffect(new MobEffectInstance(MobEffects.POISON, 260));
             }
         }

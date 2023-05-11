@@ -2,9 +2,11 @@ package galena.oreganized.index;
 
 import com.google.common.collect.ImmutableList;
 import galena.oreganized.Oreganized;
+import galena.oreganized.OreganizedConfig;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.features.OreFeatures;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -33,10 +35,10 @@ public class OFeatures {
 
         public static final DeferredRegister<ConfiguredFeature<?, ?>> CONFIGURED_FEATURES = DeferredRegister.create(Registry.CONFIGURED_FEATURE_REGISTRY, Oreganized.MOD_ID);
 
-        public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> SILVER_ORE_LOW = registerOre("silver_ore", OBlocks.SILVER_ORE, OBlocks.DEEPSLATE_SILVER_ORE, 3, 0.6F);
-        public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> SILVER_ORE_HIGH = registerOre("silver_ore_high", OBlocks.SILVER_ORE, OBlocks.DEEPSLATE_SILVER_ORE, 2, 0.8F);
-        public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> LEAD_ORE = registerOre("lead_ore", OBlocks.LEAD_ORE, OBlocks.DEEPSLATE_LEAD_ORE, 8);
-        public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> LEAD_ORE_EXTRA = registerOre("lead_ore_extra", OBlocks.LEAD_ORE, OBlocks.DEEPSLATE_LEAD_ORE, 13);
+        public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> SILVER_ORE_LOW = registerOre("silver_ore", OBlocks.SILVER_ORE, OBlocks.DEEPSLATE_SILVER_ORE, 3, 0.8F - Mth.clamp(OreganizedConfig.COMMON.silverHidden.get(), 0F, 0.8F));
+        public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> SILVER_ORE_HIGH = registerOre("silver_ore_high", OBlocks.SILVER_ORE, OBlocks.DEEPSLATE_SILVER_ORE, 2, 1F - Mth.clamp(OreganizedConfig.COMMON.silverHidden.get(), 0F, 1F));
+        public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> LEAD_ORE = registerOre("lead_ore", OBlocks.LEAD_ORE, OBlocks.DEEPSLATE_LEAD_ORE, OreganizedConfig.COMMON.leadClusterSize.get() / 2 + 1);
+        public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> LEAD_ORE_EXTRA = registerOre("lead_ore_extra", OBlocks.LEAD_ORE, OBlocks.DEEPSLATE_LEAD_ORE, OreganizedConfig.COMMON.leadClusterSize.get());
 
         private static <FC extends FeatureConfiguration, F extends Feature<FC>> RegistryObject<ConfiguredFeature<FC, ?>> register(String name, Supplier<ConfiguredFeature<FC, F>> feature) {
             return CONFIGURED_FEATURES.register(name, feature);
@@ -56,25 +58,25 @@ public class OFeatures {
         public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, Oreganized.MOD_ID);
 
         public static final RegistryObject<PlacedFeature> SILVER_ORE_LOW = register("silver_ore", Configured.SILVER_ORE_LOW,
-                CountPlacement.of(2),
+                CountPlacement.of(OreganizedConfig.COMMON.silverFrequency.get()),
                 InSquarePlacement.spread(),
                 BiomeFilter.biome(),
-                HeightRangePlacement.triangle(VerticalAnchor.absolute(-15), VerticalAnchor.absolute(5))
+                HeightRangePlacement.triangle(VerticalAnchor.absolute(OreganizedConfig.COMMON.silverMinHeight.get()), VerticalAnchor.absolute(OreganizedConfig.COMMON.silverMaxHeight.get()))
         );
         public static final RegistryObject<PlacedFeature> SILVER_ORE_HIGH = register("silver_ore_high", Configured.SILVER_ORE_HIGH,
-                CountPlacement.of(2),
+                CountPlacement.of(OreganizedConfig.COMMON.silverFrequency.get()),
                 InSquarePlacement.spread(),
                 BiomeFilter.biome(),
                 HeightRangePlacement.uniform(VerticalAnchor.absolute(140), VerticalAnchor.absolute(160))
         );
         public static final RegistryObject<PlacedFeature> LEAD_ORE = register("lead_ore", Configured.LEAD_ORE,
-                CountPlacement.of(10),
+                CountPlacement.of(OreganizedConfig.COMMON.leadFrequency.get()),
                 InSquarePlacement.spread(),
                 BiomeFilter.biome(),
-                HeightRangePlacement.triangle(VerticalAnchor.absolute(-40), VerticalAnchor.absolute(-20))
+                HeightRangePlacement.triangle(VerticalAnchor.absolute(OreganizedConfig.COMMON.leadMinHeight.get()), VerticalAnchor.absolute(OreganizedConfig.COMMON.leadMaxHeight.get()))
         );
         public static final RegistryObject<PlacedFeature> LEAD_ORE_EXTRA = register("lead_ore_extra", Configured.LEAD_ORE_EXTRA,
-                CountPlacement.of(12),
+                CountPlacement.of(OreganizedConfig.COMMON.leadFrequency.get()),
                 InSquarePlacement.spread(),
                 BiomeFilter.biome(),
                 HeightRangePlacement.triangle(VerticalAnchor.absolute(50), VerticalAnchor.absolute(80))

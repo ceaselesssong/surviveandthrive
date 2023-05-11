@@ -1,6 +1,7 @@
 package galena.oreganized.content.entity;
 
 import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
+import galena.oreganized.OreganizedConfig;
 import galena.oreganized.index.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -120,7 +121,7 @@ public class MinecartShrapnelBomb extends AbstractMinecart {
             }
             if (shouldPoison && entity instanceof LivingEntity living) {
                 living.hurt(DamageSource.MAGIC, 2);
-                living.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 800));
+                if (OreganizedConfig.stunningFromConfig()) living.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 800));
                 living.addEffect(new MobEffectInstance(MobEffects.POISON, 260));
             }
         }
