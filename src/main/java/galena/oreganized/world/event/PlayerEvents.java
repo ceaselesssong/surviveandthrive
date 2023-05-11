@@ -1,6 +1,7 @@
 package galena.oreganized.world.event;
 
 import galena.oreganized.Oreganized;
+import galena.oreganized.OreganizedConfig;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.index.*;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -106,7 +107,7 @@ public class PlayerEvents {
                 }
             }
             if (entity.getOffhandItem().is(OTags.Items.LEAD_SOURCE) || leadPoisoning) {
-                entity.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 40 * 20));
+                if (OreganizedConfig.stunningFromConfig()) entity.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 40 * 20));
                 entity.addEffect(new MobEffectInstance(MobEffects.POISON, 200));
             }
         }

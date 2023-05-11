@@ -1,5 +1,7 @@
 package galena.oreganized.content.block;
 
+import galena.oreganized.Oreganized;
+import galena.oreganized.OreganizedConfig;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEffects;
 import galena.oreganized.index.OItems;
@@ -157,7 +159,7 @@ public class MoltenLeadBlock extends LiquidBlock {
             }
 
             if (entity instanceof LivingEntity living && living.isUsingItem() && living.getUseItemRemainingTicks() == 0 && living.getItemInHand(living.getUsedItemHand()).isEdible()) {
-                living.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 40 * 20));
+                if (OreganizedConfig.stunningFromConfig()) living.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 40 * 20));
                 living.addEffect(new MobEffectInstance(MobEffects.POISON, 200));
             }
             entity.setSecondsOnFire(10);
