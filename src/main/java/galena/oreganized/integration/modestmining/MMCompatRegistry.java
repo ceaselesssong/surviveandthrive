@@ -28,7 +28,6 @@ public class MMCompatRegistry {
     public static final RegistryObject<Item> ELECTRUM_HAMMER = ITEMS.register("electrum_hammer", () -> new HammerItem(OItemTiers.ELECTRUM, 7, -3.2F, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
     public static final RegistryObject<Item> ELECTRUM_GLAIVE = ITEMS.register("electrum_glaive", () -> new GlaiveItem(OItemTiers.ELECTRUM, 3, -3.3F, 3.0F, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
     public static final RegistryObject<Item> ELECTRUM_KATANA = ITEMS.register("electrum_katana", () -> new KatanaItem(OItemTiers.ELECTRUM, 2, -2.7F, 3.0F, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
-    public static final RegistryObject<Item> ELECTRUM_MOUNTAIN_AXE = ITEMS.register("electrum_mountain_axe", () -> new PickaxeItem(OItemTiers.ELECTRUM, 1, -2.8F, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
     public static final RegistryObject<Item> ELECTRUM_MACE = ITEMS.register("electrum_mace", () -> new MaceItem(OItemTiers.ELECTRUM, 1, -3.2F, 2.0F, 2.0F, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
 
     public static void register() {
