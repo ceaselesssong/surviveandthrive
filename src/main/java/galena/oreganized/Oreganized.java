@@ -14,7 +14,13 @@ import galena.oreganized.integration.CompatHandlerClient;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
@@ -24,6 +30,8 @@ import net.minecraft.world.level.block.FireBlock;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.data.loading.DatagenModLoader;
+import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fluids.FluidInteractionRegistry;
 import net.minecraftforge.fml.ModList;
@@ -33,10 +41,13 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.forgespi.locating.IModFile;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.resource.PathPackResources;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.util.Map;
 
 @Mod(Oreganized.MOD_ID)
@@ -55,6 +66,7 @@ public class Oreganized {
         bus.addListener(this::setup);
         bus.addListener(this::clientSetup);
         bus.addListener(this::gatherData);
+        bus.addListener(this::addPackFinders);
 
         DeferredRegister<?>[] registers = {
                 OBlockEntities.BLOCK_ENTITIES,
@@ -68,9 +80,9 @@ public class Oreganized {
                 OPotions.POTIONS,
                 OSoundEvents.SOUNDS,
                 OStructures.STRUCTURES,
-                OFeatures.FEATURES,
-                OFeatures.Configured.CONFIGURED_FEATURES,
-                OFeatures.Placed.PLACED_FEATURES,
+                //OFeatures.FEATURES,
+                //OFeatures.Configured.CONFIGURED_FEATURES,
+                //OFeatures.Placed.PLACED_FEATURES,
                 OPaintingVariants.PAINTING_VARIANTS,
         };
 
@@ -189,5 +201,36 @@ public class Oreganized {
         generator.addProvider(server, new OBiomeTags(generator, helper));
         generator.addProvider(server, new OPaintingVariantTags(generator, helper));
         generator.addProvider(server, OBiomeModifier.register(event));
+    }
+
+    public void addPackFinders(AddPackFindersEvent event) {
+        if (event.getPackType() == PackType.CLIENT_RESOURCES) {
+            registerBuiltinResourcePack(event, Component.literal("Oreganized Compat"), "oreganized_compat");
+        }
+    }
+
+    private static void registerBuiltinResourcePack(AddPackFindersEvent event, MutableComponent name, String folder) {
+        event.addRepositorySource((consumer, constructor) -> {
+            ResourceLocation res = modLoc(folder);
+            IModFile file = ModList.get().getModFileById(Oreganized.MOD_ID).getFile();
+            try (PathPackResources pack = new PathPackResources(
+                    res.toString(),
+                    file.findResource("resourcepacks/" + folder)
+            )) {
+                consumer.accept(constructor.create(
+                        res.toString(),
+                        name,
+                        true,
+                        () -> pack,
+                        pack.getMetadataSection(PackMetadataSection.SERIALIZER),
+                        Pack.Position.TOP,
+                        PackSource.BUILT_IN,
+                        false
+                ));
+            } catch (IOException e) {
+                if (!DatagenModLoader.isRunningDataGen())
+                    e.printStackTrace();
+            }
+        });
     }
 }
