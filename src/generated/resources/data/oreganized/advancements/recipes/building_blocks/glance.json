@@ -28,5 +28,6 @@
     "recipes": [
       "oreganized:glance"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

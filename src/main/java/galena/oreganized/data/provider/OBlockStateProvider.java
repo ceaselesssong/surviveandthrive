@@ -4,6 +4,7 @@ import galena.oreganized.Oreganized;
 import galena.oreganized.content.block.*;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.*;
@@ -17,8 +18,8 @@ import static net.minecraftforge.client.model.generators.ModelProvider.BLOCK_FOL
 
 public abstract class OBlockStateProvider extends BlockStateProvider {
 
-    public OBlockStateProvider(DataGenerator gen, ExistingFileHelper help) {
-        super(gen, MOD_ID, help);
+    public OBlockStateProvider(PackOutput output, ExistingFileHelper help) {
+        super(output, MOD_ID, help);
     }
 
     protected ResourceLocation texture(String name) {

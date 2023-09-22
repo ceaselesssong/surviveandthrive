@@ -2,6 +2,7 @@ package galena.oreganized.data.provider;
 
 import galena.oreganized.Oreganized;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -15,8 +16,8 @@ import java.util.function.Supplier;
 
 public abstract class OItemModelProvider extends ItemModelProvider {
 
-    public OItemModelProvider(DataGenerator gen, ExistingFileHelper help) {
-        super(gen, Oreganized.MOD_ID, help);
+    public OItemModelProvider(PackOutput output, ExistingFileHelper help) {
+        super(output, Oreganized.MOD_ID, help);
     }
 
     protected String blockName(Supplier<? extends Block> block) {

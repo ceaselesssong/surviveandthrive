@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "A": {
       "item": "oreganized:glance_slab"
@@ -11,5 +12,6 @@
   ],
   "result": {
     "item": "oreganized:chiseled_glance"
-  }
+  },
+  "show_notification": true
 }

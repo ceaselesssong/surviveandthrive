@@ -8,6 +8,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -24,17 +25,17 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 public abstract class OLangProvider implements DataProvider {
-    private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().setLenient().create();
     private final Map<String, String> data = new TreeMap<>();
-    private final DataGenerator gen;
+    private final PackOutput output;
     private final String modid;
     private final String locale;
 
-    public OLangProvider(DataGenerator gen, String modid, String locale) {
-        this.gen = gen;
+    public OLangProvider(PackOutput output, String modid, String locale) {
+        this.output = output;
         this.modid = modid;
         this.locale = locale;
     }
@@ -42,25 +43,25 @@ public abstract class OLangProvider implements DataProvider {
     protected abstract void addTranslations();
 
     @Override
-    public void run(CachedOutput cache) throws IOException {
+    public CompletableFuture<?> run(CachedOutput cache) {
         addTranslations();
         if (!data.isEmpty())
-            save(cache, data, this.gen.getOutputFolder().resolve("assets/" + modid + "/lang/" + locale + ".json"));
+            return save(cache, this.output.getOutputFolder(PackOutput.Target.RESOURCE_PACK).resolve(this.modid).resolve("lang").resolve(this.locale + ".json"));
+
+        return CompletableFuture.allOf();
     }
 
     @Override
     public String getName() {
-        return "Languages: " + locale;
+        return modid + " Languages: " + locale;
     }
 
-    private void save(CachedOutput cache, Object object, Path target) throws IOException {
+    private CompletableFuture<?> save(CachedOutput cache, Path target) {
         // TODO: DataProvider.saveStable handles the caching and hashing already, but creating the JSON Object this way seems unreliable. -C
         JsonObject json = new JsonObject();
-        for (Map.Entry<String, String> pair : data.entrySet()) {
-            json.addProperty(pair.getKey(), pair.getValue());
-        }
+        this.data.forEach(json::addProperty);
 
-        DataProvider.saveStable(cache, json, target);
+        return DataProvider.saveStable(cache, json, target);
     }
 
     public void addBlock(Supplier<? extends Block> key, String name) {

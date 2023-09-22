@@ -2,22 +2,26 @@ package galena.oreganized.data;
 
 import galena.oreganized.Oreganized;
 import galena.oreganized.index.OBlocks;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
+import java.util.concurrent.CompletableFuture;
+
 import static galena.oreganized.index.OTags.Blocks.*;
 
-public class OBlockTags extends BlockTagsProvider {
+public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
 
-    public OBlockTags(DataGenerator generator, @Nullable ExistingFileHelper helper) {
-        super(generator, Oreganized.MOD_ID, helper);
+    public OBlockTags(PackOutput output, CompletableFuture<HolderLookup.Provider> future, @Nullable ExistingFileHelper helper) {
+        super(output, Registries.BLOCK, future, block -> block.builtInRegistryHolder().key(), Oreganized.MOD_ID, helper);
     }
 
     @Override
@@ -26,7 +30,7 @@ public class OBlockTags extends BlockTagsProvider {
     }
 
     @Override
-    protected void addTags() {
+    protected void addTags(HolderLookup.Provider provider) {
         // Oreganized
         for (int i = 0; OBlocks.CRYSTAL_GLASS.size() > i; i++) {
             tag(CRYSTAL_GLASS).add(OBlocks.CRYSTAL_GLASS.get(i).get());

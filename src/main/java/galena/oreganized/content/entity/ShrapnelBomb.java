@@ -37,10 +37,10 @@ public class ShrapnelBomb extends PrimedTnt {
     }
 
     protected void explode() {
-        this.level.explode(this, this.getX(), this.getY(0.0625D), this.getZ(), 4.0F, Explosion.BlockInteraction.NONE);
-        if (!this.level.isClientSide()) ((ServerLevel)this.level).sendParticles(OParticleTypes.LEAD_SHRAPNEL.get(),
+        this.level().explode(this, this.getX(), this.getY(0.0625D), this.getZ(), 4.0F, Level.ExplosionInteraction.NONE);
+        if (!this.level().isClientSide()) ((ServerLevel)this.level()).sendParticles(OParticleTypes.LEAD_SHRAPNEL.get(),
                 this.getX(), this.getY(0.0625D) , this.getZ(), 100, 0.0D, 0.0D, 0.0D, 5);
-        for (Entity entity : this.level.getEntities(this, new AABB(this.getX() - 30, this.getY() - 4, this.getZ() - 30,
+        for (Entity entity : this.level().getEntities(this, new AABB(this.getX() - 30, this.getY() - 4, this.getZ() - 30,
                 this.getX() + 30, this.getY() + 4, this.getZ() + 30))) {
             int random = (int) (Math.random() * 100);
             boolean shouldPoison = false;
@@ -54,7 +54,7 @@ public class ShrapnelBomb extends PrimedTnt {
                 if (random < 5) shouldPoison = true;
             }
             if (shouldPoison && entity instanceof LivingEntity living) {
-                living.hurt(DamageSource.MAGIC, 2);
+                living.hurt(this.damageSources().magic(), 2);
                 if (OreganizedConfig.stunningFromConfig()) living.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 800));
                 living.addEffect(new MobEffectInstance(MobEffects.POISON, 260));
             }

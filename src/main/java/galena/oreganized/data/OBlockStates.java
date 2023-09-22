@@ -4,6 +4,7 @@ import galena.oreganized.Oreganized;
 import galena.oreganized.data.provider.OBlockStateProvider;
 import galena.oreganized.index.OBlocks;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -12,8 +13,8 @@ import java.util.function.Supplier;
 
 public class OBlockStates extends OBlockStateProvider {
 
-    public OBlockStates(DataGenerator gen, ExistingFileHelper help) {
-        super(gen, help);
+    public OBlockStates(PackOutput output, ExistingFileHelper helper) {
+        super(output, helper);
     }
 
     @Override

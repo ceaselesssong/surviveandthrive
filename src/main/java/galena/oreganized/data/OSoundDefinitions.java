@@ -3,13 +3,14 @@ package galena.oreganized.data;
 import galena.oreganized.Oreganized;
 import galena.oreganized.index.OSoundEvents;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinitionsProvider;
 
 public class OSoundDefinitions extends SoundDefinitionsProvider {
 
-    public OSoundDefinitions(DataGenerator generator, ExistingFileHelper helper) {
-        super(generator, Oreganized.MOD_ID, helper);
+    public OSoundDefinitions(PackOutput output, ExistingFileHelper helper) {
+        super(output, Oreganized.MOD_ID, helper);
     }
 
     @Override

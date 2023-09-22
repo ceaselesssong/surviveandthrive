@@ -31,7 +31,7 @@ public class ShrapnelBombBlock extends TntBlock {
 
     public void wasExploded(Level world, BlockPos pos, Explosion explosion) {
         if (!world.isClientSide) {
-            ShrapnelBomb shrapnelBomb = new ShrapnelBomb(world, (double)pos.getX() + 0.5D, pos.getY(), (double)pos.getZ() + 0.5D, explosion.getSourceMob());
+            ShrapnelBomb shrapnelBomb = new ShrapnelBomb(world, (double)pos.getX() + 0.5D, pos.getY(), (double)pos.getZ() + 0.5D, explosion.getIndirectSourceEntity());
             int fuse = shrapnelBomb.getFuse();
             shrapnelBomb.setFuse((short)(world.random.nextInt(fuse / 4) + fuse / 8));
             world.addFreshEntity(shrapnelBomb);

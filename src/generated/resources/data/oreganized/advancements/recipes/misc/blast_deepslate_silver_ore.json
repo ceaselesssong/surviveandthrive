@@ -30,5 +30,6 @@
     "recipes": [
       "oreganized:blast_deepslate_silver_ore"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

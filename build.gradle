@@ -95,7 +95,7 @@ dependencies {
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
     /// Compatabilities
-    implementation fg.deobf("curse.maven:detailab-520755:${detailab_version}")
+   /* implementation fg.deobf("curse.maven:detailab-520755:${detailab_version}")
 
     compileOnly fg.deobf("curse.maven:farmers-delight-398521:${farmersdelight_version}")
     runtimeOnly fg.deobf("curse.maven:farmers-delight-398521:${farmersdelight_version}")
@@ -116,7 +116,7 @@ dependencies {
     compileOnly fg.deobf("curse.maven:modest-mining-533775:${modestmining_version}")
     runtimeOnly fg.deobf("curse.maven:modest-mining-533775:${modestmining_version}")
     runtimeOnly fg.deobf("curse.maven:geckolib-388172:${geckolib_version}")
-
+*/
 
 
     /*
@@ -127,18 +127,18 @@ dependencies {
     ///
 
     /// Utilities for the development environment
-    runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_version}")
+    //runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_version}")
     // compile against the JEI API but do not include it at runtime
     compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
     compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
     // at runtime, use the full JEI jar for Forge
     runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
 
-    runtimeOnly fg.deobf("curse.maven:catalogue-459701:${catalogue_version}")
-    runtimeOnly fg.deobf("curse.maven:configured-457570:${configured_version}")
+    //runtimeOnly fg.deobf("curse.maven:catalogue-459701:${catalogue_version}")
+    //runtimeOnly fg.deobf("curse.maven:configured-457570:${configured_version}")
 
-    runtimeOnly fg.deobf("curse.maven:oculus-581495:${oculus_version}")
-    runtimeOnly fg.deobf("curse.maven:rubidium-574856:${rubidium_version}")
+    //runtimeOnly fg.deobf("curse.maven:oculus-581495:${oculus_version}")
+    //runtimeOnly fg.deobf("curse.maven:rubidium-574856:${rubidium_version}")
     ///
 }
 

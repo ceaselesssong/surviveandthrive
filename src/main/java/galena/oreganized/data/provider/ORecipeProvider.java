@@ -1,12 +1,10 @@
 package galena.oreganized.data.provider;
 
-import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import galena.oreganized.Oreganized;
+import galena.oreganized.index.OItems;
 import galena.oreganized.index.OTags;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -16,31 +14,27 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.ConditionalAdvancement;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class ORecipeProvider extends RecipeProvider {
+public abstract class ORecipeProvider extends RecipeProvider {
 
-    public ORecipeProvider(DataGenerator gen) {
-        super(gen);
+    public ORecipeProvider(PackOutput output) {
+        super(output);
     }
 
     public ShapedRecipeBuilder makeSlab(Supplier<? extends Block> slabOut, Supplier<? extends Block> blockIn) {
-        return ShapedRecipeBuilder.shaped(slabOut.get(), 6)
+        return ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, slabOut.get(), 6)
                 .pattern("AAA")
                 .define('A', blockIn.get())
                 .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(blockIn.get()).getPath(), has(blockIn.get()));
     }
 
     public ShapedRecipeBuilder makeStairs(Supplier<? extends Block> stairsOut, Supplier<? extends Block> blockIn) {
-        return ShapedRecipeBuilder.shaped(stairsOut.get(), 4)
+        return ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, stairsOut.get(), 4)
                 .pattern("A  ")
                 .pattern("AA ")
                 .pattern("AAA")
@@ -49,7 +43,7 @@ public class ORecipeProvider extends RecipeProvider {
     }
 
     public ShapedRecipeBuilder makeWall(Supplier<? extends Block> wallOut, Supplier<? extends Block> blockIn) {
-        return ShapedRecipeBuilder.shaped(wallOut.get(), 6)
+        return ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, wallOut.get(), 6)
                 .pattern("AAA")
                 .pattern("AAA")
                 .define('A', blockIn.get())
@@ -57,7 +51,7 @@ public class ORecipeProvider extends RecipeProvider {
     }
 
     public ShapedRecipeBuilder makeBars(Supplier<? extends Block> barsOut, Supplier<? extends Block> blockIn) {
-        return ShapedRecipeBuilder.shaped(barsOut.get(), 16)
+        return ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, barsOut.get(), 16)
                 .pattern("AAA")
                 .pattern("AAA")
                 .define('A', blockIn.get())
@@ -65,7 +59,7 @@ public class ORecipeProvider extends RecipeProvider {
     }
 
     public ShapedRecipeBuilder quadTransform(Supplier<? extends Block> blockOut, Supplier<? extends Block> blockIn) {
-        return ShapedRecipeBuilder.shaped(blockOut.get(), 4)
+        return ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, blockOut.get(), 4)
                 .pattern("AA")
                 .pattern("AA")
                 .define('A', blockIn.get())
@@ -73,7 +67,7 @@ public class ORecipeProvider extends RecipeProvider {
     }
 
     public ShapedRecipeBuilder makeChiseled(Supplier<? extends Block> blockOut, Supplier<? extends SlabBlock> slabIn) {
-        return ShapedRecipeBuilder.shaped(blockOut.get())
+        return ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, blockOut.get())
                 .pattern("A")
                 .pattern("A")
                 .define('A', slabIn.get())
@@ -81,7 +75,7 @@ public class ORecipeProvider extends RecipeProvider {
     }
 
     public ShapedRecipeBuilder compact(Item itemOut, Item itemIn) {
-        return ShapedRecipeBuilder.shaped(itemOut)
+        return ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, itemOut)
                 .pattern("AAA")
                 .pattern("AAA")
                 .pattern("AAA")
@@ -90,13 +84,13 @@ public class ORecipeProvider extends RecipeProvider {
     }
 
     public ShapelessRecipeBuilder unCompact(Item itemOut, Item itemIn) {
-        return ShapelessRecipeBuilder.shapeless(itemOut, 9)
+        return ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, itemOut, 9)
                 .requires(itemIn)
                 .unlockedBy("has_" + ForgeRegistries.ITEMS.getKey(itemIn).getPath(), has(itemIn));
     }
 
     public ShapedRecipeBuilder crystalGlass(Supplier<? extends Block> blockOut, Block blockIn) {
-        return ShapedRecipeBuilder.shaped(blockOut.get(), 8)
+        return ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, blockOut.get(), 8)
                 .pattern("AAA")
                 .pattern("ABA")
                 .pattern("AAA")
@@ -122,7 +116,7 @@ public class ORecipeProvider extends RecipeProvider {
     }
 
     public SimpleCookingRecipeBuilder smeltingRecipe(ItemLike result, ItemLike ingredient, float exp, int count) {
-        return SimpleCookingRecipeBuilder.smelting(Ingredient.of(new ItemStack(ingredient, count)), result, exp, 200)
+        return SimpleCookingRecipeBuilder.smelting(Ingredient.of(new ItemStack(ingredient, count)), RecipeCategory.MISC, result, exp, 200)
                 .unlockedBy("has_" + ForgeRegistries.ITEMS.getKey(ingredient.asItem()), has(ingredient));
     }
 
@@ -131,7 +125,7 @@ public class ORecipeProvider extends RecipeProvider {
     }
 
     public SimpleCookingRecipeBuilder smeltingRecipeTag(ItemLike result, TagKey<Item> ingredient, float exp, int count) {
-        return SimpleCookingRecipeBuilder.smelting(Ingredient.of(ingredient), result, exp, 200)
+        return SimpleCookingRecipeBuilder.smelting(Ingredient.of(ingredient), RecipeCategory.MISC, result, exp, 200)
                 .unlockedBy("has_" + ingredient, has(ingredient));
     }
 
@@ -146,7 +140,7 @@ public class ORecipeProvider extends RecipeProvider {
     }
 
     public SimpleCookingRecipeBuilder blastingRecipe(ItemLike result, ItemLike ingredient, float exp, int count) {
-        return SimpleCookingRecipeBuilder.blasting(Ingredient.of(new ItemStack(ingredient, count)), result, exp, 100)
+        return SimpleCookingRecipeBuilder.blasting(Ingredient.of(new ItemStack(ingredient, count)), RecipeCategory.MISC, result, exp, 100)
                 .unlockedBy("has_" + ForgeRegistries.ITEMS.getKey(ingredient.asItem()).getPath(), has(ingredient));
     }
 
@@ -155,33 +149,31 @@ public class ORecipeProvider extends RecipeProvider {
     }
 
     public SimpleCookingRecipeBuilder blastingRecipeTag(ItemLike result, TagKey<Item> ingredient, float exp, int count) {
-        return SimpleCookingRecipeBuilder.blasting(Ingredient.of(ingredient), result, exp, 100)
+        return SimpleCookingRecipeBuilder.blasting(Ingredient.of(ingredient), RecipeCategory.MISC, result, exp, 100)
                 .unlockedBy("has_" + ingredient, has(ingredient));
     }
 
-    public UpgradeRecipeBuilder smithingRecipe(Supplier<Item> input, Supplier<Item> upgradeItem, Supplier<Item> result) {
-        return UpgradeRecipeBuilder.smithing(Ingredient.of(input.get()), Ingredient.of(upgradeItem.get()), result.get())
-                .unlocks("has_" + ForgeRegistries.ITEMS.getKey(upgradeItem.get()).getPath(), has(upgradeItem.get()));
+    public SmithingTransformRecipeBuilder smithingRecipe(Supplier<Item> input, Supplier<Item> upgradeItem, Supplier<Item> templateItem, Supplier<Item> result) {
+        return SmithingTransformRecipeBuilder.smithing(Ingredient.of(templateItem.get()), Ingredient.of(input.get()), Ingredient.of(upgradeItem.get()), RecipeCategory.MISC, result.get())
+                .unlocks("has_" + ForgeRegistries.ITEMS.getKey(upgradeItem.get()), has(upgradeItem.get()));
     }
 
-    public UpgradeRecipeBuilder smithingElectrum(Item input, Supplier<Item> result) {
-        TagKey<Item> electrum = OTags.Items.INGOTS_ELECTRUM;
-        return UpgradeRecipeBuilder.smithing(Ingredient.of(input), Ingredient.of(electrum), result.get())
-                .unlocks("has_electrum_ingot", has(electrum));
+    public SmithingTransformRecipeBuilder smithingElectrum(Supplier<Item> input, Supplier<Item> result) {
+        return smithingRecipe(input, OItems.ELECTRUM_INGOT, OItems.ELECTRUM_UPGRADE_SMITHING_TEMPLATE, result);
     }
 
     public SingleItemRecipeBuilder stonecutting(Supplier<Block> input, ItemLike result) {
-        return SingleItemRecipeBuilder.stonecutting(Ingredient.of(input.get()), result)
+        return SingleItemRecipeBuilder.stonecutting(Ingredient.of(input.get()), RecipeCategory.BUILDING_BLOCKS, result)
                 .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(input.get()).getPath(), has(input.get()));
     }
 
     public SingleItemRecipeBuilder stonecutting(Supplier<Block> input, ItemLike result, int resultAmount) {
-        return SingleItemRecipeBuilder.stonecutting(Ingredient.of(input.get()), result, resultAmount)
+        return SingleItemRecipeBuilder.stonecutting(Ingredient.of(input.get()), RecipeCategory.BUILDING_BLOCKS, result, resultAmount)
                 .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(input.get()).getPath(), has(input.get()));
     }
 
     public ShapelessRecipeBuilder makeWaxed(Supplier<Block> blockOut, Block blockIn) {
-        return ShapelessRecipeBuilder.shapeless(blockOut.get())
+        return ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, blockOut.get())
                 .requires(blockIn)
                 .requires(Items.HONEYCOMB)
                 .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(blockIn).getPath(), has(blockIn))

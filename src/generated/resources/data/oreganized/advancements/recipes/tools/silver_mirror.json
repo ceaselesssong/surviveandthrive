@@ -39,5 +39,6 @@
     "recipes": [
       "oreganized:silver_mirror"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

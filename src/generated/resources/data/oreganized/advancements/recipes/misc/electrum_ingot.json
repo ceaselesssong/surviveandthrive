@@ -39,5 +39,6 @@
     "recipes": [
       "oreganized:electrum_ingot"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -54,7 +54,7 @@ public class MoltenLeadFluid  extends ForgeFlowingFluid {
     }
 
     @Override
-    protected void spread(LevelAccessor world, BlockPos blockPos, FluidState fluidState) {
+    protected void spread(Level world, BlockPos blockPos, FluidState fluidState) {
         if (!fluidState.isEmpty()) {
             if (fluidState.getValue(MOVING)) {
                 BlockPos belowPos = blockPos.below();

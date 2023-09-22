@@ -16,10 +16,4 @@ public class OSwordItem extends SwordItem {
     public OSwordItem(Tier tier, int attack, float modifier, Properties itemProperties) {
         this(tier, attack, modifier, itemProperties, Items.NETHERITE_SWORD);
     }
-
-    @Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
-        if (this.allowedIn(tab))
-            OItem.insert(new ItemStack(this), false, items, stack -> stack.getItem() == followItem);
-    }
 }

@@ -31,6 +31,6 @@ This mod is designed to be a Vanilla plus mod while also adding unique uses and 
 [[dependencies.oreganized]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19,1.19.3)"
+    versionRange="[1.20,1.21)"
     ordering="NONE"
     side="BOTH"

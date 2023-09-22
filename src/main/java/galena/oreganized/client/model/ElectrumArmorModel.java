@@ -2,7 +2,7 @@ package galena.oreganized.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.HumanoidArmorModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -11,7 +11,6 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
@@ -20,7 +19,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import galena.oreganized.Oreganized;
 
 @OnlyIn(Dist.CLIENT)
-public class ElectrumArmorModel<T extends LivingEntity> extends HumanoidModel<T> {
+public class ElectrumArmorModel<T extends LivingEntity> extends HumanoidArmorModel<T> {
+
     public static final ModelLayerLocation ELECTRUM_ARMOR = new ModelLayerLocation(Oreganized.modLoc( "electrum_armor"), "main");
     private final EquipmentSlot slot;
     private final ModelPart Head;
@@ -46,7 +46,7 @@ public class ElectrumArmorModel<T extends LivingEntity> extends HumanoidModel<T>
     }
 
     public static LayerDefinition createBodyLayer() {
-        MeshDefinition meshdefinition = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
+        MeshDefinition meshdefinition = HumanoidArmorModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition partdefinition = meshdefinition.getRoot();
 
         PartDefinition Head = partdefinition.addOrReplaceChild("Head", CubeListBuilder.create().texOffs(0, 48).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.75F)), PartPose.offset(0.0F, -1.0F, 0.0F));

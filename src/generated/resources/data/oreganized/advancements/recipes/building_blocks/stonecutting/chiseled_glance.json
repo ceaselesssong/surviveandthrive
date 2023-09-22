@@ -30,5 +30,6 @@
     "recipes": [
       "oreganized:stonecutting/chiseled_glance"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

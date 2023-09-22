@@ -33,5 +33,6 @@
     [
       "has_molten_lead_bucket"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

@@ -2,7 +2,6 @@ package galena.oreganized.index;
 
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.math.Vector3f;
 import galena.oreganized.Oreganized;
 import galena.oreganized.content.fluid.MoltenLeadFluid;
 import net.minecraft.client.Camera;
@@ -20,6 +19,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
 import java.util.function.Consumer;
 

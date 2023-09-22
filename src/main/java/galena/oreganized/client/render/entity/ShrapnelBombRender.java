@@ -1,7 +1,7 @@
 package galena.oreganized.client.render.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import galena.oreganized.content.entity.ShrapnelBomb;
 import galena.oreganized.index.OBlocks;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -34,9 +34,9 @@ public class ShrapnelBombRender extends EntityRenderer<ShrapnelBomb> {
             float f1 = 1.0F + f * 0.3F;
             poseStack.scale(f1, f1, f1);
         }
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(-90.0F));
+        poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
         poseStack.translate(-0.5D, -0.5D, 0.5D);
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(90.0F));
+        poseStack.mulPose(Axis.YP.rotationDegrees(90.0F));
         TntMinecartRenderer.renderWhiteSolidBlock(this.blockRenderer, OBlocks.SHRAPNEL_BOMB.get().defaultBlockState(), poseStack, buffer, packedLight, fuse / 5 % 2 == 0);
         poseStack.popPose();
         super.render(entity, yaw, paritalTicks, poseStack, buffer, packedLight);

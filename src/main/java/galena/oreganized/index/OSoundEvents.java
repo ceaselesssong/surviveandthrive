@@ -17,6 +17,6 @@ public class OSoundEvents {
     public static final RegistryObject<SoundEvent> SHRAPNEL_BOMB_PRIMED = register("entity.shrapnel_bomb.primed");
 
     private static RegistryObject<SoundEvent> register(String name) {
-        return SOUNDS.register(name, () -> new SoundEvent(Oreganized.modLoc(name)));
+        return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(Oreganized.modLoc(name)));
     }
 }

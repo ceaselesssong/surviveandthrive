@@ -39,5 +39,6 @@
     "recipes": [
       "oreganized:exposer"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

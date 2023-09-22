@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "redstone",
   "key": {
     "A": {
       "tag": "minecraft:stone_crafting_materials"
@@ -18,5 +19,6 @@
   ],
   "result": {
     "item": "oreganized:exposer"
-  }
+  },
+  "show_notification": true
 }

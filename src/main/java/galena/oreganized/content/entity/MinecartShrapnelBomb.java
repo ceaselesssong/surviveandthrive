@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -57,7 +58,7 @@ public class MinecartShrapnelBomb extends AbstractMinecart {
         super.tick();
         if (this.fuse > 0) {
             --this.fuse;
-            this.level.addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
+            this.level().addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
         } else if (this.fuse == 0) {
             this.explode(this.getDeltaMovement().horizontalDistanceSqr());
         }
@@ -84,10 +85,10 @@ public class MinecartShrapnelBomb extends AbstractMinecart {
     }
 
     @Override
-    public void destroy(DamageSource p_38664_) {
+    public void destroy(DamageSource source) {
         double d0 = this.getDeltaMovement().horizontalDistanceSqr();
-        if (!p_38664_.isFire() && !p_38664_.isExplosion() && !(d0 >= (double)0.01F)) {
-            super.destroy(p_38664_);
+        if (!source.is(DamageTypeTags.IS_FIRE) && !source.is(DamageTypeTags.IS_EXPLOSION) && !(d0 >= (double)0.01F)) {
+            super.destroy(source);
         } else {
             if (this.fuse < 0) {
                 this.primeFuse();
@@ -103,10 +104,10 @@ public class MinecartShrapnelBomb extends AbstractMinecart {
     }
 
     protected void explode(double p_38689_) {
-        this.level.explode(this, this.getX(), this.getY(0.0625D), this.getZ(), 4.0F, Explosion.BlockInteraction.NONE);
-        if (!this.level.isClientSide()) ((ServerLevel)this.level).sendParticles(OParticleTypes.LEAD_SHRAPNEL.get(),
+        this.level().explode(this, this.getX(), this.getY(0.0625D), this.getZ(), 4.0F,  Level.ExplosionInteraction.NONE);
+        if (!this.level().isClientSide()) ((ServerLevel)this.level()).sendParticles(OParticleTypes.LEAD_SHRAPNEL.get(),
                 this.getX(), this.getY(0.0625D) , this.getZ(), 100, 0.0D, 0.0D, 0.0D, 5);
-        for (Entity entity : this.level.getEntities(this, new AABB(this.getX() - 30, this.getY() - 4, this.getZ() - 30,
+        for (Entity entity : this.level().getEntities(this, new AABB(this.getX() - 30, this.getY() - 4, this.getZ() - 30,
                 this.getX() + 30, this.getY() + 4, this.getZ() + 30))) {
             int random = (int) (Math.random() * 100);
             boolean shouldPoison = false;
@@ -120,7 +121,7 @@ public class MinecartShrapnelBomb extends AbstractMinecart {
                 if (random < 5) shouldPoison = true;
             }
             if (shouldPoison && entity instanceof LivingEntity living) {
-                living.hurt(DamageSource.MAGIC, 2);
+                living.hurt(this.damageSources().magic(), 2);
                 if (OreganizedConfig.stunningFromConfig()) living.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 800));
                 living.addEffect(new MobEffectInstance(MobEffects.POISON, 260));
             }
@@ -158,10 +159,10 @@ public class MinecartShrapnelBomb extends AbstractMinecart {
 
     public void primeFuse() {
         this.fuse = 80;
-        if (!this.level.isClientSide) {
-            this.level.broadcastEntityEvent(this, (byte)10);
+        if (!this.level().isClientSide) {
+            this.level().broadcastEntityEvent(this, (byte)10);
             if (!this.isSilent()) {
-                this.level.playSound(null, this.getX(), this.getY(), this.getZ(), OSoundEvents.SHRAPNEL_BOMB_PRIMED.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                this.level().playSound(null, this.getX(), this.getY(), this.getZ(), OSoundEvents.SHRAPNEL_BOMB_PRIMED.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
             }
         }
     }

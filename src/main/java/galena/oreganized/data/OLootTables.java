@@ -1,51 +1,43 @@
 package galena.oreganized.data;
 
-import com.google.common.collect.ImmutableList;
-import com.mojang.datafixers.util.Pair;
 import galena.oreganized.data.provider.OBlockLootProvider;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEntityTypes;
 import galena.oreganized.index.OItems;
-import galena.oreganized.integration.quark.QCompatRegistry;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.loot.EntityLoot;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.ValidationContext;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class OLootTables extends LootTableProvider {
 
-    public OLootTables(DataGenerator gen) {
-        super(gen);
+    public OLootTables(PackOutput output) {
+        super(output, Set.of(), List.of(
+                new SubProviderEntry(Blocks::new, LootContextParamSets.BLOCK),
+                new SubProviderEntry(Entities::new, LootContextParamSets.ENTITY)
+        ));
     }
 
-    public String getName() {
-        return "Oreganized Loot Tables";
-    }
-
-    protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
-        return ImmutableList.of(Pair.of(Blocks::new, LootContextParamSets.BLOCK), Pair.of(Entities::new, LootContextParamSets.ENTITY));
-    }
-
+    @Override
     protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext tracker) {
-
     }
 
     public static class Blocks extends OBlockLootProvider {
 
-        protected void addTables() {
+        protected void generate() {
             //dropNothing(OBlocks.MOLTEN_LEAD);
             cauldron(OBlocks.MOLTEN_LEAD_CAULDRON);
 
@@ -92,19 +84,26 @@ public class OLootTables extends LootTableProvider {
             }
         }
 
+        @Override
         protected Iterable<Block> getKnownBlocks() {
             return OBlocks.BLOCKS.getEntries().stream().map(Supplier::get).collect(Collectors.toList());
         }
     }
 
-    public static class Entities extends EntityLoot {
+    public static class Entities extends EntityLootSubProvider {
 
-        protected void addTables() {
+        public Entities() {
+            super(FeatureFlags.REGISTRY.allFlags());
+        }
+
+        @Override
+        public void generate() {
 
         }
 
-        protected Iterable<EntityType<?>> getKnownEntities() {
-            return OEntityTypes.ENTITIES.getEntries().stream().map(Supplier::get).collect(Collectors.toList());
+        @Override
+        protected Stream<EntityType<?>> getKnownEntityTypes() {
+            return OEntityTypes.ENTITIES.getEntries().stream().map(Supplier::get);
         }
     }
 }

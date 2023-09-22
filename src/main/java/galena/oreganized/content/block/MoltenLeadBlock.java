@@ -1,6 +1,5 @@
 package galena.oreganized.content.block;
 
-import galena.oreganized.Oreganized;
 import galena.oreganized.OreganizedConfig;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEffects;
@@ -21,8 +20,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -41,7 +38,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -58,6 +54,7 @@ public class MoltenLeadBlock extends LiquidBlock {
 
     public MoltenLeadBlock(Supplier<? extends FlowingFluid> fluid, Properties properties) {
         super(fluid, properties.noCollission().strength(-1.0F, 3600000.0F).noLootTable().lightLevel((state) -> 8));
+        this.registerDefaultState(this.stateDefinition.any().setValue(MOVING, false));
     }
 
     @Override
@@ -109,7 +106,7 @@ public class MoltenLeadBlock extends LiquidBlock {
 
     @Override
     public void tick(BlockState pState , ServerLevel pLevel , BlockPos pPos , RandomSource pRandom ){
-        if (pLevel.getBlockState(pPos.below()).getBlock() == Blocks.AIR || pLevel.getBlockState(pPos.below()).is(BlockTags.REPLACEABLE_PLANTS)
+        if (pLevel.getBlockState(pPos.below()).getBlock() == Blocks.AIR || pLevel.getBlockState(pPos.below()).is(BlockTags.REPLACEABLE)
                 || pLevel.getBlockState(pPos.below()).getFluidState().is(FluidTags.WATER)
                 || pLevel.getBlockState(pPos.below()).is(BlockTags.SMALL_FLOWERS)
                 || pLevel.getBlockState(pPos.below()).is(BlockTags.TALL_FLOWERS)){
@@ -119,7 +116,7 @@ public class MoltenLeadBlock extends LiquidBlock {
     }
 
     private boolean scheduleFallingTick( LevelAccessor pLevel , BlockPos pPos , int pDelay ){
-        if(pLevel.getBlockState( pPos.below() ).getBlock() == Blocks.AIR || pLevel.getBlockState(pPos.below()).is(BlockTags.REPLACEABLE_PLANTS)
+        if(pLevel.getBlockState( pPos.below() ).getBlock() == Blocks.AIR || pLevel.getBlockState(pPos.below()).is(BlockTags.REPLACEABLE)
                 || pLevel.getBlockState( pPos.below() ).getFluidState().is(FluidTags.WATER)
                 || pLevel.getBlockState( pPos.below() ).is(BlockTags.SMALL_FLOWERS)
                 || pLevel.getBlockState(pPos.below()).is(BlockTags.TALL_FLOWERS)){
@@ -132,7 +129,7 @@ public class MoltenLeadBlock extends LiquidBlock {
     @Override
     public VoxelShape getCollisionShape(BlockState blockState, BlockGetter world, BlockPos blockPos, CollisionContext ctx) {
         if (ctx instanceof EntityCollisionContext eCtx && eCtx.getEntity() != null)
-            return ctx.isAbove(STABLE_SHAPE, blockPos, true) && blockState.getValue(LEVEL) == 0 && isEntityLighterThanLead(eCtx.getEntity()) ? STABLE_SHAPE : Shapes.empty();
+            return ctx.isAbove(STABLE_SHAPE, blockPos, true) && isEntityLighterThanLead(eCtx.getEntity()) ? STABLE_SHAPE : Shapes.empty();
 
         return super.getCollisionShape(blockState, world, blockPos, ctx);
     }

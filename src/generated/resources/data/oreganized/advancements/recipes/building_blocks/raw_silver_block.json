@@ -30,5 +30,6 @@
     "recipes": [
       "oreganized:raw_silver_block"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

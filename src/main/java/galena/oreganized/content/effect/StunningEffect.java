@@ -28,7 +28,7 @@ public class StunningEffect extends MobEffect {
     public void applyEffectTick(@NotNull LivingEntity entity, int amplifier) {
         if (coolDown <= 0) {
             // amplifier multiplies only the time frozen, making the relative gap larger the higher the level
-            coolDown = entity.getLevel().getRandom().nextInt(120 * (flag ? amplifier + 1 : 1)) + 20;
+            coolDown = entity.level().getRandom().nextInt(120 * (flag ? amplifier + 1 : 1)) + 20;
             flag = !flag; // Toggle flag, if should be paralysed flag = true, else flag = false
         }
         coolDown--; // cool down is decremented every in game tick

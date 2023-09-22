@@ -39,5 +39,6 @@
     "recipes": [
       "oreganized:shrapnel_bomb"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

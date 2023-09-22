@@ -20,26 +20,25 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
 import javax.annotation.Nullable;
+import java.util.EnumMap;
 import java.util.UUID;
 import java.util.function.Consumer;
 
 public class ElectrumArmorItem extends ArmorItem {
     private static final String TEXTURE = Oreganized.MOD_ID + ":textures/entity/electrum_armor.png";
 
-    public ElectrumArmorItem(ArmorMaterial material, EquipmentSlot slot) {
-        super(material, slot, new Properties()
-                .tab(CreativeModeTab.TAB_COMBAT)
-        );
+    public ElectrumArmorItem(ArmorItem.Type slot) {
+        super(OArmorMaterials.ELECTRUM, slot, new Properties());
     }
 
 
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-        if(slot == this.slot) {
-            UUID uuid = ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
+        if(slot == this.getEquipmentSlot()) {
+            UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(this.getType());
             return ImmutableMultimap.of(
                     Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Electrum speed", 0.05, AttributeModifier.Operation.MULTIPLY_BASE),
-                    Attributes.ARMOR, new AttributeModifier(uuid, "Armor modifier", OArmorMaterials.ELECTRUM.getDefenseForSlot(this.slot), AttributeModifier.Operation.ADDITION),
+                    Attributes.ARMOR, new AttributeModifier(uuid, "Armor modifier", OArmorMaterials.ELECTRUM.getDefenseForType(this.type), AttributeModifier.Operation.ADDITION),
                     Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", OArmorMaterials.ELECTRUM.getToughness(), AttributeModifier.Operation.ADDITION),
                     Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", OArmorMaterials.ELECTRUM.getKnockbackResistance(), AttributeModifier.Operation.ADDITION)
             );
@@ -62,18 +61,5 @@ public class ElectrumArmorItem extends ArmorItem {
                 return new ElectrumArmorModel<>(ElectrumArmorModel.createBodyLayer().bakeRoot(), armorSlot);
             }
         });
-    }
-
-    @Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
-        if (this.allowedIn(tab))
-            OItem.insert(new ItemStack(this), false, items, stack -> {
-                Item item = stack.getItem();
-                Item piece = this.asItem();
-                return piece == OItems.ELECTRUM_HELMET.get() && item == Items.NETHERITE_BOOTS ||
-                        piece == OItems.ELECTRUM_CHESTPLATE.get() && item == OItems.ELECTRUM_HELMET.get() ||
-                        piece == OItems.ELECTRUM_LEGGINGS.get() && item == OItems.ELECTRUM_CHESTPLATE.get() ||
-                        piece == OItems.ELECTRUM_BOOTS.get() && item == OItems.ELECTRUM_LEGGINGS.get();
-            });
     }
 }

@@ -4,6 +4,7 @@ import galena.oreganized.Oreganized;
 import galena.oreganized.data.provider.OLangProvider;
 import galena.oreganized.index.*;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -13,8 +14,8 @@ import java.util.function.Supplier;
 
 public class OLang extends OLangProvider {
 
-    public OLang(DataGenerator gen) {
-        super(gen, Oreganized.MOD_ID, "en_us");
+    public OLang(PackOutput output) {
+        super(output, Oreganized.MOD_ID, "en_us");
     }
     @Override
     protected void addTranslations() {
@@ -44,6 +45,13 @@ public class OLang extends OLangProvider {
         addAdvTitle("story.disc_smith", "Disc Smith");
         addAdvDesc("story.disc_smith", "Submerge a broken music disc into molten lead");
 
+        add("trim_material.oreganized.lead", "Lead material");
+        add("trim_material.oreganized.silver", "Silver material");
+        add("trim_material.oreganized.electrum", "Electrum material");
+        add("upgrade.oreganized.electrum_upgrade", "Electrum Upgrade");
+        add("item.oreganized.smithing_template.electrum_upgrade.applies_to", "Diamond Equipment");
+        add("item.oreganized.smithing_template.electrum_upgrade.ingredients", "Electrum Ingot");
+
         // JEED compat
         add("effect.oreganized.stunning.description", "Paralyzes the victim periodically with random intervals");
 
@@ -62,7 +70,7 @@ public class OLang extends OLangProvider {
             tryBlock(blocks);
         }
         for (Supplier<? extends Item> items : OItems.ITEMS.getEntries()) {
-            tryItem(items);
+            if (!items.equals(OItems.ELECTRUM_UPGRADE_SMITHING_TEMPLATE)) tryItem(items);
         }
         for (Supplier<? extends Fluid> fluids : OFluids.FLUIDS.getEntries()) {
             tryFluid(fluids);

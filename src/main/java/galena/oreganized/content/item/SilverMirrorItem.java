@@ -22,12 +22,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 @MethodsReturnNonnullByDefault
-public class SilverMirrorItem extends OItem implements ISilver {
+public class SilverMirrorItem extends Item implements ISilver {
 
     public static final int TexturedFrames = 8;
 
     public SilverMirrorItem(Item.Properties properties) {
-        super(properties, Items.SPYGLASS);
+        super(properties);
     }
 
     /*@Override

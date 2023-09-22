@@ -1,54 +1,55 @@
 package galena.oreganized;
 
 import com.google.common.collect.ImmutableBiMap;
-import com.redlimerl.detailab.api.DetailArmorBarAPI;
-import com.redlimerl.detailab.api.render.ArmorBarRenderManager;
-import com.redlimerl.detailab.api.render.TextureOffset;
 import galena.oreganized.client.OreganizedClient;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.data.*;
 import galena.oreganized.data.modifiers.OBiomeModifier;
 import galena.oreganized.index.*;
-import galena.oreganized.integration.CompatHandler;
-import galena.oreganized.integration.CompatHandlerClient;
+import net.minecraft.DetectedVersion;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.metadata.PackMetadataGenerator;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
-import net.minecraft.server.packs.repository.Pack;
-import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.util.MutableHashedLinkedMap;
 import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.data.loading.DatagenModLoader;
-import net.minecraftforge.event.AddPackFindersEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidInteractionRegistry;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.forgespi.locating.IModFile;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.resource.PathPackResources;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Mod(Oreganized.MOD_ID)
 public class Oreganized {
@@ -66,7 +67,8 @@ public class Oreganized {
         bus.addListener(this::setup);
         bus.addListener(this::clientSetup);
         bus.addListener(this::gatherData);
-        bus.addListener(this::addPackFinders);
+        bus.addListener(this::buildCreativeModeTabContents);
+        //bus.addListener(this::addPackFinders);
 
         DeferredRegister<?>[] registers = {
                 OBlockEntities.BLOCK_ENTITIES,
@@ -80,9 +82,7 @@ public class Oreganized {
                 OPotions.POTIONS,
                 OSoundEvents.SOUNDS,
                 OStructures.STRUCTURES,
-                //OFeatures.FEATURES,
-                //OFeatures.Configured.CONFIGURED_FEATURES,
-                //OFeatures.Placed.PLACED_FEATURES,
+                OFeatures.FEATURES,
                 OPaintingVariants.PAINTING_VARIANTS,
         };
 
@@ -90,7 +90,7 @@ public class Oreganized {
             register.register(bus);
         }
 
-        CompatHandler.register();
+        //CompatHandler.register();
 
         context.registerConfig(ModConfig.Type.COMMON, OreganizedConfig.COMMON_SPEC);
         //context.registerConfig(ModConfig.Type.CLIENT, OreganizedConfig.CLIENT_SPEC);
@@ -158,7 +158,7 @@ public class Oreganized {
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
-        CompatHandlerClient.setup(event);
+        //CompatHandlerClient.setup(event);
         OreganizedClient.registerBlockRenderers();
 
         ItemProperties.register(OItems.SILVER_MIRROR.get(), new ResourceLocation("level"), (stack, world, entity, seed) -> {
@@ -168,69 +168,150 @@ public class Oreganized {
                 return stack.getOrCreateTag().getInt("Level");
             }
         });
-
-        if (ModList.get().isLoaded("detailab")) {
-            ResourceLocation texture = modLoc("textures/gui/armor_bar.png");
-            DetailArmorBarAPI.customArmorBarBuilder().armor((ArmorItem) OItems.ELECTRUM_CHESTPLATE.get(), (ArmorItem) OItems.ELECTRUM_HELMET.get(), (ArmorItem) OItems.ELECTRUM_LEGGINGS.get(), (ArmorItem) OItems.ELECTRUM_BOOTS.get())
-                    .render((ItemStack itemStack) ->
-                            new ArmorBarRenderManager(texture, 18, 18,
-                                    new TextureOffset(9, 9), new TextureOffset(0, 9), new TextureOffset(9, 0), new TextureOffset(0, 0))
-                    ).register();
-        }
     }
 
     public void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
+        PackOutput output = generator.getPackOutput();
+        CompletableFuture<HolderLookup.Provider> future = event.getLookupProvider();
         ExistingFileHelper helper = event.getExistingFileHelper();
         boolean client = event.includeClient();
         boolean server = event.includeServer();
 
-        generator.addProvider(client, new OBlockStates(generator, helper));
-        generator.addProvider(client, new OItemModels(generator, helper));
-        generator.addProvider(client, new OLang(generator));
-        generator.addProvider(client, new OSoundDefinitions(generator, helper));
+        generator.addProvider(client, new OBlockStates(output, helper));
+        generator.addProvider(client, new OItemModels(output, helper));
+        generator.addProvider(client, new OLang(output));
+        generator.addProvider(client, new OSoundDefinitions(output, helper));
 
-        generator.addProvider(server, new ORecipes(generator));
-        generator.addProvider(server, new OLootTables(generator));
-        OBlockTags blockTags = new OBlockTags(generator, helper);
+        generator.addProvider(server, new ORecipes(output));
+        generator.addProvider(server, new OLootTables(output));
+        OBlockTags blockTags = new OBlockTags(output, future, helper);
         generator.addProvider(server, blockTags);
-        generator.addProvider(server, new OItemTags(generator, blockTags, helper));
-        generator.addProvider(server, new OEntityTags(generator, helper));
-        generator.addProvider(server, new OAdvancements(generator, helper));
-        generator.addProvider(server, new OFluidTags(generator, helper));
-        generator.addProvider(server, new OBiomeTags(generator, helper));
-        generator.addProvider(server, new OPaintingVariantTags(generator, helper));
-        generator.addProvider(server, OBiomeModifier.register(event));
+        generator.addProvider(server, new OItemTags(output, future, blockTags.contentsGetter(), helper));
+        generator.addProvider(server, new OEntityTags(output, future, helper));
+        generator.addProvider(server, new OAdvancements(output, future, helper));
+        generator.addProvider(server, new OFluidTags(output, future, helper));
+        DatapackBuiltinEntriesProvider datapackProvider = new ORegistries(output, future);
+        CompletableFuture<HolderLookup.Provider> lookupProvider = datapackProvider.getRegistryProvider();
+        generator.addProvider(server, datapackProvider);
+        generator.addProvider(server, new OBiomeTags(output, lookupProvider, helper));
+        //generator.addProvider(server, new OPaintingVariantTags(output, lookupProvider, helper));
+        //generator.addProvider(server, new OBiomeModifier.register(event));
+
+        generator.addProvider(server, new PackMetadataGenerator(output).add(PackMetadataSection.TYPE, new PackMetadataSection(
+                Component.literal("Oreganized resources"),
+                DetectedVersion.BUILT_IN.getPackVersion(PackType.CLIENT_RESOURCES),
+                Arrays.stream(PackType.values()).collect(Collectors.toMap(Function.identity(), DetectedVersion.BUILT_IN::getPackVersion))
+        )));
     }
 
-    public void addPackFinders(AddPackFindersEvent event) {
-        if (event.getPackType() == PackType.CLIENT_RESOURCES) {
-            registerBuiltinResourcePack(event, Component.literal("Oreganized Compat"), "oreganized_compat");
+    @SubscribeEvent
+    public void buildCreativeModeTabContents(BuildCreativeModeTabContentsEvent event) {
+        ResourceKey<CreativeModeTab> tab = event.getTabKey();
+        MutableHashedLinkedMap<ItemStack, CreativeModeTab.TabVisibility> entries = event.getEntries();
+        if (tab == CreativeModeTabs.BUILDING_BLOCKS) {
+            putBefore(entries, Items.DEEPSLATE, OBlocks.GLANCE);
+            putAfter(entries, OBlocks.GLANCE.get(), OBlocks.SPOTTED_GLANCE);
+            putAfter(entries, OBlocks.SPOTTED_GLANCE.get(), OBlocks.GLANCE_STAIRS);
+            putAfter(entries, OBlocks.GLANCE_STAIRS.get(), OBlocks.GLANCE_SLAB);
+            putAfter(entries, OBlocks.GLANCE_SLAB.get(), OBlocks.GLANCE_WALL);
+            putAfter(entries, OBlocks.GLANCE_WALL.get(), OBlocks.CHISELED_GLANCE);
+            putAfter(entries, OBlocks.CHISELED_GLANCE.get(), OBlocks.POLISHED_GLANCE);
+            putAfter(entries, OBlocks.POLISHED_GLANCE.get(), OBlocks.POLISHED_GLANCE_STAIRS);
+            putAfter(entries, OBlocks.POLISHED_GLANCE_STAIRS.get(), OBlocks.POLISHED_GLANCE_SLAB);
+            putAfter(entries, OBlocks.POLISHED_GLANCE_SLAB.get(), OBlocks.GLANCE_BRICKS);
+            putAfter(entries, OBlocks.GLANCE_BRICKS.get(), OBlocks.GLANCE_BRICK_STAIRS);
+            putAfter(entries, OBlocks.GLANCE_BRICK_STAIRS.get(), OBlocks.GLANCE_BRICK_SLAB);
+            putAfter(entries, OBlocks.GLANCE_BRICK_SLAB.get(), OBlocks.GLANCE_BRICK_WALL);
+            putAfter(entries, OBlocks.GLANCE_BRICK_WALL.get(), OBlocks.WAXED_SPOTTED_GLANCE);
+            putBefore(entries, Items.REDSTONE_BLOCK, OBlocks.SILVER_BLOCK);
+            putBefore(entries, Items.NETHERITE_BLOCK, OBlocks.ELECTRUM_BLOCK);
+            putAfter(entries, Items.WAXED_OXIDIZED_CUT_COPPER_SLAB, OBlocks.LEAD_BLOCK);
+        }
+        if (tab == CreativeModeTabs.COLORED_BLOCKS) {
+            putBefore(entries, Items.SHULKER_BOX, OBlocks.WHITE_CRYSTAL_GLASS);
+            putAfter(entries, OBlocks.WHITE_CRYSTAL_GLASS.get(), OBlocks.LIGHT_GRAY_CRYSTAL_GLASS);
+            putAfter(entries, OBlocks.LIGHT_GRAY_CRYSTAL_GLASS.get(), OBlocks.GRAY_CRYSTAL_GLASS);
+            putAfter(entries, OBlocks.GRAY_CRYSTAL_GLASS.get(), OBlocks.BLACK_CRYSTAL_GLASS);
+            putAfter(entries, OBlocks.BLACK_CRYSTAL_GLASS.get(), OBlocks.BROWN_CRYSTAL_GLASS);
+            putAfter(entries, OBlocks.BROWN_CRYSTAL_GLASS.get(), OBlocks.RED_CRYSTAL_GLASS);
+            putAfter(entries, OBlocks.RED_CRYSTAL_GLASS.get(), OBlocks.ORANGE_CRYSTAL_GLASS);
+            putAfter(entries, OBlocks.ORANGE_CRYSTAL_GLASS.get(), OBlocks.YELLOW_CRYSTAL_GLASS);
+            putAfter(entries, OBlocks.YELLOW_CRYSTAL_GLASS.get(), OBlocks.LIME_CRYSTAL_GLASS);
+            putAfter(entries, OBlocks.LIME_CRYSTAL_GLASS.get(), OBlocks.GREEN_CRYSTAL_GLASS);
+            putAfter(entries, OBlocks.GREEN_CRYSTAL_GLASS.get(), OBlocks.CYAN_CRYSTAL_GLASS);
+            putAfter(entries, OBlocks.CYAN_CRYSTAL_GLASS.get(), OBlocks.LIGHT_BLUE_CRYSTAL_GLASS);
+            putAfter(entries, OBlocks.LIGHT_BLUE_CRYSTAL_GLASS.get(), OBlocks.BLUE_CRYSTAL_GLASS);
+            putAfter(entries, OBlocks.BLUE_CRYSTAL_GLASS.get(), OBlocks.PURPLE_CRYSTAL_GLASS);
+            putAfter(entries, OBlocks.PURPLE_CRYSTAL_GLASS.get(), OBlocks.MAGENTA_CRYSTAL_GLASS);
+            putAfter(entries, OBlocks.MAGENTA_CRYSTAL_GLASS.get(), OBlocks.PINK_CRYSTAL_GLASS);
+            putAfter(entries, OBlocks.PINK_CRYSTAL_GLASS.get(), OBlocks.WHITE_CRYSTAL_GLASS_PANE);
+            putAfter(entries, OBlocks.WHITE_CRYSTAL_GLASS_PANE.get(), OBlocks.LIGHT_GRAY_CRYSTAL_GLASS_PANE);
+            putAfter(entries, OBlocks.LIGHT_GRAY_CRYSTAL_GLASS_PANE.get(), OBlocks.GRAY_CRYSTAL_GLASS_PANE);
+            putAfter(entries, OBlocks.GRAY_CRYSTAL_GLASS_PANE.get(), OBlocks.BLACK_CRYSTAL_GLASS_PANE);
+            putAfter(entries, OBlocks.BLACK_CRYSTAL_GLASS_PANE.get(), OBlocks.BROWN_CRYSTAL_GLASS_PANE);
+            putAfter(entries, OBlocks.BROWN_CRYSTAL_GLASS_PANE.get(), OBlocks.RED_CRYSTAL_GLASS_PANE);
+            putAfter(entries, OBlocks.RED_CRYSTAL_GLASS_PANE.get(), OBlocks.ORANGE_CRYSTAL_GLASS_PANE);
+            putAfter(entries, OBlocks.ORANGE_CRYSTAL_GLASS_PANE.get(), OBlocks.YELLOW_CRYSTAL_GLASS_PANE);
+            putAfter(entries, OBlocks.YELLOW_CRYSTAL_GLASS_PANE.get(), OBlocks.LIME_CRYSTAL_GLASS_PANE);
+            putAfter(entries, OBlocks.LIME_CRYSTAL_GLASS_PANE.get(), OBlocks.GREEN_CRYSTAL_GLASS_PANE);
+            putAfter(entries, OBlocks.GREEN_CRYSTAL_GLASS_PANE.get(), OBlocks.CYAN_CRYSTAL_GLASS_PANE);
+            putAfter(entries, OBlocks.CYAN_CRYSTAL_GLASS_PANE.get(), OBlocks.LIGHT_BLUE_CRYSTAL_GLASS_PANE);
+            putAfter(entries, OBlocks.LIGHT_BLUE_CRYSTAL_GLASS_PANE.get(), OBlocks.BLUE_CRYSTAL_GLASS_PANE);
+            putAfter(entries, OBlocks.BLUE_CRYSTAL_GLASS_PANE.get(), OBlocks.PURPLE_CRYSTAL_GLASS_PANE);
+            putAfter(entries, OBlocks.PURPLE_CRYSTAL_GLASS_PANE.get(), OBlocks.MAGENTA_CRYSTAL_GLASS_PANE);
+            putAfter(entries, OBlocks.MAGENTA_CRYSTAL_GLASS_PANE.get(), OBlocks.PINK_CRYSTAL_GLASS_PANE);
+        }
+        if (tab == CreativeModeTabs.NATURAL_BLOCKS) {
+            putAfter(entries, Items.DEEPSLATE_COPPER_ORE, OBlocks.LEAD_ORE);
+            putAfter(entries, OBlocks.LEAD_ORE.get(), OBlocks.DEEPSLATE_LEAD_ORE);
+            putAfter(entries, Items.DEEPSLATE_GOLD_ORE, OBlocks.SILVER_ORE);
+            putAfter(entries, OBlocks.SILVER_ORE.get(), OBlocks.DEEPSLATE_SILVER_ORE);
+            putAfter(entries, Items.RAW_COPPER_BLOCK, OBlocks.RAW_LEAD_BLOCK);
+            putAfter(entries, Items.RAW_GOLD_BLOCK, OBlocks.RAW_SILVER_BLOCK);
+        }
+        if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {
+            putBefore(entries, Items.NOTE_BLOCK, OBlocks.EXPOSER);
+            putAfter(entries, Items.TNT_MINECART, OItems.SHRAPNEL_BOMB_MINECART);
+            putAfter(entries, Items.TNT, OBlocks.SHRAPNEL_BOMB);
+        }
+        if (tab == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+            putBefore(entries, Items.NETHERITE_SHOVEL, OItems.ELECTRUM_SHOVEL);
+            putAfter(entries, OItems.ELECTRUM_SHOVEL.get(), OItems.ELECTRUM_PICKAXE);
+            putAfter(entries, OItems.ELECTRUM_PICKAXE.get(), OItems.ELECTRUM_AXE);
+            putAfter(entries, OItems.ELECTRUM_AXE.get(), OItems.ELECTRUM_HOE);
+            putBefore(entries, Items.MILK_BUCKET, OItems.MOLTEN_LEAD_BUCKET);
+            putBefore(entries, Items.SPYGLASS, OItems.SILVER_MIRROR);
+            putAfter(entries, Items.TNT_MINECART, OItems.SHRAPNEL_BOMB_MINECART);
+            putBefore(entries, Items.MUSIC_DISC_5, OItems.MUSIC_DISC_STRUCTURE);
+        }
+        if (tab == CreativeModeTabs.COMBAT) {
+            putBefore(entries, Items.NETHERITE_SWORD, OItems.ELECTRUM_SWORD);
+            putBefore(entries, Items.NETHERITE_HELMET, OItems.ELECTRUM_HELMET);
+            putAfter(entries, OItems.ELECTRUM_HELMET.get(), OItems.ELECTRUM_CHESTPLATE);
+            putAfter(entries, OItems.ELECTRUM_CHESTPLATE.get(), OItems.ELECTRUM_LEGGINGS);
+            putAfter(entries, OItems.ELECTRUM_LEGGINGS.get(), OItems.ELECTRUM_BOOTS);
+            putAfter(entries, Items.TNT, OBlocks.SHRAPNEL_BOMB);
+        }
+        if (tab == CreativeModeTabs.INGREDIENTS) {
+            putAfter(entries, Items.RAW_COPPER, OItems.RAW_LEAD);
+            putAfter(entries, Items.RAW_GOLD, OItems.RAW_SILVER);
+            putAfter(entries, Items.IRON_NUGGET, OItems.LEAD_NUGGET);
+            putAfter(entries, Items.GOLD_NUGGET, OItems.SILVER_NUGGET);
+            putBefore(entries, Items.IRON_INGOT, OItems.ELECTRUM_NUGGET);
+            putAfter(entries, Items.COPPER_INGOT, OItems.LEAD_INGOT);
+            putAfter(entries, Items.GOLD_INGOT, OItems.SILVER_INGOT);
+            putBefore(entries, Items.NETHERITE_SCRAP, OItems.ELECTRUM_INGOT);
+            putBefore(entries, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, OItems.ELECTRUM_UPGRADE_SMITHING_TEMPLATE);
         }
     }
 
-    private static void registerBuiltinResourcePack(AddPackFindersEvent event, MutableComponent name, String folder) {
-        event.addRepositorySource((consumer, constructor) -> {
-            ResourceLocation res = modLoc(folder);
-            IModFile file = ModList.get().getModFileById(Oreganized.MOD_ID).getFile();
-            try (PathPackResources pack = new PathPackResources(
-                    res.toString(),
-                    file.findResource("resourcepacks/" + folder)
-            )) {
-                consumer.accept(constructor.create(
-                        res.toString(),
-                        name,
-                        true,
-                        () -> pack,
-                        pack.getMetadataSection(PackMetadataSection.SERIALIZER),
-                        Pack.Position.TOP,
-                        PackSource.BUILT_IN,
-                        false
-                ));
-            } catch (IOException e) {
-                if (!DatagenModLoader.isRunningDataGen())
-                    e.printStackTrace();
-            }
-        });
+    private static void putAfter(MutableHashedLinkedMap<ItemStack, CreativeModeTab.TabVisibility> entries, ItemLike after, Supplier<? extends ItemLike> supplier) {
+        ItemLike key = supplier.get();
+        entries.putAfter(new ItemStack(after), new ItemStack(key), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+    }
+    private static void putBefore(MutableHashedLinkedMap<ItemStack, CreativeModeTab.TabVisibility> entries, ItemLike after, Supplier<? extends ItemLike> supplier) {
+        ItemLike key = supplier.get();
+        entries.putBefore(new ItemStack(after), new ItemStack(key), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
     }
 }

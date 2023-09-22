@@ -1,45 +1,32 @@
 package galena.oreganized.data;
 
-import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEffects;
 import galena.oreganized.index.OItems;
 import galena.oreganized.index.OTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.advancements.AdvancementProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.ForgeAdvancementProvider;
 
-import java.util.Set;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-public class OAdvancements extends AdvancementProvider {
+public class OAdvancements extends ForgeAdvancementProvider {
 
-    public OAdvancements(DataGenerator generator, ExistingFileHelper helper) {
-        super(generator, helper);
+    public OAdvancements(PackOutput output, CompletableFuture<HolderLookup.Provider> future, ExistingFileHelper helper) {
+        super(output, future, helper, List.of(new OreganizedAdvancements()));
     }
 
-    @Override
-    public String getName() {
-        return "Oreganized Advancements";
-    }
-
-    @Override
-    protected void registerAdvancements(Consumer<Advancement> consumer, ExistingFileHelper helper) {
-        new Advancements().accept(consumer);
-    }
-
-    static class Advancements implements Consumer<Consumer<Advancement>> {
+    static class OreganizedAdvancements implements ForgeAdvancementProvider.AdvancementGenerator {
 
         @Override
-        public void accept(Consumer<Advancement> consumer) {
+        public void generate(HolderLookup.Provider provider, Consumer<Advancement> consumer, ExistingFileHelper helper) {
             Advancement mirror_mirror = Advancement.Builder.advancement()
                     .parent(getAdv("minecraft:adventure/root"))
                     .display(

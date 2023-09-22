@@ -30,5 +30,6 @@
     "recipes": [
       "oreganized:lead_block"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -6,34 +6,30 @@ import galena.oreganized.data.provider.ORecipeProvider;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OItems;
 import galena.oreganized.index.OTags;
-import galena.oreganized.integration.farmersdelight.FDCompatRegistry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeBuilder;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
-import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class ORecipes extends ORecipeProvider {
 
     protected static final ImmutableList<ItemLike> LEAD_SMELTABLES = ImmutableList.of(OBlocks.LEAD_ORE.get(), OBlocks.DEEPSLATE_LEAD_ORE.get(), OItems.RAW_LEAD.get());
     protected static final ImmutableList<ItemLike> SILVER_SMELTABLES = ImmutableList.of(OBlocks.SILVER_ORE.get(), OBlocks.DEEPSLATE_SILVER_ORE.get(), OItems.RAW_SILVER.get());
 
-    public ORecipes(DataGenerator gen) {
-        super(gen);
+    public ORecipes(PackOutput output) {
+        super(output);
     }
 
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
         ore(OItems.LEAD_INGOT.get(), LEAD_SMELTABLES,  0.7F, "oreganized:lead_ingot", consumer);
         ore(OItems.SILVER_INGOT.get(), SILVER_SMELTABLES,  1.0F, "oreganized:silver_ingot", consumer);
 
@@ -91,15 +87,15 @@ public class ORecipes extends ORecipeProvider {
 
         makeWaxed(OBlocks.WAXED_SPOTTED_GLANCE, OBlocks.SPOTTED_GLANCE).save(consumer);
 
-        smithingElectrum(Items.DIAMOND_SWORD, OItems.ELECTRUM_SWORD).save(consumer, Oreganized.modLoc( "electrum_sword"));
-        smithingElectrum(Items.DIAMOND_SHOVEL, OItems.ELECTRUM_SHOVEL).save(consumer, Oreganized.modLoc( "electrum_shovel"));
-        smithingElectrum(Items.DIAMOND_PICKAXE, OItems.ELECTRUM_PICKAXE).save(consumer, Oreganized.modLoc( "electrum_pickaxe"));
-        smithingElectrum(Items.DIAMOND_AXE, OItems.ELECTRUM_AXE).save(consumer, Oreganized.modLoc( "electrum_axe"));
-        smithingElectrum(Items.DIAMOND_HOE, OItems.ELECTRUM_HOE).save(consumer, Oreganized.modLoc( "electrum_hoe"));
-        smithingElectrum(Items.DIAMOND_HELMET, OItems.ELECTRUM_HELMET).save(consumer, Oreganized.modLoc( "electrum_helmet"));
-        smithingElectrum(Items.DIAMOND_CHESTPLATE, OItems.ELECTRUM_CHESTPLATE).save(consumer, Oreganized.modLoc( "electrum_chestplate"));
-        smithingElectrum(Items.DIAMOND_LEGGINGS, OItems.ELECTRUM_LEGGINGS).save(consumer, Oreganized.modLoc( "electrum_leggings"));
-        smithingElectrum(Items.DIAMOND_BOOTS, OItems.ELECTRUM_BOOTS).save(consumer, Oreganized.modLoc( "electrum_boots"));
+        smithingElectrum(() -> Items.DIAMOND_SWORD, OItems.ELECTRUM_SWORD).save(consumer, Oreganized.modLoc( "electrum_sword"));
+        smithingElectrum(() -> Items.DIAMOND_SHOVEL, OItems.ELECTRUM_SHOVEL).save(consumer, Oreganized.modLoc( "electrum_shovel"));
+        smithingElectrum(() -> Items.DIAMOND_PICKAXE, OItems.ELECTRUM_PICKAXE).save(consumer, Oreganized.modLoc( "electrum_pickaxe"));
+        smithingElectrum(() -> Items.DIAMOND_AXE, OItems.ELECTRUM_AXE).save(consumer, Oreganized.modLoc( "electrum_axe"));
+        smithingElectrum(() -> Items.DIAMOND_HOE, OItems.ELECTRUM_HOE).save(consumer, Oreganized.modLoc( "electrum_hoe"));
+        smithingElectrum(() -> Items.DIAMOND_HELMET, OItems.ELECTRUM_HELMET).save(consumer, Oreganized.modLoc( "electrum_helmet"));
+        smithingElectrum(() -> Items.DIAMOND_CHESTPLATE, OItems.ELECTRUM_CHESTPLATE).save(consumer, Oreganized.modLoc( "electrum_chestplate"));
+        smithingElectrum(() -> Items.DIAMOND_LEGGINGS, OItems.ELECTRUM_LEGGINGS).save(consumer, Oreganized.modLoc( "electrum_leggings"));
+        smithingElectrum(() -> Items.DIAMOND_BOOTS, OItems.ELECTRUM_BOOTS).save(consumer, Oreganized.modLoc( "electrum_boots"));
 
         crystalGlass(OBlocks.BLACK_CRYSTAL_GLASS, Blocks.BLACK_STAINED_GLASS).save(consumer);
         crystalGlass(OBlocks.BLUE_CRYSTAL_GLASS, Blocks.BLUE_STAINED_GLASS).save(consumer);
@@ -139,7 +135,7 @@ public class ORecipes extends ORecipeProvider {
             makeBars(OBlocks.CRYSTAL_GLASS_PANES.get(i), OBlocks.CRYSTAL_GLASS.get(i)).save(consumer);
         }
 
-        ShapedRecipeBuilder.shaped(OBlocks.GLANCE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OBlocks.GLANCE.get())
                 .pattern("AB")
                 .pattern("BA")
                 .define('A', OTags.Items.INGOTS_LEAD)
@@ -147,7 +143,7 @@ public class ORecipes extends ORecipeProvider {
                 .unlockedBy("has_lead_ingot", has(OTags.Items.INGOTS_LEAD))
                 .save(consumer);
 
-        ShapelessRecipeBuilder.shapeless(OItems.ELECTRUM_INGOT.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OItems.ELECTRUM_INGOT.get())
                 .requires(OTags.Items.INGOTS_SILVER)
                 .requires(OTags.Items.INGOTS_SILVER)
                 .requires(OTags.Items.INGOTS_SILVER)
@@ -161,7 +157,7 @@ public class ORecipes extends ORecipeProvider {
                 .save(consumer);
 
 
-        ShapedRecipeBuilder.shaped(OItems.BUSH_HAMMER.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, OItems.BUSH_HAMMER.get())
                 .pattern("AA")
                 .pattern("B ")
                 .define('A', OTags.Items.INGOTS_LEAD)
@@ -170,7 +166,7 @@ public class ORecipes extends ORecipeProvider {
                 .unlockedBy("has_stick", has(Tags.Items.RODS_WOODEN))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(OItems.SILVER_MIRROR.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, OItems.SILVER_MIRROR.get())
                 .pattern("ABA")
                 .pattern("ABA")
                 .pattern(" A ")
@@ -180,7 +176,7 @@ public class ORecipes extends ORecipeProvider {
                 .unlockedBy("has_silver_ingot", has(OTags.Items.INGOTS_SILVER))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(OBlocks.EXPOSER.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, OBlocks.EXPOSER.get())
                 .pattern("AAA")
                 .pattern("BBC")
                 .pattern("AAA")
@@ -191,7 +187,7 @@ public class ORecipes extends ORecipeProvider {
                 .unlockedBy("has_silver_ingot", has(OTags.Items.INGOTS_SILVER))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(OBlocks.SHRAPNEL_BOMB.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, OBlocks.SHRAPNEL_BOMB.get())
                 .pattern("ABA")
                 .pattern("BAB")
                 .pattern("ABA")
@@ -201,10 +197,21 @@ public class ORecipes extends ORecipeProvider {
                 .unlockedBy("has_lead_nugget", has(OTags.Items.NUGGETS_LEAD))
                 .save(consumer);
 
-        ShapelessRecipeBuilder.shapeless(OItems.SHRAPNEL_BOMB_MINECART.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION
+                        , OItems.SHRAPNEL_BOMB_MINECART.get())
                 .requires(OBlocks.SHRAPNEL_BOMB.get())
                 .requires(Items.MINECART)
                 .unlockedBy("has_shrapnel_bomb", has(OBlocks.SHRAPNEL_BOMB.get()))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OItems.ELECTRUM_UPGRADE_SMITHING_TEMPLATE.get(), 2)
+                .pattern("ABA")
+                .pattern("ACA")
+                .pattern("AAA")
+                .define('A', Tags.Items.GEMS_DIAMOND)
+                .define('B', OItems.ELECTRUM_UPGRADE_SMITHING_TEMPLATE.get())
+                .define('C', Items.STONE)
+                .unlockedBy("has_template", has(OItems.ELECTRUM_UPGRADE_SMITHING_TEMPLATE.get()))
                 .save(consumer);
     }
 }

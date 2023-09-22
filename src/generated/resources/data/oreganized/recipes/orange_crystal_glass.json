@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "A": {
       "item": "minecraft:orange_stained_glass"
@@ -16,5 +17,6 @@
   "result": {
     "count": 8,
     "item": "oreganized:orange_crystal_glass"
-  }
+  },
+  "show_notification": true
 }

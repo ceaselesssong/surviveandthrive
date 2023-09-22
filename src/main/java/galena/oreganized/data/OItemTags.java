@@ -1,28 +1,28 @@
 package galena.oreganized.data;
 
 import galena.oreganized.Oreganized;
-import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OItems;
 import galena.oreganized.index.OTags;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
+
+import java.util.concurrent.CompletableFuture;
 
 import static galena.oreganized.index.OTags.Items.*;
 
 public class OItemTags extends ItemTagsProvider {
 
-    public OItemTags(DataGenerator generator, BlockTagsProvider provider, @Nullable ExistingFileHelper helper) {
-        super(generator, provider, Oreganized.MOD_ID, helper);
+    public OItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> future, CompletableFuture<TagLookup<Block>> provider, @Nullable ExistingFileHelper helper) {
+        super(output, future, provider, Oreganized.MOD_ID, helper);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class OItemTags extends ItemTagsProvider {
     }
 
     @Override
-    protected void addTags() {
+    protected void addTags(HolderLookup.Provider provider) {
         // Oreganized
         tag(LEAD_SOURCE).addTags(INGOTS_LEAD, NUGGETS_LEAD, ORES_LEAD).add(
                 OItems.BUSH_HAMMER.get(), OItems.MOLTEN_LEAD_BUCKET.get()
@@ -74,6 +74,8 @@ public class OItemTags extends ItemTagsProvider {
         copy(BlockTags.SLABS, ItemTags.SLABS);
         tag(ItemTags.BEACON_PAYMENT_ITEMS).add(OItems.ELECTRUM_INGOT.get());
         tag(ItemTags.MUSIC_DISCS).add(OItems.MUSIC_DISC_STRUCTURE.get());
+        tag(ItemTags.TRIMMABLE_ARMOR).add(OItems.ELECTRUM_HELMET.get(), OItems.ELECTRUM_CHESTPLATE.get(), OItems.ELECTRUM_LEGGINGS.get(), OItems.ELECTRUM_BOOTS.get());
+        tag(ItemTags.TRIM_MATERIALS).add(OItems.LEAD_INGOT.get(), OItems.SILVER_INGOT.get(), OItems.ELECTRUM_INGOT.get());
 
         // Forge
         tag(Tags.Items.NUGGETS).addTags(NUGGETS_SILVER, NUGGETS_LEAD, NUGGETS_ELECTRUM, NUGGETS_NETHERITE);

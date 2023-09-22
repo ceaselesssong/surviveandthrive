@@ -14,6 +14,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -40,10 +41,10 @@ public class SpottedGlanceBlock extends Block {
 
     private void dropLeadNuggets(LevelAccessor world, BlockPos pos) {
         if (world instanceof ServerLevel) {
-            LootTable lootTable = world.getServer().getLootTables().get(new ResourceLocation("oreganized", "gameplay/spotted_glance"));
+            LootTable lootTable = world.getServer().getLootData().getLootTable(new ResourceLocation("oreganized", "gameplay/spotted_glance"));
 
-            LootContext.Builder builder = new LootContext.Builder((ServerLevel) world)
-                    .withRandom(((ServerLevel) world).random)
+            LootParams.Builder builder = new LootParams.Builder((ServerLevel) world)
+                    .withLuck(((ServerLevel) world).random.nextFloat())
                     .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos));
 
             var l = lootTable.getRandomItems(builder.create(LootContextParamSets.COMMAND));

@@ -20,10 +20,4 @@ public class OMusicDiscItem extends RecordItem {
     public OMusicDiscItem(int comparatorValue, Supplier<SoundEvent> soundSupplier, Properties itemProperties, int lengthInTicks) {
         this(comparatorValue, soundSupplier, itemProperties, lengthInTicks, Items.MUSIC_DISC_OTHERSIDE);
     }
-
-    @Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
-        if (this.allowedIn(tab))
-            OItem.insert(new ItemStack(this), false, items, stack -> stack.getItem() == followItem);
-    }
 }

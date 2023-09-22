@@ -5,6 +5,7 @@ import galena.oreganized.data.provider.OItemModelProvider;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OItems;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -12,8 +13,8 @@ import java.util.function.Supplier;
 
 public class OItemModels extends OItemModelProvider {
 
-    public OItemModels(DataGenerator gen, ExistingFileHelper help) {
-        super(gen, help);
+    public OItemModels(PackOutput output, ExistingFileHelper helper) {
+        super(output, helper);
     }
 
     @Override
@@ -40,6 +41,7 @@ public class OItemModels extends OItemModelProvider {
         normalItem(OItems.ELECTRUM_BOOTS);
         normalItem(OItems.SHRAPNEL_BOMB_MINECART);
         normalItem(OItems.SHRAPNEL_BOMB_MINECART);
+        normalItem(OItems.ELECTRUM_UPGRADE_SMITHING_TEMPLATE);
 
         toolItem(OItems.BUSH_HAMMER);
         toolItem(OItems.ELECTRUM_SWORD);
