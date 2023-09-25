@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableBiMap;
 import galena.oreganized.client.OreganizedClient;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.data.*;
-import galena.oreganized.data.modifiers.OBiomeModifier;
 import galena.oreganized.index.*;
 import net.minecraft.DetectedVersion;
 import net.minecraft.client.renderer.item.ItemProperties;
