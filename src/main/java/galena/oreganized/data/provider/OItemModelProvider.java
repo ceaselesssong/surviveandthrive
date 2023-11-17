@@ -1,9 +1,22 @@
 package galena.oreganized.data.provider;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import galena.oreganized.Oreganized;
+import galena.oreganized.index.OTrimMaterials;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.model.ModelLocationUtils;
+import net.minecraft.data.models.model.ModelTemplates;
+import net.minecraft.data.models.model.TextureMapping;
+import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallBlock;
@@ -12,7 +25,11 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
+
+import static net.minecraft.data.models.ItemModelGenerators.TRIM_TYPE_PREDICATE_ID;
 
 public abstract class OItemModelProvider extends ItemModelProvider {
 
@@ -39,6 +56,7 @@ public abstract class OItemModelProvider extends ItemModelProvider {
     public ItemModelBuilder blockFlat(Supplier<? extends Block> block) {
         return blockFlat(block, blockName(block));
     }
+
     public ItemModelBuilder blockFlat(Supplier<? extends Block> block, Supplier<? extends Block> fullBlock) {
         return blockFlat(block, blockName(fullBlock));
     }
@@ -65,5 +83,30 @@ public abstract class OItemModelProvider extends ItemModelProvider {
 
     public ItemModelBuilder wall(Supplier<? extends WallBlock> wall, Supplier<? extends Block> fullBlock) {
         return wallInventory(ForgeRegistries.BLOCKS.getKey(wall.get()).getPath(), texture(blockName(fullBlock)));
+    }
+
+    public ItemModelBuilder twoLayered(String name, ResourceLocation texture, ResourceLocation overlayTexture) {
+        existingFileHelper.trackGenerated(overlayTexture, TEXTURE);
+        return withExistingParent(name, "item/generated")
+                .texture("layer0", texture)
+                .texture("layer1", overlayTexture);
+    }
+
+    public void trimmedItem(Supplier<? extends ArmorItem> item) {
+        ResourceLocation texture = TextureMapping.getItemTexture(item.get());
+
+        var model = normalItem(item);
+
+        OTrimMaterials.TRIM_MATERIALS.forEach((material, itemModelIndex) -> {
+            var overlayName = item.get().getType().getName() + "_trim_" + material;
+
+            ResourceLocation overlayTexture = (new ResourceLocation(overlayName)).withPrefix("trims/items/");
+            var overrideModel = twoLayered(texture.getPath() + "_" + material + "_trim", texture, overlayTexture);
+
+            model.override()
+                    .model(overrideModel)
+                    .predicate(TRIM_TYPE_PREDICATE_ID, itemModelIndex);
+        });
+
     }
 }

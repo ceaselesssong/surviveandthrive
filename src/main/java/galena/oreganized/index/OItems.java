@@ -46,13 +46,13 @@ public class OItems {
     // Armor
     public static final RegistryObject<Item> ELECTRUM_UPGRADE_SMITHING_TEMPLATE = ITEMS.register("electrum_upgrade_smithing_template",
             OSmithingTemplateItem::createElectrumUpgradeTemplate);
-    public static final RegistryObject<Item> ELECTRUM_HELMET = ITEMS.register("electrum_helmet",
+    public static final RegistryObject<ArmorItem> ELECTRUM_HELMET = ITEMS.register("electrum_helmet",
             () -> new ElectrumArmorItem(ArmorItem.Type.HELMET));
-    public static final RegistryObject<Item> ELECTRUM_CHESTPLATE = ITEMS.register("electrum_chestplate",
+    public static final RegistryObject<ArmorItem> ELECTRUM_CHESTPLATE = ITEMS.register("electrum_chestplate",
             () -> new ElectrumArmorItem(ArmorItem.Type.CHESTPLATE));
-    public static final RegistryObject<Item> ELECTRUM_LEGGINGS = ITEMS.register("electrum_leggings",
+    public static final RegistryObject<ArmorItem> ELECTRUM_LEGGINGS = ITEMS.register("electrum_leggings",
             () -> new ElectrumArmorItem(ArmorItem.Type.LEGGINGS));
-    public static final RegistryObject<Item> ELECTRUM_BOOTS = ITEMS.register("electrum_boots",
+    public static final RegistryObject<ArmorItem> ELECTRUM_BOOTS = ITEMS.register("electrum_boots",
             () -> new ElectrumArmorItem(ArmorItem.Type.BOOTS));
 
     // Transportation
