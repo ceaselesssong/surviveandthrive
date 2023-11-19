@@ -51,7 +51,7 @@ public abstract class HumanoidArmorLayerMixin extends RenderLayer<LivingEntity, 
 
     @Shadow protected abstract void renderGlint(PoseStack p_289673_, MultiBufferSource p_289654_, int p_289649_, Model p_289659_);
 
-    @Inject(method = "renderArmorPiece", at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(method = "renderArmorPiece", at = @At("HEAD"), cancellable = true)
     public void renderElectrumArmorPiece(PoseStack poseStack, MultiBufferSource bufferSource, LivingEntity entity, EquipmentSlot slot, int packedLight, HumanoidModel<? extends LivingEntity> model, CallbackInfo ci) {
         ItemStack itemStack = entity.getItemBySlot(slot);
         Item item = itemStack.getItem();

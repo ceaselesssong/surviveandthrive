@@ -33,37 +33,24 @@ minecraft {
 
     runs {
         client {
-            workingDirectory project.file('run')
-            ideaModule "${rootProject.name}.${project.name}.main"
             taskName 'Client'
-            args "-mixin.config=${mod_id}.mixins.json"
-            mods {
-                modClientRun {
-                    source sourceSets.main
-                }
-            }
         }
 
         server {
-            workingDirectory project.file('run')
-            ideaModule "${rootProject.name}.${project.name}.main"
             taskName 'Server'
-            args "-mixin.config=${mod_id}.mixins.json"
-            mods {
-                modServerRun {
-                    source sourceSets.main
-                }
-            }
         }
 
         data {
-            workingDirectory project.file('run')
-            ideaModule "${rootProject.name}.${project.name}.main"
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
             taskName 'Data'
-            args "-mixin.config=${mod_id}.mixins.json"
-            mods {
-                modDataRun {
+        }
+
+        forEach {
+            it.workingDirectory project.file('run')
+            it.ideaModule "${rootProject.name}.main"
+            it.args "-mixin.config=${mod_id}.mixins.json"
+            it.mods {
+                create(mod_id) {
                     source sourceSets.main
                 }
             }
