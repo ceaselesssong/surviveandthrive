@@ -27,9 +27,9 @@ public class OTrimMaterials {
             .put("diamond", 0.8F)
             .put("lapis", 0.9F)
             .put("amethyst", 1.0F)
-            .put("lead", 0.9F)
-            .put("silver", 0.2F)
-            .put("electrum", 0.6F)
+            .put("lead", 0.922F)
+            .put("silver", 0.222F)
+            .put("electrum", 0.622F)
             .build();
 
     public static final ResourceKey<TrimMaterial> LEAD = registerKey("lead");

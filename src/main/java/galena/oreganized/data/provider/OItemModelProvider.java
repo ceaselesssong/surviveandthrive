@@ -25,6 +25,7 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -97,16 +98,21 @@ public abstract class OItemModelProvider extends ItemModelProvider {
 
         var model = normalItem(item);
 
-        OTrimMaterials.TRIM_MATERIALS.forEach((material, itemModelIndex) -> {
-            var overlayName = item.get().getType().getName() + "_trim_" + material;
+        OTrimMaterials.TRIM_MATERIALS.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .forEach(entry -> {
+                    var material = entry.getKey();
+                    var itemModelIndex = entry.getValue();
 
-            ResourceLocation overlayTexture = (new ResourceLocation(overlayName)).withPrefix("trims/items/");
-            var overrideModel = twoLayered(texture.getPath() + "_" + material + "_trim", texture, overlayTexture);
+                    var overlayName = item.get().getType().getName() + "_trim_" + material;
 
-            model.override()
-                    .model(overrideModel)
-                    .predicate(TRIM_TYPE_PREDICATE_ID, itemModelIndex);
-        });
+                    ResourceLocation overlayTexture = (new ResourceLocation(overlayName)).withPrefix("trims/items/");
+                    var overrideModel = twoLayered(texture.getPath() + "_" + material + "_trim", texture, overlayTexture);
+
+                    model.override()
+                            .model(overrideModel)
+                            .predicate(TRIM_TYPE_PREDICATE_ID, itemModelIndex);
+                });
 
     }
 }
