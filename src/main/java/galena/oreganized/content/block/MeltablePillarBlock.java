@@ -1,21 +1,21 @@
 package galena.oreganized.content.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
-import static galena.oreganized.content.block.MeltableBlock.GOOPYNESS;
-
-public class MeltablePillarBlock extends RotatedPillarBlock {
+public class MeltablePillarBlock extends RotatedPillarBlock implements IMeltableBlock {
 
     public MeltablePillarBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.getStateDefinition().any().setValue(GOOPYNESS, 0));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(GOOPYNESS, 0).setValue(AXIS, Direction.Axis.Y));
     }
 
     @Override
@@ -24,8 +24,14 @@ public class MeltablePillarBlock extends RotatedPillarBlock {
         definition.add(GOOPYNESS);
     }
 
+    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+        tickMelting(state, world, pos, random);
+    }
+
     @Override
-    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
-        world.scheduleTick(pos, state.getBlock(), 1);
+    public void stepOn(Level world, BlockPos pos, BlockState state, Entity entity) {
+        if(getGoopyness(state) < 2) return;
+        hurt(world, entity);
+        super.stepOn(world, pos, state, entity);
     }
 }

@@ -70,7 +70,10 @@ public class OTags {
         public static final TagKey<Block> STORAGE_BLOCKS_ELECTRUM = forgeTag("storage_blocks/electrum");
 
         public static final TagKey<Block> STORAGE_BLOCKS_RAW_SILVER = forgeTag("storage_blocks/raw_silver");
+
         public static final TagKey<Block> STORAGE_BLOCKS_RAW_LEAD = forgeTag("storage_blocks/raw_lead");
+
+        public static final TagKey<Block> MELTS_LEAD = forgeTag("melts_lead");
 
         private static TagKey<Block> tag(String name) {
             return BlockTags.create(Oreganized.modLoc(name));

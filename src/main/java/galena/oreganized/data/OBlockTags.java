@@ -8,15 +8,26 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-
 import java.util.concurrent.CompletableFuture;
 
-import static galena.oreganized.index.OTags.Blocks.*;
+import static galena.oreganized.index.OTags.Blocks.CRYSTAL_GLASS;
+import static galena.oreganized.index.OTags.Blocks.CRYSTAL_GLASS_PANES;
+import static galena.oreganized.index.OTags.Blocks.FIRE_SOURCE;
+import static galena.oreganized.index.OTags.Blocks.MELTS_LEAD;
+import static galena.oreganized.index.OTags.Blocks.ORES_LEAD;
+import static galena.oreganized.index.OTags.Blocks.ORES_SILVER;
+import static galena.oreganized.index.OTags.Blocks.STONE_TYPES_GLANCE;
+import static galena.oreganized.index.OTags.Blocks.STORAGE_BLOCKS_ELECTRUM;
+import static galena.oreganized.index.OTags.Blocks.STORAGE_BLOCKS_LEAD;
+import static galena.oreganized.index.OTags.Blocks.STORAGE_BLOCKS_RAW_LEAD;
+import static galena.oreganized.index.OTags.Blocks.STORAGE_BLOCKS_RAW_SILVER;
+import static galena.oreganized.index.OTags.Blocks.STORAGE_BLOCKS_SILVER;
 
 public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
 
@@ -137,5 +148,10 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
                 OBlocks.SILVER_ORE.get(),
                 OBlocks.DEEPSLATE_SILVER_ORE.get()
         );
+
+        tag(MELTS_LEAD)
+                .add(Blocks.LAVA)
+                .add(Blocks.MAGMA_BLOCK)
+                .addTags(BlockTags.FIRE);
     }
 }

@@ -1,20 +1,32 @@
 package galena.oreganized.data.provider;
 
 import galena.oreganized.Oreganized;
-import galena.oreganized.content.block.*;
+import galena.oreganized.content.block.CrystalGlassBlock;
+import galena.oreganized.content.block.CrystalGlassPaneBlock;
+import galena.oreganized.content.block.ExposerBlock;
+import galena.oreganized.content.block.IMeltableBlock;
+import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import net.minecraft.core.Direction;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.*;
-import net.minecraftforge.client.model.generators.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.PipeBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.model.generators.BlockModelBuilder;
+import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.ModelProvider;
+import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
-import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static galena.oreganized.Oreganized.MOD_ID;
@@ -96,7 +108,7 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
     public void exposer(Supplier<? extends Block> block) {
         getVariantBuilder(block.get()).forAllStates(state -> {
             // Annoyingly complicated method to convert the blockstate's levels (0,1,2,3,4,5,6,7) to 4 frames (0,1,2,3)
-            int level = Math.round((ExposerBlock.TexturedFrames - 1) / (float)(state.getValue(ExposerBlock.LEVEL) + 1));
+            int level = Math.round((ExposerBlock.TexturedFrames - 1) / (float) (state.getValue(ExposerBlock.LEVEL) + 1));
             Direction facing = state.getValue(ExposerBlock.FACING);
             int x = 0;
             int y = 0;
@@ -137,6 +149,7 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
             }
         });
     }
+
     public void crystalGlassBlock(Supplier<? extends Block> block) {
         getVariantBuilder(block.get()).partialState().with(CrystalGlassBlock.TYPE, CrystalGlassBlock.NORMAL).modelForState()
                 .modelFile(cubeAll(block.get())).addModel().partialState().with(CrystalGlassBlock.TYPE, CrystalGlassBlock.ROTATED)
@@ -180,18 +193,32 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
         return model;
     }
 
-    public void meltableBlock(Supplier<? extends Block> block, BiFunction<String,  ResourceLocation, ModelFile> modelBuilder) {
+    public <T extends Block & IMeltableBlock> void meltableBlock(Supplier<T> block, BiFunction<String, ResourceLocation, ModelFile> modelBuilder) {
+        meltableBlock(block, modelBuilder, (s, it) -> it);
+    }
+
+    public <T extends Block & IMeltableBlock> void meltableBlock(Supplier<T> block, BiFunction<String, ResourceLocation, ModelFile> modelBuilder, BiFunction<BlockState, ConfiguredModel.Builder<?>, ConfiguredModel.Builder<?>> modelModifier) {
         var prefixes = List.of("", "goopy_", "red_hot_");
         var redHotModel = models().cubeAll("red_hot_lead", modLoc(BLOCK_FOLDER + "/red_hot_lead"));
         getVariantBuilder(block.get()).forAllStates(state -> {
-            int goopyness = state.getValue(MeltableBlock.GOOPYNESS);
+            int goopyness = block.get().getGoopyness(state);
             var name = prefixes.get(goopyness) + name(block);
             var texture = texture(name);
             var model = goopyness < 2 ? modelBuilder.apply(name, texture) : redHotModel;
 
-            return ConfiguredModel.builder()
-                    .modelFile(model)
-                    .build();
+            return modelModifier.apply(state, ConfiguredModel.builder().modelFile(model)).build();
         });
+    }
+
+    public <T extends RotatedPillarBlock & IMeltableBlock> void meltablePillar(Supplier<T> block) {
+        meltableBlock(
+                block,
+                (n, t) -> models().cubeColumn(n, t.withSuffix("_side"), t.withSuffix("_top")),
+                (s, it) -> switch (s.getValue(RotatedPillarBlock.AXIS)) {
+                    case X -> it.rotationX(90).rotationY(90);
+                    case Y -> it;
+                    case Z -> it.rotationX(90);
+                }
+        );
     }
 }

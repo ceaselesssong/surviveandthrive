@@ -3,14 +3,9 @@ package galena.oreganized.data;
 import galena.oreganized.Oreganized;
 import galena.oreganized.data.provider.OBlockStateProvider;
 import galena.oreganized.index.OBlocks;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
-
-import java.util.function.Supplier;
 
 public class OBlockStates extends OBlockStateProvider {
 
@@ -47,8 +42,8 @@ public class OBlockStates extends OBlockStateProvider {
         simpleBlock(OBlocks.RAW_LEAD_BLOCK);
         meltableBlock(OBlocks.LEAD_BLOCK, (n, t) -> models().cubeAll(n, t));
         meltableBlock(OBlocks.LEAD_BRICKS, (n, t) -> models().cubeAll(n, t));
-        meltableBlock(OBlocks.LEAD_PILLAR, (n, t) -> models().cubeColumn(n, t.withSuffix("_side"), t.withSuffix("_top")));
-        meltableBlock(OBlocks.CUT_LEAD, (n, t) -> models().cubeColumn(n, t.withSuffix("_side"), t.withSuffix("_top")));
+        meltablePillar(OBlocks.LEAD_PILLAR);
+        meltablePillar(OBlocks.CUT_LEAD);
         simpleBlock(OBlocks.ELECTRUM_BLOCK);
         simpleBlock(OBlocks.SHRAPNEL_BOMB.get(), cubeBottomTop(OBlocks.SHRAPNEL_BOMB));
 
