@@ -63,6 +63,9 @@ public class OLootTables extends LootTableProvider {
             dropSelf(OBlocks.RAW_LEAD_BLOCK);
             dropSelf(OBlocks.SILVER_BLOCK);
             dropSelf(OBlocks.LEAD_BLOCK);
+            dropSelf(OBlocks.LEAD_BRICKS);
+            dropSelf(OBlocks.LEAD_PILLAR);
+            dropSelf(OBlocks.CUT_LEAD);
             dropSelf(OBlocks.ELECTRUM_BLOCK);
             dropSelf(OBlocks.EXPOSER);
             dropSelf(OBlocks.SHRAPNEL_BOMB);

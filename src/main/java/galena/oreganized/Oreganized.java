@@ -226,6 +226,9 @@ public class Oreganized {
             putBefore(entries, Items.REDSTONE_BLOCK, OBlocks.SILVER_BLOCK);
             putBefore(entries, Items.NETHERITE_BLOCK, OBlocks.ELECTRUM_BLOCK);
             putAfter(entries, Items.WAXED_OXIDIZED_CUT_COPPER_SLAB, OBlocks.LEAD_BLOCK);
+            putAfter(entries, OBlocks.LEAD_BLOCK.get(), OBlocks.CUT_LEAD);
+            putAfter(entries, OBlocks.CUT_LEAD.get(), OBlocks.LEAD_BRICKS);
+            putAfter(entries, OBlocks.LEAD_BRICKS.get(), OBlocks.LEAD_PILLAR);
         }
         if (tab == CreativeModeTabs.COLORED_BLOCKS) {
             putBefore(entries, Items.SHULKER_BOX, OBlocks.WHITE_CRYSTAL_GLASS);

@@ -32,6 +32,7 @@ public class OItemModels extends OItemModelProvider {
         normalItem(OItems.LEAD_INGOT);
         normalItem(OItems.LEAD_NUGGET);
         normalItem(OItems.ELECTRUM_INGOT);
+        normalItem(OItems.ELECTRUM_INGOT);
         normalItem(OItems.ELECTRUM_NUGGET);
         normalItem(OItems.NETHERITE_NUGGET);
         normalItem(OItems.MOLTEN_LEAD_BUCKET);
@@ -71,6 +72,9 @@ public class OItemModels extends OItemModelProvider {
         block(OBlocks.RAW_SILVER_BLOCK);
         block(OBlocks.RAW_LEAD_BLOCK);
         block(OBlocks.LEAD_BLOCK);
+        block(OBlocks.LEAD_BRICKS);
+        block(OBlocks.LEAD_PILLAR);
+        block(OBlocks.CUT_LEAD);
         block(OBlocks.ELECTRUM_BLOCK);
         block(OBlocks.EXPOSER, "exposer_level_0_south");
         block(OBlocks.SHRAPNEL_BOMB);

@@ -59,7 +59,11 @@ public abstract class ORecipeProvider extends RecipeProvider {
     }
 
     public ShapedRecipeBuilder quadTransform(Supplier<? extends Block> blockOut, Supplier<? extends Block> blockIn) {
-        return ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, blockOut.get(), 4)
+        return quadTransform(blockOut, blockIn, 4);
+    }
+
+    public ShapedRecipeBuilder quadTransform(Supplier<? extends Block> blockOut, Supplier<? extends Block> blockIn, int amount) {
+        return ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, blockOut.get(), amount)
                 .pattern("AA")
                 .pattern("AA")
                 .define('A', blockIn.get())
@@ -72,6 +76,14 @@ public abstract class ORecipeProvider extends RecipeProvider {
                 .pattern("A")
                 .define('A', slabIn.get())
                 .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(slabIn.get()).getPath(), has(slabIn.get()));
+    }
+
+    public ShapedRecipeBuilder makePillar(Supplier<? extends Block> blockOut, Supplier<? extends Block> blockIn) {
+        return ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, blockOut.get(), 2)
+                .pattern("A")
+                .pattern("A")
+                .define('A', blockIn.get())
+                .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(blockIn.get()).getPath(), has(blockIn.get()));
     }
 
     public ShapedRecipeBuilder compact(Item itemOut, Item itemIn) {
@@ -162,17 +174,17 @@ public abstract class ORecipeProvider extends RecipeProvider {
         return smithingRecipe(input, OItems.ELECTRUM_INGOT, OItems.ELECTRUM_UPGRADE_SMITHING_TEMPLATE, result);
     }
 
-    public SingleItemRecipeBuilder stonecutting(Supplier<Block> input, ItemLike result) {
+    public SingleItemRecipeBuilder stonecutting(Supplier<? extends Block> input, ItemLike result) {
         return SingleItemRecipeBuilder.stonecutting(Ingredient.of(input.get()), RecipeCategory.BUILDING_BLOCKS, result)
                 .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(input.get()).getPath(), has(input.get()));
     }
 
-    public SingleItemRecipeBuilder stonecutting(Supplier<Block> input, ItemLike result, int resultAmount) {
+    public SingleItemRecipeBuilder stonecutting(Supplier<? extends Block> input, ItemLike result, int resultAmount) {
         return SingleItemRecipeBuilder.stonecutting(Ingredient.of(input.get()), RecipeCategory.BUILDING_BLOCKS, result, resultAmount)
                 .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(input.get()).getPath(), has(input.get()));
     }
 
-    public ShapelessRecipeBuilder makeWaxed(Supplier<Block> blockOut, Block blockIn) {
+    public ShapelessRecipeBuilder makeWaxed(Supplier<? extends Block> blockOut, Block blockIn) {
         return ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, blockOut.get())
                 .requires(blockIn)
                 .requires(Items.HONEYCOMB)
@@ -180,26 +192,26 @@ public abstract class ORecipeProvider extends RecipeProvider {
                 .unlockedBy("has_honeycomb", has(Items.HONEYCOMB));
     }
 
-    public ShapelessRecipeBuilder makeWaxed(Supplier<Block> blockOut, Supplier<Block> blockIn) {
+    public ShapelessRecipeBuilder makeWaxed(Supplier<? extends Block> blockOut, Supplier<? extends Block> blockIn) {
         return makeWaxed(blockOut, blockIn.get());
     }
 
-    public void makeSlabStonecutting(Supplier<? extends Block> blockOut, Supplier<Block> blockIn, Consumer<FinishedRecipe> consumer) {
+    public void makeSlabStonecutting(Supplier<? extends Block> blockOut, Supplier<? extends Block> blockIn, Consumer<FinishedRecipe> consumer) {
         makeSlab(blockOut, blockIn).save(consumer);
         stonecutting(blockIn, blockOut.get(), 2).save(consumer, Oreganized.modLoc("stonecutting/" + ForgeRegistries.ITEMS.getKey(blockOut.get().asItem()).getPath()));
     }
 
-    public void makeStairsStonecutting(Supplier<? extends Block> blockOut, Supplier<Block> blockIn, Consumer<FinishedRecipe> consumer) {
+    public void makeStairsStonecutting(Supplier<? extends Block> blockOut, Supplier<? extends Block> blockIn, Consumer<FinishedRecipe> consumer) {
         makeStairs(blockOut, blockIn).save(consumer);
         stonecutting(blockIn, blockOut.get()).save(consumer, Oreganized.modLoc("stonecutting/" + ForgeRegistries.ITEMS.getKey(blockOut.get().asItem()).getPath()));
     }
 
-    public void makeWallStonecutting(Supplier<? extends Block> blockOut, Supplier<Block> blockIn, Consumer<FinishedRecipe> consumer) {
+    public void makeWallStonecutting(Supplier<? extends Block> blockOut, Supplier<? extends Block> blockIn, Consumer<FinishedRecipe> consumer) {
         makeWall(blockOut, blockIn).save(consumer);
         stonecutting(blockIn, blockOut.get()).save(consumer, Oreganized.modLoc("stonecutting/" + ForgeRegistries.ITEMS.getKey(blockOut.get().asItem()).getPath()));
     }
 
-    public void makeChiseledStonecutting(Supplier<? extends Block> blockOut, Supplier<Block> blockIn, Supplier<SlabBlock> slabIn, Consumer<FinishedRecipe> consumer) {
+    public void makeChiseledStonecutting(Supplier<? extends Block> blockOut, Supplier<? extends Block> blockIn, Supplier<? extends SlabBlock> slabIn, Consumer<FinishedRecipe> consumer) {
         makeChiseled(blockOut, slabIn).save(consumer);
         stonecutting(blockIn, blockOut.get()).save(consumer, Oreganized.modLoc("stonecutting/" + ForgeRegistries.ITEMS.getKey(blockOut.get().asItem()).getPath()));
     }

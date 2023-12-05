@@ -84,6 +84,9 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
                 OBlocks.RAW_SILVER_BLOCK.get(),
 
                 OBlocks.LEAD_BLOCK.get(),
+                OBlocks.LEAD_BRICKS.get(),
+                OBlocks.LEAD_PILLAR.get(),
+                OBlocks.CUT_LEAD.get(),
                 OBlocks.SILVER_BLOCK.get(),
                 OBlocks.ELECTRUM_BLOCK.get(),
 

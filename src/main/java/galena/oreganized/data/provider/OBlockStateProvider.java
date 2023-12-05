@@ -11,6 +11,10 @@ import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static galena.oreganized.Oreganized.MOD_ID;
@@ -23,7 +27,7 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
     }
 
     protected ResourceLocation texture(String name) {
-        return modLoc("block/" + name);
+        return modLoc(BLOCK_FOLDER + "/" + name);
     }
 
     protected String name(Block block) {
@@ -174,5 +178,20 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
         model.parent(models().getExistingFile(new ResourceLocation("minecraft", "block" + "/template_single_face")));
         model.texture("texture", textureLoc);
         return model;
+    }
+
+    public void meltableBlock(Supplier<? extends Block> block, BiFunction<String,  ResourceLocation, ModelFile> modelBuilder) {
+        var prefixes = List.of("", "goopy_", "red_hot_");
+        var redHotModel = models().cubeAll("red_hot_lead", modLoc(BLOCK_FOLDER + "/red_hot_lead"));
+        getVariantBuilder(block.get()).forAllStates(state -> {
+            int goopyness = state.getValue(MeltableBlock.GOOPYNESS);
+            var name = prefixes.get(goopyness) + name(block);
+            var texture = texture(name);
+            var model = goopyness < 2 ? modelBuilder.apply(name, texture) : redHotModel;
+
+            return ConfiguredModel.builder()
+                    .modelFile(model)
+                    .build();
+        });
     }
 }

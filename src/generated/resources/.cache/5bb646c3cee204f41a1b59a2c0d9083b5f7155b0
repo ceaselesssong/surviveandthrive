@@ -1,12 +1,12 @@
-// 1.20.1	2023-08-24T20:32:13.557011251	Oreganized Block Tags
+// 1.20.1	2023-12-05T12:50:59.5871401	Oreganized Block Tags
 7a2d68d81bc5ee59f9a2f4ba68ddb39bfd9c875d data/forge/tags/blocks/glass.json
 d96b4f83e03abe39a1b97d92b7818c8f6b2e5c68 data/forge/tags/blocks/glass_panes.json
-4e9173550595ca2ada5744dc749553e93b05954f data/forge/tags/blocks/ore_rates/singular.json
 4e9173550595ca2ada5744dc749553e93b05954f data/forge/tags/blocks/ores.json
 dc9cc2dca9fa3a28a0458ec282e3e0fe81999ee1 data/forge/tags/blocks/ores/lead.json
 bb86ac7ab19373da790ec5711f473614e4b62d79 data/forge/tags/blocks/ores/silver.json
 084242f542331c46b8889564325f204f7b8bb6a4 data/forge/tags/blocks/ores_in_ground/deepslate.json
 ec067464a41bb65b72566d6a4e4ffccb80261bf7 data/forge/tags/blocks/ores_in_ground/stone.json
+4e9173550595ca2ada5744dc749553e93b05954f data/forge/tags/blocks/ore_rates/singular.json
 367d69870d9a11ff9049e8f3ba71b3cb7396eee3 data/forge/tags/blocks/storage_blocks.json
 7a1e2c391ad442cdc57f69ce1737207bc52bfb84 data/forge/tags/blocks/storage_blocks/electrum.json
 bb0420ecbadc747d984fcef0fe7fc67586bc3231 data/forge/tags/blocks/storage_blocks/lead.json
@@ -16,7 +16,7 @@ bff6697a058fddfe9e14615bc043fcb2071fd6fc data/forge/tags/blocks/storage_blocks/s
 7a1e2c391ad442cdc57f69ce1737207bc52bfb84 data/minecraft/tags/blocks/beacon_base_blocks.json
 82c03c405a971b2a7fc3fd43a9fb6c221f463ce0 data/minecraft/tags/blocks/cauldrons.json
 7a2d68d81bc5ee59f9a2f4ba68ddb39bfd9c875d data/minecraft/tags/blocks/impermeable.json
-d8dff725ed7396abed6ea0c6e8ccc997c246abdb data/minecraft/tags/blocks/mineable/pickaxe.json
+d772430d15c833c60ce1f3998e22518e4868dd05 data/minecraft/tags/blocks/mineable/pickaxe.json
 84a13f81c79f0c05f8f7a8cbf1d3c25129a97179 data/minecraft/tags/blocks/mineable/shovel.json
 bb86ac7ab19373da790ec5711f473614e4b62d79 data/minecraft/tags/blocks/needs_iron_tool.json
 dc9cc2dca9fa3a28a0458ec282e3e0fe81999ee1 data/minecraft/tags/blocks/needs_stone_tool.json
