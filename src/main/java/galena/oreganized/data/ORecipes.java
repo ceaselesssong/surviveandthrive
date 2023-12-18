@@ -223,5 +223,12 @@ public class ORecipes extends ORecipeProvider {
         stonecutting(OBlocks.CUT_LEAD, OBlocks.LEAD_BRICKS.get()).save(consumer, Oreganized.modLoc( "stonecutting/lead_bricks_from_cut_lead"));
         stonecutting(OBlocks.LEAD_BLOCK, OBlocks.LEAD_PILLAR.get(), 4).save(consumer, Oreganized.modLoc( "stonecutting/lead_pillar"));
         stonecutting(OBlocks.CUT_LEAD, OBlocks.LEAD_PILLAR.get()).save(consumer, Oreganized.modLoc( "stonecutting/lead_pillar_from_cut_lad"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, OItems.LEAD_BOLT.get(), 1)
+                .pattern("A")
+                .pattern("A")
+                .define('A', OTags.Items.INGOTS_LEAD)
+                .unlockedBy("has_lead", has(OTags.Items.INGOTS_LEAD))
+                .save(consumer);
     }
 }

@@ -1,10 +1,23 @@
 package galena.oreganized.index;
 
 import galena.oreganized.Oreganized;
-import galena.oreganized.content.item.*;
-import net.minecraft.world.entity.EquipmentSlot;
+import galena.oreganized.content.item.BushHammerItem;
+import galena.oreganized.content.item.ElectrumArmorItem;
+import galena.oreganized.content.item.LeadBoltItem;
+import galena.oreganized.content.item.MinecartShrapnelBombItem;
+import galena.oreganized.content.item.OMusicDiscItem;
+import galena.oreganized.content.item.OSmithingTemplateItem;
+import galena.oreganized.content.item.OSwordItem;
+import galena.oreganized.content.item.SilverMirrorItem;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.HoeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.RecordItem;
+import net.minecraft.world.item.ShovelItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -54,6 +67,8 @@ public class OItems {
             () -> new ElectrumArmorItem(ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<ArmorItem> ELECTRUM_BOOTS = ITEMS.register("electrum_boots",
             () -> new ElectrumArmorItem(ArmorItem.Type.BOOTS));
+
+    public static final RegistryObject<Item> LEAD_BOLT = ITEMS.register("lead_bolt", () -> new LeadBoltItem(new Item.Properties()));
 
     // Transportation
     public static final RegistryObject<Item> SHRAPNEL_BOMB_MINECART = ITEMS.register("shrapnel_bomb_minecart", () -> new MinecartShrapnelBombItem(AbstractMinecart.Type.TNT, OEntityTypes.SHRAPNEL_BOMB_MINECART));

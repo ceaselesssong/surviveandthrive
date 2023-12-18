@@ -3,12 +3,39 @@ package galena.oreganized;
 import com.google.common.collect.ImmutableBiMap;
 import galena.oreganized.client.OreganizedClient;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
-import galena.oreganized.data.*;
-import galena.oreganized.index.*;
+import galena.oreganized.content.entity.LeadBoltEntity;
+import galena.oreganized.data.OAdvancements;
+import galena.oreganized.data.OBiomeTags;
+import galena.oreganized.data.OBlockStates;
+import galena.oreganized.data.OBlockTags;
+import galena.oreganized.data.ODamageTags;
+import galena.oreganized.data.OEntityTags;
+import galena.oreganized.data.OFluidTags;
+import galena.oreganized.data.OItemModels;
+import galena.oreganized.data.OItemTags;
+import galena.oreganized.data.OLang;
+import galena.oreganized.data.OLootTables;
+import galena.oreganized.data.ORecipes;
+import galena.oreganized.data.ORegistries;
+import galena.oreganized.data.OSoundDefinitions;
+import galena.oreganized.index.OBlockEntities;
+import galena.oreganized.index.OBlocks;
+import galena.oreganized.index.OEffects;
+import galena.oreganized.index.OEntityTypes;
+import galena.oreganized.index.OFeatures;
+import galena.oreganized.index.OFluids;
+import galena.oreganized.index.OItems;
+import galena.oreganized.index.OPaintingVariants;
+import galena.oreganized.index.OParticleTypes;
+import galena.oreganized.index.OPotions;
+import galena.oreganized.index.OSoundEvents;
+import galena.oreganized.index.OStructures;
 import net.minecraft.DetectedVersion;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Position;
 import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
@@ -17,12 +44,21 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
-import net.minecraft.world.item.*;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
@@ -34,8 +70,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidInteractionRegistry;
 import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -125,7 +161,7 @@ public class Oreganized {
 
             CauldronInteraction.addDefaultInteractions(MoltenLeadCauldronBlock.INTERACTION_MAP);
 
-            if(OreganizedConfig.stunningFromConfig()) {
+            if (OreganizedConfig.stunningFromConfig()) {
                 PotionBrewing.addMix(Potions.WATER, OItems.LEAD_INGOT.get(), OPotions.STUNNING.get());
                 PotionBrewing.addMix(OPotions.STUNNING.get(), Items.REDSTONE, OPotions.LONG_STUNNING.get());
                 PotionBrewing.addMix(OPotions.STUNNING.get(), Items.GLOWSTONE_DUST, OPotions.STRONG_STUNNING.get());
@@ -133,6 +169,18 @@ public class Oreganized {
 
             FireBlock fire = (FireBlock) Blocks.FIRE;
             fire.setFlammable(OBlocks.SHRAPNEL_BOMB.get(), 15, 100);
+
+            DispenserBlock.registerBehavior(OItems.LEAD_BOLT.get(), new AbstractProjectileDispenseBehavior() {
+                protected Projectile getProjectile(Level level, Position pos, ItemStack stack) {
+                    var entity = new LeadBoltEntity(OEntityTypes.LEAD_BOLT.get(), level, pos);
+                    entity.pickup = AbstractArrow.Pickup.ALLOWED;
+                    return entity;
+                }
+            });
+
+            ItemProperties.register(Items.CROSSBOW, new ResourceLocation(Oreganized.MOD_ID, "lead_bolt"), (stack, level, user, i) ->
+                CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, OItems.LEAD_BOLT.get()) ? 1.0F : 0.0F
+            );
         });
 
         OBlocks.WAXED_BLOCKS = new ImmutableBiMap.Builder<Block, Block>()
@@ -153,7 +201,7 @@ public class Oreganized {
                 .put(OBlocks.WAXED_GREEN_CONCRETE_POWDER.get(), Blocks.GREEN_CONCRETE_POWDER)
                 .put(OBlocks.WAXED_RED_CONCRETE_POWDER.get(), Blocks.RED_CONCRETE_POWDER)
                 .put(OBlocks.WAXED_BLACK_CONCRETE_POWDER.get(), Blocks.BLACK_CONCRETE_POWDER)
-        .build();
+                .build();
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
@@ -161,7 +209,7 @@ public class Oreganized {
         OreganizedClient.registerBlockRenderers();
 
         ItemProperties.register(OItems.SILVER_MIRROR.get(), new ResourceLocation("level"), (stack, world, entity, seed) -> {
-            if(entity == null) {
+            if (entity == null) {
                 return 8;
             } else {
                 return stack.getOrCreateTag().getInt("Level");
@@ -194,6 +242,7 @@ public class Oreganized {
         CompletableFuture<HolderLookup.Provider> lookupProvider = datapackProvider.getRegistryProvider();
         generator.addProvider(server, datapackProvider);
         generator.addProvider(server, new OBiomeTags(output, lookupProvider, helper));
+        generator.addProvider(server, new ODamageTags(output, lookupProvider, helper));
         //generator.addProvider(server, new OPaintingVariantTags(output, lookupProvider, helper));
         //generator.addProvider(server, new OBiomeModifier.register(event));
 
@@ -294,6 +343,7 @@ public class Oreganized {
             putAfter(entries, OItems.ELECTRUM_CHESTPLATE.get(), OItems.ELECTRUM_LEGGINGS);
             putAfter(entries, OItems.ELECTRUM_LEGGINGS.get(), OItems.ELECTRUM_BOOTS);
             putAfter(entries, Items.TNT, OBlocks.SHRAPNEL_BOMB);
+            putBefore(entries, Items.ARROW, OItems.LEAD_BOLT);
         }
         if (tab == CreativeModeTabs.INGREDIENTS) {
             putAfter(entries, Items.RAW_COPPER, OItems.RAW_LEAD);
@@ -312,6 +362,7 @@ public class Oreganized {
         ItemLike key = supplier.get();
         entries.putAfter(new ItemStack(after), new ItemStack(key), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
     }
+
     private static void putBefore(MutableHashedLinkedMap<ItemStack, CreativeModeTab.TabVisibility> entries, ItemLike after, Supplier<? extends ItemLike> supplier) {
         ItemLike key = supplier.get();
         entries.putBefore(new ItemStack(after), new ItemStack(key), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
