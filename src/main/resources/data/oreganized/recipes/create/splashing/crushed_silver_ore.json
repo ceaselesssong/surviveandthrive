@@ -3,7 +3,7 @@
   "type": "create:splashing",
   "ingredients": [
     {
-      "item": "create:crushed_silver_ore"
+      "item": "create:crushed_raw_silver"
     }
   ],
   "results": [

@@ -87,6 +87,15 @@ public class ORecipes extends ORecipeProvider {
 
         makeWaxed(OBlocks.WAXED_SPOTTED_GLANCE, OBlocks.SPOTTED_GLANCE).save(consumer);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OBlocks.SPOTTED_GLANCE.get())
+                .pattern(" X ")
+                .pattern("XOX")
+                .pattern(" X ")
+                .define('X', OTags.Items.INGOTS_LEAD)
+                .define('O', OBlocks.GLANCE.get())
+                .unlockedBy("has_glance", has(OBlocks.GLANCE.get()))
+                .save(consumer);
+
         smithingElectrum(() -> Items.DIAMOND_SWORD, OItems.ELECTRUM_SWORD).save(consumer, Oreganized.modLoc( "electrum_sword"));
         smithingElectrum(() -> Items.DIAMOND_SHOVEL, OItems.ELECTRUM_SHOVEL).save(consumer, Oreganized.modLoc( "electrum_shovel"));
         smithingElectrum(() -> Items.DIAMOND_PICKAXE, OItems.ELECTRUM_PICKAXE).save(consumer, Oreganized.modLoc( "electrum_pickaxe"));
@@ -142,20 +151,6 @@ public class ORecipes extends ORecipeProvider {
                 .define('B', Items.COBBLESTONE)
                 .unlockedBy("has_lead_ingot", has(OTags.Items.INGOTS_LEAD))
                 .save(consumer);
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OItems.ELECTRUM_INGOT.get())
-                .requires(OTags.Items.INGOTS_SILVER)
-                .requires(OTags.Items.INGOTS_SILVER)
-                .requires(OTags.Items.INGOTS_SILVER)
-                .requires(OTags.Items.INGOTS_SILVER)
-                .requires(OTags.Items.INGOTS_SILVER)
-                .requires(Tags.Items.INGOTS_GOLD)
-                .requires(Tags.Items.INGOTS_GOLD)
-                .requires(Tags.Items.INGOTS_GOLD)
-                .unlockedBy("has_gold_ingot", has(Tags.Items.INGOTS_GOLD))
-                .unlockedBy("has_silver_ingot", has(OTags.Items.INGOTS_SILVER))
-                .save(consumer);
-
 
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, OItems.BUSH_HAMMER.get())
                 .pattern("AA")
@@ -230,5 +225,14 @@ public class ORecipes extends ORecipeProvider {
                 .define('A', OTags.Items.INGOTS_LEAD)
                 .unlockedBy("has_lead", has(OTags.Items.INGOTS_LEAD))
                 .save(consumer);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, Items.POISONOUS_POTATO, 1)
+                .requires(Items.POTATO)
+                .requires(OTags.Items.NUGGETS_LEAD)
+                .requires(OTags.Items.NUGGETS_LEAD)
+                .requires(OTags.Items.NUGGETS_LEAD)
+                .unlockedBy("has_lead", has(OTags.Items.NUGGETS_LEAD))
+                .unlockedBy("has_potato", has(Items.POTATO))
+                .save(consumer, Oreganized.modLoc("poisonous_potato_from_lead"));
     }
 }

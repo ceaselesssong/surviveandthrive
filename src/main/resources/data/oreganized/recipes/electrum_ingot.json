@@ -29,5 +29,14 @@
   ],
   "result": {
     "item": "oreganized:electrum_ingot"
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "condition": {
+        "modid": "create",
+        "type": "forge:mod_loaded"
+      }
+    }
+  ]
 }

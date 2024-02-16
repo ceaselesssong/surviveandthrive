@@ -74,6 +74,15 @@ repositories {
     maven {
         name = "Curse Maven"
         url = "https://www.cursemaven.com"
+        content {
+            includeGroup("curse.maven")
+        }
+    }
+    maven {
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup("maven.modrinth")
+        }
     }
 }
 
@@ -82,6 +91,8 @@ dependencies {
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
     /// Compatabilities
+    runtimeOnly(fg.deobf("maven.modrinth:create:${create_version}"))
+
    /* implementation fg.deobf("curse.maven:detailab-520755:${detailab_version}")
 
     compileOnly fg.deobf("curse.maven:farmers-delight-398521:${farmersdelight_version}")
@@ -89,9 +100,6 @@ dependencies {
 
     compileOnly fg.deobf("curse.maven:shield-expansion-583318:${shieldexpansion_version}")
     runtimeOnly fg.deobf("curse.maven:shield-expansion-583318:${shieldexpansion_version}")
-
-    compileOnly fg.deobf("curse.maven:create-328085:${create_version}")
-    runtimeOnly fg.deobf("curse.maven:create-328085:${create_version}")
 
     compileOnly fg.deobf("curse.maven:nethers-delight-496394:${nethersdelight_version}")
     runtimeOnly fg.deobf("curse.maven:nethers-delight-496394:${nethersdelight_version}")

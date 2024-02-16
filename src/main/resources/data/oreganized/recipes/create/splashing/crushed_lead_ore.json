@@ -3,7 +3,7 @@
   "type": "create:splashing",
   "ingredients": [
     {
-      "item": "create:crushed_lead_ore"
+      "item": "create:crushed_raw_lead"
     }
   ],
   "results": [
