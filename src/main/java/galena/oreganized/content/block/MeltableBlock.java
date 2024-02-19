@@ -9,7 +9,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 
+import java.util.function.ToIntFunction;
+
 public class MeltableBlock extends Block implements IMeltableBlock {
+
+    public static final ToIntFunction<BlockState> LIGHT_BY_GOOPYNESS = state -> {
+        var level = state.getValue(GOOPYNESS);
+        if(level == 2) return 13;
+    }
 
     public MeltableBlock(Properties properties) {
         super(properties);
