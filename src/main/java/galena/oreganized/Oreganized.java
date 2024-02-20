@@ -1,6 +1,7 @@
 package galena.oreganized;
 
 import com.google.common.collect.ImmutableBiMap;
+import com.mojang.serialization.Codec;
 import galena.oreganized.client.OreganizedClient;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.data.OAdvancements;
@@ -29,6 +30,7 @@ import galena.oreganized.index.OParticleTypes;
 import galena.oreganized.index.OPotions;
 import galena.oreganized.index.OSoundEvents;
 import galena.oreganized.index.OStructures;
+import galena.oreganized.world.AddItemLootModifier;
 import net.minecraft.DetectedVersion;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.HolderLookup;
@@ -55,6 +57,7 @@ import net.minecraft.world.level.block.FireBlock;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.util.MutableHashedLinkedMap;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -68,6 +71,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -87,6 +91,8 @@ public class Oreganized {
         return new ResourceLocation(MOD_ID, location);
     }
 
+    private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Oreganized.MOD_ID);
+
     public Oreganized() {
 
         final IEventBus bus = Bus.MOD.bus().get();
@@ -96,6 +102,8 @@ public class Oreganized {
         bus.addListener(this::gatherData);
         bus.addListener(this::buildCreativeModeTabContents);
         //bus.addListener(this::addPackFinders);
+
+        LOOT_MODIFIERS.register("add_item", () -> AddItemLootModifier.CODEC);
 
         DeferredRegister<?>[] registers = {
                 OBlockEntities.BLOCK_ENTITIES,
@@ -111,6 +119,7 @@ public class Oreganized {
                 OStructures.STRUCTURES,
                 OFeatures.FEATURES,
                 OPaintingVariants.PAINTING_VARIANTS,
+                LOOT_MODIFIERS,
         };
 
         for (DeferredRegister<?> register : registers) {
@@ -257,6 +266,7 @@ public class Oreganized {
             putAfter(entries, Items.WAXED_OXIDIZED_CUT_COPPER_SLAB, OBlocks.LEAD_BLOCK);
             putAfter(entries, OBlocks.LEAD_BLOCK.get(), OBlocks.CUT_LEAD);
             putAfter(entries, OBlocks.CUT_LEAD.get(), OBlocks.LEAD_BRICKS);
+            putAfter(entries, OBlocks.LEAD_PILLAR.get(), OBlocks.CUT_LEAD);
             putAfter(entries, OBlocks.LEAD_BRICKS.get(), OBlocks.LEAD_PILLAR);
         }
         if (tab == CreativeModeTabs.COLORED_BLOCKS) {
