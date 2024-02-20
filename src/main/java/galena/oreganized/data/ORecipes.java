@@ -234,5 +234,15 @@ public class ORecipes extends ORecipeProvider {
                 .unlockedBy("has_lead", has(OTags.Items.NUGGETS_LEAD))
                 .unlockedBy("has_potato", has(Items.POTATO))
                 .save(consumer, Oreganized.modLoc("poisonous_potato_from_lead"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OBlocks.LEAD_BULB.get(), 1)
+                .pattern("OIO")
+                .pattern("IXI")
+                .pattern("OIO")
+                .define('O', OTags.Items.INGOTS_LEAD)
+                .define('I', Items.GLOW_INK_SAC)
+                .define('X', OItems.MOLTEN_LEAD_BUCKET.get())
+                .unlockedBy("has_lead", has(OTags.Items.INGOTS_LEAD))
+                .save(consumer);
     }
 }
