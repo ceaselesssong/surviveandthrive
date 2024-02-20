@@ -1,4 +1,4 @@
-// 1.20.1	2024-02-20T10:50:48.9281187	oreganized Block States
+// 1.20.1	2024-02-20T13:27:07.0332549	oreganized Block States
 d85b0fb9e5cad1d9c4f22ed192b0fa621ee3373c assets/oreganized/blockstates/black_crystal_glass.json
 05bb006ff7f48557fe5c5333bc120f7206052717 assets/oreganized/blockstates/black_crystal_glass_pane.json
 5e5002e9c77ee7221425eeacce8834af484db877 assets/oreganized/blockstates/blue_crystal_glass.json
@@ -27,7 +27,7 @@ c72a5228ef929553df57844bee603f560e737100 assets/oreganized/blockstates/gray_crys
 0f0f5654a1123c1bfa032e813f1f6cff21ec1dcb assets/oreganized/blockstates/green_crystal_glass_pane.json
 121e6d2788d907261435fceb5c2ed9aec2947965 assets/oreganized/blockstates/lead_block.json
 ac3dc34ee50ebc5c1ef49b1d5200bbcce6989806 assets/oreganized/blockstates/lead_bricks.json
-73edae2d1cecf04d17a9edf08d9bd3a6a66e3b31 assets/oreganized/blockstates/lead_bulb.json
+3ef194f72e7b5911c4cb174e70906524d82bc695 assets/oreganized/blockstates/lead_bulb.json
 1e0faf898de4c648019ee6c1cef8ce1e8aed23ec assets/oreganized/blockstates/lead_ore.json
 4d440ab88b1c5f9fbd6b6b544851154678f87996 assets/oreganized/blockstates/lead_pillar.json
 13efbf997fc6c5f35827f6f3404fd41e0ef41e02 assets/oreganized/blockstates/light_blue_crystal_glass.json
@@ -180,6 +180,7 @@ e608b753dce2a8b19cb7dbee4045c14c15eecef7 assets/oreganized/models/block/cyan_cry
 70e7d24a752911b20fe5ba6ab611abf3c358c136 assets/oreganized/models/block/cyan_crystal_glass_rot.json
 28e5c8efea3bcd11f22ff5d8fc42e027451a8c94 assets/oreganized/models/block/deepslate_lead_ore.json
 5f9de10cb0e348003b4ad9fa8bfc1fa9278e3df1 assets/oreganized/models/block/deepslate_silver_ore.json
+50b31e901f9c3d7db1fde987cfd547999e37cf67 assets/oreganized/models/block/dimmer_lead_bulb.json
 70dd1a0c1846410be1610e21f3f6e7458dc530a3 assets/oreganized/models/block/electrum_block.json
 bb5902e9e6bb0fd0e6aa019914e532fb91da7522 assets/oreganized/models/block/exposer_level_0_down.json
 bb5902e9e6bb0fd0e6aa019914e532fb91da7522 assets/oreganized/models/block/exposer_level_0_east.json

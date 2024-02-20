@@ -1,6 +1,7 @@
 package galena.oreganized.data.provider;
 
 import galena.oreganized.Oreganized;
+import galena.oreganized.content.block.BulbBlock;
 import galena.oreganized.content.block.CrystalGlassBlock;
 import galena.oreganized.content.block.CrystalGlassPaneBlock;
 import galena.oreganized.content.block.ExposerBlock;
@@ -207,6 +208,19 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
             var model = goopyness < 2 ? modelBuilder.apply(name, texture) : redHotModel;
 
             return modelModifier.apply(state, ConfiguredModel.builder().modelFile(model)).build();
+        });
+    }
+
+    public <T extends Block & IMeltableBlock> void bulb(Supplier<T> block) {
+        var prefixes = List.of("", "dimmer_", "goopy_", "red_hot_");
+        var redHotModel = models().cubeAll("red_hot_lead", modLoc(BLOCK_FOLDER + "/red_hot_lead"));
+        getVariantBuilder(block.get()).forAllStates(state -> {
+            int goopyness = state.getValue(BulbBlock.GOOPYNESS_4);
+            var name = prefixes.get(goopyness) + name(block);
+            var texture = texture(name);
+            var model = goopyness < 3 ? models().cubeAll(name, texture) : redHotModel;
+
+            return ConfiguredModel.builder().modelFile(model).build();
         });
     }
 

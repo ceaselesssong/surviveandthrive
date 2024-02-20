@@ -44,7 +44,7 @@ public class OBlockStates extends OBlockStateProvider {
         meltableBlock(OBlocks.LEAD_BRICKS, (n, t) -> models().cubeAll(n, t));
         meltablePillar(OBlocks.LEAD_PILLAR);
         meltablePillar(OBlocks.CUT_LEAD);
-        meltableBlock(OBlocks.LEAD_BULB, (n, t) -> models().cubeAll(n, t));
+        bulb(OBlocks.LEAD_BULB);
         simpleBlock(OBlocks.ELECTRUM_BLOCK);
         simpleBlock(OBlocks.SHRAPNEL_BOMB.get(), cubeBottomTop(OBlocks.SHRAPNEL_BOMB));
 

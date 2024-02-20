@@ -12,11 +12,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 import java.util.List;
-import java.util.function.ToIntFunction;
 
 public interface IMeltableBlock {
 
-    IntegerProperty GOOPYNESS = IntegerProperty.create("goopyness", 0, 2);
+    IntegerProperty GOOPYNESS_3 = IntegerProperty.create("goopyness", 0, 2);
 
     List<BlockPos> OFFSET = List.of(
             new BlockPos(+1, 0, 0),
@@ -27,34 +26,30 @@ public interface IMeltableBlock {
             new BlockPos(0, 0, -1)
     );
 
+    default IntegerProperty getGoopynessProperty() {
+        return GOOPYNESS_3;
+    }
+
     default int getGoopyness(BlockState state) {
-        return state.getValue(GOOPYNESS);
+        return state.getValue(getGoopynessProperty());
     }
 
     static int getLightLevel(BlockState state) {
-        return switch (state.getValue(GOOPYNESS)) {
-            case 2, 1 -> 3;
+        return switch (state.getValue(GOOPYNESS_3)) {
+            case 2 -> 6;
+            case 1 -> 3;
             default -> 0;
         };
     }
 
-    static int getBulbLightLevel(BlockState state) {
-        return switch (state.getValue(GOOPYNESS)) {
-            case 0 -> 13;
-            case 1 -> 6;
-            default -> 3;
-        };
-    }
-
-    static int getInducedGoopyness(BlockState state, BlockGetter world, BlockPos pos) {
-        var block = state.getBlock();
+    default int getInducedGoopyness(BlockState state, BlockGetter world, BlockPos pos) {
         if (state.is(OTags.Blocks.MELTS_LEAD)) return 2;
-        if(block instanceof IMeltableBlock meltable && meltable.getGoopyness(state) == 2) return 1;
+        if(state.getBlock() instanceof IMeltableBlock meltable && meltable.getGoopyness(state) == 2) return 1;
         if (state.getLightEmission(world, pos) >= 15) return 1;
         return 0;
     }
 
-    static int getNextGoopyness(BlockState state, Level world, BlockPos pos) {
+    default int getNextGoopyness(BlockState state, Level world, BlockPos pos) {
         var touching = OFFSET.stream()
                 .map(pos::offset)
                 .map(world::getBlockState)
@@ -65,11 +60,11 @@ public interface IMeltableBlock {
     }
 
     default void tickMelting(BlockState state, Level world, BlockPos pos, RandomSource random) {
-        var currentGoopyness = getGoopyness(state);
+        var currentGoopyness = state.getValue(getGoopynessProperty());
         var goopyness = getNextGoopyness(state, world, pos);
 
         if (currentGoopyness != goopyness) {
-            world.setBlockAndUpdate(pos, state.setValue(GOOPYNESS, goopyness));
+            world.setBlockAndUpdate(pos, state.setValue(getGoopynessProperty(), goopyness));
         }
 
         world.scheduleTick(pos, state.getBlock(), 1);

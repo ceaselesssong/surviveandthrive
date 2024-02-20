@@ -35,7 +35,7 @@ public class OFluids {
             .supportsBoating(false)
             .lightLevel(8)
             .density(2000)
-            .temperature(630)
+            .temperature(1300)
             .viscosity(10000)
             .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
             .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)) {

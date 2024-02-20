@@ -15,13 +15,13 @@ public class MeltablePillarBlock extends RotatedPillarBlock implements IMeltable
 
     public MeltablePillarBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.getStateDefinition().any().setValue(GOOPYNESS, 0).setValue(AXIS, Direction.Axis.Y));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(GOOPYNESS_3, 0).setValue(AXIS, Direction.Axis.Y));
     }
 
     @Override
     public void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> definition) {
         super.createBlockStateDefinition(definition);
-        definition.add(GOOPYNESS);
+        definition.add(GOOPYNESS_3);
     }
 
     public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {

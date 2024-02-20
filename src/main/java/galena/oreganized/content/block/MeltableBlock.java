@@ -9,19 +9,17 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 
-import java.util.function.ToIntFunction;
-
 public class MeltableBlock extends Block implements IMeltableBlock {
 
     public MeltableBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.getStateDefinition().any().setValue(GOOPYNESS, 0));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(GOOPYNESS_3, 0));
     }
 
     @Override
     public void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> definition) {
         super.createBlockStateDefinition(definition);
-        definition.add(GOOPYNESS);
+        definition.add(GOOPYNESS_3);
     }
 
     public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
