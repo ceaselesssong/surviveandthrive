@@ -29,7 +29,6 @@ public class OLang extends OLangProvider {
         addBlock(OBlocks.LEAD_BLOCK, "Block of Lead");
         addBlock(OBlocks.LEAD_BRICKS, "Lead Bricks");
         addBlock(OBlocks.LEAD_PILLAR, "Lead Pillar");
-        addBlock(OBlocks.LEAD_BULB, "Lead Bulb");
         addBlock(OBlocks.CUT_LEAD, "Cut Lead");
         addBlock(OBlocks.ELECTRUM_BLOCK, "Block of Electrum");
 

@@ -1,4 +1,4 @@
-// 1.20.1	2024-02-20T10:50:48.9371227	Recipes
+// 1.20.1	2024-02-20T13:47:41.9136123	Recipes
 c27d3499944bf522a573dc8987582db2d7349b41 data/oreganized/advancements/recipes/brewing/poisonous_potato_from_lead.json
 ee5e42ab2e9ac549022fadf1c2cbf9faebc2c53c data/oreganized/advancements/recipes/building_blocks/black_crystal_glass_pane.json
 40700c3f2f5c78c617650fdd16e2ba248967353f data/oreganized/advancements/recipes/building_blocks/blue_crystal_glass_pane.json
@@ -22,7 +22,6 @@ cd97e0da4ca12f382f0668a766f7d6cc8fd734bd data/oreganized/advancements/recipes/bu
 cb23709fa45885e26600b4c77044a515d0bec180 data/oreganized/advancements/recipes/building_blocks/green_crystal_glass_pane.json
 36e6b6e9acc7a2d1e5d06499c08774b428491e64 data/oreganized/advancements/recipes/building_blocks/lead_block.json
 946c08ec1a613679af7062c7108bb751aebf8252 data/oreganized/advancements/recipes/building_blocks/lead_bricks.json
-eee68e2739bde8977814e2cfc0c04354a5c7f84c data/oreganized/advancements/recipes/building_blocks/lead_bulb.json
 cb45a0e98365b4c03da2b7ce702a72498110fb6a data/oreganized/advancements/recipes/building_blocks/lead_ingot.json
 bdf70ecf98bea7edf0acbc6bc4c451564b14348f data/oreganized/advancements/recipes/building_blocks/lead_ingot_from_block.json
 ee9f7cd21489b5c992ab7ffd0565f9b7b99d6e5c data/oreganized/advancements/recipes/building_blocks/lead_nugget.json
@@ -180,7 +179,6 @@ e1c09f2d1950d7e5186f3a1ebaed0d1d9bc20f2a data/oreganized/recipes/gray_crystal_gl
 65befcd063025cfae493e0f156e69cad8c397843 data/oreganized/recipes/lead_block.json
 887688824467cf6b5d7c699c740feceb46d2b788 data/oreganized/recipes/lead_bolt.json
 d556fb758fd3dbab160acceee42cd40c0d02170f data/oreganized/recipes/lead_bricks.json
-4f4cf145cfc3955ed66bdbdb1b16f098f0436f99 data/oreganized/recipes/lead_bulb.json
 c3f86a2f15dedc7d9258364671aa799e426758eb data/oreganized/recipes/lead_ingot.json
 f9266001d55884e79480a35f2c5d587a7f805040 data/oreganized/recipes/lead_ingot_from_block.json
 4d4f1d0d66dd1e0a000af50afb6961574eabff2d data/oreganized/recipes/lead_nugget.json
