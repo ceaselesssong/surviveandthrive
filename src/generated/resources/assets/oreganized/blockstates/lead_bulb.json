@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "goopyness=0": {
+      "model": "oreganized:block/lead_bulb"
+    },
+    "goopyness=1": {
+      "model": "oreganized:block/goopy_lead_bulb"
+    },
+    "goopyness=2": {
+      "model": "oreganized:block/red_hot_lead"
+    }
+  }
+}

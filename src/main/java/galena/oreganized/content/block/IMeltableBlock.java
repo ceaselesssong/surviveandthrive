@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 import java.util.List;
+import java.util.function.ToIntFunction;
 
 public interface IMeltableBlock {
 
@@ -32,14 +33,23 @@ public interface IMeltableBlock {
 
     static int getLightLevel(BlockState state) {
         return switch (state.getValue(GOOPYNESS)) {
-            case 2 -> 15;
-            case 1 -> 5;
+            case 2, 1 -> 3;
             default -> 0;
         };
     }
 
+    static int getBulbLightLevel(BlockState state) {
+        return switch (state.getValue(GOOPYNESS)) {
+            case 0 -> 13;
+            case 1 -> 6;
+            default -> 3;
+        };
+    }
+
     static int getInducedGoopyness(BlockState state, BlockGetter world, BlockPos pos) {
+        var block = state.getBlock();
         if (state.is(OTags.Blocks.MELTS_LEAD)) return 2;
+        if(block instanceof IMeltableBlock meltable && meltable.getGoopyness(state) == 2) return 1;
         if (state.getLightEmission(world, pos) >= 15) return 1;
         return 0;
     }

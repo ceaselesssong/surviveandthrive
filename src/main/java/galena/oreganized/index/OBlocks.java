@@ -69,7 +69,9 @@ public class OBlocks {
     public static final RegistryObject<MeltableBlock> LEAD_BRICKS = register("lead_bricks", () -> new MeltableBlock(LEAD_PROPERTIES));
     public static final RegistryObject<MeltablePillarBlock> CUT_LEAD = register("cut_lead", () -> new MeltablePillarBlock(LEAD_PROPERTIES));
     public static final RegistryObject<MeltablePillarBlock> LEAD_PILLAR = register("lead_pillar", () -> new MeltablePillarBlock(LEAD_PROPERTIES));
-    
+
+    public static final RegistryObject<MeltableBlock> LEAD_BULB = register("lead_bulb", () -> new MeltableBlock(LEAD_PROPERTIES.lightLevel(IMeltableBlock::getBulbLightLevel)));
+
     public static final RegistryObject<Block> ELECTRUM_BLOCK = register("electrum_block", () -> new Block(BlockBehaviour.Properties.of().strength(5.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.METAL)));
 
     // Redstone components

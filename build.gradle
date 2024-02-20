@@ -90,8 +90,12 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
-    /// Compatabilities
+    // Compatibilities
     runtimeOnly(fg.deobf("maven.modrinth:create:${create_version}"))
+
+    // For dev testing
+    runtimeOnly(fg.deobf("maven.modrinth:scannable:${scannable_version}"))
+    runtimeOnly(fg.deobf("maven.modrinth:architectury-api:${architectury_version}"))
 
    /* implementation fg.deobf("curse.maven:detailab-520755:${detailab_version}")
 
