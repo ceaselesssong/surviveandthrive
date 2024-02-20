@@ -3,6 +3,7 @@ package galena.oreganized;
 import com.google.common.collect.ImmutableBiMap;
 import galena.oreganized.client.OreganizedClient;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
+import galena.oreganized.content.entity.LeadBoltEntity;
 import galena.oreganized.data.OAdvancements;
 import galena.oreganized.data.OBiomeTags;
 import galena.oreganized.data.OBlockStates;
@@ -32,7 +33,9 @@ import galena.oreganized.index.OStructures;
 import net.minecraft.DetectedVersion;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Position;
 import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
@@ -41,16 +44,21 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
@@ -161,6 +169,18 @@ public class Oreganized {
 
             FireBlock fire = (FireBlock) Blocks.FIRE;
             fire.setFlammable(OBlocks.SHRAPNEL_BOMB.get(), 15, 100);
+
+            DispenserBlock.registerBehavior(OItems.LEAD_BOLT.get(), new AbstractProjectileDispenseBehavior() {
+                protected Projectile getProjectile(Level level, Position pos, ItemStack stack) {
+                    var entity = new LeadBoltEntity(OEntityTypes.LEAD_BOLT.get(), level, pos);
+                    entity.pickup = AbstractArrow.Pickup.ALLOWED;
+                    return entity;
+                }
+            });
+
+            ItemProperties.register(Items.CROSSBOW, new ResourceLocation(Oreganized.MOD_ID, "lead_bolt"), (stack, level, user, i) ->
+                CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, OItems.LEAD_BOLT.get()) ? 1.0F : 0.0F
+            );
         });
 
         OBlocks.WAXED_BLOCKS = new ImmutableBiMap.Builder<Block, Block>()
@@ -323,6 +343,7 @@ public class Oreganized {
             putAfter(entries, OItems.ELECTRUM_CHESTPLATE.get(), OItems.ELECTRUM_LEGGINGS);
             putAfter(entries, OItems.ELECTRUM_LEGGINGS.get(), OItems.ELECTRUM_BOOTS);
             putAfter(entries, Items.TNT, OBlocks.SHRAPNEL_BOMB);
+            putBefore(entries, Items.ARROW, OItems.LEAD_BOLT);
         }
         if (tab == CreativeModeTabs.INGREDIENTS) {
             putAfter(entries, Items.RAW_COPPER, OItems.RAW_LEAD);

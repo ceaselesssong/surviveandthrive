@@ -3,6 +3,7 @@ package galena.oreganized.index;
 import galena.oreganized.Oreganized;
 import galena.oreganized.content.item.BushHammerItem;
 import galena.oreganized.content.item.ElectrumArmorItem;
+import galena.oreganized.content.item.LeadBoltItem;
 import galena.oreganized.content.item.MinecartShrapnelBombItem;
 import galena.oreganized.content.item.OMusicDiscItem;
 import galena.oreganized.content.item.OSmithingTemplateItem;
@@ -66,6 +67,8 @@ public class OItems {
             () -> new ElectrumArmorItem(ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<ArmorItem> ELECTRUM_BOOTS = ITEMS.register("electrum_boots",
             () -> new ElectrumArmorItem(ArmorItem.Type.BOOTS));
+
+    public static final RegistryObject<Item> LEAD_BOLT = ITEMS.register("lead_bolt", () -> new LeadBoltItem(new Item.Properties()));
 
     // Transportation
     public static final RegistryObject<Item> SHRAPNEL_BOMB_MINECART = ITEMS.register("shrapnel_bomb_minecart", () -> new MinecartShrapnelBombItem(AbstractMinecart.Type.TNT, OEntityTypes.SHRAPNEL_BOMB_MINECART));
