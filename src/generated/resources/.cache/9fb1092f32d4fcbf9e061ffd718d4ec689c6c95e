@@ -1,4 +1,4 @@
-// 1.20.1	2024-02-20T13:47:41.9136123	Recipes
+// 1.20.1	2024-02-20T15:04:01.4094703	Recipes
 c27d3499944bf522a573dc8987582db2d7349b41 data/oreganized/advancements/recipes/brewing/poisonous_potato_from_lead.json
 ee5e42ab2e9ac549022fadf1c2cbf9faebc2c53c data/oreganized/advancements/recipes/building_blocks/black_crystal_glass_pane.json
 40700c3f2f5c78c617650fdd16e2ba248967353f data/oreganized/advancements/recipes/building_blocks/blue_crystal_glass_pane.json
@@ -69,7 +69,6 @@ ab878e34895cc94b31ad5f33433d394b3470eb67 data/oreganized/advancements/recipes/bu
 f14efdf82e5565a7f0c8a03bcbde5df9b8af3073 data/oreganized/advancements/recipes/building_blocks/stonecutting/polished_glance.json
 a73b76343b9abc9d4c082f831be8daf1b62f762a data/oreganized/advancements/recipes/building_blocks/white_crystal_glass_pane.json
 8c7873a88da4761a440798323daf006887973daf data/oreganized/advancements/recipes/building_blocks/yellow_crystal_glass_pane.json
-b47ef8f1cecfb7182ed71b4684219ec469d3f2f3 data/oreganized/advancements/recipes/combat/lead_bolt.json
 68105c4709bbf9a9c38cfea3aef83d7ae761c56c data/oreganized/advancements/recipes/decorations/black_crystal_glass.json
 dcb18c1fb204f38642de3c1e3dc39a29c96d3c2a data/oreganized/advancements/recipes/decorations/blue_crystal_glass.json
 4e458a90cff9efa21ded7e7af6b9325aa2b71b53 data/oreganized/advancements/recipes/decorations/brown_crystal_glass.json
@@ -177,7 +176,6 @@ e1c09f2d1950d7e5186f3a1ebaed0d1d9bc20f2a data/oreganized/recipes/gray_crystal_gl
 137cc4870829488fe9aac4b7cc3c1d2d961ce636 data/oreganized/recipes/green_crystal_glass.json
 716c99397627e656f05017ee28f973380862691f data/oreganized/recipes/green_crystal_glass_pane.json
 65befcd063025cfae493e0f156e69cad8c397843 data/oreganized/recipes/lead_block.json
-887688824467cf6b5d7c699c740feceb46d2b788 data/oreganized/recipes/lead_bolt.json
 d556fb758fd3dbab160acceee42cd40c0d02170f data/oreganized/recipes/lead_bricks.json
 c3f86a2f15dedc7d9258364671aa799e426758eb data/oreganized/recipes/lead_ingot.json
 f9266001d55884e79480a35f2c5d587a7f805040 data/oreganized/recipes/lead_ingot_from_block.json
