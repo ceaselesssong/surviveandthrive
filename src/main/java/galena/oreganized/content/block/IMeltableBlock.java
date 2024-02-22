@@ -8,11 +8,19 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 import java.util.List;
 
+/**
+ * MeltableBlock check list:
+ *  - add goopyness block property
+ *  - override `stepOn` and call `hurt`
+ *  - override `tick` and call `tickMelting`
+ *  - override `neighborChanged` and call `scheduleUpdate`
+ */
 public interface IMeltableBlock {
 
     IntegerProperty GOOPYNESS_3 = IntegerProperty.create("goopyness", 0, 2);
@@ -70,10 +78,15 @@ public interface IMeltableBlock {
         world.scheduleTick(pos, state.getBlock(), 1);
     }
 
-    default void hurt(Level world, Entity entity) {
+    default void hurt(BlockState state, Level world, Entity entity) {
+        if(getGoopyness(state) < 2) return;
         if (!entity.isSteppingCarefully() && entity instanceof LivingEntity le && !EnchantmentHelper.hasFrostWalker(le)) {
             entity.hurt(world.damageSources().hotFloor(), 1.0F);
         }
+    }
+
+    default void scheduleUpdate(Level level, BlockPos pos, Block block) {
+        level.scheduleTick(pos, block, level.random.nextInt(30, 60));
     }
 
 }
