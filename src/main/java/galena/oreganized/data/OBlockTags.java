@@ -153,6 +153,7 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
         tag(MELTS_LEAD)
                 .add(Blocks.LAVA)
                 .add(Blocks.MAGMA_BLOCK)
+                .addTags(BlockTags.CAMPFIRES)
                 .addTags(BlockTags.FIRE);
     }
 }

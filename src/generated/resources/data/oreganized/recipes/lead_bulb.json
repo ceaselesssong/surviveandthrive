@@ -2,20 +2,20 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "I": {
+    "B": {
+      "item": "oreganized:molten_lead_bucket"
+    },
+    "G": {
       "item": "minecraft:glow_ink_sac"
     },
-    "O": {
+    "I": {
       "tag": "forge:ingots/lead"
-    },
-    "X": {
-      "item": "oreganized:molten_lead_bucket"
     }
   },
   "pattern": [
-    "OIO",
-    "IXI",
-    "OIO"
+    " I ",
+    "IGI",
+    " B "
   ],
   "result": {
     "item": "oreganized:lead_bulb"

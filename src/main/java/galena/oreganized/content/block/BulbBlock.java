@@ -53,14 +53,25 @@ public class BulbBlock extends Block implements IMeltableBlock {
         return defaultGoopyness + 1;
     }
 
-    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         tickMelting(state, world, pos, random);
     }
 
     @Override
     public void stepOn(Level world, BlockPos pos, BlockState state, Entity entity) {
-        if(getGoopyness(state) < 2) return;
-        hurt(world, entity);
+        hurt(state, world, entity);
         super.stepOn(world, pos, state, entity);
+    }
+
+    @Override
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+        super.neighborChanged(state, level, pos, block, fromPos, isMoving);
+        scheduleUpdate(level, pos, block);
+    }
+
+    @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+        super.onPlace(state, level, pos, oldState, isMoving);
+        scheduleUpdate(level, pos, state.getBlock());
     }
 }

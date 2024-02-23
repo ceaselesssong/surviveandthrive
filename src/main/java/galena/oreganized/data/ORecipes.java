@@ -219,13 +219,6 @@ public class ORecipes extends ORecipeProvider {
         stonecutting(OBlocks.LEAD_BLOCK, OBlocks.LEAD_PILLAR.get(), 4).save(consumer, Oreganized.modLoc( "stonecutting/lead_pillar"));
         stonecutting(OBlocks.CUT_LEAD, OBlocks.LEAD_PILLAR.get()).save(consumer, Oreganized.modLoc( "stonecutting/lead_pillar_from_cut_lad"));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, OItems.LEAD_BOLT.get(), 1)
-                .pattern("A")
-                .pattern("A")
-                .define('A', OTags.Items.INGOTS_LEAD)
-                .unlockedBy("has_lead", has(OTags.Items.INGOTS_LEAD))
-                .save(consumer);
-
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, Items.POISONOUS_POTATO, 1)
                 .requires(Items.POTATO)
                 .requires(OTags.Items.NUGGETS_LEAD)
@@ -236,12 +229,12 @@ public class ORecipes extends ORecipeProvider {
                 .save(consumer, Oreganized.modLoc("poisonous_potato_from_lead"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OBlocks.LEAD_BULB.get(), 1)
-                .pattern("OIO")
-                .pattern("IXI")
-                .pattern("OIO")
-                .define('O', OTags.Items.INGOTS_LEAD)
-                .define('I', Items.GLOW_INK_SAC)
-                .define('X', OItems.MOLTEN_LEAD_BUCKET.get())
+                .pattern(" I ")
+                .pattern("IGI")
+                .pattern(" B ")
+                .define('I', OTags.Items.INGOTS_LEAD)
+                .define('G', Items.GLOW_INK_SAC)
+                .define('B', OItems.MOLTEN_LEAD_BUCKET.get())
                 .unlockedBy("has_lead", has(OTags.Items.INGOTS_LEAD))
                 .save(consumer);
     }
