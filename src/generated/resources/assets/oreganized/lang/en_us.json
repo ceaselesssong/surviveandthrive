@@ -123,6 +123,7 @@
   "item.oreganized.silver_ingot": "Silver Ingot",
   "item.oreganized.silver_mirror": "Silver Mirror",
   "item.oreganized.silver_nugget": "Silver Nugget",
+  "item.oreganized.smithing_template.electrum_upgrade.additions_slot_description": "Add Electrum Ingot",
   "item.oreganized.smithing_template.electrum_upgrade.applies_to": "Diamond Equipment",
   "item.oreganized.smithing_template.electrum_upgrade.ingredients": "Electrum Ingot",
   "subtitles.entity.shrapnel_bomb.primed": "Shrapnel Bomb fizzes",

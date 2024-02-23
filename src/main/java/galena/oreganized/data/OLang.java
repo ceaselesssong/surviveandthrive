@@ -2,8 +2,12 @@ package galena.oreganized.data;
 
 import galena.oreganized.Oreganized;
 import galena.oreganized.data.provider.OLangProvider;
-import galena.oreganized.index.*;
-import net.minecraft.data.DataGenerator;
+import galena.oreganized.index.OBlocks;
+import galena.oreganized.index.OEffects;
+import galena.oreganized.index.OEntityTypes;
+import galena.oreganized.index.OFluids;
+import galena.oreganized.index.OItems;
+import galena.oreganized.index.OPotions;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -63,6 +67,8 @@ public class OLang extends OLangProvider {
 
         add("tooltip.oreganized.wip.title", "Work In Progress");
         add("tooltip.oreganized.wip.description", "Usages for this item will be available in a future release");
+
+        add("item.oreganized.smithing_template.electrum_upgrade.additions_slot_description", "Add Electrum Ingot");
 
         /*
             Automatically create translations for blocks and items based on their registry name.

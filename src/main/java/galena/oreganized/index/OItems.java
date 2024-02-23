@@ -14,6 +14,7 @@ import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.ShovelItem;
@@ -53,7 +54,7 @@ public class OItems {
     // Misc Tools
     public static final RegistryObject<Item> SILVER_MIRROR = ITEMS.register("silver_mirror", () -> new SilverMirrorItem(new Item.Properties().stacksTo(1)));
     //public static final RegistryObject<Item> BROKEN_SILVER_MIRROR = ITEMS.register("broken_silver_mirror", () -> new OItem(new Item.Properties().stacksTo(16)));
-    public static final RegistryObject<Item> MOLTEN_LEAD_BUCKET = ITEMS.register("molten_lead_bucket", () -> new BucketItem(OFluids.MOLTEN_LEAD, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> MOLTEN_LEAD_BUCKET = ITEMS.register("molten_lead_bucket", () -> new BucketItem(OFluids.MOLTEN_LEAD, new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));
 
     // Armor
     public static final RegistryObject<Item> ELECTRUM_UPGRADE_SMITHING_TEMPLATE = ITEMS.register("electrum_upgrade_smithing_template",
