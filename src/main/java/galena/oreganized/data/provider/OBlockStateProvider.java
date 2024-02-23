@@ -205,9 +205,10 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
             int goopyness = block.get().getGoopyness(state);
             var name = prefixes.get(goopyness) + name(block);
             var texture = texture(name);
-            var model = goopyness < 2 ? modelBuilder.apply(name, texture) : redHotModel;
-
-            return modelModifier.apply(state, ConfiguredModel.builder().modelFile(model)).build();
+            var isRedHot = goopyness == 2;
+            var model = ConfiguredModel.builder().modelFile(isRedHot ? redHotModel : modelBuilder.apply(name, texture));
+            if(isRedHot) return model.build();
+            return modelModifier.apply(state, model).build();
         });
     }
 

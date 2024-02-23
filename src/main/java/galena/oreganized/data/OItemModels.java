@@ -73,6 +73,7 @@ public class OItemModels extends OItemModelProvider {
         block(OBlocks.LEAD_BLOCK);
         block(OBlocks.LEAD_BRICKS);
         block(OBlocks.LEAD_PILLAR);
+        block(OBlocks.LEAD_BULB);
         block(OBlocks.CUT_LEAD);
         block(OBlocks.ELECTRUM_BLOCK);
         block(OBlocks.EXPOSER, "exposer_level_0_south");
