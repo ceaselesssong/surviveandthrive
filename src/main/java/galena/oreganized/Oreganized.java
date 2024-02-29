@@ -279,6 +279,9 @@ public class Oreganized {
             putAfter(entries, OBlocks.CUT_LEAD.get(), OBlocks.LEAD_BRICKS);
             putAfter(entries, OBlocks.LEAD_BRICKS.get(), OBlocks.LEAD_PILLAR);
         }
+        if(tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+            putBefore(entries,Blocks.CHEST, OBlocks.LEAD_BOLT_CRATE);
+        }
         if (tab == CreativeModeTabs.COLORED_BLOCKS) {
             putBefore(entries, Items.SHULKER_BOX, OBlocks.WHITE_CRYSTAL_GLASS);
             putAfter(entries, OBlocks.WHITE_CRYSTAL_GLASS.get(), OBlocks.LIGHT_GRAY_CRYSTAL_GLASS);

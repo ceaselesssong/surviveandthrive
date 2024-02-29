@@ -149,6 +149,8 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
                 OBlocks.DEEPSLATE_SILVER_ORE.get()
         );
 
+        tag(BlockTags.MINEABLE_WITH_AXE).add(OBlocks.LEAD_BOLT_CRATE.get());
+
         tag(MELTS_LEAD)
                 .add(Blocks.LAVA)
                 .add(Blocks.MAGMA_BLOCK)

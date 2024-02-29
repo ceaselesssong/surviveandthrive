@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "equipment",
+  "category": "building",
   "key": {
     "A": {
-      "tag": "forge:ingots/lead"
+      "item": "oreganized:lead_bolt"
     }
   },
   "pattern": [
-    "A",
-    "A",
-    "A"
+    "AAA",
+    "AAA",
+    "AAA"
   ],
   "result": {
-    "item": "oreganized:lead_bolt"
+    "item": "oreganized:lead_bolt_crate"
   },
   "show_notification": true
 }

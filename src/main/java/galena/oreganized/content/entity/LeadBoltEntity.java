@@ -1,6 +1,7 @@
 package galena.oreganized.content.entity;
 
 import galena.oreganized.index.OItems;
+import galena.oreganized.index.OSoundEvents;
 import net.minecraft.core.Position;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
 import java.util.stream.Stream;
@@ -39,9 +41,20 @@ public class LeadBoltEntity extends AbstractArrow {
 
     @Override
     protected void onHitEntity(EntityHitResult result) {
+        setSoundEvent(OSoundEvents.BOLT_HIT.get());
+
         var arrowCount = result.getEntity() instanceof LivingEntity living ? living.getArrowCount() : 0;
 
+        var baseDamage = getBaseDamage() * 2.0;
+        setBaseDamage(baseDamage);
+
+        if(result.getEntity().getType() == EntityType.IRON_GOLEM) {
+            setBaseDamage(baseDamage * 10);
+        }
+
         super.onHitEntity(result);
+
+        setBaseDamage(baseDamage);
 
         if (result.getEntity() instanceof LivingEntity living) {
             living.setArrowCount(arrowCount);
@@ -49,10 +62,18 @@ public class LeadBoltEntity extends AbstractArrow {
     }
 
     @Override
+    protected void onHitBlock(BlockHitResult result) {
+        setSoundEvent(OSoundEvents.BOLT_HIT.get());
+        super.onHitBlock(result);
+    }
+
+    @Override
     protected void doPostHurtEffects(LivingEntity entity) {
-        if (entity.getRandom().nextBoolean()) {
+        if (entity.getRandom().nextDouble() < 0.1) {
             var slots = armorSlots().filter(entity::hasItemInSlot).toList();
             if (slots.isEmpty()) return;
+
+            setSoundEvent(OSoundEvents.BOLT_HIT_ARMOR.get());
 
             var slot = slots.get(entity.getRandom().nextInt(0, slots.size()));
             var stack = entity.getItemBySlot(slot);

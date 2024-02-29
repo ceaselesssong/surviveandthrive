@@ -80,6 +80,7 @@ public class OItemModels extends OItemModelProvider {
         block(OBlocks.ELECTRUM_BLOCK);
         block(OBlocks.EXPOSER, "exposer_level_0_south");
         block(OBlocks.SHRAPNEL_BOMB);
+        block(OBlocks.LEAD_BOLT_CRATE);
 
         block(OBlocks.WHITE_CRYSTAL_GLASS);
         blockFlat(OBlocks.WHITE_CRYSTAL_GLASS_PANE, OBlocks.WHITE_CRYSTAL_GLASS);

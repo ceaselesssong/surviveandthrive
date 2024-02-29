@@ -222,6 +222,7 @@ public class ORecipes extends ORecipeProvider {
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, OItems.LEAD_BOLT.get(), 1)
                 .pattern("A")
                 .pattern("A")
+                .pattern("A")
                 .define('A', OTags.Items.INGOTS_LEAD)
                 .unlockedBy("has_lead", has(OTags.Items.INGOTS_LEAD))
                 .save(consumer);
@@ -234,5 +235,8 @@ public class ORecipes extends ORecipeProvider {
                 .unlockedBy("has_lead", has(OTags.Items.NUGGETS_LEAD))
                 .unlockedBy("has_potato", has(Items.POTATO))
                 .save(consumer, Oreganized.modLoc("poisonous_potato_from_lead"));
+
+        compact(OBlocks.LEAD_BOLT_CRATE.get().asItem(), OItems.LEAD_BOLT.get()).save(consumer);
+        unCompact(OItems.LEAD_BOLT.get(), OBlocks.LEAD_BOLT_CRATE.get().asItem()).save(consumer, Oreganized.modLoc( "lead_bolt_from_crate"));
     }
 }

@@ -2,8 +2,12 @@ package galena.oreganized.data;
 
 import galena.oreganized.Oreganized;
 import galena.oreganized.data.provider.OLangProvider;
-import galena.oreganized.index.*;
-import net.minecraft.data.DataGenerator;
+import galena.oreganized.index.OBlocks;
+import galena.oreganized.index.OEffects;
+import galena.oreganized.index.OEntityTypes;
+import galena.oreganized.index.OFluids;
+import galena.oreganized.index.OItems;
+import galena.oreganized.index.OPotions;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -31,6 +35,7 @@ public class OLang extends OLangProvider {
         addBlock(OBlocks.LEAD_PILLAR, "Lead Pillar");
         addBlock(OBlocks.CUT_LEAD, "Cut Lead");
         addBlock(OBlocks.ELECTRUM_BLOCK, "Block of Electrum");
+        addBlock(OBlocks.LEAD_BOLT_CRATE, "Crate of Lead Bolts");
 
         addEffect(OEffects.STUNNING, "Stunning");
         addPotion(OPotions.STUNNING, "Stunning");

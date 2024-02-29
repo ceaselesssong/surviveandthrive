@@ -235,4 +235,14 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
                 }
         );
     }
+
+    public void crate(Supplier<? extends Block> block) {
+        var name = name(block);
+        simpleBlock(block.get(), models().cubeBottomTop(
+                name,
+                texture(name).withSuffix("_side"),
+                texture(name).withSuffix("_bottom"),
+                texture(name).withSuffix("_top")
+        ));
+    }
 }
