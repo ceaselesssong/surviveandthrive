@@ -11,9 +11,7 @@
       "y": 90
     },
     "axis=x,goopyness=2": {
-      "model": "oreganized:block/red_hot_lead",
-      "x": 90,
-      "y": 90
+      "model": "oreganized:block/red_hot_lead"
     },
     "axis=y,goopyness=0": {
       "model": "oreganized:block/cut_lead"
@@ -33,8 +31,7 @@
       "x": 90
     },
     "axis=z,goopyness=2": {
-      "model": "oreganized:block/red_hot_lead",
-      "x": 90
+      "model": "oreganized:block/red_hot_lead"
     }
   }
 }

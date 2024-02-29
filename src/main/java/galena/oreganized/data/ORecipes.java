@@ -209,11 +209,11 @@ public class ORecipes extends ORecipeProvider {
                 .unlockedBy("has_template", has(OItems.ELECTRUM_UPGRADE_SMITHING_TEMPLATE.get()))
                 .save(consumer);
 
-        quadTransform(OBlocks.CUT_LEAD, OBlocks.LEAD_BLOCK, 16).save(consumer);
+        quadTransform(OBlocks.CUT_LEAD, OBlocks.LEAD_BLOCK, 8).save(consumer);
         quadTransform(OBlocks.LEAD_BRICKS, OBlocks.CUT_LEAD).save(consumer);
         makePillar(OBlocks.LEAD_PILLAR, OBlocks.CUT_LEAD).save(consumer);
 
-        stonecutting(OBlocks.LEAD_BLOCK, OBlocks.CUT_LEAD.get(), 4).save(consumer, Oreganized.modLoc( "stonecutting/cut_lead"));
+        stonecutting(OBlocks.LEAD_BLOCK, OBlocks.CUT_LEAD.get(), 2).save(consumer, Oreganized.modLoc( "stonecutting/cut_lead"));
         stonecutting(OBlocks.LEAD_BLOCK, OBlocks.LEAD_BRICKS.get(), 4).save(consumer, Oreganized.modLoc( "stonecutting/lead_bricks"));
         stonecutting(OBlocks.CUT_LEAD, OBlocks.LEAD_BRICKS.get()).save(consumer, Oreganized.modLoc( "stonecutting/lead_bricks_from_cut_lead"));
         stonecutting(OBlocks.LEAD_BLOCK, OBlocks.LEAD_PILLAR.get(), 4).save(consumer, Oreganized.modLoc( "stonecutting/lead_pillar"));
@@ -238,5 +238,15 @@ public class ORecipes extends ORecipeProvider {
 
         compact(OBlocks.LEAD_BOLT_CRATE.get().asItem(), OItems.LEAD_BOLT.get()).save(consumer);
         unCompact(OItems.LEAD_BOLT.get(), OBlocks.LEAD_BOLT_CRATE.get().asItem()).save(consumer, Oreganized.modLoc( "lead_bolt_from_crate"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OBlocks.LEAD_BULB.get(), 1)
+                .pattern(" I ")
+                .pattern("IGI")
+                .pattern(" B ")
+                .define('I', OTags.Items.INGOTS_LEAD)
+                .define('G', Items.GLOW_INK_SAC)
+                .define('B', OItems.MOLTEN_LEAD_BUCKET.get())
+                .unlockedBy("has_lead", has(OTags.Items.INGOTS_LEAD))
+                .save(consumer);
     }
 }

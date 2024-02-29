@@ -33,6 +33,7 @@ public class OLang extends OLangProvider {
         addBlock(OBlocks.LEAD_BLOCK, "Block of Lead");
         addBlock(OBlocks.LEAD_BRICKS, "Lead Bricks");
         addBlock(OBlocks.LEAD_PILLAR, "Lead Pillar");
+        addBlock(OBlocks.LEAD_BULB, "Lead Bulb");
         addBlock(OBlocks.CUT_LEAD, "Cut Lead");
         addBlock(OBlocks.ELECTRUM_BLOCK, "Block of Electrum");
         addBlock(OBlocks.LEAD_BOLT_CRATE, "Crate of Lead Bolts");
@@ -67,6 +68,8 @@ public class OLang extends OLangProvider {
 
         add("tooltip.oreganized.wip.title", "Work In Progress");
         add("tooltip.oreganized.wip.description", "Usages for this item will be available in a future release");
+
+        add("item.oreganized.smithing_template.electrum_upgrade.additions_slot_description", "Add Electrum Ingot");
 
         /*
             Automatically create translations for blocks and items based on their registry name.

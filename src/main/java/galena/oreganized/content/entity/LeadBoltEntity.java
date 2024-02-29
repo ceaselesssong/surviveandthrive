@@ -10,16 +10,22 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
+import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class LeadBoltEntity extends AbstractArrow {
 
-    private static Stream<EquipmentSlot> armorSlots() {
-        return Stream.of(EquipmentSlot.CHEST, EquipmentSlot.FEET, EquipmentSlot.HEAD, EquipmentSlot.LEGS);
+    private static List<EquipmentSlot> armorSlots(LivingEntity entity) {
+        var armor = Stream.of(EquipmentSlot.CHEST, EquipmentSlot.FEET, EquipmentSlot.HEAD, EquipmentSlot.LEGS).filter(entity::hasItemInSlot);
+        var hands = Stream.of(EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND)
+                .filter(slot -> entity.getItemBySlot(slot).getItem() instanceof ShieldItem);
+        return Stream.of(armor, hands).flatMap(Function.identity()).toList();
     }
 
     public LeadBoltEntity(EntityType<? extends LeadBoltEntity> type, Level level) {
@@ -70,7 +76,7 @@ public class LeadBoltEntity extends AbstractArrow {
     @Override
     protected void doPostHurtEffects(LivingEntity entity) {
         if (entity.getRandom().nextDouble() < 0.1) {
-            var slots = armorSlots().filter(entity::hasItemInSlot).toList();
+            var slots = armorSlots(entity);
             if (slots.isEmpty()) return;
 
             setSoundEvent(OSoundEvents.BOLT_HIT_ARMOR.get());

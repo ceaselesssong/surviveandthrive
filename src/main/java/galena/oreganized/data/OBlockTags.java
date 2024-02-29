@@ -97,6 +97,7 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
                 OBlocks.LEAD_BLOCK.get(),
                 OBlocks.LEAD_BRICKS.get(),
                 OBlocks.LEAD_PILLAR.get(),
+                OBlocks.LEAD_BULB.get(),
                 OBlocks.CUT_LEAD.get(),
                 OBlocks.SILVER_BLOCK.get(),
                 OBlocks.ELECTRUM_BLOCK.get(),
@@ -154,6 +155,7 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
         tag(MELTS_LEAD)
                 .add(Blocks.LAVA)
                 .add(Blocks.MAGMA_BLOCK)
+                .addTags(BlockTags.CAMPFIRES)
                 .addTags(BlockTags.FIRE);
     }
 }
