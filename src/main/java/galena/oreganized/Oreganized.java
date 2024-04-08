@@ -316,6 +316,9 @@ public class Oreganized {
             putAfter(entries, Items.TNT_MINECART, OItems.SHRAPNEL_BOMB_MINECART);
             putAfter(entries, Items.TNT, OBlocks.SHRAPNEL_BOMB);
             putAfter(entries, Blocks.REDSTONE_LAMP, OBlocks.LEAD_BULB);
+            putAfter(entries, Blocks.IRON_DOOR, OBlocks.LEAD_DOOR);
+            putAfter(entries, Blocks.IRON_TRAPDOOR, OBlocks.LEAD_TRAPDOOR);
+            putAfter(entries, Blocks.IRON_BARS, OBlocks.LEAD_BARS);
         }
         if (tab == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             putBefore(entries, Items.NETHERITE_SHOVEL, OItems.ELECTRUM_SHOVEL);

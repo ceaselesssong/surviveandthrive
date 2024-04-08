@@ -1,6 +1,7 @@
 package galena.oreganized.data;
 
 import galena.oreganized.Oreganized;
+import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OItems;
 import galena.oreganized.index.OTags;
 import net.minecraft.core.HolderLookup;
@@ -87,5 +88,8 @@ public class OItemTags extends ItemTagsProvider {
         tag(Tags.Items.RAW_MATERIALS).addTags(RAW_MATERIALS_SILVER, RAW_MATERIALS_LEAD);
         copy(Tags.Blocks.ORES_IN_GROUND_STONE, Tags.Items.ORES_IN_GROUND_STONE);
         copy(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, Tags.Items.ORES_IN_GROUND_DEEPSLATE);
+
+        tag(ItemTags.DOORS).add(OBlocks.LEAD_DOOR.get().asItem());
+        tag(ItemTags.TRAPDOORS).add(OBlocks.LEAD_TRAPDOOR.get().asItem());
     }
 }

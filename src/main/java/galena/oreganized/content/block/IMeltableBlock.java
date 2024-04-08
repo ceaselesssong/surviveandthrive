@@ -20,6 +20,7 @@ import java.util.List;
  *  - override `stepOn` and call `hurt`
  *  - override `tick` and call `tickMelting`
  *  - override `neighborChanged` and call `scheduleUpdate`
+ *  - override `onPlace` and call `scheduleUpdate`
  */
 public interface IMeltableBlock {
 

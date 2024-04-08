@@ -1,4 +1,4 @@
-// 1.20.1	2023-08-24T20:32:13.557224981	Oreganized Item Tags
+// 1.20.1	2024-04-01T14:10:27.7094146	Oreganized Item Tags
 d8d286ea76e30a635512bc93d68815770003ff41 data/forge/tags/items/buckets/molten_lead.json
 7a2d68d81bc5ee59f9a2f4ba68ddb39bfd9c875d data/forge/tags/items/glass.json
 d96b4f83e03abe39a1b97d92b7818c8f6b2e5c68 data/forge/tags/items/glass_panes.json
@@ -27,11 +27,13 @@ bb0420ecbadc747d984fcef0fe7fc67586bc3231 data/forge/tags/items/storage_blocks/le
 bff6697a058fddfe9e14615bc043fcb2071fd6fc data/forge/tags/items/storage_blocks/silver.json
 4c880b8d05c88b2f9b44580057a8b4d2fd6fddc4 data/forge/tags/items/tools/bush_hammer.json
 9115563bba2db6e89c2c107626da06ea199aa2c7 data/minecraft/tags/items/beacon_payment_items.json
+503ad75af537d0ffef02ada9fb9afb5f5cd8e83b data/minecraft/tags/items/doors.json
 5978220d099c8bf975bbd69e364ac49628f6dec7 data/minecraft/tags/items/music_discs.json
 e9873026bc587ab0729bda85f9d2a6ca7790d410 data/minecraft/tags/items/slabs.json
 e231a716e19756d6a2326e873062dab206b37184 data/minecraft/tags/items/stairs.json
-9c01ba5c2837c6d506fea127ca2a1b2ba24e2fe0 data/minecraft/tags/items/trim_materials.json
+0071c009a80f1ab7661b261dcf94799070b8cbea data/minecraft/tags/items/trapdoors.json
 bd1440ab62499b2be9d2d4050f2d30cbb306b34f data/minecraft/tags/items/trimmable_armor.json
+9c01ba5c2837c6d506fea127ca2a1b2ba24e2fe0 data/minecraft/tags/items/trim_materials.json
 a4acb3623320f801e89e3451f8b7d9e2246f99d0 data/minecraft/tags/items/walls.json
 81fb1b18afaa14ae90800b23c32de565d1389bb3 data/oreganized/tags/items/crystal_glass.json
 f1dfddab1e3f2dec1e7ed1c3fbf9f6a7f261cf08 data/oreganized/tags/items/crystal_glass_panes.json

@@ -28,6 +28,8 @@
     "oreganized:spotted_glance",
     "oreganized:waxed_spotted_glance",
     "oreganized:exposer",
-    "oreganized:molten_lead_cauldron"
+    "oreganized:molten_lead_cauldron",
+    "oreganized:lead_door",
+    "oreganized:lead_trapdoor"
   ]
 }

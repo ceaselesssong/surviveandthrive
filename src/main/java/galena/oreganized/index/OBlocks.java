@@ -3,10 +3,12 @@ package galena.oreganized.index;
 import com.google.common.collect.ImmutableBiMap;
 import galena.oreganized.Oreganized;
 import galena.oreganized.content.block.*;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
@@ -58,19 +60,32 @@ public class OBlocks {
     public static final RegistryObject<Block> SILVER_BLOCK = register("silver_block", () -> new SilverBlock(BlockBehaviour.Properties.of()
             .strength(5.0F, 6.0F).sound(SoundType.METAL)));
 
-    private static final BlockBehaviour.Properties LEAD_PROPERTIES = BlockBehaviour.Properties.of()
-            .strength(5.0F, 6.0F)
-            .requiresCorrectToolForDrops()
-            .sound(SoundType.METAL)
-            .lightLevel(IMeltableBlock::getLightLevel)
-            .randomTicks();
-    
-    public static final RegistryObject<MeltableBlock> LEAD_BLOCK = register("lead_block", () -> new MeltableBlock(LEAD_PROPERTIES));
-    public static final RegistryObject<MeltableBlock> LEAD_BRICKS = register("lead_bricks", () -> new MeltableBlock(LEAD_PROPERTIES));
-    public static final RegistryObject<MeltablePillarBlock> CUT_LEAD = register("cut_lead", () -> new MeltablePillarBlock(LEAD_PROPERTIES));
-    public static final RegistryObject<MeltablePillarBlock> LEAD_PILLAR = register("lead_pillar", () -> new MeltablePillarBlock(LEAD_PROPERTIES));
+    private static BlockBehaviour.Properties leadProperties() {
+        return BlockBehaviour.Properties.of()
+                .strength(5.0F, 6.0F)
+                .requiresCorrectToolForDrops()
+                .sound(SoundType.METAL)
+                .lightLevel(IMeltableBlock::getLightLevel)
+                .randomTicks();
+    }
 
-    public static final RegistryObject<MeltableBlock> LEAD_BULB = register("lead_bulb", () -> new BulbBlock(LEAD_PROPERTIES.lightLevel(BulbBlock::getLightLevel)));
+    private static BlockBehaviour.Properties leadDecoProperties() {
+        return leadProperties().noOcclusion().isValidSpawn(($1, $2, $3, $4) -> false);
+    }
+
+
+    public static final RegistryObject<MeltableBlock> LEAD_BLOCK = register("lead_block", () -> new MeltableBlock(leadProperties()));
+    public static final RegistryObject<MeltableBlock> LEAD_BRICKS = register("lead_bricks", () -> new MeltableBlock(leadProperties()));
+    public static final RegistryObject<MeltablePillarBlock> CUT_LEAD = register("cut_lead", () -> new MeltablePillarBlock(leadProperties()));
+    public static final RegistryObject<MeltablePillarBlock> LEAD_PILLAR = register("lead_pillar", () -> new MeltablePillarBlock(leadProperties()));
+
+    public static final RegistryObject<MeltableBlock> LEAD_BULB = register("lead_bulb", () -> new BulbBlock(leadProperties().lightLevel(BulbBlock::getLightLevel)));
+
+    public static final BlockSetType LEAD_BLOCK_SET = BlockSetType.register(new BlockSetType("lead", true, SoundType.METAL, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundEvents.IRON_TRAPDOOR_OPEN, SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF, SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON, SoundEvents.STONE_BUTTON_CLICK_OFF, SoundEvents.STONE_BUTTON_CLICK_ON));
+
+    public static final RegistryObject<LeadDoorBlock> LEAD_DOOR = baseRegister("lead_door", () -> new LeadDoorBlock(leadDecoProperties()), block -> () -> new DoubleHighBlockItem(block.get(), new Item.Properties()));
+    public static final RegistryObject<LeadTrapdoorBlock> LEAD_TRAPDOOR = register("lead_trapdoor", () -> new LeadTrapdoorBlock(leadDecoProperties()));
+    public static final RegistryObject<LeadBarsBlock> LEAD_BARS = register("lead_bars", () -> new LeadBarsBlock(leadDecoProperties()));
 
     public static final RegistryObject<Block> ELECTRUM_BLOCK = register("electrum_block", () -> new Block(BlockBehaviour.Properties.of().strength(5.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.METAL)));
 

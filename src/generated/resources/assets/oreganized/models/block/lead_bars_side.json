@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/iron_bars_side",
+  "textures": {
+    "bars": "oreganized:block/lead_bars",
+    "particle": "oreganized:block/lead_bars"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/iron_bars_cap_alt",
+  "textures": {
+    "bars": "oreganized:block/goopy_lead_bars",
+    "particle": "oreganized:block/goopy_lead_bars"
+  }
+}

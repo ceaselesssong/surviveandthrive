@@ -37,6 +37,10 @@ public class OreganizedClient {
         RenderType mipped = RenderType.cutoutMipped();
         RenderType translucent = RenderType.translucent();
 
+        render(OBlocks.LEAD_DOOR, cutout);
+        render(OBlocks.LEAD_TRAPDOOR, cutout);
+        render(OBlocks.LEAD_BARS, cutout);
+
         for (int i = 0; OBlocks.CRYSTAL_GLASS.size() > i; i++) {
             render(OBlocks.CRYSTAL_GLASS.get(i), translucent);
             render(OBlocks.CRYSTAL_GLASS_PANES.get(i), translucent);

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/iron_bars_side_alt",
+  "textures": {
+    "bars": "oreganized:block/red_hot_lead_bars",
+    "particle": "oreganized:block/red_hot_lead_bars"
+  }
+}

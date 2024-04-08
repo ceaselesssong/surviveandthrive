@@ -79,6 +79,10 @@ public class OItemModels extends OItemModelProvider {
         block(OBlocks.EXPOSER, "exposer_level_0_south");
         block(OBlocks.SHRAPNEL_BOMB);
 
+        normalItem(OBlocks.LEAD_DOOR.get()::asItem);
+        block(OBlocks.LEAD_TRAPDOOR, blockName(OBlocks.LEAD_TRAPDOOR) + "_bottom");
+        blockFlat(OBlocks.LEAD_BARS);
+
         block(OBlocks.WHITE_CRYSTAL_GLASS);
         blockFlat(OBlocks.WHITE_CRYSTAL_GLASS_PANE, OBlocks.WHITE_CRYSTAL_GLASS);
         block(OBlocks.ORANGE_CRYSTAL_GLASS);
