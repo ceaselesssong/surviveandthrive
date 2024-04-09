@@ -186,10 +186,6 @@ public class Oreganized {
                     return entity;
                 }
             });
-
-            ItemProperties.register(Items.CROSSBOW, new ResourceLocation(Oreganized.MOD_ID, "lead_bolt"), (stack, level, user, i) ->
-                CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, OItems.LEAD_BOLT.get()) ? 1.0F : 0.0F
-            );
         });
 
         OBlocks.WAXED_BLOCKS = new ImmutableBiMap.Builder<Block, Block>()
@@ -224,6 +220,10 @@ public class Oreganized {
                 return stack.getOrCreateTag().getInt("Level");
             }
         });
+
+        ItemProperties.register(Items.CROSSBOW, new ResourceLocation(Oreganized.MOD_ID, "lead_bolt"), (stack, level, user, i) ->
+                CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, OItems.LEAD_BOLT.get()) ? 1.0F : 0.0F
+        );
     }
 
     public void gatherData(GatherDataEvent event) {
