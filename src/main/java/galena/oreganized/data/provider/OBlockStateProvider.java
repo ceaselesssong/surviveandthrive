@@ -243,8 +243,12 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
     }
 
     public <T extends TrapDoorBlock & IMeltableBlock> void meltableTrapdoor(Supplier<T> block) {
+
         var baseName = name(block);
         var prefixes = List.of("", "goopy_", "red_hot_");
+
+        trapdoorBlock(block.get(), texture(baseName), true);
+        if(1 > 0) return;
 
         getVariantBuilder(block.get()).forAllStatesExcept(state -> {
             int goopyness = block.get().getGoopyness(state);
@@ -284,6 +288,7 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
             Function<String, ModelFile> createModel = suffix -> models()
                     .withExistingParent(name + suffix, mcLoc(BLOCK_FOLDER + "/iron_bars" + suffix))
                     .texture("bars", texture)
+                    .texture("edge", texture)
                     .texture("particle", texture);
 
             builder.part().modelFile(createModel.apply("_post_ends")).addModel()

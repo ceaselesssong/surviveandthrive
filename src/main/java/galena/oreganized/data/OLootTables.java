@@ -1,5 +1,6 @@
 package galena.oreganized.data;
 
+import galena.oreganized.content.block.IMeltableBlock;
 import galena.oreganized.data.provider.OBlockLootProvider;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEntityTypes;
@@ -17,7 +18,9 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.ValidationContext;
+import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -85,7 +88,19 @@ public class OLootTables extends LootTableProvider {
                                     .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoorBlock.HALF, DoubleBlockHalf.LOWER)))
                             .add(LootItem.lootTableItem(OBlocks.LEAD_DOOR.get())))));
             dropSelf(OBlocks.LEAD_TRAPDOOR);
-            dropSelf(OBlocks.LEAD_BARS);
+
+            add(OBlocks.LEAD_BARS.get(), LootTable.lootTable()
+                    .withPool(applyExplosionCondition(OBlocks.LEAD_BARS.get(), LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0F))
+                            .add(AlternativesEntry.alternatives(
+                                    LootItem.lootTableItem(OBlocks.LEAD_BARS.get()).when(HAS_SILK_TOUCH),
+                                    LootItem.lootTableItem(OItems.LEAD_NUGGET.get())
+                                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(6)))
+                                            .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(OBlocks.LEAD_BARS.get())
+                                                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(IMeltableBlock.GOOPYNESS_3, 2))
+                                            ),
+                                    LootItem.lootTableItem(OBlocks.LEAD_BARS.get())
+                            )))));
 
             //dropSelf(QCompatRegistry.GLANCE_PILLAR);
             //slab(QCompatRegistry.RAW_LEAD_BRICK_SLAB);

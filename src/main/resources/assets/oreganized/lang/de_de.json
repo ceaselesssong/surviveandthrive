@@ -145,5 +145,8 @@
   "trim_material.oreganized.electrum": "Elektrum",
   "trim_material.oreganized.lead": "Blei",
   "trim_material.oreganized.silver": "Silber",
-  "upgrade.oreganized.electrum_upgrade": "Elektrumaufwertung"
+  "upgrade.oreganized.electrum_upgrade": "Elektrumaufwertung",
+  "block.oreganized.lead_bars": "Bleigitter",
+  "block.oreganized.lead_door": "Bleitür",
+  "block.oreganized.lead_trapdoor": "Bleifalltür"
 }

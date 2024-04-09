@@ -6,14 +6,23 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class LeadBarsBlock extends IronBarsBlock implements IMeltableBlock {
 
     public LeadBarsBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public boolean onGoopynessChange(Level world, BlockPos pos, RandomSource random, int from, int to) {
+        if(from < 2) return true;
+        world.destroyBlock(pos, true);
+        return false;
     }
 
     @Override
