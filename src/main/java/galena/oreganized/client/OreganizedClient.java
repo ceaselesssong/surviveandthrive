@@ -1,5 +1,6 @@
 package galena.oreganized.client;
 
+import com.mojang.math.Axis;
 import galena.oreganized.Oreganized;
 import galena.oreganized.client.render.entity.ShrapnelBombMinecartRender;
 import galena.oreganized.client.render.entity.ShrapnelBombRender;
@@ -7,15 +8,21 @@ import galena.oreganized.client.render.gui.StunningOverlay;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEntityTypes;
 import galena.oreganized.index.OItems;
+import galena.oreganized.world.IDoorProgressHolder;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -73,6 +80,37 @@ public class OreganizedClient {
                 tooltip.add(wipTitle.withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.BOLD));
                 tooltip.add(wipDesc.withStyle(ChatFormatting.DARK_PURPLE).withStyle(ChatFormatting.ITALIC));
             }
+        }
+
+        @SubscribeEvent
+        public static void renderHand(RenderHandEvent event) {
+            var player = Minecraft.getInstance().player;
+            if (!(player instanceof IDoorProgressHolder progressHolder)) return;
+            if (progressHolder.oreganised$getOpeningProgress() == 0) return;
+            if (event.getHand() == InteractionHand.OFF_HAND) return;
+
+            var poseStack = event.getPoseStack();
+
+            poseStack.pushPose();
+
+            var rightArm = player.getMainArm() == HumanoidArm.RIGHT;
+            float factor = rightArm ? 1.0F : -1.0F;
+            poseStack.translate(factor * 0.84000005F, -0.4F, -0.4F);
+            poseStack.mulPose(Axis.YP.rotationDegrees(factor * -20F));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(factor * 45F));
+            poseStack.mulPose(Axis.XP.rotationDegrees(-45F));
+
+            var renderer = (PlayerRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(player);
+
+            if (rightArm) {
+                renderer.renderRightHand(poseStack, event.getMultiBufferSource(), event.getPackedLight(), player);
+            } else {
+                renderer.renderLeftHand(poseStack, event.getMultiBufferSource(), event.getPackedLight(), player);
+            }
+
+            poseStack.popPose();
+
+            event.setCanceled(true);
         }
 
         /*@SubscribeEvent

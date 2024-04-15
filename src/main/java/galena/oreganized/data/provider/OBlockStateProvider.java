@@ -12,6 +12,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CrossCollisionBlock;
+import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -20,6 +21,8 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoorHingeSide;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -243,17 +246,13 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
     }
 
     public <T extends TrapDoorBlock & IMeltableBlock> void meltableTrapdoor(Supplier<T> block) {
-
         var baseName = name(block);
         var prefixes = List.of("", "goopy_", "red_hot_");
-
-        trapdoorBlock(block.get(), texture(baseName), true);
-        if(1 > 0) return;
 
         getVariantBuilder(block.get()).forAllStatesExcept(state -> {
             int goopyness = block.get().getGoopyness(state);
             var name = prefixes.get(goopyness) + baseName;
-            var texture = texture(name);
+            var texture = texture(goopyness < 2 ? name : "red_hot_lead");
 
             var bottom = models().trapdoorOrientableBottom(name + "_bottom", texture);
             var top = models().trapdoorOrientableTop(name + "_top", texture);
@@ -272,6 +271,67 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
                     .rotationY(yRot)
                     .build();
         }, TrapDoorBlock.POWERED, TrapDoorBlock.WATERLOGGED);
+    }
+
+    public <T extends DoorBlock & IMeltableBlock> void meltableDoor(Supplier<T> block) {
+        var baseName = name(block);
+        var prefixes = List.of("", "goopy_", "red_hot_");
+
+        getVariantBuilder(block.get()).forAllStatesExcept((state) -> {
+            int goopyness = block.get().getGoopyness(state);
+            var name = prefixes.get(goopyness) + baseName;
+            var bottom = texture(goopyness < 2 ? (name + "_bottom") : "red_hot_lead");
+            var top = texture(goopyness < 2 ? (name + "_top") : "red_hot_lead");
+
+            var bottomLeft = this.models().doorBottomLeft(name + "_bottom_left", bottom, top);
+            var bottomLeftOpen = this.models().doorBottomLeftOpen(name + "_bottom_left_open", bottom, top);
+            var bottomRight = this.models().doorBottomRight(name + "_bottom_right", bottom, top);
+            var bottomRightOpen = this.models().doorBottomRightOpen(name + "_bottom_right_open", bottom, top);
+            var topLeft = this.models().doorTopLeft(name + "_top_left", bottom, top);
+            var topLeftOpen = this.models().doorTopLeftOpen(name + "_top_left_open", bottom, top);
+            var topRight = this.models().doorTopRight(name + "_top_right", bottom, top);
+            var topRightOpen = this.models().doorTopRightOpen(name + "_top_right_open", bottom, top);
+
+            int yRot = (int) state.getValue(DoorBlock.FACING).toYRot() + 90;
+            boolean right = state.getValue(DoorBlock.HINGE) == DoorHingeSide.RIGHT;
+            boolean open = state.getValue(DoorBlock.OPEN);
+            boolean lower = state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER;
+            if (open) {
+                yRot += 90;
+            }
+
+            if (right && open) {
+                yRot += 180;
+            }
+
+            yRot %= 360;
+            ModelFile model = null;
+            if (lower && right && open) {
+                model = bottomRightOpen;
+            } else if (lower && !right && open) {
+                model = bottomLeftOpen;
+            }
+
+            if (lower && right && !open) {
+                model = bottomRight;
+            } else if (lower && !right && !open) {
+                model = bottomLeft;
+            }
+
+            if (!lower && right && open) {
+                model = topRightOpen;
+            } else if (!lower && !right && open) {
+                model = topLeftOpen;
+            }
+
+            if (!lower && right && !open) {
+                model = topRight;
+            } else if (!lower && !right && !open) {
+                model = topLeft;
+            }
+
+            return ConfiguredModel.builder().modelFile(model).rotationY(yRot).build();
+        }, DoorBlock.POWERED);
     }
 
     public <T extends IronBarsBlock & IMeltableBlock> void meltableBars(Supplier<T> block) {

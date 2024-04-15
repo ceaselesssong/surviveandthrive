@@ -9,11 +9,13 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class LeadDoorBlock extends DoorBlock implements IMeltableBlock {
@@ -38,6 +40,19 @@ public class LeadDoorBlock extends DoorBlock implements IMeltableBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(getGoopynessProperty());
+    }
+
+    @Override
+    public int getInducedGoopyness(BlockGetter world, BlockState state, BlockPos pos, BlockState selfState, BlockPos selfPos) {
+        if (state.is(this)) {
+            var selfHalf = selfState.getValue(HALF);
+            if (selfHalf == DoubleBlockHalf.UPPER && pos.getY() < selfPos.getY()
+                    || selfHalf == DoubleBlockHalf.LOWER && pos.getY() > selfPos.getY()
+            ) {
+                return getGoopyness(state);
+            }
+        }
+        return IMeltableBlock.super.getInducedGoopyness(world, state, pos, selfState, selfPos);
     }
 
     @Override

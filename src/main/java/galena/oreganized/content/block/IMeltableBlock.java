@@ -51,18 +51,17 @@ public interface IMeltableBlock {
         };
     }
 
-    default int getInducedGoopyness(BlockState state, BlockGetter world, BlockPos pos) {
+    default int getInducedGoopyness(BlockGetter world, BlockState state, BlockPos pos, BlockState selfState, BlockPos selfPos) {
         if (state.is(OTags.Blocks.MELTS_LEAD)) return 2;
         if (state.getBlock() instanceof IMeltableBlock meltable && meltable.getGoopyness(state) == 2) return 1;
         if (state.getLightEmission(world, pos) >= 15) return 1;
         return 0;
     }
 
-    default int getNextGoopyness(BlockState state, Level world, BlockPos pos) {
+    default int getNextGoopyness(Level world, BlockState selfState, BlockPos selfPos) {
         var touching = OFFSET.stream()
-                .map(pos::offset)
-                .map(world::getBlockState)
-                .mapToInt(it -> getInducedGoopyness(it, world, pos))
+                .map(selfPos::offset)
+                .mapToInt(pos -> getInducedGoopyness(world, world.getBlockState(pos), pos, selfState, selfPos))
                 .max();
 
         return touching.orElse(0);
@@ -77,7 +76,7 @@ public interface IMeltableBlock {
 
     default void tickMelting(BlockState state, Level world, BlockPos pos, RandomSource random) {
         int currentGoopyness = state.getValue(getGoopynessProperty());
-        int goopyness = getNextGoopyness(state, world, pos);
+        int goopyness = getNextGoopyness(world, state, pos);
 
         if (currentGoopyness != goopyness) {
             if (onGoopynessChange(world, pos, random, currentGoopyness, goopyness)) {

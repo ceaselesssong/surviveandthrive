@@ -48,7 +48,8 @@ public class OBlockStates extends OBlockStateProvider {
         simpleBlock(OBlocks.ELECTRUM_BLOCK);
         simpleBlock(OBlocks.SHRAPNEL_BOMB.get(), cubeBottomTop(OBlocks.SHRAPNEL_BOMB));
 
-        doorBlock(OBlocks.LEAD_DOOR.get(), blockTexture(OBlocks.LEAD_DOOR.get()).withSuffix("_bottom"), blockTexture(OBlocks.LEAD_DOOR.get()).withSuffix("_top"));
+        //doorBlock(OBlocks.LEAD_DOOR.get(), blockTexture(OBlocks.LEAD_DOOR.get()).withSuffix("_bottom"), blockTexture(OBlocks.LEAD_DOOR.get()).withSuffix("_top"));
+        meltableDoor(OBlocks.LEAD_DOOR);
         meltableTrapdoor(OBlocks.LEAD_TRAPDOOR);
         meltableBars(OBlocks.LEAD_BARS);
 

@@ -46,9 +46,9 @@ public class BulbBlock extends Block implements IMeltableBlock {
     }
 
     @Override
-    public int getInducedGoopyness(BlockState state, BlockGetter world, BlockPos pos) {
+    public int getInducedGoopyness(BlockGetter world, BlockState state, BlockPos pos, BlockState selfState, BlockPos selfPos) {
         if (state.getBlock() instanceof IMeltableBlock meltable && meltable.getGoopyness(state) == 1) return 1;
-        var defaultGoopyness = IMeltableBlock.super.getInducedGoopyness(state, world, pos);
+        var defaultGoopyness = IMeltableBlock.super.getInducedGoopyness(world, state, pos, selfState, selfPos);
         if(defaultGoopyness == 0) return 0;
         return defaultGoopyness + 1;
     }

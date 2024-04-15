@@ -13,6 +13,12 @@ public class PlayerMixin implements IDoorProgressHolder {
 
     @Unique
     @Override
+    public int oreganised$getOpeningProgress() {
+        return oreganised$leadDoorOpeningProgress;
+    }
+
+    @Unique
+    @Override
     public int oreganised$incrementOpeningProgress() {
         return ++oreganised$leadDoorOpeningProgress;
     }
