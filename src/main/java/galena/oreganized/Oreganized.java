@@ -95,16 +95,12 @@ public class Oreganized {
         LOOT_MODIFIERS.register("add_item", () -> AddItemLootModifier.CODEC);
 
         DeferredRegister<?>[] registers = {
-                OBlockEntities.BLOCK_ENTITIES,
-                OBlocks.BLOCKS,
                 OEffects.EFFECTS,
                 OEntityTypes.ENTITIES,
                 OFluids.FLUIDS,
                 OFluids.TYPES,
-                OItems.ITEMS,
                 OParticleTypes.PARTICLES,
                 OPotions.POTIONS,
-                OSoundEvents.SOUNDS,
                 OStructures.STRUCTURES,
                 OFeatures.FEATURES,
                 OPaintingVariants.PAINTING_VARIANTS,
@@ -114,6 +110,8 @@ public class Oreganized {
         for (DeferredRegister<?> register : registers) {
             register.register(bus);
         }
+
+        REGISTRY_HELPER.register(bus);
 
         //CompatHandler.register();
 

@@ -1,5 +1,6 @@
 package galena.oreganized.data;
 
+import galena.oreganized.Oreganized;
 import galena.oreganized.data.provider.OBlockLootProvider;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEntityTypes;
@@ -90,7 +91,7 @@ public class OLootTables extends LootTableProvider {
 
         @Override
         protected Iterable<Block> getKnownBlocks() {
-            return OBlocks.BLOCKS.getEntries().stream().map(Supplier::get).collect(Collectors.toList());
+            return Oreganized.REGISTRY_HELPER.getBlockSubHelper().getDeferredRegister().getEntries().stream().map(Supplier::get).collect(Collectors.toList());
         }
     }
 
