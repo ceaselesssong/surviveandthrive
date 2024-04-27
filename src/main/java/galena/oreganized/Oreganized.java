@@ -2,6 +2,7 @@ package galena.oreganized;
 
 import com.google.common.collect.ImmutableBiMap;
 import com.mojang.serialization.Codec;
+import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import galena.oreganized.client.OreganizedClient;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.data.OAdvancements;
@@ -90,6 +91,7 @@ public class Oreganized {
     public static ResourceLocation modLoc(String location) {
         return new ResourceLocation(MOD_ID, location);
     }
+    public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MOD_ID);
 
     private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Oreganized.MOD_ID);
 
