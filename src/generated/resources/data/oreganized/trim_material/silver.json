@@ -1,9 +1,9 @@
 {
-  "asset_name": "silver",
+  "asset_name": "oreganized_silver",
   "description": {
     "color": "#A2B7BD",
     "translate": "trim_material.oreganized.silver"
   },
   "ingredient": "oreganized:silver_ingot",
-  "item_model_index": 0.222
+  "item_model_index": -1.0
 }
