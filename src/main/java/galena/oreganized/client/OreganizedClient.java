@@ -86,7 +86,8 @@ public class OreganizedClient {
         public static void renderHand(RenderHandEvent event) {
             var player = Minecraft.getInstance().player;
             if (!(player instanceof IDoorProgressHolder progressHolder)) return;
-            if (progressHolder.oreganised$getOpeningProgress() == 0) return;
+            var progress = progressHolder.oreganised$getOpeningProgress();
+            if (progress == 0) return;
             if (event.getHand() == InteractionHand.OFF_HAND) return;
 
             var poseStack = event.getPoseStack();
@@ -96,7 +97,7 @@ public class OreganizedClient {
             var rightArm = player.getMainArm() == HumanoidArm.RIGHT;
             float factor = rightArm ? 1.0F : -1.0F;
             poseStack.translate(factor * 0.84000005F, -0.4F, -0.4F);
-            poseStack.mulPose(Axis.YP.rotationDegrees(factor * -20F));
+            poseStack.mulPose(Axis.YP.rotationDegrees(factor * -20F - event.getSwingProgress()));
             poseStack.mulPose(Axis.ZP.rotationDegrees(factor * 45F));
             poseStack.mulPose(Axis.XP.rotationDegrees(-45F));
 
