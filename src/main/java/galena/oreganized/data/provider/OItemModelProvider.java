@@ -1,5 +1,6 @@
 package galena.oreganized.data.provider;
 
+import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
 import galena.oreganized.Oreganized;
 import galena.oreganized.index.OTrimMaterials;
 import net.minecraft.data.PackOutput;
@@ -19,7 +20,7 @@ import java.util.function.Supplier;
 
 import static net.minecraft.data.models.ItemModelGenerators.TRIM_TYPE_PREDICATE_ID;
 
-public abstract class OItemModelProvider extends ItemModelProvider {
+public abstract class OItemModelProvider extends BlueprintItemModelProvider {
 
     public OItemModelProvider(PackOutput output, ExistingFileHelper help) {
         super(output, Oreganized.MOD_ID, help);
@@ -83,28 +84,5 @@ public abstract class OItemModelProvider extends ItemModelProvider {
         return withExistingParent(name, "item/generated")
                 .texture("layer0", texture)
                 .texture("layer1", overlayTexture);
-    }
-
-    public void trimmedItem(Supplier<? extends ArmorItem> item) {
-        ResourceLocation texture = TextureMapping.getItemTexture(item.get());
-
-        var model = normalItem(item);
-
-        OTrimMaterials.TRIM_MATERIALS.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
-                .forEach(entry -> {
-                    var material = entry.getKey();
-                    var itemModelIndex = entry.getValue();
-
-                    var overlayName = item.get().getType().getName() + "_trim_" + material;
-
-                    ResourceLocation overlayTexture = (new ResourceLocation(overlayName)).withPrefix("trims/items/");
-                    var overrideModel = twoLayered(texture.getPath() + "_" + material + "_trim", texture, overlayTexture);
-
-                    model.override()
-                            .model(overrideModel)
-                            .predicate(TRIM_TYPE_PREDICATE_ID, itemModelIndex);
-                });
-
     }
 }

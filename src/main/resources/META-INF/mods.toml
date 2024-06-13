@@ -34,3 +34,10 @@ This mod is designed to be a Vanilla plus mod while also adding unique uses and 
     versionRange="[1.20,1.21)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.oreganized]]
+    modId="blueprint"
+    mandatory=true
+    versionRange="[7.1.0,)"
+    ordering="AFTER"
+    side="BOTH"

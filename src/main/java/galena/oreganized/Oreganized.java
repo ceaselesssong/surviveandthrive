@@ -2,22 +2,10 @@ package galena.oreganized;
 
 import com.google.common.collect.ImmutableBiMap;
 import com.mojang.serialization.Codec;
+import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import galena.oreganized.client.OreganizedClient;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
-import galena.oreganized.data.OAdvancements;
-import galena.oreganized.data.OBiomeTags;
-import galena.oreganized.data.OBlockStates;
-import galena.oreganized.data.OBlockTags;
-import galena.oreganized.data.ODamageTags;
-import galena.oreganized.data.OEntityTags;
-import galena.oreganized.data.OFluidTags;
-import galena.oreganized.data.OItemModels;
-import galena.oreganized.data.OItemTags;
-import galena.oreganized.data.OLang;
-import galena.oreganized.data.OLootTables;
-import galena.oreganized.data.ORecipes;
-import galena.oreganized.data.ORegistries;
-import galena.oreganized.data.OSoundDefinitions;
+import galena.oreganized.data.*;
 import galena.oreganized.index.OBlockEntities;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEffects;
@@ -90,6 +78,7 @@ public class Oreganized {
     public static ResourceLocation modLoc(String location) {
         return new ResourceLocation(MOD_ID, location);
     }
+    public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MOD_ID);
 
     private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Oreganized.MOD_ID);
 
@@ -106,16 +95,12 @@ public class Oreganized {
         LOOT_MODIFIERS.register("add_item", () -> AddItemLootModifier.CODEC);
 
         DeferredRegister<?>[] registers = {
-                OBlockEntities.BLOCK_ENTITIES,
-                OBlocks.BLOCKS,
                 OEffects.EFFECTS,
                 OEntityTypes.ENTITIES,
                 OFluids.FLUIDS,
                 OFluids.TYPES,
-                OItems.ITEMS,
                 OParticleTypes.PARTICLES,
                 OPotions.POTIONS,
-                OSoundEvents.SOUNDS,
                 OStructures.STRUCTURES,
                 OFeatures.FEATURES,
                 OPaintingVariants.PAINTING_VARIANTS,
@@ -125,6 +110,8 @@ public class Oreganized {
         for (DeferredRegister<?> register : registers) {
             register.register(bus);
         }
+
+        REGISTRY_HELPER.register(bus);
 
         //CompatHandler.register();
 
@@ -218,6 +205,7 @@ public class Oreganized {
         generator.addProvider(client, new OItemModels(output, helper));
         generator.addProvider(client, new OLang(output));
         generator.addProvider(client, new OSoundDefinitions(output, helper));
+        generator.addProvider(client, new OSpriteSourceProvider(output, helper));
 
         generator.addProvider(server, new ORecipes(output));
         generator.addProvider(server, new OLootTables(output));

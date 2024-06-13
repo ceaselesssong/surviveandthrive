@@ -35,10 +35,10 @@ public class OItemModels extends OItemModelProvider {
         normalItem(OItems.ELECTRUM_NUGGET);
         normalItem(OItems.NETHERITE_NUGGET);
         normalItem(OItems.MOLTEN_LEAD_BUCKET);
-        trimmedItem(OItems.ELECTRUM_HELMET);
-        trimmedItem(OItems.ELECTRUM_CHESTPLATE);
-        trimmedItem(OItems.ELECTRUM_LEGGINGS);
-        trimmedItem(OItems.ELECTRUM_BOOTS);
+        trimmableArmorItem(OItems.ELECTRUM_HELMET);
+        trimmableArmorItem(OItems.ELECTRUM_CHESTPLATE);
+        trimmableArmorItem(OItems.ELECTRUM_LEGGINGS);
+        trimmableArmorItem(OItems.ELECTRUM_BOOTS);
         normalItem(OItems.SHRAPNEL_BOMB_MINECART);
         normalItem(OItems.SHRAPNEL_BOMB_MINECART);
         normalItem(OItems.ELECTRUM_UPGRADE_SMITHING_TEMPLATE);
