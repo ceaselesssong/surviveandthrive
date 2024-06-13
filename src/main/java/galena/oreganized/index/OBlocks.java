@@ -1,6 +1,7 @@
 package galena.oreganized.index;
 
 import com.google.common.collect.ImmutableBiMap;
+import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import galena.oreganized.Oreganized;
 import galena.oreganized.content.block.*;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -9,8 +10,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
@@ -20,8 +19,7 @@ import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = Oreganized.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class OBlocks {
-
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Oreganized.MOD_ID);
+    public static final BlockSubRegistryHelper HELPER = Oreganized.REGISTRY_HELPER.getBlockSubHelper();
 
     public static ImmutableBiMap<Block, Block> WAXED_BLOCKS;
 
@@ -154,13 +152,13 @@ public class OBlocks {
     );
 
     // Fluids and Cauldrons
-    public static final RegistryObject<LiquidBlock> MOLTEN_LEAD = BLOCKS.register("molten_lead", () ->
+    public static final RegistryObject<LiquidBlock> MOLTEN_LEAD = HELPER.createBlock("molten_lead", () ->
             new MoltenLeadBlock(OFluids.MOLTEN_LEAD, BlockBehaviour.Properties.copy(Blocks.LAVA).mapColor(MapColor.COLOR_PURPLE)));
-    public static final RegistryObject<Block> MOLTEN_LEAD_CAULDRON = BLOCKS.register("molten_lead_cauldron", () -> new MoltenLeadCauldronBlock(BlockBehaviour.Properties.copy(Blocks.LAVA_CAULDRON).randomTicks()));
+    public static final RegistryObject<Block> MOLTEN_LEAD_CAULDRON = HELPER.createBlock("molten_lead_cauldron", () -> new MoltenLeadCauldronBlock(BlockBehaviour.Properties.copy(Blocks.LAVA_CAULDRON).randomTicks()));
 
     public static <T extends Block> RegistryObject<T> baseRegister(String name, Supplier<? extends T> block, Function<RegistryObject<T>, Supplier<? extends Item>> item) {
-        RegistryObject<T> register = BLOCKS.register(name, block);
-        OItems.ITEMS.register(name, item.apply(register));
+        RegistryObject<T> register = HELPER.createBlockNoItem(name, block);
+        OItems.HELPER.createItem(name, item.apply(register));
         return register;
     }
 

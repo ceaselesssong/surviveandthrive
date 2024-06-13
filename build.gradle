@@ -41,7 +41,7 @@ minecraft {
         }
 
         data {
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/'), "--existing-mod", "blueprint"
             taskName 'Data'
         }
 
@@ -61,6 +61,11 @@ minecraft {
 sourceSets.main.resources.srcDir 'src/generated/resources'
 
 repositories {
+    maven {
+        // location of the maven that hosts Blueprint
+        name = "Jackson's Maven"
+        url = "https://maven.jaackson.me"
+    }
     maven {
         // location of the maven that hosts JEI files
         name = "Progwml6 maven"
@@ -88,6 +93,7 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    implementation fg.deobf("com.teamabnormals:blueprint:${minecraft_version}-${blueprint_version}")
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
     // Compatibilities

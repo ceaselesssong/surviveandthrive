@@ -2,6 +2,8 @@ package galena.oreganized;
 
 import com.google.common.collect.ImmutableBiMap;
 import com.mojang.serialization.Codec;
+import com.teamabnormals.blueprint.core.util.DataUtil;
+import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import galena.oreganized.client.OreganizedClient;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.content.entity.LeadBoltEntity;
@@ -19,7 +21,7 @@ import galena.oreganized.data.OLootTables;
 import galena.oreganized.data.ORecipes;
 import galena.oreganized.data.ORegistries;
 import galena.oreganized.data.OSoundDefinitions;
-import galena.oreganized.index.OBlockEntities;
+import galena.oreganized.data.OSpriteSourceProvider;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEffects;
 import galena.oreganized.index.OEntityTypes;
@@ -29,7 +31,6 @@ import galena.oreganized.index.OItems;
 import galena.oreganized.index.OPaintingVariants;
 import galena.oreganized.index.OParticleTypes;
 import galena.oreganized.index.OPotions;
-import galena.oreganized.index.OSoundEvents;
 import galena.oreganized.index.OStructures;
 import galena.oreganized.world.AddItemLootModifier;
 import net.minecraft.DetectedVersion;
@@ -62,6 +63,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
+import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -75,7 +78,6 @@ import net.minecraftforge.fluids.FluidInteractionRegistry;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
@@ -89,6 +91,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Mod(Oreganized.MOD_ID)
 public class Oreganized {
@@ -98,6 +101,7 @@ public class Oreganized {
     public static ResourceLocation modLoc(String location) {
         return new ResourceLocation(MOD_ID, location);
     }
+    public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MOD_ID);
 
     private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Oreganized.MOD_ID);
 
@@ -114,16 +118,12 @@ public class Oreganized {
         LOOT_MODIFIERS.register("add_item", () -> AddItemLootModifier.CODEC);
 
         DeferredRegister<?>[] registers = {
-                OBlockEntities.BLOCK_ENTITIES,
-                OBlocks.BLOCKS,
                 OEffects.EFFECTS,
                 OEntityTypes.ENTITIES,
                 OFluids.FLUIDS,
                 OFluids.TYPES,
-                OItems.ITEMS,
                 OParticleTypes.PARTICLES,
                 OPotions.POTIONS,
-                OSoundEvents.SOUNDS,
                 OStructures.STRUCTURES,
                 OFeatures.FEATURES,
                 OPaintingVariants.PAINTING_VARIANTS,
@@ -134,9 +134,11 @@ public class Oreganized {
             register.register(bus);
         }
 
+        REGISTRY_HELPER.register(bus);
+
         //CompatHandler.register();
 
-        context.registerConfig(ModConfig.Type.COMMON, OreganizedConfig.COMMON_SPEC);
+        //context.registerConfig(ModConfig.Type.COMMON, OreganizedConfig.COMMON_SPEC);
         //context.registerConfig(ModConfig.Type.CLIENT, OreganizedConfig.CLIENT_SPEC);
     }
 
@@ -170,11 +172,9 @@ public class Oreganized {
 
             CauldronInteraction.addDefaultInteractions(MoltenLeadCauldronBlock.INTERACTION_MAP);
 
-            if (OreganizedConfig.stunningFromConfig()) {
                 PotionBrewing.addMix(Potions.WATER, OItems.LEAD_INGOT.get(), OPotions.STUNNING.get());
                 PotionBrewing.addMix(OPotions.STUNNING.get(), Items.REDSTONE, OPotions.LONG_STUNNING.get());
                 PotionBrewing.addMix(OPotions.STUNNING.get(), Items.GLOWSTONE_DUST, OPotions.STRONG_STUNNING.get());
-            }
 
             FireBlock fire = (FireBlock) Blocks.FIRE;
             fire.setFlammable(OBlocks.SHRAPNEL_BOMB.get(), 15, 100);
@@ -185,6 +185,12 @@ public class Oreganized {
                     entity.pickup = AbstractArrow.Pickup.ALLOWED;
                     return entity;
                 }
+            });
+
+            Stream.of("lead_bolt_crates1", "lead_bolt_crates2").forEach(name -> {
+                DataUtil.addToJigsawPattern(new ResourceLocation("pillager_outpost/features"), $ -> {
+                    return StructurePoolElement.legacy(Oreganized.MOD_ID + ":pillager_outpost/" + name).apply(StructureTemplatePool.Projection.RIGID);
+                }, 1);
             });
         });
 
@@ -238,6 +244,7 @@ public class Oreganized {
         generator.addProvider(client, new OItemModels(output, helper));
         generator.addProvider(client, new OLang(output));
         generator.addProvider(client, new OSoundDefinitions(output, helper));
+        generator.addProvider(client, new OSpriteSourceProvider(output, helper));
 
         generator.addProvider(server, new ORecipes(output));
         generator.addProvider(server, new OLootTables(output));
