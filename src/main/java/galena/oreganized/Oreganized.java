@@ -115,7 +115,7 @@ public class Oreganized {
 
         //CompatHandler.register();
 
-        context.registerConfig(ModConfig.Type.COMMON, OreganizedConfig.COMMON_SPEC);
+        //context.registerConfig(ModConfig.Type.COMMON, OreganizedConfig.COMMON_SPEC);
         //context.registerConfig(ModConfig.Type.CLIENT, OreganizedConfig.CLIENT_SPEC);
     }
 
