@@ -71,6 +71,8 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
         tag(BlockTags.BEACON_BASE_BLOCKS).add(OBlocks.ELECTRUM_BLOCK.get());
         tag(BlockTags.IMPERMEABLE).addTag(CRYSTAL_GLASS);
         tag(BlockTags.CAULDRONS).add(OBlocks.MOLTEN_LEAD_CAULDRON.get());
+        tag(BlockTags.DOORS).add(OBlocks.LEAD_DOOR.get());
+        tag(BlockTags.TRAPDOORS).add(OBlocks.LEAD_TRAPDOOR.get());
 
         // Forge
         tag(Tags.Blocks.ORES).addTags(ORES_SILVER, ORES_LEAD);
@@ -119,7 +121,11 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
 
                 OBlocks.EXPOSER.get(),
 
-                OBlocks.MOLTEN_LEAD_CAULDRON.get()
+                OBlocks.MOLTEN_LEAD_CAULDRON.get(),
+
+                OBlocks.LEAD_DOOR.get(),
+                OBlocks.LEAD_TRAPDOOR.get(),
+                OBlocks.LEAD_BARS.get()
         );
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
                 OBlocks.WAXED_WHITE_CONCRETE_POWDER.get(),

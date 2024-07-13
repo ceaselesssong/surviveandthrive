@@ -69,7 +69,7 @@
   "block.oreganized.silver_block": "Silverblock",
   "block.oreganized.silver_ore": "Silvererz",
   "block.oreganized.spotted_glance": "Getupfter Bleiglanz",
-  "block.oreganized.waxed_black_concrete_powder": "Gewachster schwarzer Trockenbeton",
+  "block.oreganized.waxed_black_concrete_powder": "Gewachster schwarzer ull",
   "block.oreganized.waxed_blue_concrete_powder": "Gewachster blauer Trockenbeton",
   "block.oreganized.waxed_brown_concrete_powder": "Gewachster brauner Trockenbeton",
   "block.oreganized.waxed_cyan_concrete_powder": "Gewachster türkiser Trockenbeton",
@@ -145,5 +145,8 @@
   "trim_material.oreganized.electrum": "Elektrum",
   "trim_material.oreganized.lead": "Blei",
   "trim_material.oreganized.silver": "Silber",
-  "upgrade.oreganized.electrum_upgrade": "Elektrumaufwertung"
+  "upgrade.oreganized.electrum_upgrade": "Elektrumaufwertung",
+  "block.oreganized.lead_bars": "Bleigitter",
+  "block.oreganized.lead_door": "Bleitür",
+  "block.oreganized.lead_trapdoor": "Bleifalltür"
 }
