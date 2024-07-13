@@ -5,6 +5,7 @@ import com.teamabnormals.blueprint.core.util.registry.ItemSubRegistryHelper;
 import galena.oreganized.Oreganized;
 import galena.oreganized.content.item.BushHammerItem;
 import galena.oreganized.content.item.ElectrumArmorItem;
+import galena.oreganized.content.item.LeadBoltItem;
 import galena.oreganized.content.item.MinecartShrapnelBombItem;
 import galena.oreganized.content.item.OSmithingTemplateItem;
 import galena.oreganized.content.item.SilverMirrorItem;
@@ -59,6 +60,8 @@ public class OItems {
             () -> new ElectrumArmorItem(ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<ArmorItem> ELECTRUM_BOOTS = HELPER.createItem("electrum_boots",
             () -> new ElectrumArmorItem(ArmorItem.Type.BOOTS));
+
+    public static final RegistryObject<Item> LEAD_BOLT = HELPER.createItem("lead_bolt", () -> new LeadBoltItem(new Item.Properties()));
 
     // Transportation
     public static final RegistryObject<Item> SHRAPNEL_BOMB_MINECART = HELPER.createItem("shrapnel_bomb_minecart", () -> new MinecartShrapnelBombItem(AbstractMinecart.Type.TNT, OEntityTypes.SHRAPNEL_BOMB_MINECART));

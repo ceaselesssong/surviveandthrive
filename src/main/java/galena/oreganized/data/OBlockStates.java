@@ -67,6 +67,8 @@ public class OBlockStates extends OBlockStateProvider {
 
         exposer(OBlocks.EXPOSER);
 
+        crate(OBlocks.LEAD_BOLT_CRATE);
+
         moltenCauldron(OBlocks.MOLTEN_LEAD_CAULDRON, OBlocks.LEAD_BLOCK);
 
         crystalGlassBlock(OBlocks.WHITE_CRYSTAL_GLASS);

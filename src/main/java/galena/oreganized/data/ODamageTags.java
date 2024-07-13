@@ -27,5 +27,6 @@ public class ODamageTags extends TagsProvider<DamageType> {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+      tag(DamageTypeTags.BYPASSES_ARMOR).add(ODamageSources.LEAD_BOLT);
     }
 }

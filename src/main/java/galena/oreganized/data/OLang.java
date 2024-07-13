@@ -36,6 +36,7 @@ public class OLang extends OLangProvider {
         addBlock(OBlocks.LEAD_BULB, "Lead Bulb");
         addBlock(OBlocks.CUT_LEAD, "Cut Lead");
         addBlock(OBlocks.ELECTRUM_BLOCK, "Block of Electrum");
+        addBlock(OBlocks.LEAD_BOLT_CRATE, "Crate of Lead Bolts");
 
         addEffect(OEffects.STUNNING, "Stunning");
         addPotion(OPotions.STUNNING, "Stunning");

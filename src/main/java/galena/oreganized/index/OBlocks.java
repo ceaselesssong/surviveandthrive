@@ -10,8 +10,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
@@ -69,6 +67,8 @@ public class OBlocks {
     public static final RegistryObject<MeltableBlock> LEAD_BRICKS = register("lead_bricks", () -> new MeltableBlock(LEAD_PROPERTIES));
     public static final RegistryObject<MeltablePillarBlock> CUT_LEAD = register("cut_lead", () -> new MeltablePillarBlock(LEAD_PROPERTIES));
     public static final RegistryObject<MeltablePillarBlock> LEAD_PILLAR = register("lead_pillar", () -> new MeltablePillarBlock(LEAD_PROPERTIES));
+
+    public static final RegistryObject<Block> LEAD_BOLT_CRATE = register("lead_bolt_crate", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F).sound(SoundType.WOOD)));
 
     public static final RegistryObject<MeltableBlock> LEAD_BULB = register("lead_bulb", () -> new BulbBlock(LEAD_PROPERTIES.lightLevel(BulbBlock::getLightLevel)));
 

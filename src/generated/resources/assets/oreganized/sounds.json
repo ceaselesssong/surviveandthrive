@@ -1,4 +1,16 @@
 {
+  "entity.bolt_hit": {
+    "sounds": [
+      "oreganized:entity/bolt_hit"
+    ],
+    "subtitle": "subtitles.entity.bolt_hit"
+  },
+  "entity.bolt_hit_armor": {
+    "sounds": [
+      "oreganized:entity/bolt_hit_armor"
+    ],
+    "subtitle": "subtitles.entity.bolt_hit_armor"
+  },
   "entity.shrapnel_bomb.primed": {
     "sounds": [
       "random/fuse"

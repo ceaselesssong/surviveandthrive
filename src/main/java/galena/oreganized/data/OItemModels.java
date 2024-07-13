@@ -42,6 +42,7 @@ public class OItemModels extends OItemModelProvider {
         normalItem(OItems.SHRAPNEL_BOMB_MINECART);
         normalItem(OItems.SHRAPNEL_BOMB_MINECART);
         normalItem(OItems.ELECTRUM_UPGRADE_SMITHING_TEMPLATE);
+        normalItem(OItems.LEAD_BOLT);
 
         toolItem(OItems.BUSH_HAMMER);
         toolItem(OItems.ELECTRUM_SWORD);
@@ -49,6 +50,8 @@ public class OItemModels extends OItemModelProvider {
         toolItem(OItems.ELECTRUM_PICKAXE);
         toolItem(OItems.ELECTRUM_AXE);
         toolItem(OItems.ELECTRUM_HOE);
+
+        crossbowOverwrite("crossbow_lead_bolt");
 
         block(OBlocks.GLANCE);
         block(OBlocks.POLISHED_GLANCE);
@@ -78,6 +81,7 @@ public class OItemModels extends OItemModelProvider {
         block(OBlocks.ELECTRUM_BLOCK);
         block(OBlocks.EXPOSER, "exposer_level_0_south");
         block(OBlocks.SHRAPNEL_BOMB);
+        block(OBlocks.LEAD_BOLT_CRATE);
 
         block(OBlocks.WHITE_CRYSTAL_GLASS);
         blockFlat(OBlocks.WHITE_CRYSTAL_GLASS_PANE, OBlocks.WHITE_CRYSTAL_GLASS);
