@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": ["AbstractArrowMixin", "CrossbowMixin"],
   "client": [
-    "client.HumanoidArmorLayerAccessor", "client.HumanoidArmorLayerMixin"
+    "client.HumanoidArmorLayerAccessor", "client.HumanoidArmorLayerMixin", "client.MouseHandlerAccessor",
+    "client.MouseHandlerMixin"
   ],
   "server": [
   ],
