@@ -36,6 +36,7 @@ public class OLang extends OLangProvider {
         addBlock(OBlocks.LEAD_BULB, "Lead Bulb");
         addBlock(OBlocks.CUT_LEAD, "Cut Lead");
         addBlock(OBlocks.ELECTRUM_BLOCK, "Block of Electrum");
+        addBlock(OBlocks.LEAD_BOLT_CRATE, "Crate of Lead Bolts");
 
         addEffect(OEffects.STUNNING, "Stunning");
         addPotion(OPotions.STUNNING, "Stunning");
@@ -76,10 +77,10 @@ public class OLang extends OLangProvider {
             This must be at the very bottom to avoid overwriting errors. These functions ignore objects
             that have already been translated above.
          */
-        for (Supplier<? extends Block> blocks : OBlocks.BLOCKS.getEntries()) {
+        for (Supplier<? extends Block> blocks : Oreganized.REGISTRY_HELPER.getBlockSubHelper().getDeferredRegister().getEntries()) {
             tryBlock(blocks);
         }
-        for (Supplier<? extends Item> items : OItems.ITEMS.getEntries()) {
+        for (Supplier<? extends Item> items : Oreganized.REGISTRY_HELPER.getItemSubHelper().getDeferredRegister().getEntries()) {
             if (!items.equals(OItems.ELECTRUM_UPGRADE_SMITHING_TEMPLATE)) tryItem(items);
         }
         for (Supplier<? extends Fluid> fluids : OFluids.FLUIDS.getEntries()) {

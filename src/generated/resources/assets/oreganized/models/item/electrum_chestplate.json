@@ -14,12 +14,6 @@
       }
     },
     {
-      "model": "oreganized:item/electrum_chestplate_silver_trim",
-      "predicate": {
-        "minecraft:trim_type": 0.222
-      }
-    },
-    {
       "model": "oreganized:item/electrum_chestplate_netherite_trim",
       "predicate": {
         "minecraft:trim_type": 0.3
@@ -44,12 +38,6 @@
       }
     },
     {
-      "model": "oreganized:item/electrum_chestplate_electrum_trim",
-      "predicate": {
-        "minecraft:trim_type": 0.622
-      }
-    },
-    {
       "model": "oreganized:item/electrum_chestplate_emerald_trim",
       "predicate": {
         "minecraft:trim_type": 0.7
@@ -65,12 +53,6 @@
       "model": "oreganized:item/electrum_chestplate_lapis_trim",
       "predicate": {
         "minecraft:trim_type": 0.9
-      }
-    },
-    {
-      "model": "oreganized:item/electrum_chestplate_lead_trim",
-      "predicate": {
-        "minecraft:trim_type": 0.922
       }
     },
     {

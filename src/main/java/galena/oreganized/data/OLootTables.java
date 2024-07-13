@@ -1,5 +1,6 @@
 package galena.oreganized.data;
 
+import galena.oreganized.Oreganized;
 import galena.oreganized.content.block.IMeltableBlock;
 import galena.oreganized.data.provider.OBlockLootProvider;
 import galena.oreganized.index.OBlocks;
@@ -80,6 +81,7 @@ public class OLootTables extends LootTableProvider {
             dropSelf(OBlocks.ELECTRUM_BLOCK);
             dropSelf(OBlocks.EXPOSER);
             dropSelf(OBlocks.SHRAPNEL_BOMB);
+            dropSelf(OBlocks.LEAD_BOLT_CRATE);
 
             add(OBlocks.LEAD_DOOR.get(), LootTable.lootTable()
                     .withPool(applyExplosionCondition(OBlocks.LEAD_DOOR.get(), LootPool.lootPool()
@@ -121,7 +123,7 @@ public class OLootTables extends LootTableProvider {
 
         @Override
         protected Iterable<Block> getKnownBlocks() {
-            return OBlocks.BLOCKS.getEntries().stream().map(Supplier::get).collect(Collectors.toList());
+            return Oreganized.REGISTRY_HELPER.getBlockSubHelper().getDeferredRegister().getEntries().stream().map(Supplier::get).collect(Collectors.toList());
         }
     }
 

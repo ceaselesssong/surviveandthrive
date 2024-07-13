@@ -35,13 +35,14 @@ public class OItemModels extends OItemModelProvider {
         normalItem(OItems.ELECTRUM_NUGGET);
         normalItem(OItems.NETHERITE_NUGGET);
         normalItem(OItems.MOLTEN_LEAD_BUCKET);
-        trimmedItem(OItems.ELECTRUM_HELMET);
-        trimmedItem(OItems.ELECTRUM_CHESTPLATE);
-        trimmedItem(OItems.ELECTRUM_LEGGINGS);
-        trimmedItem(OItems.ELECTRUM_BOOTS);
+        trimmableArmorItem(OItems.ELECTRUM_HELMET);
+        trimmableArmorItem(OItems.ELECTRUM_CHESTPLATE);
+        trimmableArmorItem(OItems.ELECTRUM_LEGGINGS);
+        trimmableArmorItem(OItems.ELECTRUM_BOOTS);
         normalItem(OItems.SHRAPNEL_BOMB_MINECART);
         normalItem(OItems.SHRAPNEL_BOMB_MINECART);
         normalItem(OItems.ELECTRUM_UPGRADE_SMITHING_TEMPLATE);
+        normalItem(OItems.LEAD_BOLT);
 
         toolItem(OItems.BUSH_HAMMER);
         toolItem(OItems.ELECTRUM_SWORD);
@@ -49,6 +50,8 @@ public class OItemModels extends OItemModelProvider {
         toolItem(OItems.ELECTRUM_PICKAXE);
         toolItem(OItems.ELECTRUM_AXE);
         toolItem(OItems.ELECTRUM_HOE);
+
+        crossbowOverwrite("crossbow_lead_bolt");
 
         block(OBlocks.GLANCE);
         block(OBlocks.POLISHED_GLANCE);
@@ -78,6 +81,7 @@ public class OItemModels extends OItemModelProvider {
         block(OBlocks.ELECTRUM_BLOCK);
         block(OBlocks.EXPOSER, "exposer_level_0_south");
         block(OBlocks.SHRAPNEL_BOMB);
+        block(OBlocks.LEAD_BOLT_CRATE);
 
         normalItem(OBlocks.LEAD_DOOR.get()::asItem);
         block(OBlocks.LEAD_TRAPDOOR, blockName(OBlocks.LEAD_TRAPDOOR) + "_bottom");

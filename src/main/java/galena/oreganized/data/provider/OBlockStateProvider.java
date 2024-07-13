@@ -28,6 +28,7 @@ import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -387,5 +388,15 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
                         .condition(PipeBlock.PROPERTY_BY_DIRECTION.get(direction), true);
             });
         });
+    }
+
+    public void crate(Supplier<? extends Block> block) {
+        var name = name(block);
+        simpleBlock(block.get(), models().cubeBottomTop(
+                name,
+                texture(name).withSuffix("_side"),
+                texture(name).withSuffix("_bottom"),
+                texture(name).withSuffix("_top")
+        ));
     }
 }

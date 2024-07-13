@@ -1,6 +1,7 @@
 package galena.oreganized.index;
 
 import com.google.common.collect.ImmutableBiMap;
+import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import galena.oreganized.Oreganized;
 import galena.oreganized.content.block.*;
 import net.minecraft.sounds.SoundEvents;
@@ -22,8 +23,7 @@ import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = Oreganized.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class OBlocks {
-
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Oreganized.MOD_ID);
+    public static final BlockSubRegistryHelper HELPER = Oreganized.REGISTRY_HELPER.getBlockSubHelper();
 
     public static ImmutableBiMap<Block, Block> WAXED_BLOCKS;
 
@@ -73,6 +73,7 @@ public class OBlocks {
         return leadProperties().noOcclusion().isValidSpawn(($1, $2, $3, $4) -> false);
     }
 
+    public static final RegistryObject<Block> LEAD_BOLT_CRATE = register("lead_bolt_crate", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F).sound(SoundType.WOOD)));
 
     public static final RegistryObject<MeltableBlock> LEAD_BLOCK = register("lead_block", () -> new MeltableBlock(leadProperties()));
     public static final RegistryObject<MeltableBlock> LEAD_BRICKS = register("lead_bricks", () -> new MeltableBlock(leadProperties()));
@@ -167,13 +168,13 @@ public class OBlocks {
     );
 
     // Fluids and Cauldrons
-    public static final RegistryObject<LiquidBlock> MOLTEN_LEAD = BLOCKS.register("molten_lead", () ->
+    public static final RegistryObject<LiquidBlock> MOLTEN_LEAD = HELPER.createBlock("molten_lead", () ->
             new MoltenLeadBlock(OFluids.MOLTEN_LEAD, BlockBehaviour.Properties.copy(Blocks.LAVA).mapColor(MapColor.COLOR_PURPLE)));
-    public static final RegistryObject<Block> MOLTEN_LEAD_CAULDRON = BLOCKS.register("molten_lead_cauldron", () -> new MoltenLeadCauldronBlock(BlockBehaviour.Properties.copy(Blocks.LAVA_CAULDRON).randomTicks()));
+    public static final RegistryObject<Block> MOLTEN_LEAD_CAULDRON = HELPER.createBlock("molten_lead_cauldron", () -> new MoltenLeadCauldronBlock(BlockBehaviour.Properties.copy(Blocks.LAVA_CAULDRON).randomTicks()));
 
     public static <T extends Block> RegistryObject<T> baseRegister(String name, Supplier<? extends T> block, Function<RegistryObject<T>, Supplier<? extends Item>> item) {
-        RegistryObject<T> register = BLOCKS.register(name, block);
-        OItems.ITEMS.register(name, item.apply(register));
+        RegistryObject<T> register = HELPER.createBlockNoItem(name, block);
+        OItems.HELPER.createItem(name, item.apply(register));
         return register;
     }
 
