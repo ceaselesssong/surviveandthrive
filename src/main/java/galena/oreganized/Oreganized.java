@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableBiMap;
 import com.mojang.serialization.Codec;
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
-import galena.oreganized.client.OreganizedClient;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.content.entity.LeadBoltEntity;
 import galena.oreganized.data.OAdvancements;
@@ -34,7 +33,6 @@ import galena.oreganized.index.OPotions;
 import galena.oreganized.index.OStructures;
 import galena.oreganized.world.AddItemLootModifier;
 import net.minecraft.DetectedVersion;
-import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Position;
 import net.minecraft.core.cauldron.CauldronInteraction;
@@ -51,7 +49,6 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -75,6 +72,7 @@ import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidInteractionRegistry;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -84,6 +82,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.infernalstudios.shieldexp.init.ItemsInit;
+import umpaz.nethersdelight.common.registry.NDItems;
+import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -93,6 +94,10 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static galena.oreganized.ModCompat.FARMERS_DELIGHT_ID;
+import static galena.oreganized.ModCompat.NETHERS_DELIGHT_ID;
+import static galena.oreganized.ModCompat.SHIELD_EXPANSION_ID;
+
 @Mod(Oreganized.MOD_ID)
 public class Oreganized {
     public static final Logger LOGGER = LogManager.getLogger();
@@ -101,6 +106,7 @@ public class Oreganized {
     public static ResourceLocation modLoc(String location) {
         return new ResourceLocation(MOD_ID, location);
     }
+
     public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MOD_ID);
 
     private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Oreganized.MOD_ID);
@@ -110,7 +116,6 @@ public class Oreganized {
         final IEventBus bus = Bus.MOD.bus().get();
         final ModLoadingContext context = ModLoadingContext.get();
         bus.addListener(this::setup);
-        bus.addListener(this::clientSetup);
         bus.addListener(this::gatherData);
         bus.addListener(this::buildCreativeModeTabContents);
         //bus.addListener(this::addPackFinders);
@@ -172,9 +177,9 @@ public class Oreganized {
 
             CauldronInteraction.addDefaultInteractions(MoltenLeadCauldronBlock.INTERACTION_MAP);
 
-                PotionBrewing.addMix(Potions.WATER, OItems.LEAD_INGOT.get(), OPotions.STUNNING.get());
-                PotionBrewing.addMix(OPotions.STUNNING.get(), Items.REDSTONE, OPotions.LONG_STUNNING.get());
-                PotionBrewing.addMix(OPotions.STUNNING.get(), Items.GLOWSTONE_DUST, OPotions.STRONG_STUNNING.get());
+            PotionBrewing.addMix(Potions.WATER, OItems.LEAD_INGOT.get(), OPotions.STUNNING.get());
+            PotionBrewing.addMix(OPotions.STUNNING.get(), Items.REDSTONE, OPotions.LONG_STUNNING.get());
+            PotionBrewing.addMix(OPotions.STUNNING.get(), Items.GLOWSTONE_DUST, OPotions.STRONG_STUNNING.get());
 
             FireBlock fire = (FireBlock) Blocks.FIRE;
             fire.setFlammable(OBlocks.SHRAPNEL_BOMB.get(), 15, 100);
@@ -216,20 +221,6 @@ public class Oreganized {
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
-        //CompatHandlerClient.setup(event);
-        OreganizedClient.registerBlockRenderers();
-
-        ItemProperties.register(OItems.SILVER_MIRROR.get(), new ResourceLocation("level"), (stack, world, entity, seed) -> {
-            if (entity == null) {
-                return 8;
-            } else {
-                return stack.getOrCreateTag().getInt("Level");
-            }
-        });
-
-        ItemProperties.register(Items.CROSSBOW, new ResourceLocation(Oreganized.MOD_ID, "lead_bolt"), (stack, level, user, i) ->
-                CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, OItems.LEAD_BOLT.get()) ? 1.0F : 0.0F
-        );
     }
 
     public void gatherData(GatherDataEvent event) {
@@ -296,8 +287,8 @@ public class Oreganized {
             putAfter(entries, OBlocks.LEAD_PILLAR.get(), OBlocks.CUT_LEAD);
             putAfter(entries, OBlocks.LEAD_BRICKS.get(), OBlocks.LEAD_PILLAR);
         }
-        if(tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
-            putBefore(entries,Blocks.CHEST, OBlocks.LEAD_BOLT_CRATE);
+        if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+            putBefore(entries, Blocks.CHEST, OBlocks.LEAD_BOLT_CRATE);
         }
         if (tab == CreativeModeTabs.COLORED_BLOCKS) {
             putBefore(entries, Items.SHULKER_BOX, OBlocks.WHITE_CRYSTAL_GLASS);
@@ -380,15 +371,26 @@ public class Oreganized {
             putBefore(entries, Items.NETHERITE_SCRAP, OItems.ELECTRUM_INGOT);
             putBefore(entries, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, OItems.ELECTRUM_UPGRADE_SMITHING_TEMPLATE);
         }
+        if (ModList.get().isLoaded(FARMERS_DELIGHT_ID)) {
+            putAfter(entries, ModItems.NETHERITE_KNIFE.get(), OItems.ELECTRUM_KNIFE);
+        }
+        if (ModList.get().isLoaded(SHIELD_EXPANSION_ID)) {
+            putAfter(entries, ItemsInit.NETHERITE_SHIELD.get(), OItems.ELECTRUM_SHIELD);
+        }
+        if (ModList.get().isLoaded(NETHERS_DELIGHT_ID)) {
+            putAfter(entries, NDItems.NETHERITE_MACHETE.get(), OItems.ELECTRUM_MACHETE);
+        }
     }
 
     private static void putAfter(MutableHashedLinkedMap<ItemStack, CreativeModeTab.TabVisibility> entries, ItemLike after, Supplier<? extends ItemLike> supplier) {
         ItemLike key = supplier.get();
+        if (!entries.contains(new ItemStack(after))) return;
         entries.putAfter(new ItemStack(after), new ItemStack(key), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
     }
 
-    private static void putBefore(MutableHashedLinkedMap<ItemStack, CreativeModeTab.TabVisibility> entries, ItemLike after, Supplier<? extends ItemLike> supplier) {
+    private static void putBefore(MutableHashedLinkedMap<ItemStack, CreativeModeTab.TabVisibility> entries, ItemLike before, Supplier<? extends ItemLike> supplier) {
         ItemLike key = supplier.get();
-        entries.putBefore(new ItemStack(after), new ItemStack(key), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        if (!entries.contains(new ItemStack(before))) return;
+        entries.putBefore(new ItemStack(before), new ItemStack(key), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
     }
 }

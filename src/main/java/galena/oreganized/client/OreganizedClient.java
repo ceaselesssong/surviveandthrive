@@ -15,10 +15,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -29,6 +33,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -40,7 +45,31 @@ public class OreganizedClient {
         ItemBlockRenderTypes.setRenderLayer(block.get(), render);
     }
 
-    public static void registerBlockRenderers() {
+    @SubscribeEvent
+    public static void setup(FMLClientSetupEvent event) {
+        OreganizedClient.registerBlockRenderers();
+        OreganizedClient.registerItemProperties();
+    }
+
+    private static void registerItemProperties() {
+        ItemProperties.register(OItems.SILVER_MIRROR.get(), new ResourceLocation("level"), (stack, world, entity, seed) -> {
+            if (entity == null) {
+                return 8;
+            } else {
+                return stack.getOrCreateTag().getInt("Level");
+            }
+        });
+
+        ItemProperties.register(Items.CROSSBOW, new ResourceLocation(Oreganized.MOD_ID, "lead_bolt"), (stack, level, user, i) ->
+                CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, OItems.LEAD_BOLT.get()) ? 1.0F : 0.0F
+        );
+
+        ItemProperties.register(OItems.ELECTRUM_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, user, i) ->
+                user != null && user.isUsingItem() && user.getUseItem() == stack ? 1.0F : 0.0F
+        );
+    }
+
+    private static void registerBlockRenderers() {
         RenderType cutout = RenderType.cutout();
         RenderType mipped = RenderType.cutoutMipped();
         RenderType translucent = RenderType.translucent();

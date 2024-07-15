@@ -2,23 +2,19 @@ package galena.oreganized.data.provider;
 
 import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
 import galena.oreganized.Oreganized;
-import galena.oreganized.index.OTrimMaterials;
+import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Map;
 import java.util.function.Supplier;
 
-import static net.minecraft.data.models.ItemModelGenerators.TRIM_TYPE_PREDICATE_ID;
+import static galena.oreganized.ModCompat.SHIELD_EXPANSION_ID;
 
 public abstract class OItemModelProvider extends BlueprintItemModelProvider {
 
@@ -68,6 +64,25 @@ public abstract class OItemModelProvider extends BlueprintItemModelProvider {
     public ItemModelBuilder toolItem(Supplier<? extends Item> item) {
         return withExistingParent(ForgeRegistries.ITEMS.getKey(item.get()).getPath(), mcLoc("item/handheld"))
                 .texture("layer0", modLoc("item/" + ForgeRegistries.ITEMS.getKey(item.get()).getPath()));
+    }
+
+    public ItemModelBuilder shieldItem(Supplier<? extends Item> item) {
+        var texture = modLoc("item/" + ForgeRegistries.ITEMS.getKey(item.get()).getPath());
+        var name = ForgeRegistries.ITEMS.getKey(item.get()).getPath();
+
+        var blockingModel = withExistingParent(name + "_blocking", new ResourceLocation(SHIELD_EXPANSION_ID, "item/netherite_shield_blocking"))
+                .guiLight(BlockModel.GuiLight.FRONT)
+                .texture("1", texture)
+                .texture("particle", texture);
+
+        return withExistingParent(name, new ResourceLocation(SHIELD_EXPANSION_ID, "item/netherite_shield"))
+                .guiLight(BlockModel.GuiLight.FRONT)
+                .texture("1", texture)
+                .texture("particle", texture)
+                .override()
+                .predicate(new ResourceLocation("blocking"), 1.0F)
+                .model(blockingModel)
+                .end();
     }
 
     public ItemModelBuilder crossbowOverwrite(String name) {

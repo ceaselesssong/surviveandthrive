@@ -91,5 +91,16 @@ public class OItemTags extends ItemTagsProvider {
 
         tag(ItemTags.DOORS).add(OBlocks.LEAD_DOOR.get().asItem());
         tag(ItemTags.TRAPDOORS).add(OBlocks.LEAD_TRAPDOOR.get().asItem());
+
+        tag(ItemTags.AXES).add(OItems.ELECTRUM_AXE.get());
+        tag(ItemTags.PICKAXES).add(OItems.ELECTRUM_PICKAXE.get());
+        tag(ItemTags.SWORDS).add(OItems.ELECTRUM_SWORD.get());
+        tag(ItemTags.SHOVELS).add(OItems.ELECTRUM_SHOVEL.get());
+        tag(ItemTags.HOES).add(OItems.ELECTRUM_HOE.get());
+        tag(TOOLS_KNIVES).add(OItems.ELECTRUM_KNIFE.get());
+        tag(TOOLS_KNIVES_FD).add(OItems.ELECTRUM_KNIFE.get());
+        tag(SHIELDS).add(OItems.ELECTRUM_SHIELD.get());
+        tag(SHIELDS_SE).add(OItems.ELECTRUM_SHIELD.get());
+        tag(MACHETES).add(OItems.ELECTRUM_MACHETE.get());
     }
 }

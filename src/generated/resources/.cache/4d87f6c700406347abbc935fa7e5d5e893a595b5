@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-13T15:46:13.8471695	oreganized Item Models
+// 1.20.1	2024-07-15T14:53:32.3146961	oreganized Item Models
 18fcb236eeab67fa16a0014d9af5ba7dd6f9e7c8 assets/oreganized/models/item/black_crystal_glass.json
 30bbb36792cb2d3f0a8a399f25238120cdf7e659 assets/oreganized/models/item/black_crystal_glass_pane.json
 8dcab59e8c34403761c4aec2c3357b7db80b3f0b assets/oreganized/models/item/blue_crystal_glass.json
@@ -50,6 +50,7 @@ fc91dfa3eda2433202da6e5b35a2daaa798ceb10 assets/oreganized/models/item/electrum_
 c0994add3605609d1e1e5c5fd8e8a2183965dd6a assets/oreganized/models/item/electrum_helmet_redstone_trim.json
 dabbb804096b43b53b35e91e6af0be9e3159d7c4 assets/oreganized/models/item/electrum_hoe.json
 a81f54a67369904cffeb3725f1391afced85c5fd assets/oreganized/models/item/electrum_ingot.json
+11e1d020c32c5e56cd1342822536378ea1069379 assets/oreganized/models/item/electrum_knife.json
 95afdd8f132febac54f8a5854a7a3fd68ac451f2 assets/oreganized/models/item/electrum_leggings.json
 2d13f8dc0ed0ec41e0b6a19101658c335f0937af assets/oreganized/models/item/electrum_leggings_amethyst_trim.json
 1c197c2053679693edc08a7440503e27a67a36e9 assets/oreganized/models/item/electrum_leggings_copper_trim.json
@@ -61,8 +62,11 @@ cb422c237c7d4e168c79cee51375d667fcf1d2fa assets/oreganized/models/item/electrum_
 8d1a23960f88d2cf9e152ed5a630ceb23c79c56f assets/oreganized/models/item/electrum_leggings_netherite_trim.json
 f3871ff234873195dd47e570e62f802f7f67c889 assets/oreganized/models/item/electrum_leggings_quartz_trim.json
 75958844281a29549508f88f396e34b0919b68cb assets/oreganized/models/item/electrum_leggings_redstone_trim.json
+2b65eac6675b9a9f27684237b88951fd63b4687e assets/oreganized/models/item/electrum_machete.json
 2d8ac3c987dcd961d7505b71cda23b4c149a1348 assets/oreganized/models/item/electrum_nugget.json
 225acc16e9cf1908e9199f83cfe63342fc724cf2 assets/oreganized/models/item/electrum_pickaxe.json
+0f676c5ced38f926facc18f78f2f2545b4c44342 assets/oreganized/models/item/electrum_shield.json
+16885683d24d78fa77d3f26ca06cd0016977b47e assets/oreganized/models/item/electrum_shield_blocking.json
 ba6dafcb3b21faf4eb7886b812f205e91e59a49d assets/oreganized/models/item/electrum_shovel.json
 05cacc76a2e9820c58a78e8456d69278e41ce32f assets/oreganized/models/item/electrum_sword.json
 35a59e558e3caa534b1d2e155dea97863ed6bd56 assets/oreganized/models/item/electrum_upgrade_smithing_template.json

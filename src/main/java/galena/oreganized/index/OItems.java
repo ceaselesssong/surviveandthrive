@@ -10,13 +10,35 @@ import galena.oreganized.content.item.MinecartShrapnelBombItem;
 import galena.oreganized.content.item.OSmithingTemplateItem;
 import galena.oreganized.content.item.SilverMirrorItem;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.HoeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.RecordItem;
+import net.minecraft.world.item.ShieldItem;
+import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.SwordItem;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
+import vectorwing.farmersdelight.common.item.KnifeItem;
+
+import java.util.function.Supplier;
+
+import static galena.oreganized.ModCompat.FARMERS_DELIGHT_ID;
 
 @Mod.EventBusSubscriber(modid = Oreganized.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class OItems {
     public static final ItemSubRegistryHelper HELPER = Oreganized.REGISTRY_HELPER.getItemSubHelper();
+
+    public static Supplier<? extends Item> compat(String modid, Supplier<? extends Item> supplier) {
+        if (ModList.get().isLoaded(modid)) return supplier;
+        return () -> new Item(new Item.Properties());
+    }
 
     // Discs
     public static final RegistryObject<RecordItem> MUSIC_DISC_STRUCTURE = HELPER.createItem("music_disc_structure", () -> new BlueprintRecordItem(13, OSoundEvents.MUSIC_DISC_STRUCTURE, (new Item.Properties().stacksTo(1).rarity(Rarity.RARE)), 2980 / 20));
@@ -34,7 +56,6 @@ public class OItems {
     public static final RegistryObject<Item> NETHERITE_NUGGET = HELPER.createItem("netherite_nugget", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ELECTRUM_NUGGET = HELPER.createItem("electrum_nugget", () -> new Item(new Item.Properties()));
 
-
     // Tools
     public static final RegistryObject<Item> BUSH_HAMMER = HELPER.createItem("bush_hammer", () -> new BushHammerItem(OItemTiers.LEAD, 2.5F, -2.8F, (new Item.Properties()).stacksTo(1)));
 
@@ -43,6 +64,10 @@ public class OItems {
     public static final RegistryObject<Item> ELECTRUM_PICKAXE = HELPER.createItem("electrum_pickaxe", () -> new PickaxeItem(OItemTiers.ELECTRUM, 1, -2.6F, (new Item.Properties())));
     public static final RegistryObject<Item> ELECTRUM_AXE = HELPER.createItem("electrum_axe", () -> new AxeItem(OItemTiers.ELECTRUM, 6.0F, -2.8F, (new Item.Properties())));
     public static final RegistryObject<Item> ELECTRUM_HOE = HELPER.createItem("electrum_hoe", () -> new HoeItem(OItemTiers.ELECTRUM, 0, -2.8F, (new Item.Properties())));
+
+    public static final RegistryObject<Item> ELECTRUM_KNIFE = HELPER.createItem("electrum_knife", compat(FARMERS_DELIGHT_ID, () -> new KnifeItem(OItemTiers.ELECTRUM, 0.5F, -1.8F, (new Item.Properties()))));
+    public static final RegistryObject<Item> ELECTRUM_SHIELD = HELPER.createItem("electrum_shield", () -> new ShieldItem(new Item.Properties().durability(363)));
+    public static final RegistryObject<Item> ELECTRUM_MACHETE = HELPER.createItem("electrum_machete", () -> new SwordItem(OItemTiers.ELECTRUM, 2, -2.4F, new Item.Properties()));
 
     // Misc Tools
     public static final RegistryObject<Item> SILVER_MIRROR = HELPER.createItem("silver_mirror", () -> new SilverMirrorItem(new Item.Properties().stacksTo(1)));

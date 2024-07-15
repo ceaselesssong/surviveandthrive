@@ -41,7 +41,7 @@ minecraft {
         }
 
         data {
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/'), "--existing-mod", "blueprint"
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/'), "--existing-mod", "blueprint", "--existing-mod", "shieldexp"
             taskName 'Data'
         }
 
@@ -98,38 +98,9 @@ dependencies {
 
     // Compatibilities
     runtimeOnly(fg.deobf("maven.modrinth:create:${create_version}"))
-
-    // For dev testing
-    runtimeOnly(fg.deobf("maven.modrinth:scannable:${scannable_version}"))
-    runtimeOnly(fg.deobf("maven.modrinth:architectury-api:${architectury_version}"))
-
-   /* implementation fg.deobf("curse.maven:detailab-520755:${detailab_version}")
-
-    compileOnly fg.deobf("curse.maven:farmers-delight-398521:${farmersdelight_version}")
-    runtimeOnly fg.deobf("curse.maven:farmers-delight-398521:${farmersdelight_version}")
-
-    compileOnly fg.deobf("curse.maven:shield-expansion-583318:${shieldexpansion_version}")
-    runtimeOnly fg.deobf("curse.maven:shield-expansion-583318:${shieldexpansion_version}")
-
-    compileOnly fg.deobf("curse.maven:nethers-delight-496394:${nethersdelight_version}")
-    runtimeOnly fg.deobf("curse.maven:nethers-delight-496394:${nethersdelight_version}")
-
-    compileOnly fg.deobf("curse.maven:quark-243121:${quark_verion}")
-    runtimeOnly fg.deobf("curse.maven:quark-243121:${quark_verion}")
-    runtimeOnly fg.deobf("curse.maven:autoreglib-250363:${autoreglib_version}")
-
-    compileOnly fg.deobf("curse.maven:modest-mining-533775:${modestmining_version}")
-    runtimeOnly fg.deobf("curse.maven:modest-mining-533775:${modestmining_version}")
-    runtimeOnly fg.deobf("curse.maven:geckolib-388172:${geckolib_version}")
-*/
-
-
-    /*
-        If 'Data' fails to run try comment out the below dependencies
-     */
-    //runtimeOnly fg.deobf("curse.maven:supplementaries-412082:${supplementaries_version}")
-    //runtimeOnly fg.deobf("curse.maven:selene-499980:${selene_version}")
-    ///
+    implementation(fg.deobf("maven.modrinth:farmers-delight:${farmersdelight_version}"))
+    implementation(fg.deobf("maven.modrinth:nethers-delight:${nethersdelight_version}"))
+    implementation(fg.deobf("maven.modrinth:shield-expansion:${shieldexpansion_version}"))
 
     /// Utilities for the development environment
     //runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_version}")
@@ -139,11 +110,8 @@ dependencies {
     // at runtime, use the full JEI jar for Forge
     runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
 
-    //runtimeOnly fg.deobf("curse.maven:catalogue-459701:${catalogue_version}")
-    //runtimeOnly fg.deobf("curse.maven:configured-457570:${configured_version}")
-
-    //runtimeOnly fg.deobf("curse.maven:oculus-581495:${oculus_version}")
-    //runtimeOnly fg.deobf("curse.maven:rubidium-574856:${rubidium_version}")
+    runtimeOnly(fg.deobf("maven.modrinth:scannable:${scannable_version}"))
+    runtimeOnly(fg.deobf("maven.modrinth:architectury-api:${architectury_version}"))
     ///
 }
 
@@ -157,7 +125,7 @@ jar {
                 'Implementation-Version'  : project.jar.archiveVersion,
                 'Implementation-Vendor'   : mod_author,
                 'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                'Timestampe'              : System.currentTimeMillis(),
+                'Timestamp'              : System.currentTimeMillis(),
                 'Built-On-Java'           : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
                 'Build-On-Minecraft'      : minecraft_version
         ])
