@@ -342,7 +342,7 @@ public class Oreganized {
             putAfter(entries, Items.RAW_GOLD_BLOCK, OBlocks.RAW_SILVER_BLOCK);
         }
         if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {
-            putBefore(entries, Items.NOTE_BLOCK, OBlocks.EXPOSER);
+            putBefore(entries, Items.NOTE_BLOCK, OBlocks.GARGOYLE);
             putAfter(entries, Items.TNT_MINECART, OItems.SHRAPNEL_BOMB_MINECART);
             putAfter(entries, Items.TNT, OBlocks.SHRAPNEL_BOMB);
             putAfter(entries, Blocks.REDSTONE_LAMP, OBlocks.LEAD_BULB);

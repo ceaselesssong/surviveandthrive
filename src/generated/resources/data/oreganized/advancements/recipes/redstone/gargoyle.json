@@ -1,11 +1,13 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_redstone": {
+    "has_pumpkin": {
       "conditions": {
         "items": [
           {
-            "tag": "forge:dusts/redstone"
+            "items": [
+              "minecraft:carved_pumpkin"
+            ]
           }
         ]
       },
@@ -23,21 +25,21 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "oreganized:exposer"
+        "recipe": "oreganized:gargoyle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_redstone",
+      "has_pumpkin",
       "has_silver_ingot",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "oreganized:exposer"
+      "oreganized:gargoyle"
     ]
   },
   "sends_telemetry_event": false

@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "oreganized:exposer"
+          "name": "oreganized:gargoyle"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "oreganized:blocks/exposer"
+  "random_sequence": "oreganized:blocks/gargoyle"
 }

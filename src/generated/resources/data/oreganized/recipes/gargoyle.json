@@ -2,23 +2,23 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "A": {
+    "#": {
       "tag": "minecraft:stone_crafting_materials"
     },
-    "B": {
-      "tag": "forge:dusts/redstone"
+    "P": {
+      "item": "minecraft:carved_pumpkin"
     },
-    "C": {
+    "S": {
       "tag": "forge:ingots/silver"
     }
   },
   "pattern": [
-    "AAA",
-    "BBC",
-    "AAA"
+    " P ",
+    "#S#",
+    "###"
   ],
   "result": {
-    "item": "oreganized:exposer"
+    "item": "oreganized:gargoyle"
   },
   "show_notification": true
 }
