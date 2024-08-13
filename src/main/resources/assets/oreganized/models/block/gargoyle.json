@@ -1,6 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"texture_size": [48, 48],
+	"ambientocclusion": false,
 	"textures": {
 		"0": "oreganized:block/gargoyle_model",
 		"2": "oreganized:block/gargoyle_model2",

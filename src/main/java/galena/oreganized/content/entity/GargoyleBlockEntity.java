@@ -1,11 +1,19 @@
 package galena.oreganized.content.entity;
 
+import galena.oreganized.content.block.GargoyleBlock;
 import galena.oreganized.index.OBlockEntities;
+import galena.oreganized.index.OParticleTypes;
+import galena.oreganized.index.OSoundEvents;
 import galena.oreganized.index.OTags;
+import galena.oreganized.network.OreganizedNetwork;
+import galena.oreganized.network.packet.GargoyleParticlePacket;
 import galena.oreganized.world.ScaredOfGargoyleGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.ParticleUtils;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobType;
@@ -16,6 +24,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -74,17 +83,38 @@ public class GargoyleBlockEntity extends BlockEntity {
         if (tag.contains("cooldown")) growlCooldown = tag.getInt("cooldown");
     }
 
-    public InteractionResult interact(Level level, BlockPos pos, @Nullable Player player, ItemStack stack) {
+    public InteractionResult interact(Level level, BlockPos pos, @Nullable Player player, ItemStack stack, boolean simulate) {
         if (!stack.is(OTags.Items.GARGOYLE_SNACK)) return InteractionResult.PASS;
 
         if (player == null || !player.getAbilities().instabuild) {
             stack.shrink(1);
         }
 
+        if (simulate) return InteractionResult.SUCCESS;
+
         getTargets(level, pos).forEach(mob -> {
             mob.getPersistentData().put(ScaredOfGargoyleGoal.AVOID_TAG_KEY, NbtUtils.writeBlockPos(pos));
         });
 
+        level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), OSoundEvents.GARGOYLE_GROWL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+
+        if (!level.isClientSide) {
+            OreganizedNetwork.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new GargoyleParticlePacket(pos));
+        }
+
         return InteractionResult.SUCCESS;
+    }
+
+    public void spawnParticles() {
+        var pos = getBlockPos();
+        var state = getBlockState();
+        var facing = state.getValue(GargoyleBlock.FACING);
+        var attachment = state.getValue(GargoyleBlock.ATTACHMENT);
+
+        ParticleUtils.spawnParticlesOnBlockFaces(level, pos, OParticleTypes.VENGEANCE.get(), UniformInt.of(0, 2));
+
+        if (attachment == GargoyleBlock.AttachmentType.WALL) {
+            ParticleUtils.spawnParticlesOnBlockFaces(level, pos.relative(facing.getOpposite()), OParticleTypes.VENGEANCE.get(), UniformInt.of(0, 1));
+        }
     }
 }

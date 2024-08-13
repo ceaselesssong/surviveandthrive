@@ -12,6 +12,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
@@ -24,13 +25,21 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class GargoyleBlock extends HorizontalDirectionalBlock implements EntityBlock {
 
     public static final EnumProperty<AttachmentType> ATTACHMENT = EnumProperty.create("attachment", AttachmentType.class);
+
+    public final Map<BlockState, VoxelShape> SHAPES = getShapeForEachState(this::getShapeFor);
 
     public static final DispenseItemBehavior DISPENSE_ITEM_BEHAVIOR = (source, stack) -> {
         var dispenser = source.getBlockState();
@@ -39,7 +48,7 @@ public class GargoyleBlock extends HorizontalDirectionalBlock implements EntityB
         var target = source.getLevel().getBlockEntity(targetPos);
 
         if (target instanceof GargoyleBlockEntity gargoyle) {
-            gargoyle.interact(source.getLevel(), targetPos, null, stack);
+            gargoyle.interact(source.getLevel(), targetPos, null, stack, false);
         }
 
         return stack;
@@ -98,7 +107,7 @@ public class GargoyleBlock extends HorizontalDirectionalBlock implements EntityB
         var blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof GargoyleBlockEntity gargoyle) {
             var stack = player.getItemInHand(hand);
-            return gargoyle.interact(level, pos, player, stack);
+            return gargoyle.interact(level, pos, player, stack, false);
         }
 
         return super.use(state, level, pos, player, hand, hit);
@@ -109,16 +118,9 @@ public class GargoyleBlock extends HorizontalDirectionalBlock implements EntityB
         super.animateTick(state, level, pos, random);
 
         if (random.nextBoolean() && level.isRainingAt(pos.above())) {
-            var facing = state.getValue(FACING).getOpposite();
-            var attachment = state.getValue(ATTACHMENT);
             double spread = random.nextDouble() * 0.1 - 0.05;
-            double offsetX = facing.getAxis() == Direction.Axis.X ? facing.getStepX() * attachment.horizontalOffset : spread;
-            double offsetZ = facing.getAxis() == Direction.Axis.Z ? facing.getStepZ() * attachment.horizontalOffset : spread;
-
-            double x = pos.getX() + 0.5 + offsetX;
-            double y = pos.getY() + attachment.verticalOffset;
-            double z = pos.getZ() + 0.5 + offsetZ;
-            level.addParticle(ParticleTypes.DRIPPING_DRIPSTONE_WATER, x, y, z, 0.0, 0.0, 0.0);
+            var offset = AttachmentType.offset(state, pos, spread);
+            level.addParticle(ParticleTypes.DRIPPING_DRIPSTONE_WATER, offset.x, offset.y, offset.z, 0.0, 0.0, 0.0);
         }
     }
 
@@ -142,10 +144,66 @@ public class GargoyleBlock extends HorizontalDirectionalBlock implements EntityB
             this.verticalOffset = verticalOffset;
         }
 
+        public static Vec3 offset(BlockState state, BlockPos pos, double spread) {
+            var facing = state.getValue(FACING).getOpposite();
+            var attachment = state.getValue(ATTACHMENT);
+            double offsetX = facing.getAxis() == Direction.Axis.X ? facing.getStepX() * attachment.horizontalOffset : spread;
+            double offsetZ = facing.getAxis() == Direction.Axis.Z ? facing.getStepZ() * attachment.horizontalOffset : spread;
+
+            double x = pos.getX() + 0.5 + offsetX;
+            double y = pos.getY() + attachment.verticalOffset;
+            double z = pos.getZ() + 0.5 + offsetZ;
+
+            return new Vec3(x, y, z);
+        }
+
         @Override
         public String getSerializedName() {
             return this.name;
         }
     }
 
+    protected VoxelShape getShapeFor(BlockState state) {
+        var facing = state.getValue(FACING);
+        var attachment = state.getValue(ATTACHMENT);
+
+        var xOffset = facing == Direction.EAST ? 1 : 0;
+        var xSize = facing.getAxis() == Direction.Axis.X ? 1 : 0;
+        var zOffset = facing == Direction.SOUTH ? 1 : 0;
+        var zSize = facing.getAxis() == Direction.Axis.Z ? 1 : 0;
+
+        if (attachment == AttachmentType.FLOOR) {
+
+            var base = box(0.0, 0.0, 0.0, 16.0, 2.0, 16.0);
+            var legs = box(xOffset * 11.0, 2.0, zOffset * 11.0, xOffset * 11.0 + 5.0 * xSize + 16.0 * zSize, 12.0, zOffset * 11.0 + 5.0 * zSize + 16.0 * xSize);
+            var arms = box(xOffset * 12.0 + zSize - facing.getStepX() * 7.0, 2.0, zOffset * 12.0 + xSize - facing.getStepZ() * 7.0, xOffset * 12.0 + 4.0 * xSize + 15.0 * zSize - facing.getStepX() * 7.0, 17.0, zOffset * 12.0 + 4.0 * zSize + 15.0 * xSize - facing.getStepZ() * 7.0);
+            var body = box(zSize * 2.0 + xOffset * 5.0 + 1.0, 7.0, xSize * 2.0 + zOffset * 5.0 + 1.0, xSize * 10.0 + xOffset * 5.0 + zSize * 13.0, 16.0, zSize * 10.0 + zOffset * 5.0 + xSize * 13.0);
+            var head = box(zSize * 4.0 + xSize * 10.0 - xOffset * 10.0, 7.0, xSize * 4.0 + zSize * 10.0 - zOffset * 10.0, zSize * 12.0 + xSize * 16.0 - xOffset * 10.0, 15.0, xSize * 12.0 + zSize * 16.0 - zOffset * 10.0);
+
+            return Shapes.or(base, legs, arms, body, head);
+        }
+
+        if (attachment == AttachmentType.WALL) {
+            var base = box(xOffset * 14.0, 0.0, zOffset * 14.0, xOffset * 14.0 + 2.0 * xSize + 16.0 * zSize, 16.0, zOffset * 14.0 + 2.0 * zSize + 16.0 * xSize);
+            var head = box(0.0, 0.0, 0.0, 8.0, 8.0, 8.0)
+                    .move(facing.getStepX() * -1.25, 5.0 / 16.0, facing.getStepZ() * -1.25)
+                    .move(xOffset * 0.5, 0.0, zOffset * 0.5)
+                    .move(zSize * 0.25, 0.0, xSize * 0.25);
+            var body = box(0.0, 0.0, 0.0, 9.0, 9.0, 9.0)
+                    .move(facing.getStepX() * -11.0 / 16.0, 7.0 / 16.0, facing.getStepZ() * -11.0 / 16.0)
+                    .move(xOffset * 7.0 / 16.0, 0.0, zOffset * 7.0 / 16.0)
+                    .move(zSize * 0.25, 0.0, xSize * 0.25);
+            var log = box(xOffset * 14.0, 0.0, zOffset * 14.0, xOffset * 14.0 + 4.0 * xSize + 4.0 * zSize, 4.0, zOffset * 14.0 + 4.0 * zSize + 16.0 * xSize)
+                    .move(xSize * 0.125 - xOffset * 0.375, 0.0, zSize * 0.125 - zOffset * 0.375);
+
+            return Shapes.or(base, body, head, log);
+        }
+
+        return box(0.0, 0.0, 0.0, 16.0, 16.0, 16.0);
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SHAPES.get(state);
+    }
 }

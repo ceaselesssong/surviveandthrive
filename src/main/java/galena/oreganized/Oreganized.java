@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import galena.oreganized.client.OreganizedClient;
+import galena.oreganized.compat.create.CreateCompat;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.content.entity.LeadBoltEntity;
 import galena.oreganized.data.OAdvancements;
@@ -32,6 +33,7 @@ import galena.oreganized.index.OPaintingVariants;
 import galena.oreganized.index.OParticleTypes;
 import galena.oreganized.index.OPotions;
 import galena.oreganized.index.OStructures;
+import galena.oreganized.network.OreganizedNetwork;
 import galena.oreganized.world.AddItemLootModifier;
 import net.minecraft.DetectedVersion;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -79,6 +81,7 @@ import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidInteractionRegistry;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -104,6 +107,7 @@ public class Oreganized {
     public static ResourceLocation modLoc(String location) {
         return new ResourceLocation(MOD_ID, location);
     }
+
     public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MOD_ID);
 
     private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Oreganized.MOD_ID);
@@ -138,6 +142,12 @@ public class Oreganized {
         }
 
         REGISTRY_HELPER.register(modBus);
+
+        OreganizedNetwork.register();
+
+        if (ModList.get().isLoaded("create")) {
+            CreateCompat.register();
+        }
 
         //CompatHandler.register();
 
@@ -181,9 +191,9 @@ public class Oreganized {
 
             CauldronInteraction.addDefaultInteractions(MoltenLeadCauldronBlock.INTERACTION_MAP);
 
-                PotionBrewing.addMix(Potions.WATER, OItems.LEAD_INGOT.get(), OPotions.STUNNING.get());
-                PotionBrewing.addMix(OPotions.STUNNING.get(), Items.REDSTONE, OPotions.LONG_STUNNING.get());
-                PotionBrewing.addMix(OPotions.STUNNING.get(), Items.GLOWSTONE_DUST, OPotions.STRONG_STUNNING.get());
+            PotionBrewing.addMix(Potions.WATER, OItems.LEAD_INGOT.get(), OPotions.STUNNING.get());
+            PotionBrewing.addMix(OPotions.STUNNING.get(), Items.REDSTONE, OPotions.LONG_STUNNING.get());
+            PotionBrewing.addMix(OPotions.STUNNING.get(), Items.GLOWSTONE_DUST, OPotions.STRONG_STUNNING.get());
 
             FireBlock fire = (FireBlock) Blocks.FIRE;
             fire.setFlammable(OBlocks.SHRAPNEL_BOMB.get(), 15, 100);
@@ -305,8 +315,8 @@ public class Oreganized {
             putAfter(entries, OBlocks.LEAD_PILLAR.get(), OBlocks.CUT_LEAD);
             putAfter(entries, OBlocks.LEAD_BRICKS.get(), OBlocks.LEAD_PILLAR);
         }
-        if(tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
-            putBefore(entries,Blocks.CHEST, OBlocks.LEAD_BOLT_CRATE);
+        if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+            putBefore(entries, Blocks.CHEST, OBlocks.LEAD_BOLT_CRATE);
         }
         if (tab == CreativeModeTabs.COLORED_BLOCKS) {
             putBefore(entries, Items.SHULKER_BOX, OBlocks.WHITE_CRYSTAL_GLASS);
