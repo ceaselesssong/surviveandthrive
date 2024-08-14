@@ -3,7 +3,7 @@
   "minVersion": "0.8",
   "package": "galena.oreganized.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": ["AbstractArrowMixin", "CrossbowMixin"],
+  "mixins": ["AbstractArrowMixin", "CrossbowMixin", "FoodDataMixin", "MobEffectInstanceMixin", "PlayerMixin"],
   "client": [
     "client.HumanoidArmorLayerAccessor", "client.HumanoidArmorLayerMixin", "client.MouseHandlerAccessor",
     "client.MouseHandlerMixin"
@@ -13,6 +13,5 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "refmap": "oreganized.refmap.json",
-  "mixins": ["PlayerMixin"]
+  "refmap": "oreganized.refmap.json"
 }
