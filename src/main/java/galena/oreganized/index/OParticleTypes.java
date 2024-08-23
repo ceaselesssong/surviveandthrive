@@ -3,6 +3,7 @@ package galena.oreganized.index;
 import galena.oreganized.Oreganized;
 import galena.oreganized.client.particle.CustomDrippingParticle;
 import galena.oreganized.client.particle.LeadShrapnelParticle;
+import galena.oreganized.client.particle.VengeanceParticleProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.particles.ParticleType;
@@ -24,6 +25,7 @@ public class OParticleTypes {
     public static final RegistryObject<SimpleParticleType> FALLING_LEAD = PARTICLES.register("falling_lead", () -> new SimpleParticleType(true));
     public static final RegistryObject<SimpleParticleType> LANDING_LEAD = PARTICLES.register("landing_lead", () -> new SimpleParticleType(true));
     public static final RegistryObject<SimpleParticleType> LEAD_SHRAPNEL = PARTICLES.register( "lead_shrapnel", () -> new SimpleParticleType(true));
+    public static final RegistryObject<SimpleParticleType> VENGEANCE = PARTICLES.register( "vengeance", () -> new SimpleParticleType(true));
 
 
     @SubscribeEvent
@@ -34,5 +36,6 @@ public class OParticleTypes {
         engine.register(FALLING_LEAD.get(), CustomDrippingParticle.LeadFallProvider::new);
         engine.register(LANDING_LEAD.get(), CustomDrippingParticle.LeadLandProvider::new);
         engine.register(LEAD_SHRAPNEL.get(), LeadShrapnelParticle.Provider::new);
+        engine.register(VENGEANCE.get(), VengeanceParticleProvider::new);
     }
 }

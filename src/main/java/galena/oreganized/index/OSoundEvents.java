@@ -14,6 +14,8 @@ public class OSoundEvents {
 
     public static final RegistryObject<SoundEvent> SHRAPNEL_BOMB_PRIMED = HELPER.createSoundEvent("entity.shrapnel_bomb.primed");
 
+    public static final RegistryObject<SoundEvent> GARGOYLE_GROWL = HELPER.createSoundEvent("block.gargoyle.growl");
+
     public static final RegistryObject<SoundEvent> BOLT_HIT = HELPER.createSoundEvent("entity.bolt_hit");
     public static final RegistryObject<SoundEvent> BOLT_HIT_ARMOR = HELPER.createSoundEvent("entity.bolt_hit_armor");
 }

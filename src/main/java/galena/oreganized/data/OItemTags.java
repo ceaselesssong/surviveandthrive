@@ -31,6 +31,7 @@ public class OItemTags extends ItemTagsProvider {
         return "Oreganized Item Tags";
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         // Oreganized
@@ -91,5 +92,7 @@ public class OItemTags extends ItemTagsProvider {
 
         tag(ItemTags.DOORS).add(OBlocks.LEAD_DOOR.get().asItem());
         tag(ItemTags.TRAPDOORS).add(OBlocks.LEAD_TRAPDOOR.get().asItem());
+
+        tag(OTags.Items.GARGOYLE_SNACK).addTags(INGOTS_SILVER);
     }
 }

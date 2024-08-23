@@ -97,7 +97,7 @@ dependencies {
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
     // Compatibilities
-    runtimeOnly(fg.deobf("maven.modrinth:create:${create_version}"))
+    implementation(fg.deobf("maven.modrinth:create:${create_version}"))
 
     // For dev testing
     runtimeOnly(fg.deobf("maven.modrinth:scannable:${scannable_version}"))

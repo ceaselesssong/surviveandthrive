@@ -44,6 +44,8 @@ public class OTags {
         public static final TagKey<Item> BUCKETS_MOLTEN_LEAD = forgeTag("buckets/molten_lead");
         public static final TagKey<Item> TOOLS_BUSH_HAMMER = forgeTag("tools/bush_hammer");
 
+        public static final TagKey<Item> GARGOYLE_SNACK = tag("gargoyle_snack");
+
         private static TagKey<Item> tag(String name) {
             return ItemTags.create(Oreganized.modLoc(name));
         }
