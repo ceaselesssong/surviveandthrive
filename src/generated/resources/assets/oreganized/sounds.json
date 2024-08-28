@@ -1,4 +1,12 @@
 {
+  "block.gargoyle.growl": {
+    "sounds": [
+      "oreganized:block/gargoyle_growl_1",
+      "oreganized:block/gargoyle_growl_2",
+      "oreganized:block/gargoyle_growl_3"
+    ],
+    "subtitle": "subtitles.block.gargoyle.growl"
+  },
   "entity.bolt_hit": {
     "sounds": [
       "oreganized:entity/bolt_hit"

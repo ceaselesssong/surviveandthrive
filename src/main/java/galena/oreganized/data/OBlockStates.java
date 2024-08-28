@@ -70,8 +70,6 @@ public class OBlockStates extends OBlockStateProvider {
         waxedBlock(OBlocks.WAXED_RED_CONCRETE_POWDER, Blocks.RED_CONCRETE_POWDER);
         waxedBlock(OBlocks.WAXED_BLACK_CONCRETE_POWDER, Blocks.BLACK_CONCRETE_POWDER);
 
-        exposer(OBlocks.EXPOSER);
-
         crate(OBlocks.LEAD_BOLT_CRATE);
 
         moltenCauldron(OBlocks.MOLTEN_LEAD_CAULDRON, OBlocks.LEAD_BLOCK);
@@ -108,6 +106,8 @@ public class OBlockStates extends OBlockStateProvider {
         crystalGlassPaneBlock(OBlocks.RED_CRYSTAL_GLASS_PANE, OBlocks.RED_CRYSTAL_GLASS);
         crystalGlassBlock(OBlocks.BLACK_CRYSTAL_GLASS);
         crystalGlassPaneBlock(OBlocks.BLACK_CRYSTAL_GLASS_PANE, OBlocks.BLACK_CRYSTAL_GLASS);
+
+        gargoyleBlock(OBlocks.GARGOYLE);
     }
 
 }

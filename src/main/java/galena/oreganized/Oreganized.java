@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableBiMap;
 import com.mojang.serialization.Codec;
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
+import galena.oreganized.compat.create.CreateCompat;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.content.entity.LeadBoltEntity;
 import galena.oreganized.data.OAdvancements;
@@ -31,6 +32,7 @@ import galena.oreganized.index.OPaintingVariants;
 import galena.oreganized.index.OParticleTypes;
 import galena.oreganized.index.OPotions;
 import galena.oreganized.index.OStructures;
+import galena.oreganized.network.OreganizedNetwork;
 import galena.oreganized.world.AddItemLootModifier;
 import net.minecraft.DetectedVersion;
 import net.minecraft.core.HolderLookup;
@@ -45,6 +47,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
+import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.CreativeModeTab;
@@ -62,18 +65,20 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import net.minecraftforge.common.BasicItemListing;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.util.MutableHashedLinkedMap;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidInteractionRegistry;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -112,13 +117,14 @@ public class Oreganized {
     private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Oreganized.MOD_ID);
 
     public Oreganized() {
+        final IEventBus modBus = Bus.MOD.bus().get();
+        final IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 
-        final IEventBus bus = Bus.MOD.bus().get();
-        final ModLoadingContext context = ModLoadingContext.get();
-        bus.addListener(this::setup);
-        bus.addListener(this::gatherData);
-        bus.addListener(this::buildCreativeModeTabContents);
-        //bus.addListener(this::addPackFinders);
+        modBus.addListener(this::setup);
+        modBus.addListener(this::clientSetup);
+        modBus.addListener(this::gatherData);
+        modBus.addListener(this::buildCreativeModeTabContents);
+        forgeBus.addListener(this::injectVillagerTrades);
 
         LOOT_MODIFIERS.register("add_item", () -> AddItemLootModifier.CODEC);
 
@@ -136,15 +142,27 @@ public class Oreganized {
         };
 
         for (DeferredRegister<?> register : registers) {
-            register.register(bus);
+            register.register(modBus);
         }
 
-        REGISTRY_HELPER.register(bus);
+        REGISTRY_HELPER.register(modBus);
+
+        OreganizedNetwork.register();
+
+        if (ModList.get().isLoaded("create")) {
+            CreateCompat.register();
+        }
 
         //CompatHandler.register();
 
         //context.registerConfig(ModConfig.Type.COMMON, OreganizedConfig.COMMON_SPEC);
         //context.registerConfig(ModConfig.Type.CLIENT, OreganizedConfig.CLIENT_SPEC);
+    }
+
+    private void injectVillagerTrades(VillagerTradesEvent event) {
+        if (event.getType() == VillagerProfession.MASON) {
+            event.getTrades().get(5).add(new BasicItemListing(14, ItemStack.EMPTY, 5, 1));
+        }
     }
 
     private void setup(FMLCommonSetupEvent event) {
@@ -333,7 +351,7 @@ public class Oreganized {
             putAfter(entries, Items.RAW_GOLD_BLOCK, OBlocks.RAW_SILVER_BLOCK);
         }
         if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {
-            putBefore(entries, Items.NOTE_BLOCK, OBlocks.EXPOSER);
+            putBefore(entries, Items.NOTE_BLOCK, OBlocks.GARGOYLE);
             putAfter(entries, Items.TNT_MINECART, OItems.SHRAPNEL_BOMB_MINECART);
             putAfter(entries, Items.TNT, OBlocks.SHRAPNEL_BOMB);
             putAfter(entries, Blocks.REDSTONE_LAMP, OBlocks.LEAD_BULB);

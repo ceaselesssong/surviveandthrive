@@ -178,14 +178,14 @@ public class ORecipes extends ORecipeProvider {
                 .unlockedBy("has_silver_ingot", has(OTags.Items.INGOTS_SILVER))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, OBlocks.EXPOSER.get())
-                .pattern("AAA")
-                .pattern("BBC")
-                .pattern("AAA")
-                .define('A', ItemTags.STONE_CRAFTING_MATERIALS)
-                .define('B', Tags.Items.DUSTS_REDSTONE)
-                .define('C', OTags.Items.INGOTS_SILVER)
-                .unlockedBy("has_redstone", has(Tags.Items.DUSTS_REDSTONE))
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, OBlocks.GARGOYLE.get())
+                .pattern(" P ")
+                .pattern("#S#")
+                .pattern("###")
+                .define('#', ItemTags.STONE_CRAFTING_MATERIALS)
+                .define('P', Items.CARVED_PUMPKIN)
+                .define('S', OTags.Items.INGOTS_SILVER)
+                .unlockedBy("has_pumpkin", has(Items.CARVED_PUMPKIN))
                 .unlockedBy("has_silver_ingot", has(OTags.Items.INGOTS_SILVER))
                 .save(consumer);
 

@@ -54,6 +54,8 @@ public class OTags {
         public static final TagKey<Item> SHIELDS_SE = ItemTags.create(new ResourceLocation(SHIELD_EXPANSION_ID, "shields"));
         public static final TagKey<Item> MACHETES = ItemTags.create(new ResourceLocation(NETHERS_DELIGHT_ID, "tools/machetes"));
 
+        public static final TagKey<Item> GARGOYLE_SNACK = tag("gargoyle_snack");
+
         private static TagKey<Item> tag(String name) {
             return ItemTags.create(Oreganized.modLoc(name));
         }

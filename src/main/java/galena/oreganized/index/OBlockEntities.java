@@ -2,7 +2,7 @@ package galena.oreganized.index;
 
 import com.teamabnormals.blueprint.core.util.registry.BlockEntitySubRegistryHelper;
 import galena.oreganized.Oreganized;
-import galena.oreganized.content.entity.ExposerBlockEntity;
+import galena.oreganized.content.entity.GargoyleBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
@@ -13,6 +13,6 @@ import java.util.Set;
 public class OBlockEntities {
     public static final BlockEntitySubRegistryHelper HELPER = Oreganized.REGISTRY_HELPER.getBlockEntitySubHelper();
 
-    public static final RegistryObject<BlockEntityType<ExposerBlockEntity>> EXPOSER = HELPER.createBlockEntity("exposer", ExposerBlockEntity::new, () -> Set.of(OBlocks.EXPOSER.get()));
+    public static final RegistryObject<BlockEntityType<GargoyleBlockEntity>> GARGOYLE = HELPER.createBlockEntity("gargoyle", GargoyleBlockEntity::new, () -> Set.of(OBlocks.GARGOYLE.get()));
 
 }

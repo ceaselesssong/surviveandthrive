@@ -119,7 +119,7 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
                 OBlocks.SPOTTED_GLANCE.get(),
                 OBlocks.WAXED_SPOTTED_GLANCE.get(),
 
-                OBlocks.EXPOSER.get(),
+                OBlocks.GARGOYLE.get(),
 
                 OBlocks.MOLTEN_LEAD_CAULDRON.get(),
 

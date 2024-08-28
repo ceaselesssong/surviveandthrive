@@ -101,6 +101,11 @@ dependencies {
     implementation(fg.deobf("maven.modrinth:farmers-delight:${farmersdelight_version}"))
     implementation(fg.deobf("maven.modrinth:nethers-delight:${nethersdelight_version}"))
     implementation(fg.deobf("maven.modrinth:shield-expansion:${shieldexpansion_version}"))
+    implementation(fg.deobf("maven.modrinth:create:${create_version}"))
+
+    // For dev testing
+    runtimeOnly(fg.deobf("maven.modrinth:scannable:${scannable_version}"))
+    runtimeOnly(fg.deobf("maven.modrinth:architectury-api:${architectury_version}"))
 
     /// Utilities for the development environment
     //runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_version}")

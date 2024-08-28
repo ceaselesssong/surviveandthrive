@@ -4,7 +4,7 @@ import galena.oreganized.Oreganized;
 import galena.oreganized.content.block.BulbBlock;
 import galena.oreganized.content.block.CrystalGlassBlock;
 import galena.oreganized.content.block.CrystalGlassPaneBlock;
-import galena.oreganized.content.block.ExposerBlock;
+import galena.oreganized.content.block.GargoyleBlock;
 import galena.oreganized.content.block.IMeltableBlock;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import net.minecraft.core.Direction;
@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.Half;
@@ -28,7 +29,6 @@ import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -113,29 +113,6 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
                 .texture("top", texture(top))
                 .texture("front", texture(front))
                 .texture("particle", texture(front));
-    }
-
-    public void exposer(Supplier<? extends Block> block) {
-        getVariantBuilder(block.get()).forAllStates(state -> {
-            // Annoyingly complicated method to convert the blockstate's levels (0,1,2,3,4,5,6,7) to 4 frames (0,1,2,3)
-            int level = Math.round((ExposerBlock.TexturedFrames - 1) / (float) (state.getValue(ExposerBlock.LEVEL) + 1));
-            Direction facing = state.getValue(ExposerBlock.FACING);
-            int x = 0;
-            int y = 0;
-            //if (facing == Direction.NORTH) do nothing;
-            if (facing == Direction.EAST) y = 90;
-            if (facing == Direction.SOUTH) y = 180;
-            if (facing == Direction.WEST) y = 270;
-            if (facing == Direction.DOWN) x = 90;
-            if (facing == Direction.UP) x = 270;
-
-            String name = name(block) + "_level_" + level;
-            String side = name(block) + "_side";
-            String back = state.getValue(ExposerBlock.LEVEL) > 0 ? name(block) + "_back_on" : name(block) + "_back";
-            String top = name(block) + "_top";
-
-            return ConfiguredModel.builder().modelFile(directionalBlockModel(block, name + "_" + facing, side, name, back, top)).rotationX(x).rotationY(y).build();
-        });
     }
 
     public ModelFile cauldronModel(Supplier<? extends Block> block, ResourceLocation texture, int age) {
@@ -387,6 +364,22 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
                         .condition(property, goopyness)
                         .condition(PipeBlock.PROPERTY_BY_DIRECTION.get(direction), true);
             });
+        });
+    }
+
+    public void gargoyleBlock(Supplier<? extends Block> block) {
+        var name = name(block);
+        var floorModel = models().getExistingFile(texture(name));
+        var wallModel = models().getExistingFile(texture(name + "_side"));
+
+        getVariantBuilder(block.get()).forAllStatesExcept(state -> {
+            var facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
+            var attachment = state.getValue(GargoyleBlock.ATTACHMENT);
+
+            return ConfiguredModel.builder()
+                    .rotationY((int) (facing.toYRot() % 360))
+                    .modelFile(attachment == GargoyleBlock.AttachmentType.WALL ? wallModel : floorModel)
+                    .build();
         });
     }
 

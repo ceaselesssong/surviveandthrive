@@ -82,7 +82,7 @@ public class OItemModels extends OItemModelProvider {
         block(OBlocks.LEAD_BULB);
         block(OBlocks.CUT_LEAD);
         block(OBlocks.ELECTRUM_BLOCK);
-        block(OBlocks.EXPOSER, "exposer_level_0_south");
+        normalItem(OBlocks.GARGOYLE.get()::asItem);
         block(OBlocks.SHRAPNEL_BOMB);
         block(OBlocks.LEAD_BOLT_CRATE);
 

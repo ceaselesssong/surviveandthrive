@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-15T14:53:32.3106946	Recipes
+// 1.20.1	2024-08-28T12:15:19.5367066	Recipes
 c27d3499944bf522a573dc8987582db2d7349b41 data/oreganized/advancements/recipes/brewing/poisonous_potato_from_lead.json
 ee5e42ab2e9ac549022fadf1c2cbf9faebc2c53c data/oreganized/advancements/recipes/building_blocks/black_crystal_glass_pane.json
 40700c3f2f5c78c617650fdd16e2ba248967353f data/oreganized/advancements/recipes/building_blocks/blue_crystal_glass_pane.json
@@ -133,7 +133,7 @@ bacd4047275f3c40df06a276e36804b6f9bf155e data/oreganized/advancements/recipes/mi
 e5e53c7d6b2173a1f6dec77caf21771f41f97edc data/oreganized/advancements/recipes/misc/smelt_raw_lead.json
 2f4e1f1ac23c86a7a60e1d860af14dc24e0ca4fd data/oreganized/advancements/recipes/misc/smelt_raw_silver.json
 69c401795ef31b870e886764e132efa99277d42a data/oreganized/advancements/recipes/misc/smelt_silver_ore.json
-c19af50e9c1559e697f6def652c5317c8e625081 data/oreganized/advancements/recipes/redstone/exposer.json
+1c41aefb7db7e46e4e73cbb28fdbc35925f8da11 data/oreganized/advancements/recipes/redstone/gargoyle.json
 515ce7c277e9172bf0c68c6bddc09d08de2b0c12 data/oreganized/advancements/recipes/redstone/lead_bars.json
 fea94b2bd9d8d2a9ef8e130ad2eb404691da858d data/oreganized/advancements/recipes/redstone/lead_door.json
 716ef31e308f24d22ef6dae98e96fe9b16169e9b data/oreganized/advancements/recipes/redstone/lead_trapdoor.json
@@ -175,7 +175,7 @@ db731a127ba3046ceee5ae0e2f6e86d5d01504b2 data/oreganized/recipes/electrum_pickax
 facfd8f07459c400bb70163f4867e70d66652787 data/oreganized/recipes/electrum_shovel.json
 cf15ffd760d39ce405ab20a1a677b1798ae80437 data/oreganized/recipes/electrum_sword.json
 4a09ce0c226b618b61938286b85395b81ecb3efb data/oreganized/recipes/electrum_upgrade_smithing_template.json
-d63a328623247dabc486f8e49964fb84ffec0c5e data/oreganized/recipes/exposer.json
+1fe4c5cc425db61412f873704d046425f07198e0 data/oreganized/recipes/gargoyle.json
 586044ef7239f771d4055bcf9e0acba184edcb49 data/oreganized/recipes/glance.json
 6b6c7d006b274224fdd9b469859e18aaf20040ff data/oreganized/recipes/glance_bricks.json
 cd75a9311f1b63a61fb34547c17607b26dd7d911 data/oreganized/recipes/glance_brick_slab.json

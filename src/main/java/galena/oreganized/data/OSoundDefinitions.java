@@ -29,5 +29,11 @@ public class OSoundDefinitions extends SoundDefinitionsProvider {
         add(OSoundEvents.BOLT_HIT_ARMOR,  definition().with(
                 sound(Oreganized.MOD_ID + ":entity/bolt_hit_armor")
         ).subtitle("subtitles.entity.bolt_hit_armor"));
+
+        add(OSoundEvents.GARGOYLE_GROWL, definition().with(
+                sound(Oreganized.MOD_ID + ":block/gargoyle_growl_1"),
+                sound(Oreganized.MOD_ID + ":block/gargoyle_growl_2"),
+                sound(Oreganized.MOD_ID + ":block/gargoyle_growl_3")
+        ).subtitle("subtitles.block.gargoyle.growl"));
     }
 }
