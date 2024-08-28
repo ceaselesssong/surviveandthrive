@@ -10,6 +10,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.versions.forge.ForgeVersion;
 
+import static galena.oreganized.ModCompat.FARMERS_DELIGHT_ID;
+import static galena.oreganized.ModCompat.NETHERS_DELIGHT_ID;
+import static galena.oreganized.ModCompat.SHIELD_EXPANSION_ID;
+
 public class OTags {
 
     public static class Items {
@@ -43,6 +47,12 @@ public class OTags {
         public static final TagKey<Item> STORAGE_BLOCKS_RAW_LEAD = forgeTag("storage_blocks/raw_lead");
         public static final TagKey<Item> BUCKETS_MOLTEN_LEAD = forgeTag("buckets/molten_lead");
         public static final TagKey<Item> TOOLS_BUSH_HAMMER = forgeTag("tools/bush_hammer");
+
+        public static final TagKey<Item> TOOLS_KNIVES = forgeTag("tools/knives");
+        public static final TagKey<Item> TOOLS_KNIVES_FD = ItemTags.create(new ResourceLocation(FARMERS_DELIGHT_ID, "tools/knives"));
+        public static final TagKey<Item> SHIELDS = forgeTag("shields");
+        public static final TagKey<Item> SHIELDS_SE = ItemTags.create(new ResourceLocation(SHIELD_EXPANSION_ID, "shields"));
+        public static final TagKey<Item> MACHETES = ItemTags.create(new ResourceLocation(NETHERS_DELIGHT_ID, "tools/machetes"));
 
         public static final TagKey<Item> GARGOYLE_SNACK = tag("gargoyle_snack");
 
