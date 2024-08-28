@@ -67,6 +67,7 @@ public class OTags {
     public static class Blocks {
 
         public static final TagKey<Block> MINEABLE_WITH_BUSH_HAMMER = tag("mineable/bush_hammer");
+        public static final TagKey<Block> MINEABLE_WITH_SCRIBE = tag("mineable/scribe");
         public static final TagKey<Block> ENGRAVABLE = tag("engravable");
         public static final TagKey<Block> ENGRAVABLE_NEEDS_PLATE = tag("engravable/needs_plate");
         public static final TagKey<Block> FIRE_SOURCE = tag("fire_source");

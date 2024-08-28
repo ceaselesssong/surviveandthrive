@@ -1,4 +1,4 @@
-// 1.20.1	2024-08-28T12:15:19.5367066	Recipes
+// 1.20.1	2024-08-28T12:49:10.1978323	Recipes
 c27d3499944bf522a573dc8987582db2d7349b41 data/oreganized/advancements/recipes/brewing/poisonous_potato_from_lead.json
 ee5e42ab2e9ac549022fadf1c2cbf9faebc2c53c data/oreganized/advancements/recipes/building_blocks/black_crystal_glass_pane.json
 40700c3f2f5c78c617650fdd16e2ba248967353f data/oreganized/advancements/recipes/building_blocks/blue_crystal_glass_pane.json
@@ -139,6 +139,7 @@ fea94b2bd9d8d2a9ef8e130ad2eb404691da858d data/oreganized/advancements/recipes/re
 716ef31e308f24d22ef6dae98e96fe9b16169e9b data/oreganized/advancements/recipes/redstone/lead_trapdoor.json
 d8d4342744c72378bf0e7430305569819e8eeef1 data/oreganized/advancements/recipes/redstone/shrapnel_bomb.json
 430e8110352b21c77fe0b3cb175b5b3fc4c6e4fd data/oreganized/advancements/recipes/tools/bush_hammer.json
+4a68b65b81f872d9396798417f3ff5be886ce70c data/oreganized/advancements/recipes/tools/scribe.json
 57cf50f8e6ff4069b2fdc5fcf0e5092b68377468 data/oreganized/advancements/recipes/tools/silver_mirror.json
 bd88fa660d3a40c321d3288b127cfe99e795cb6f data/oreganized/advancements/recipes/transportation/shrapnel_bomb_minecart.json
 ee154313df45723058ea98bd9cbc74eeb3e1293f data/oreganized/recipes/black_crystal_glass.json
@@ -227,6 +228,7 @@ de027e6a84b7854012960c27c03f18c22de4cc78 data/oreganized/recipes/raw_lead_block.
 7c161f552218843de6033c84fdbcda9f024de464 data/oreganized/recipes/raw_silver_from_block.json
 2deee8e79dab0cc6a48f66589d44f3e2ee6df545 data/oreganized/recipes/red_crystal_glass.json
 f143419602a22f529db20cea44e5e370e8e4d868 data/oreganized/recipes/red_crystal_glass_pane.json
+06ea07eed909dbcff647ac8724355430c1817e0e data/oreganized/recipes/scribe.json
 194a5e4bfb1acbb98161ddeb6c0af5b21917e508 data/oreganized/recipes/shrapnel_bomb.json
 cedc682018d184f9f9f384afe3b157e6cbfff4b1 data/oreganized/recipes/shrapnel_bomb_minecart.json
 07595b3d623aafa3ef700093ec0449ebafa1ed27 data/oreganized/recipes/silver_block.json

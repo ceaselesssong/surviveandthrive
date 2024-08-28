@@ -368,6 +368,7 @@ public class Oreganized {
             putBefore(entries, Items.SPYGLASS, OItems.SILVER_MIRROR);
             putAfter(entries, Items.TNT_MINECART, OItems.SHRAPNEL_BOMB_MINECART);
             putBefore(entries, Items.MUSIC_DISC_5, OItems.MUSIC_DISC_STRUCTURE);
+            putAfter(entries, Items.SHEARS, OItems.SCRIBE);
         }
         if (tab == CreativeModeTabs.COMBAT) {
             putBefore(entries, Items.NETHERITE_SWORD, OItems.ELECTRUM_SWORD);

@@ -1,4 +1,4 @@
-// 1.20.1	2024-08-28T12:15:19.543716	oreganized Item Models
+// 1.20.1	2024-08-28T12:35:31.5287616	oreganized Item Models
 18fcb236eeab67fa16a0014d9af5ba7dd6f9e7c8 assets/oreganized/models/item/black_crystal_glass.json
 30bbb36792cb2d3f0a8a399f25238120cdf7e659 assets/oreganized/models/item/black_crystal_glass_pane.json
 8dcab59e8c34403761c4aec2c3357b7db80b3f0b assets/oreganized/models/item/blue_crystal_glass.json
@@ -121,6 +121,7 @@ f7c411b709a3af883b55ceb15524a116468ee0b4 assets/oreganized/models/item/purple_cr
 0eb2d49665d43c865870beb62e13499299fd7174 assets/oreganized/models/item/raw_silver_block.json
 848e82277b2a6223f4d24e6e8e53fd2769263be0 assets/oreganized/models/item/red_crystal_glass.json
 1cbba207d199088dd85850ea56d55d5976e15f3c assets/oreganized/models/item/red_crystal_glass_pane.json
+4c384b6c9ca85ea3aa0aca55eea89363d8355bd7 assets/oreganized/models/item/scribe.json
 2f15086e7865fc768aa268ec9b3797e818976165 assets/oreganized/models/item/shrapnel_bomb.json
 0a859cda7510d7756a43cfdf4bac94b2ed57ddb6 assets/oreganized/models/item/shrapnel_bomb_minecart.json
 13ffab906a6704c68eb4fef73382a7b0e0a5d5be assets/oreganized/models/item/silver_ingot.json

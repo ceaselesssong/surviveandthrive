@@ -45,6 +45,7 @@ public class OItemModels extends OItemModelProvider {
         normalItem(OItems.LEAD_BOLT);
 
         toolItem(OItems.BUSH_HAMMER);
+        toolItem(OItems.SCRIBE);
         toolItem(OItems.ELECTRUM_SWORD);
         toolItem(OItems.ELECTRUM_SHOVEL);
         toolItem(OItems.ELECTRUM_PICKAXE);

@@ -96,6 +96,11 @@ dependencies {
     implementation fg.deobf("com.teamabnormals:blueprint:${minecraft_version}-${blueprint_version}")
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:${mixin_extras_version}")) {
+        jarJar.ranged(it, "[${mixin_extras_version},)")
+    }
+
     // Compatibilities
     runtimeOnly(fg.deobf("maven.modrinth:create:${create_version}"))
     implementation(fg.deobf("maven.modrinth:farmers-delight:${farmersdelight_version}"))
