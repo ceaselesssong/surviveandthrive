@@ -31,6 +31,8 @@ import java.util.Collection;
 
 public class GargoyleBlockEntity extends BlockEntity {
 
+    private static final int COOLDOWN = 20 * 30;
+
     private int outputSignal = 0;
     private int updateCooldown = 0;
     private int growlCooldown = 0;
@@ -45,6 +47,7 @@ public class GargoyleBlockEntity extends BlockEntity {
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, GargoyleBlockEntity be) {
+        be.growlCooldown--;
         if (--be.updateCooldown > 0) return;
 
         var targets = getTargets(level, pos);
@@ -84,6 +87,7 @@ public class GargoyleBlockEntity extends BlockEntity {
     }
 
     public InteractionResult interact(Level level, BlockPos pos, @Nullable Player player, ItemStack stack, boolean simulate) {
+        if (growlCooldown > 0) return InteractionResult.PASS;
         if (!stack.is(OTags.Items.GARGOYLE_SNACK)) return InteractionResult.PASS;
 
         if (player == null || !player.getAbilities().instabuild) {
@@ -97,6 +101,8 @@ public class GargoyleBlockEntity extends BlockEntity {
         });
 
         level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), OSoundEvents.GARGOYLE_GROWL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+
+        growlCooldown = COOLDOWN;
 
         if (!level.isClientSide) {
             OreganizedNetwork.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new GargoyleParticlePacket(pos));
