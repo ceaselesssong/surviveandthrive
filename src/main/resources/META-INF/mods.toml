@@ -41,3 +41,24 @@ This mod is designed to be a Vanilla plus mod while also adding unique uses and 
     versionRange="[7.1.0,)"
     ordering="AFTER"
     side="BOTH"
+
+[[dependencies.oreganized]]
+    modId="shieldexp"
+    mandatory=false
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.oreganized]]
+    modId="nethersdelight"
+    mandatory=false
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.oreganized]]
+    modId="farmersdelight"
+    mandatory=false
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
