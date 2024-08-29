@@ -58,7 +58,7 @@ public interface IMeltableBlock {
         return 0;
     }
 
-    default int getNextGoopyness(Level world, BlockState selfState, BlockPos selfPos) {
+    default int goopynessAt(BlockGetter world, BlockState selfState, BlockPos selfPos) {
         var touching = OFFSET.stream()
                 .map(selfPos::offset)
                 .mapToInt(pos -> getInducedGoopyness(world, world.getBlockState(pos), pos, selfState, selfPos))
@@ -67,10 +67,14 @@ public interface IMeltableBlock {
         return touching.orElse(0);
     }
 
+    default int getNextGoopyness(BlockGetter world, BlockState selfState, BlockPos selfPos) {
+        return goopynessAt(world, selfState, selfPos);
+    }
+
     /**
      * @return if the block should be updated
      */
-    default boolean onGoopynessChange(Level world, BlockPos pos, RandomSource random, int from, int to) {
+    default boolean onGoopynessChange(Level world, BlockState state, BlockPos pos, RandomSource random, int from, int to) {
         return true;
     }
 
@@ -79,7 +83,7 @@ public interface IMeltableBlock {
         int goopyness = getNextGoopyness(world, state, pos);
 
         if (currentGoopyness != goopyness) {
-            if (onGoopynessChange(world, pos, random, currentGoopyness, goopyness)) {
+            if (onGoopynessChange(world, state, pos, random, currentGoopyness, goopyness)) {
                 world.setBlockAndUpdate(pos, state.setValue(getGoopynessProperty(), goopyness));
             }
         }
