@@ -273,5 +273,15 @@ public class ORecipes extends ORecipeProvider {
                 .pattern("###")
                 .unlockedBy("has_lead", has(OTags.Items.INGOTS_LEAD))
                 .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, OItems.SCRIBE.get())
+                .define('A', Items.AMETHYST_SHARD)
+                .define('S', OTags.Items.INGOTS_SILVER)
+                .pattern("A")
+                .pattern("S")
+                .pattern("S")
+                .unlockedBy("has_silver", has(OTags.Items.INGOTS_SILVER))
+                .unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
+                .save(consumer);
     }
 }

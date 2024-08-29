@@ -8,6 +8,7 @@ import galena.oreganized.content.item.ElectrumArmorItem;
 import galena.oreganized.content.item.LeadBoltItem;
 import galena.oreganized.content.item.MinecartShrapnelBombItem;
 import galena.oreganized.content.item.OSmithingTemplateItem;
+import galena.oreganized.content.item.ScribeItem;
 import galena.oreganized.content.item.SilverMirrorItem;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.ArmorItem;
@@ -58,6 +59,7 @@ public class OItems {
 
     // Tools
     public static final RegistryObject<Item> BUSH_HAMMER = HELPER.createItem("bush_hammer", () -> new BushHammerItem(OItemTiers.LEAD, 2.5F, -2.8F, (new Item.Properties()).stacksTo(1)));
+    public static final RegistryObject<Item> SCRIBE = HELPER.createItem("scribe", () -> new ScribeItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> ELECTRUM_SWORD = HELPER.createItem("electrum_sword", () -> new SwordItem(OItemTiers.ELECTRUM, 3, -2.2F, (new Item.Properties())));
     public static final RegistryObject<Item> ELECTRUM_SHOVEL = HELPER.createItem("electrum_shovel", () -> new ShovelItem(OItemTiers.ELECTRUM, 1.5F, -2.8F, (new Item.Properties())));

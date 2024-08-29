@@ -20,6 +20,7 @@ import static galena.oreganized.index.OTags.Blocks.CRYSTAL_GLASS;
 import static galena.oreganized.index.OTags.Blocks.CRYSTAL_GLASS_PANES;
 import static galena.oreganized.index.OTags.Blocks.FIRE_SOURCE;
 import static galena.oreganized.index.OTags.Blocks.MELTS_LEAD;
+import static galena.oreganized.index.OTags.Blocks.MINEABLE_WITH_SCRIBE;
 import static galena.oreganized.index.OTags.Blocks.ORES_LEAD;
 import static galena.oreganized.index.OTags.Blocks.ORES_SILVER;
 import static galena.oreganized.index.OTags.Blocks.STONE_TYPES_GLANCE;
@@ -40,6 +41,7 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
         return "Oreganized Block Tags";
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         // Oreganized
@@ -163,5 +165,11 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
                 .add(Blocks.MAGMA_BLOCK)
                 .addTags(BlockTags.CAMPFIRES)
                 .addTags(BlockTags.FIRE);
+
+        tag(MINEABLE_WITH_SCRIBE)
+                .addTags(Tags.Blocks.GLASS)
+                .addTags(Tags.Blocks.OBSIDIAN)
+                .addTags(BlockTags.ICE)
+                .addTags(Tags.Blocks.STORAGE_BLOCKS_AMETHYST);
     }
 }
