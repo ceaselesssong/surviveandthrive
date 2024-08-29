@@ -21,11 +21,11 @@ import java.util.UUID;
 public class StunningEffect extends MobEffect {
 
     private static final String SLOWNESS_UUID = "019150f6-e85e-777f-a566-1eafd7c7e1a5";
-    public static final int MAX_AMPLIFIER = 7;
+    public static final int MAX_AMPLIFIER = 9;
 
     public StunningEffect() {
         super(MobEffectCategory.HARMFUL, 0x3B3B63);
-        addAttributeModifier(Attributes.MOVEMENT_SPEED, SLOWNESS_UUID, -0.15000000596046448, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        addAttributeModifier(Attributes.MOVEMENT_SPEED, SLOWNESS_UUID, -0.075, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 
     public static double getTurnModifier(LivingEntity entity) {
@@ -48,7 +48,9 @@ public class StunningEffect extends MobEffect {
 
         var step = targetAmplifier > amplifier ? 1 : -1;
 
-        instance.update(new MobEffectInstance(this, instance.getDuration() + 1, amplifier + step, instance.isAmbient(), instance.isVisible(), instance.showIcon()));
+        if (instance.update(new MobEffectInstance(this, instance.getDuration() + 1, amplifier + step, instance.isAmbient(), instance.isVisible(), instance.showIcon()))) {
+            addAttributeModifiers(entity, entity.getAttributes(), instance.getAmplifier());
+        }
     }
 
     @Override

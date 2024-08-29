@@ -38,11 +38,12 @@ public class OGui extends ForgeGui {
 
         var stunning = this.minecraft.player.getEffect(OEffects.STUNNING.get());
         if (stunning != null) {
-            this.renderTextureOverlay(guiGraphics, STUNNING_VIGNETTE_LOCATION, 1);
-            this.renderTextureOverlay(guiGraphics, getStunningOutline(stunning.getAmplifier()), 1);
+            var opacity = stunning.getAmplifier() * 1F / StunningEffect.MAX_AMPLIFIER;
+            this.renderTextureOverlay(guiGraphics, STUNNING_VIGNETTE_LOCATION, opacity);
+            this.renderTextureOverlay(guiGraphics, getStunningOutline(stunning.getAmplifier()), 1F);
         }
 
         if (this.minecraft.player.isEyeInFluidType(OFluids.MOLTEN_LEAD_TYPE.get()))
-            this.renderTextureOverlay(guiGraphics, STUNNING_VIGNETTE_LOCATION, 1);
+            this.renderTextureOverlay(guiGraphics, STUNNING_VIGNETTE_LOCATION, 1F);
     }
 }
