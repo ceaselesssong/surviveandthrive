@@ -4,17 +4,11 @@
   "package": "galena.oreganized.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "AbstractArrowMixin",
-    "CrossbowMixin",
-    "DispenserBlockMixin",
-    "FoodDataMixin",
-    "MobEffectInstanceMixin",
-    "PlayerMixin"
+    "AbstractArrowMixin", "CrossbowMixin", "DispenserBlockMixin", "FoodDataMixin", "MobEffectInstanceMixin",
+    "PlayerMixin", "BlockMixin", "IceBlockMixin"
   ],
   "client": [
-    "client.HumanoidArmorLayerAccessor",
-    "client.HumanoidArmorLayerMixin",
-    "client.MouseHandlerAccessor",
+    "client.HumanoidArmorLayerAccessor", "client.HumanoidArmorLayerMixin", "client.MouseHandlerAccessor",
     "client.MouseHandlerMixin"
   ],
   "server": [],

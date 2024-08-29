@@ -17,6 +17,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
+import org.infernalstudios.shieldexp.init.ItemsInit;
+import umpaz.nethersdelight.common.registry.NDItems;
+import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.function.Consumer;
 
@@ -102,6 +105,9 @@ public class ORecipes extends ORecipeProvider {
         smithingElectrum(() -> Items.DIAMOND_PICKAXE, OItems.ELECTRUM_PICKAXE).save(consumer, Oreganized.modLoc("electrum_pickaxe"));
         smithingElectrum(() -> Items.DIAMOND_AXE, OItems.ELECTRUM_AXE).save(consumer, Oreganized.modLoc("electrum_axe"));
         smithingElectrum(() -> Items.DIAMOND_HOE, OItems.ELECTRUM_HOE).save(consumer, Oreganized.modLoc("electrum_hoe"));
+        smithingElectrum(ModItems.DIAMOND_KNIFE, OItems.ELECTRUM_KNIFE).save(consumer, Oreganized.modLoc("electrum_knife"));
+        smithingElectrum(ItemsInit.DIAMOND_SHIELD, OItems.ELECTRUM_SHIELD).save(consumer, Oreganized.modLoc("electrum_shield"));
+        smithingElectrum(NDItems.DIAMOND_MACHETE, OItems.ELECTRUM_MACHETE).save(consumer, Oreganized.modLoc("electrum_machete"));
         smithingElectrum(() -> Items.DIAMOND_HELMET, OItems.ELECTRUM_HELMET).save(consumer, Oreganized.modLoc("electrum_helmet"));
         smithingElectrum(() -> Items.DIAMOND_CHESTPLATE, OItems.ELECTRUM_CHESTPLATE).save(consumer, Oreganized.modLoc("electrum_chestplate"));
         smithingElectrum(() -> Items.DIAMOND_LEGGINGS, OItems.ELECTRUM_LEGGINGS).save(consumer, Oreganized.modLoc("electrum_leggings"));
@@ -266,6 +272,16 @@ public class ORecipes extends ORecipeProvider {
                 .pattern("###")
                 .pattern("###")
                 .unlockedBy("has_lead", has(OTags.Items.INGOTS_LEAD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, OItems.SCRIBE.get())
+                .define('A', Items.AMETHYST_SHARD)
+                .define('S', OTags.Items.INGOTS_SILVER)
+                .pattern("A")
+                .pattern("S")
+                .pattern("S")
+                .unlockedBy("has_silver", has(OTags.Items.INGOTS_SILVER))
+                .unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
                 .save(consumer);
     }
 }

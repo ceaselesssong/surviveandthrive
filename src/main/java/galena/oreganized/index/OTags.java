@@ -10,6 +10,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.versions.forge.ForgeVersion;
 
+import static galena.oreganized.ModCompat.FARMERS_DELIGHT_ID;
+import static galena.oreganized.ModCompat.NETHERS_DELIGHT_ID;
+import static galena.oreganized.ModCompat.SHIELD_EXPANSION_ID;
+
 public class OTags {
 
     public static class Items {
@@ -44,6 +48,12 @@ public class OTags {
         public static final TagKey<Item> BUCKETS_MOLTEN_LEAD = forgeTag("buckets/molten_lead");
         public static final TagKey<Item> TOOLS_BUSH_HAMMER = forgeTag("tools/bush_hammer");
 
+        public static final TagKey<Item> TOOLS_KNIVES = forgeTag("tools/knives");
+        public static final TagKey<Item> TOOLS_KNIVES_FD = ItemTags.create(new ResourceLocation(FARMERS_DELIGHT_ID, "tools/knives"));
+        public static final TagKey<Item> SHIELDS = forgeTag("shields");
+        public static final TagKey<Item> SHIELDS_SE = ItemTags.create(new ResourceLocation(SHIELD_EXPANSION_ID, "shields"));
+        public static final TagKey<Item> MACHETES = ItemTags.create(new ResourceLocation(NETHERS_DELIGHT_ID, "tools/machetes"));
+
         public static final TagKey<Item> GARGOYLE_SNACK = tag("gargoyle_snack");
 
         private static TagKey<Item> tag(String name) {
@@ -57,6 +67,7 @@ public class OTags {
     public static class Blocks {
 
         public static final TagKey<Block> MINEABLE_WITH_BUSH_HAMMER = tag("mineable/bush_hammer");
+        public static final TagKey<Block> MINEABLE_WITH_SCRIBE = tag("mineable/scribe");
         public static final TagKey<Block> ENGRAVABLE = tag("engravable");
         public static final TagKey<Block> ENGRAVABLE_NEEDS_PLATE = tag("engravable/needs_plate");
         public static final TagKey<Block> FIRE_SOURCE = tag("fire_source");

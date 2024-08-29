@@ -45,11 +45,15 @@ public class OItemModels extends OItemModelProvider {
         normalItem(OItems.LEAD_BOLT);
 
         toolItem(OItems.BUSH_HAMMER);
+        toolItem(OItems.SCRIBE);
         toolItem(OItems.ELECTRUM_SWORD);
         toolItem(OItems.ELECTRUM_SHOVEL);
         toolItem(OItems.ELECTRUM_PICKAXE);
         toolItem(OItems.ELECTRUM_AXE);
         toolItem(OItems.ELECTRUM_HOE);
+        toolItem(OItems.ELECTRUM_KNIFE);
+        toolItem(OItems.ELECTRUM_MACHETE);
+        shieldItem(OItems.ELECTRUM_SHIELD);
 
         crossbowOverwrite("crossbow_lead_bolt");
 
@@ -124,4 +128,5 @@ public class OItemModels extends OItemModelProvider {
             withExistingParent(blockName(blocks), "minecraft:block/" + blockName(blocks).replace("waxed_", ""));
         }
     }
+
 }

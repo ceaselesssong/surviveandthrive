@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-22T22:02:00.7201533	Oreganized Block Tags
+// 1.20.1	2024-08-28T12:35:31.5287616	Oreganized Block Tags
 7a2d68d81bc5ee59f9a2f4ba68ddb39bfd9c875d data/forge/tags/blocks/glass.json
 d96b4f83e03abe39a1b97d92b7818c8f6b2e5c68 data/forge/tags/blocks/glass_panes.json
 d062c23ad5308b7de0b2e86f6531ea724530f898 data/forge/tags/blocks/melts_lead.json
@@ -30,4 +30,5 @@ a4acb3623320f801e89e3451f8b7d9e2246f99d0 data/minecraft/tags/blocks/walls.json
 81fb1b18afaa14ae90800b23c32de565d1389bb3 data/oreganized/tags/blocks/crystal_glass.json
 f1dfddab1e3f2dec1e7ed1c3fbf9f6a7f261cf08 data/oreganized/tags/blocks/crystal_glass_panes.json
 6b73bb0ce38222c428d54ee64e82ffa1d96c64d7 data/oreganized/tags/blocks/fire_source.json
+81e3d74d8e9abfe57f1388c75a381dd419a44695 data/oreganized/tags/blocks/mineable/scribe.json
 3112fb4a1df2953e2c3572fa47f886bf8e5bd679 data/oreganized/tags/blocks/stone_types/glance.json
