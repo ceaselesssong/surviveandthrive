@@ -42,6 +42,33 @@ public class LeadDoorBlock extends DoorBlock implements IMeltableBlock {
         builder.add(getGoopynessProperty());
     }
 
+    /*
+    @Override
+    public boolean onGoopynessChange(Level world, BlockState state, BlockPos pos, RandomSource random, int from, int to) {
+        var half = state.getValue(HALF);
+        var otherPos = half == DoubleBlockHalf.LOWER ? pos.above() : pos.below();
+        var otherState = world.getBlockState(otherPos);
+
+        if (otherState.is(this) && getGoopyness(otherState) != to) {
+            world.setBlockAndUpdate(otherPos, otherState.setValue(getGoopynessProperty(), to));
+        }
+
+        return IMeltableBlock.super.onGoopynessChange(world, state, pos, random, from, to);
+    }
+     */
+
+    @Override
+    public int getNextGoopyness(BlockGetter world, BlockState selfState, BlockPos selfPos) {
+        var self = goopynessAt(world, selfState, selfPos);
+
+        var half = selfState.getValue(HALF);
+        var otherPos = half == DoubleBlockHalf.LOWER ? selfPos.above() : selfPos.below();
+        var otherState = world.getBlockState(otherPos);
+        var other = goopynessAt(world, otherState, otherPos);
+
+        return Math.max(self, other);
+    }
+
     @Override
     public int getInducedGoopyness(BlockGetter world, BlockState state, BlockPos pos, BlockState selfState, BlockPos selfPos) {
         if (state.is(this)) {
@@ -49,7 +76,8 @@ public class LeadDoorBlock extends DoorBlock implements IMeltableBlock {
             if (selfHalf == DoubleBlockHalf.UPPER && pos.getY() < selfPos.getY()
                     || selfHalf == DoubleBlockHalf.LOWER && pos.getY() > selfPos.getY()
             ) {
-                return getGoopyness(state);
+                return 0;
+                //return getGoopyness(state);
             }
         }
         return IMeltableBlock.super.getInducedGoopyness(world, state, pos, selfState, selfPos);

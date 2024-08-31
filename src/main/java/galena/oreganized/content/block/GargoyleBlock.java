@@ -71,7 +71,7 @@ public class GargoyleBlock extends HorizontalDirectionalBlock implements EntityB
         var base = super.getStateForPlacement(context);
         var clickedFace = context.getClickedFace();
 
-        if (clickedFace.getAxis().isHorizontal()) {
+        if (clickedFace.getAxis().isHorizontal() && !context.replacingClickedOnBlock()) {
             return base.setValue(HORIZONTAL_FACING, clickedFace.getOpposite()).setValue(ATTACHMENT, AttachmentType.WALL);
         } else {
             return base.setValue(HORIZONTAL_FACING, context.getHorizontalDirection()).setValue(ATTACHMENT, AttachmentType.FLOOR);
