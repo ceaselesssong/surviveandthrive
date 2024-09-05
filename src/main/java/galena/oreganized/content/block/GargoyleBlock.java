@@ -5,7 +5,7 @@ import galena.oreganized.index.OBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
-import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
@@ -113,15 +113,10 @@ public class GargoyleBlock extends HorizontalDirectionalBlock implements EntityB
         return super.use(state, level, pos, player, hand, hit);
     }
 
-    @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        super.animateTick(state, level, pos, random);
-
-        if (random.nextBoolean() && level.isRainingAt(pos.above())) {
-            double spread = random.nextDouble() * 0.1 - 0.05;
-            var offset = AttachmentType.offset(state, pos, spread);
-            level.addParticle(ParticleTypes.DRIPPING_DRIPSTONE_WATER, offset.x, offset.y, offset.z, 0.0, 0.0, 0.0);
-        }
+    public static void dripParticles(BlockState state, Level level, BlockPos pos, RandomSource random, ParticleOptions type) {
+        double spread = random.nextDouble() * 0.1 - 0.05;
+        var offset = AttachmentType.offset(state, pos, spread);
+        level.addParticle(type, offset.x, offset.y, offset.z, 0.0, 0.0, 0.0);
     }
 
     @Nullable

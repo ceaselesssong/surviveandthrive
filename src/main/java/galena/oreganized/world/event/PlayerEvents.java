@@ -3,6 +3,7 @@ package galena.oreganized.world.event;
 import galena.oreganized.Oreganized;
 import galena.oreganized.OreganizedConfig;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
+import galena.oreganized.content.entity.GargoyleBlockEntity;
 import galena.oreganized.index.*;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.player.inventory.Hotbar;
@@ -24,8 +25,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.item.ItemEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -51,7 +54,7 @@ public class PlayerEvents {
     }
 
     /**
-     *Use if interaction is not defined in {@link ToolActions}
+     * Use if interaction is not defined in {@link ToolActions}
      **/
     @SubscribeEvent
     public static void blockItemInteractions(final PlayerInteractEvent.RightClickBlock event) {
@@ -65,7 +68,8 @@ public class PlayerEvents {
         // Waxing (Using Honeycomb on a waxable block).
         if (itemStack.is(Items.HONEYCOMB) && OBlocks.WAXED_BLOCKS.inverse().get(state.getBlock()) != null) {
 
-            if (player instanceof ServerPlayer) CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer) player, pos, itemStack);
+            if (player instanceof ServerPlayer)
+                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer) player, pos, itemStack);
 
             player.swing(event.getHand());
             if (!player.isCreative()) event.getItemStack().shrink(1);
@@ -107,8 +111,24 @@ public class PlayerEvents {
                 }
             }
             if ((entity.getOffhandItem().is(OTags.Items.LEAD_SOURCE) || leadPoisoning) && OreganizedConfig.COMMON.leadPoisining.get()) {
-                if (OreganizedConfig.stunningFromConfig()) entity.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 40 * 20));
+                if (OreganizedConfig.stunningFromConfig())
+                    entity.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 40 * 20));
                 entity.addEffect(new MobEffectInstance(MobEffects.POISON, 200));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void tickPlayer(final TickEvent.PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.START) return;
+
+        var data = event.player.getPersistentData();
+        if (data.contains(GargoyleBlockEntity.GROWL_COOLDOWN_TAG, 99)) {
+            var cooldown = data.getInt(GargoyleBlockEntity.GROWL_COOLDOWN_TAG);
+            if (cooldown > 0) {
+                data.putInt(GargoyleBlockEntity.GROWL_COOLDOWN_TAG, cooldown - 1);
+            } else {
+                data.remove(GargoyleBlockEntity.GROWL_COOLDOWN_TAG);
             }
         }
     }

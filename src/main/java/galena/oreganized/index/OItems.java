@@ -3,6 +3,7 @@ package galena.oreganized.index;
 import com.teamabnormals.blueprint.common.item.BlueprintRecordItem;
 import com.teamabnormals.blueprint.core.util.registry.ItemSubRegistryHelper;
 import galena.oreganized.Oreganized;
+import galena.oreganized.compat.farmers_delight.FarmersDelightCompat;
 import galena.oreganized.content.item.BushHammerItem;
 import galena.oreganized.content.item.ElectrumArmorItem;
 import galena.oreganized.content.item.LeadBoltItem;
@@ -26,19 +27,20 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
-import vectorwing.farmersdelight.common.item.KnifeItem;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static galena.oreganized.ModCompat.FARMERS_DELIGHT_ID;
 
+@SuppressWarnings("Convert2MethodRef")
 @Mod.EventBusSubscriber(modid = Oreganized.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class OItems {
     public static final ItemSubRegistryHelper HELPER = Oreganized.REGISTRY_HELPER.getItemSubHelper();
 
-    public static Supplier<? extends Item> compat(String modid, Supplier<? extends Item> supplier) {
-        if (ModList.get().isLoaded(modid)) return supplier;
-        return () -> new Item(new Item.Properties());
+    public static Supplier<? extends Item> compat(String modid, Function<Item.Properties, ? extends Item> supplier, Item.Properties properties) {
+        if (ModList.get().isLoaded(modid)) return () -> supplier.apply(properties);
+        return () -> new Item(properties);
     }
 
     // Discs
@@ -67,7 +69,7 @@ public class OItems {
     public static final RegistryObject<Item> ELECTRUM_AXE = HELPER.createItem("electrum_axe", () -> new AxeItem(OItemTiers.ELECTRUM, 6.0F, -2.8F, (new Item.Properties())));
     public static final RegistryObject<Item> ELECTRUM_HOE = HELPER.createItem("electrum_hoe", () -> new HoeItem(OItemTiers.ELECTRUM, 0, -2.8F, (new Item.Properties())));
 
-    public static final RegistryObject<Item> ELECTRUM_KNIFE = HELPER.createItem("electrum_knife", compat(FARMERS_DELIGHT_ID, () -> new KnifeItem(OItemTiers.ELECTRUM, 0.5F, -1.8F, (new Item.Properties()))));
+    public static final RegistryObject<Item> ELECTRUM_KNIFE = HELPER.createItem("electrum_knife", compat(FARMERS_DELIGHT_ID, it -> FarmersDelightCompat.KNIFE_FACTORY.apply(it), new Item.Properties()));
     public static final RegistryObject<Item> ELECTRUM_SHIELD = HELPER.createItem("electrum_shield", () -> new ShieldItem(new Item.Properties().durability(363)));
     public static final RegistryObject<Item> ELECTRUM_MACHETE = HELPER.createItem("electrum_machete", () -> new SwordItem(OItemTiers.ELECTRUM, 2, -2.4F, new Item.Properties()));
 

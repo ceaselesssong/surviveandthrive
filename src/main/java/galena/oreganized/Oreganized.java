@@ -161,7 +161,7 @@ public class Oreganized {
 
     private void injectVillagerTrades(VillagerTradesEvent event) {
         if (event.getType() == VillagerProfession.MASON) {
-            event.getTrades().get(5).add(new BasicItemListing(14, ItemStack.EMPTY, 5, 1));
+            event.getTrades().get(5).add(new BasicItemListing(14, new ItemStack(OBlocks.GARGOYLE.get()), 5, 1));
         }
     }
 
@@ -304,6 +304,7 @@ public class Oreganized {
             putAfter(entries, OBlocks.CUT_LEAD.get(), OBlocks.LEAD_BRICKS);
             putAfter(entries, OBlocks.LEAD_PILLAR.get(), OBlocks.CUT_LEAD);
             putAfter(entries, OBlocks.LEAD_BRICKS.get(), OBlocks.LEAD_PILLAR);
+            putAfter(entries, Blocks.IRON_BARS, OBlocks.LEAD_BARS);
         }
         if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             putBefore(entries, Blocks.CHEST, OBlocks.LEAD_BOLT_CRATE);
@@ -357,7 +358,6 @@ public class Oreganized {
             putAfter(entries, Blocks.REDSTONE_LAMP, OBlocks.LEAD_BULB);
             putAfter(entries, Blocks.IRON_DOOR, OBlocks.LEAD_DOOR);
             putAfter(entries, Blocks.IRON_TRAPDOOR, OBlocks.LEAD_TRAPDOOR);
-            putAfter(entries, Blocks.IRON_BARS, OBlocks.LEAD_BARS);
         }
         if (tab == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             putBefore(entries, Items.NETHERITE_SHOVEL, OItems.ELECTRUM_SHOVEL);
