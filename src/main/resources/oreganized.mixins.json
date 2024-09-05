@@ -8,8 +8,7 @@
     "PlayerMixin", "BlockMixin", "IceBlockMixin"
   ],
   "client": [
-    "client.HumanoidArmorLayerAccessor", "client.HumanoidArmorLayerMixin", "client.MouseHandlerAccessor",
-    "client.MouseHandlerMixin"
+    "client.HumanoidArmorLayerAccessor", "client.HumanoidArmorLayerMixin"
   ],
   "server": [],
   "injectors": {
