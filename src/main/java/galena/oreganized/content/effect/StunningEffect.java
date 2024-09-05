@@ -1,68 +1,60 @@
 package galena.oreganized.content.effect;
 
+import galena.oreganized.Oreganized;
 import galena.oreganized.index.OEffects;
-import net.minecraft.client.player.Input;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.MovementInputUpdateEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import galena.oreganized.Oreganized;
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = Oreganized.MOD_ID, value = Dist.CLIENT)
 public class StunningEffect extends MobEffect {
 
-    public static boolean flag = false; // Flag to check if entity should be paralysed
-    public static int coolDown = 0;
+    private static final String SLOWNESS_UUID = "019150f6-e85e-777f-a566-1eafd7c7e1a5";
+    public static final int MAX_AMPLIFIER = 9;
+
     public StunningEffect() {
         super(MobEffectCategory.HARMFUL, 0x3B3B63);
+        addAttributeModifier(Attributes.MOVEMENT_SPEED, SLOWNESS_UUID, -0.075, AttributeModifier.Operation.MULTIPLY_TOTAL);
+    }
+
+    public static double getTurnModifier(LivingEntity entity) {
+        var effect = entity.getEffect(OEffects.STUNNING.get());
+        if (effect == null) return 1.0;
+
+        return 0.95 - effect.getAmplifier() * 0.05;
     }
 
     @Override
     public void applyEffectTick(@NotNull LivingEntity entity, int amplifier) {
-        if (coolDown <= 0) {
-            // amplifier multiplies only the time frozen, making the relative gap larger the higher the level
-            coolDown = entity.level().getRandom().nextInt(120 * (flag ? amplifier + 1 : 1)) + 20;
-            flag = !flag; // Toggle flag, if should be paralysed flag = true, else flag = false
-        }
-        coolDown--; // cool down is decremented every in game tick
-    }
+        if (entity.level().getGameTime() % 5 != 0L) return;
 
-    @SubscribeEvent // applyStunned for Mobs
-    public static void applyStunned(LivingEvent.LivingTickEvent event) {
-        LivingEntity entity = event.getEntity();
-        if ((!(entity instanceof Player)) && entity.hasEffect(OEffects.STUNNING.get()) && flag) {
-            // Copied from LivingEntity.aiStep() when isImmobile() is true
-            entity.setJumping(false);
-            entity.xxa = 0.0F;
-            entity.zza = 0.0F;
-        }
-    }
+        var health = entity.getHealth() / entity.getMaxHealth();
+        var targetAmplifier = (int) Math.ceil((1.0 - health) * MAX_AMPLIFIER);
 
-    @SubscribeEvent // applyStunned for Players
-    public static void applyStunned(MovementInputUpdateEvent event) {
-        Input input = event.getInput(); // Gets player movement input
-        if (event.getEntity().hasEffect(OEffects.STUNNING.get()) && flag) {
-            // Disable all movement related input by setting it to false or 0
-            input.up = false;
-            input.down = false;
-            input.left = false;
-            input.right = false;
-            input.forwardImpulse = 0;
-            input.leftImpulse = 0;
-            input.jumping = false;
-            input.shiftKeyDown = false;
+        if (targetAmplifier == amplifier) return;
+        var instance = entity.getEffect(this);
+        if (instance == null) return;
+
+        var step = targetAmplifier > amplifier ? 1 : -1;
+
+        if (instance.update(new MobEffectInstance(this, instance.getDuration() + 1, amplifier + step, instance.isAmbient(), instance.isVisible(), instance.showIcon()))) {
+            addAttributeModifiers(entity, entity.getAttributes(), instance.getAmplifier());
         }
     }
 
     @Override
-    public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
-        return this == OEffects.STUNNING.get();
+    public boolean isDurationEffectTick(int duration, int amplifier) {
+        return true;
     }
 }
