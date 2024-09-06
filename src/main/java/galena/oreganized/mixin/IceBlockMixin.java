@@ -21,7 +21,7 @@ public class IceBlockMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getItemEnchantmentLevel(Lnet/minecraft/world/item/enchantment/Enchantment;Lnet/minecraft/world/item/ItemStack;)I")
     )
     private int modifyLootBuilder(Enchantment enchantment, ItemStack stack, @Local BlockState state) {
-        if (stack.getItem() instanceof ScribeItem scribe && scribe.isCorrectToolForDrops(stack, state)) {
+        if (stack.getItem() instanceof ScribeItem scribe && scribe.dropsLikeSilktouch(stack, state)) {
             return 1;
         }
         return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack);

@@ -6,6 +6,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -15,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 import static galena.oreganized.index.OTags.Blocks.CRYSTAL_GLASS;
 import static galena.oreganized.index.OTags.Blocks.CRYSTAL_GLASS_PANES;
@@ -23,6 +25,7 @@ import static galena.oreganized.index.OTags.Blocks.MELTS_LEAD;
 import static galena.oreganized.index.OTags.Blocks.MINEABLE_WITH_SCRIBE;
 import static galena.oreganized.index.OTags.Blocks.ORES_LEAD;
 import static galena.oreganized.index.OTags.Blocks.ORES_SILVER;
+import static galena.oreganized.index.OTags.Blocks.SILKTOUCH_WITH_SCRIBE;
 import static galena.oreganized.index.OTags.Blocks.STONE_TYPES_GLANCE;
 import static galena.oreganized.index.OTags.Blocks.STORAGE_BLOCKS_ELECTRUM;
 import static galena.oreganized.index.OTags.Blocks.STORAGE_BLOCKS_LEAD;
@@ -166,10 +169,44 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
                 .addTags(BlockTags.CAMPFIRES)
                 .addTags(BlockTags.FIRE);
 
-        tag(MINEABLE_WITH_SCRIBE)
+        var scribeMineable = tag(MINEABLE_WITH_SCRIBE)
                 .addTags(Tags.Blocks.GLASS)
                 .addTags(Tags.Blocks.OBSIDIAN)
                 .addTags(BlockTags.ICE)
-                .addTags(Tags.Blocks.STORAGE_BLOCKS_AMETHYST);
+                .addTags(BlockTags.CRYSTAL_SOUND_BLOCKS)
+                .addTags(Tags.Blocks.STORAGE_BLOCKS_AMETHYST)
+                .add(Blocks.AMETHYST_CLUSTER)
+                .add(Blocks.LARGE_AMETHYST_BUD)
+                .add(Blocks.MEDIUM_AMETHYST_BUD)
+                .add(Blocks.SMALL_AMETHYST_BUD);
+
+        scribeMineable
+                .addTags(Tags.Blocks.STORAGE_BLOCKS_QUARTZ)
+                .add(Blocks.QUARTZ_BRICKS)
+                .add(Blocks.QUARTZ_PILLAR)
+                .add(Blocks.QUARTZ_SLAB)
+                .add(Blocks.QUARTZ_STAIRS)
+                .add(Blocks.CHISELED_QUARTZ_BLOCK)
+                .add(Blocks.SMOOTH_QUARTZ)
+                .add(Blocks.SMOOTH_QUARTZ_SLAB)
+                .add(Blocks.SMOOTH_QUARTZ_STAIRS);
+
+        Stream.of("%s", "waxed_%s", "%s_cluster", "%s_pane").forEach(pattern -> {
+            scribeMineable
+                    .addOptional(new ResourceLocation("quark", pattern.formatted("red_corundum")))
+                    .addOptional(new ResourceLocation("quark", pattern.formatted("orange_corundum")))
+                    .addOptional(new ResourceLocation("quark", pattern.formatted("yellow_corundum")))
+                    .addOptional(new ResourceLocation("quark", pattern.formatted("green_corundum")))
+                    .addOptional(new ResourceLocation("quark", pattern.formatted("blue_corundum")))
+                    .addOptional(new ResourceLocation("quark", pattern.formatted("indigo_corundum")))
+                    .addOptional(new ResourceLocation("quark", pattern.formatted("violet_corundum")))
+                    .addOptional(new ResourceLocation("quark", pattern.formatted("white_corundum")))
+                    .addOptional(new ResourceLocation("quark", pattern.formatted("black_corundum")))
+            ;
+        });
+
+        tag(SILKTOUCH_WITH_SCRIBE)
+                .addTags(MINEABLE_WITH_SCRIBE)
+                .addTags(BlockTags.MINEABLE_WITH_PICKAXE);
     }
 }

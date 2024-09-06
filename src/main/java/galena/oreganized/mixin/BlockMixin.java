@@ -20,7 +20,7 @@ public class BlockMixin {
             at = @At(value = "STORE")
     )
     private static LootParams.Builder modifyLootBuilder(LootParams.Builder builder, @Local BlockState state, @Local ItemStack stack) {
-        if (stack.getItem() instanceof ScribeItem scribe && scribe.isCorrectToolForDrops(stack, state)) {
+        if (stack.getItem() instanceof ScribeItem scribe && scribe.dropsLikeSilktouch(stack, state)) {
             var virtual = stack.copy();
             virtual.enchant(Enchantments.SILK_TOUCH, 1);
             return builder.withParameter(LootContextParams.TOOL, virtual);

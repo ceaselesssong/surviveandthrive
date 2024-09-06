@@ -1,14 +1,17 @@
 package galena.oreganized.content.item;
 
+import galena.oreganized.index.OTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import static galena.oreganized.index.OTags.Blocks.MINEABLE_WITH_SCRIBE;
+import static galena.oreganized.index.OTags.Blocks.SILKTOUCH_WITH_SCRIBE;
 
 public class ScribeItem extends Item {
 
@@ -28,12 +31,22 @@ public class ScribeItem extends Item {
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        return isCorrectToolForDrops(stack, state) ? 32F : 3F;
+        if (state.is(MINEABLE_WITH_SCRIBE)) return 32F;
+        else if (isCorrectToolForDrops(stack, state)) return 0.3F;
+        return super.getDestroySpeed(stack, state);
+    }
+
+    public boolean dropsLikeSilktouch(ItemStack stack, BlockState state) {
+        return isCorrectToolForDrops(state);
     }
 
     @Override
     public boolean isCorrectToolForDrops(BlockState state) {
-        return state.is(MINEABLE_WITH_SCRIBE);
+        return state.is(SILKTOUCH_WITH_SCRIBE);
     }
 
+    @Override
+    public boolean isValidRepairItem(ItemStack stack, ItemStack repairStack) {
+        return repairStack.is(OTags.Items.INGOTS_SILVER);
+    }
 }
