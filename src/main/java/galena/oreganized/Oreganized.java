@@ -161,7 +161,7 @@ public class Oreganized {
 
     private void injectVillagerTrades(VillagerTradesEvent event) {
         if (event.getType() == VillagerProfession.MASON) {
-            event.getTrades().get(5).add(new BasicItemListing(14, new ItemStack(OBlocks.GARGOYLE.get()), 5, 1));
+            event.getTrades().get(5).add(new BasicItemListing(14, new ItemStack(OBlocks.GARGOYLE.get()), 5, 30, 0.05F));
         }
     }
 
