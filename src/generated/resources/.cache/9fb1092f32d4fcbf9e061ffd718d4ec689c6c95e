@@ -1,4 +1,4 @@
-// 1.20.1	2024-08-28T12:49:10.1978323	Recipes
+// 1.20.1	2024-09-06T10:44:11.3883579	Recipes
 c27d3499944bf522a573dc8987582db2d7349b41 data/oreganized/advancements/recipes/brewing/poisonous_potato_from_lead.json
 ee5e42ab2e9ac549022fadf1c2cbf9faebc2c53c data/oreganized/advancements/recipes/building_blocks/black_crystal_glass_pane.json
 40700c3f2f5c78c617650fdd16e2ba248967353f data/oreganized/advancements/recipes/building_blocks/blue_crystal_glass_pane.json
@@ -191,7 +191,7 @@ e1c09f2d1950d7e5186f3a1ebaed0d1d9bc20f2a data/oreganized/recipes/gray_crystal_gl
 716c99397627e656f05017ee28f973380862691f data/oreganized/recipes/green_crystal_glass_pane.json
 fa74ed7a7cbf05b56856f395a780c726c7d4b065 data/oreganized/recipes/lead_bars.json
 65befcd063025cfae493e0f156e69cad8c397843 data/oreganized/recipes/lead_block.json
-86d1472c32c4c0db36539f7929ecde7460d069ef data/oreganized/recipes/lead_bolt.json
+887688824467cf6b5d7c699c740feceb46d2b788 data/oreganized/recipes/lead_bolt.json
 9a3d66b85dc44ff589e742ac94a11a513e3a8e85 data/oreganized/recipes/lead_bolt_crate.json
 b13c740aa1e59139c3ad6e85c0d6692457ae81e2 data/oreganized/recipes/lead_bolt_from_crate.json
 d556fb758fd3dbab160acceee42cd40c0d02170f data/oreganized/recipes/lead_bricks.json

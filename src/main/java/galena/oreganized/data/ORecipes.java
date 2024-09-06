@@ -229,7 +229,6 @@ public class ORecipes extends ORecipeProvider {
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, OItems.LEAD_BOLT.get(), 1)
                 .pattern("A")
                 .pattern("A")
-                .pattern("A")
                 .define('A', OTags.Items.INGOTS_LEAD)
                 .unlockedBy("has_lead", has(OTags.Items.INGOTS_LEAD))
                 .save(consumer);
