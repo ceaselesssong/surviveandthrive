@@ -1,29 +1,24 @@
 package galena.oreganized.content.block;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.BeaconBeamBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public interface ICrystalGlass extends BeaconBeamBlock {
 
-    int NORMAL = 0, ROTATED = 1, INNER = 2, OUTER = 3;
-    IntegerProperty TYPE = IntegerProperty.create("type", 0, 3);
+    int NORMAL = 0, ROTATED = 1, INNER = 2, OUTER = 3, MAX_TYPE = 3;
+    IntegerProperty TYPE = IntegerProperty.create("type", 0, MAX_TYPE);
 
-    default void updatePattern(BlockPos centerPos, LevelAccessor world) {
-        BlockState aboveState = world.getBlockState(centerPos.above());
-        BlockState centerState = world.getBlockState(centerPos);
-        BlockState belowState = world.getBlockState(centerPos.below());
+    default int getType(BlockPlaceContext context) {
+        var below = context.getLevel().getBlockState(context.getClickedPos().below());
+        var above = context.getLevel().getBlockState(context.getClickedPos().above());
 
-        if (centerState.getBlock() == aboveState.getBlock() && centerState.getBlock() == belowState.getBlock()) {
-            if (aboveState.getValue(TYPE) == ROTATED && centerState.getValue(TYPE) == ROTATED && belowState.getValue(TYPE) == NORMAL) {
-                world.setBlock(centerPos, centerState.setValue(TYPE, OUTER), 3);
-            } else if (aboveState.getValue(TYPE) == NORMAL && centerState.getValue(TYPE) == NORMAL && belowState.getValue(TYPE) == ROTATED) {
-                world.setBlock(centerPos, centerState.setValue(TYPE, INNER), 3);
-            }
+        if (below.getBlock() == this && above.getBlock() == this) {
+            if (below.getValue(TYPE) == NORMAL && above.getValue(TYPE) == ROTATED) return OUTER;
+            if (above.getValue(TYPE) == NORMAL && below.getValue(TYPE) == ROTATED) return INNER;
         }
+
+        return context.getPlayer() != null && context.getPlayer().isCrouching() ? ROTATED : NORMAL;
     }
 
-    //TODO: Add default functions for crystal glass behavior for both block and pane variants to use instead of just copy and pasting them across.
 }
