@@ -3,14 +3,19 @@ package galena.oreganized.content.entity;
 import galena.oreganized.index.OItems;
 import galena.oreganized.index.OSoundEvents;
 import net.minecraft.core.Position;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -69,8 +74,19 @@ public class LeadBoltEntity extends AbstractArrow {
 
     private void damageEntity(EntityHitResult result) {
         if (result.getEntity() instanceof LivingEntity living && living.getRandom().nextDouble() < 0.1) {
-            if (knockOff(living)) {
+            var knockedOff = knockOff(living);
+            if (knockedOff != null) {
+                var vec = result.getLocation();
+
+                if (level() instanceof ServerLevel serverLevel) {
+                    serverLevel.sendParticles(ParticleTypes.POOF, vec.x, vec.y + 2, vec.z, 4, 0.1, 0.1, 0.1, 0.0);
+                }
+
                 playSound(OSoundEvents.BOLT_HIT_ARMOR.get(), 1.0F, 1.2F / (random.nextFloat() * 0.2F + 0.9F));
+                if (knockedOff.getItem() instanceof Equipable item) {
+                    playSound(item.getEquipSound());
+                }
+
                 discard();
                 return;
             }
@@ -106,19 +122,27 @@ public class LeadBoltEntity extends AbstractArrow {
         super.onHitBlock(result);
     }
 
-    private boolean knockOff(LivingEntity entity) {
+    private ItemStack knockOff(LivingEntity entity) {
+        if (!entity.shouldDropLoot()) return null;
+
         var slot = randomSlot(entity);
-        if (slot == null) return false;
+        if (slot == null) return null;
 
         var stack = entity.getItemBySlot(slot);
 
-        var item = new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), stack);
-        item.setPickUpDelay(40);
-        level().addFreshEntity(item);
+        if (!EnchantmentHelper.hasVanishingCurse(stack)) {
+            if (entity instanceof Mob && stack.isDamageableItem()) {
+                stack.setDamageValue(stack.getMaxDamage() - random.nextInt(1 + random.nextInt(Math.max(stack.getMaxDamage() - 3, 1))));
+            }
+
+            var item = new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), stack);
+            item.setPickUpDelay(40);
+            level().addFreshEntity(item);
+        }
 
         entity.setItemSlot(slot, ItemStack.EMPTY);
 
-        return true;
+        return stack;
     }
 
     @Override
