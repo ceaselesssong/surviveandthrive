@@ -2,10 +2,10 @@
   "type": "create:mixing",
   "ingredients": [
     {
-      "item": "minecraft:cobblestone"
+      "item": "minecraft:diorite"
     },
     {
-      "tag": "forge:ingots/lead"
+      "tag": "forge:nuggets/lead"
     }
   ],
   "results": [

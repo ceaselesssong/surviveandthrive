@@ -4,9 +4,13 @@ import galena.oreganized.Oreganized;
 import galena.oreganized.OreganizedConfig;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.content.entity.GargoyleBlockEntity;
-import galena.oreganized.index.*;
+import galena.oreganized.content.item.ScribeItem;
+import galena.oreganized.index.OBlocks;
+import galena.oreganized.index.OEffects;
+import galena.oreganized.index.OFluids;
+import galena.oreganized.index.OItems;
+import galena.oreganized.index.OTags;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.client.player.inventory.Hotbar;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -17,7 +21,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -26,15 +29,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.item.ItemEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import javax.swing.text.html.parser.Entity;
 
 @Mod.EventBusSubscriber(modid = Oreganized.MOD_ID)
 public class PlayerEvents {
@@ -130,6 +129,15 @@ public class PlayerEvents {
             } else {
                 data.remove(GargoyleBlockEntity.GROWL_COOLDOWN_TAG);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBlockBreak(final BlockEvent.BreakEvent event) {
+        var stack = event.getPlayer().getMainHandItem();
+
+        if (stack.getItem() instanceof ScribeItem scribe && scribe.dropsLikeSilktouch(stack, event.getState())) {
+            event.setExpToDrop(0);
         }
     }
 }

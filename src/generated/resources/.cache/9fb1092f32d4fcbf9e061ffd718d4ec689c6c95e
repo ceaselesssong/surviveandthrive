@@ -1,4 +1,4 @@
-// 1.20.1	2024-09-06T10:44:11.3883579	Recipes
+// 1.20.1	2024-09-07T19:29:24.7369347	Recipes
 c27d3499944bf522a573dc8987582db2d7349b41 data/oreganized/advancements/recipes/brewing/poisonous_potato_from_lead.json
 ee5e42ab2e9ac549022fadf1c2cbf9faebc2c53c data/oreganized/advancements/recipes/building_blocks/black_crystal_glass_pane.json
 40700c3f2f5c78c617650fdd16e2ba248967353f data/oreganized/advancements/recipes/building_blocks/blue_crystal_glass_pane.json
@@ -177,7 +177,7 @@ facfd8f07459c400bb70163f4867e70d66652787 data/oreganized/recipes/electrum_shovel
 cf15ffd760d39ce405ab20a1a677b1798ae80437 data/oreganized/recipes/electrum_sword.json
 4a09ce0c226b618b61938286b85395b81ecb3efb data/oreganized/recipes/electrum_upgrade_smithing_template.json
 1fe4c5cc425db61412f873704d046425f07198e0 data/oreganized/recipes/gargoyle.json
-586044ef7239f771d4055bcf9e0acba184edcb49 data/oreganized/recipes/glance.json
+00290f492ce615c61417079534a6aa00d08c3157 data/oreganized/recipes/glance.json
 6b6c7d006b274224fdd9b469859e18aaf20040ff data/oreganized/recipes/glance_bricks.json
 cd75a9311f1b63a61fb34547c17607b26dd7d911 data/oreganized/recipes/glance_brick_slab.json
 662d083cb32864017951a843fc190a77d0f55f69 data/oreganized/recipes/glance_brick_stairs.json
@@ -196,7 +196,7 @@ fa74ed7a7cbf05b56856f395a780c726c7d4b065 data/oreganized/recipes/lead_bars.json
 b13c740aa1e59139c3ad6e85c0d6692457ae81e2 data/oreganized/recipes/lead_bolt_from_crate.json
 d556fb758fd3dbab160acceee42cd40c0d02170f data/oreganized/recipes/lead_bricks.json
 b280a1dac0963942de582b67ea3803fc9a362398 data/oreganized/recipes/lead_bulb.json
-d1df2355d7d57c58c107d2ef782374ee51cd70e2 data/oreganized/recipes/lead_door.json
+350064cd19b5d9dbc07e88b5706984f8cfb0be2e data/oreganized/recipes/lead_door.json
 c3f86a2f15dedc7d9258364671aa799e426758eb data/oreganized/recipes/lead_ingot.json
 f9266001d55884e79480a35f2c5d587a7f805040 data/oreganized/recipes/lead_ingot_from_block.json
 4d4f1d0d66dd1e0a000af50afb6961574eabff2d data/oreganized/recipes/lead_nugget.json
@@ -242,7 +242,7 @@ a485b68bcbb9b775b278da161e586a14fb02d402 data/oreganized/recipes/silver_ingot_fr
 0bef18d650c987afa638720c517c479353649026 data/oreganized/recipes/smelt_raw_lead.json
 d6fc88f30af0ebff0f813a9529ba1ca25b3ebf77 data/oreganized/recipes/smelt_raw_silver.json
 e1d8bfafa7904e89fce7ae3242b7eebc46e9f3ed data/oreganized/recipes/smelt_silver_ore.json
-13acda5650041423a4f6548f35dbcb3094420baa data/oreganized/recipes/spotted_glance.json
+05d3527a52be4f021824699c760733665d480d6b data/oreganized/recipes/spotted_glance.json
 95a4c40547ba898ef6ff3a952994d0d9a10f1858 data/oreganized/recipes/stonecutting/chiseled_glance.json
 2b1be77c6ac39442d637397ad5969b34350dbc59 data/oreganized/recipes/stonecutting/cut_lead.json
 e8ea478c690f39424f4b22f471d2a6ad6b13db5e data/oreganized/recipes/stonecutting/glance_bricks_from_glance.json

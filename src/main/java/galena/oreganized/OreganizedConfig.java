@@ -34,7 +34,7 @@ public class OreganizedConfig {
         private Common(ForgeConfigSpec.Builder builder) {
             builder.comment("Common");
             builder.push("common");
-            stunningOrPoison = builder.comment("Should lead poisoning events give the Stunning effect or just Poison").define("leadPoisoningStunning", true);
+            stunningOrPoison = builder.comment("Should lead poisoning events give the Brain Damage effect or just Poison").define("leadPoisoningStunning", true);
             leadPoisining = builder.comment("Should eating an item give lead poisoning when a lead item is in the hotbar").define("leadPoisoning", true);
             ravagerSilver = builder.comment("Ravagers have a chance of dropping Silver Nuggets upon death").define("ravagerSilver", false);
             builder.comment("Ore Generation");

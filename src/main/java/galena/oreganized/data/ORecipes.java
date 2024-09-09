@@ -95,7 +95,7 @@ public class ORecipes extends ORecipeProvider {
                 .pattern(" X ")
                 .pattern("XOX")
                 .pattern(" X ")
-                .define('X', OTags.Items.INGOTS_LEAD)
+                .define('X', OTags.Items.NUGGETS_LEAD)
                 .define('O', OBlocks.GLANCE.get())
                 .unlockedBy("has_glance", has(OBlocks.GLANCE.get()))
                 .save(consumer);
@@ -151,11 +151,11 @@ public class ORecipes extends ORecipeProvider {
             makeBars(OBlocks.CRYSTAL_GLASS_PANES.get(i), OBlocks.CRYSTAL_GLASS.get(i)).save(consumer);
         }
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OBlocks.GLANCE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OBlocks.GLANCE.get(), 2)
                 .pattern("AB")
                 .pattern("BA")
-                .define('A', OTags.Items.INGOTS_LEAD)
-                .define('B', Items.COBBLESTONE)
+                .define('A', OTags.Items.NUGGETS_LEAD)
+                .define('B', Items.DIORITE)
                 .unlockedBy("has_lead_ingot", has(OTags.Items.INGOTS_LEAD))
                 .save(consumer);
 
@@ -255,7 +255,11 @@ public class ORecipes extends ORecipeProvider {
                 .unlockedBy("has_lead", has(OTags.Items.INGOTS_LEAD))
                 .save(consumer);
 
-        doorBuilder(OBlocks.LEAD_DOOR.get(), Ingredient.of(OTags.Items.INGOTS_LEAD))
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, OBlocks.LEAD_DOOR.get())
+                .pattern("##")
+                .pattern("##")
+                .pattern("##")
+                .define('#', Ingredient.of(OTags.Items.INGOTS_LEAD))
                 .unlockedBy("has_lead", has(OTags.Items.INGOTS_LEAD))
                 .save(consumer);
 

@@ -38,8 +38,8 @@ public class OLang extends OLangProvider {
         addBlock(OBlocks.ELECTRUM_BLOCK, "Block of Electrum");
         addBlock(OBlocks.LEAD_BOLT_CRATE, "Crate of Lead Bolts");
 
-        addEffect(OEffects.STUNNING, "Stunning");
-        addPotion(OPotions.STUNNING, "Stunning");
+        addEffect(OEffects.STUNNING, "Brain Damage");
+        addPotion(OPotions.STUNNING, "Brain Damage");
 
         addAdvTitle("adventure.mirror_mirror", "Mirror, Mirror who is the fairest?");
         addAdvDesc("adventure.mirror_mirror", "Obtain a Silver Mirror");

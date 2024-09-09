@@ -6,8 +6,9 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import static galena.oreganized.index.OTags.Blocks.MINEABLE_WITH_SCRIBE;
@@ -48,5 +49,11 @@ public class ScribeItem extends Item {
     @Override
     public boolean isValidRepairItem(ItemStack stack, ItemStack repairStack) {
         return repairStack.is(OTags.Items.INGOTS_SILVER);
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        if (enchantment == Enchantments.BLOCK_EFFICIENCY) return true;
+        return super.canApplyAtEnchantingTable(stack, enchantment);
     }
 }
