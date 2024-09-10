@@ -14,7 +14,7 @@ import net.minecraftforge.client.gui.overlay.ForgeGui;
 public class OGui extends ForgeGui {
 
     protected static final ResourceLocation STUNNING_VIGNETTE_LOCATION = Oreganized.modLoc( "textures/misc/stunning_overlay.png");
-    protected static final ResourceLocation STUNNED_HEARTS = Oreganized.modLoc( "textures/misc/hearts/brain_damaged_full.png");
+    protected static final ResourceLocation STUNNED_HEARTS = Oreganized.modLoc( "textures/gui/stunned_hearts.png");
 
     private static final IntObjectHashMap<ResourceLocation> STUNNING_OVERLAY_LOCATIONS = new IntObjectHashMap<>();
 
@@ -45,7 +45,7 @@ public class OGui extends ForgeGui {
             this.renderTextureOverlay(guiGraphics, STUNNING_VIGNETTE_LOCATION, 1F);
     }
 
-    public static void renderStunnedHeart(GuiGraphics graphics, int x, int y, int v) {
-        graphics.blit(STUNNED_HEARTS, x, y, 0, v, 9, 9);
+    public static void renderStunnedHeart(GuiGraphics graphics, int u, int x, int y, int v) {
+        graphics.blit(STUNNED_HEARTS, x, y, u - 52, v, 9, 9, 72, 18);
     }
 }

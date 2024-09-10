@@ -83,6 +83,8 @@ public class OreganizedClient {
             render(OBlocks.CRYSTAL_GLASS.get(i), translucent);
             render(OBlocks.CRYSTAL_GLASS_PANES.get(i), translucent);
         }
+
+        render(OBlocks.GROOVED_ICE, translucent);
     }
 
     @SubscribeEvent
