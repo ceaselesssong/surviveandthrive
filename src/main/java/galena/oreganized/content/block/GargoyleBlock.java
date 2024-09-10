@@ -146,7 +146,7 @@ public class GargoyleBlock extends HorizontalDirectionalBlock implements EntityB
             double offsetZ = facing.getAxis() == Direction.Axis.Z ? facing.getStepZ() * attachment.horizontalOffset : spread;
 
             double x = pos.getX() + 0.5 + offsetX;
-            double y = pos.getY() + attachment.verticalOffset;
+            double y = pos.getY() + attachment.verticalOffset + 0.05;
             double z = pos.getZ() + 0.5 + offsetZ;
 
             return new Vec3(x, y, z);

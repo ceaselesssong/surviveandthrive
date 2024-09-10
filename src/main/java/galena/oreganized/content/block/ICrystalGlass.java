@@ -18,7 +18,7 @@ public interface ICrystalGlass extends BeaconBeamBlock {
             if (above.getValue(TYPE) == NORMAL && below.getValue(TYPE) == ROTATED) return INNER;
         }
 
-        return context.getPlayer() != null && context.getPlayer().isCrouching() ? ROTATED : NORMAL;
+        return context.getPlayer() != null && context.getPlayer().isShiftKeyDown() ? ROTATED : NORMAL;
     }
 
 }

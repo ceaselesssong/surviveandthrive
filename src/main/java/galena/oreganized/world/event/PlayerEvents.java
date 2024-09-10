@@ -25,6 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
@@ -94,6 +95,8 @@ public class PlayerEvents {
                 player.drop(newDisc, false);
                 //return;
             }
+
+            world.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
         }
     }
 

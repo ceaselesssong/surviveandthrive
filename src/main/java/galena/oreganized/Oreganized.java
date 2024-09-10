@@ -197,7 +197,6 @@ public class Oreganized {
 
             PotionBrewing.addMix(Potions.WATER, OItems.LEAD_INGOT.get(), OPotions.STUNNING.get());
             PotionBrewing.addMix(OPotions.STUNNING.get(), Items.REDSTONE, OPotions.LONG_STUNNING.get());
-            PotionBrewing.addMix(OPotions.STUNNING.get(), Items.GLOWSTONE_DUST, OPotions.STRONG_STUNNING.get());
 
             FireBlock fire = (FireBlock) Blocks.FIRE;
             fire.setFlammable(OBlocks.SHRAPNEL_BOMB.get(), 15, 100);

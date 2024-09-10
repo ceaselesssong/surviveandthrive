@@ -10,6 +10,7 @@ import galena.oreganized.network.OreganizedNetwork;
 import galena.oreganized.network.packet.GargoyleParticlePacket;
 import galena.oreganized.world.ScaredOfGargoyleGoal;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -19,19 +20,16 @@ import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PacketDistributor;
-import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -47,8 +45,17 @@ public class GargoyleBlockEntity extends BlockEntity {
 
     private ParticleOptions drippingFluid;
 
+    private final Direction fluidOffset;
+
     public GargoyleBlockEntity(BlockPos pos, BlockState state) {
         super(OBlockEntities.GARGOYLE.get(), pos, state);
+        var attachment = state.getValue(GargoyleBlock.ATTACHMENT);
+        var facing = state.getValue(GargoyleBlock.FACING);
+        if (attachment == GargoyleBlock.AttachmentType.FLOOR) {
+            fluidOffset = Direction.DOWN;
+        } else {
+            fluidOffset = facing;
+        }
     }
 
     private static Collection<Mob> getTargets(Level level, BlockPos pos) {
@@ -89,12 +96,20 @@ public class GargoyleBlockEntity extends BlockEntity {
 
     private void updateDripParticles(Level level, BlockPos pos, BlockState state) {
         for (int i = 1; i <= 2; i++) {
-            var targetPos = pos.below(i);
+            var targetPos = pos.relative(fluidOffset, i);
             var targetState = level.getBlockState(targetPos);
             var fluid = targetState.getFluidState();
             if (!fluid.isEmpty()) {
                 drippingFluid = fluid.getDripParticle();
                 return;
+            }
+
+            if(!targetState.isRedstoneConductor(level, pos)) {
+                break;
+            }
+
+            if (!targetState.isFaceSturdy(level, pos, Direction.UP) || !targetState.isFaceSturdy(level, pos, Direction.DOWN)) {
+                break;
             }
         }
 
