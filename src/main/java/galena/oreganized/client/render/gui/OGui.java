@@ -11,12 +11,10 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 
-import java.util.HashMap;
-import java.util.stream.IntStream;
-
 public class OGui extends ForgeGui {
 
     protected static final ResourceLocation STUNNING_VIGNETTE_LOCATION = Oreganized.modLoc( "textures/misc/stunning_overlay.png");
+    protected static final ResourceLocation STUNNED_HEARTS = Oreganized.modLoc( "textures/misc/hearts/brain_damaged_full.png");
 
     private static final IntObjectHashMap<ResourceLocation> STUNNING_OVERLAY_LOCATIONS = new IntObjectHashMap<>();
 
@@ -45,5 +43,9 @@ public class OGui extends ForgeGui {
 
         if (this.minecraft.player.isEyeInFluidType(OFluids.MOLTEN_LEAD_TYPE.get()))
             this.renderTextureOverlay(guiGraphics, STUNNING_VIGNETTE_LOCATION, 1F);
+    }
+
+    public static void renderStunnedHeart(GuiGraphics graphics, int x, int y, int v) {
+        graphics.blit(STUNNED_HEARTS, x, y, 0, v, 9, 9);
     }
 }

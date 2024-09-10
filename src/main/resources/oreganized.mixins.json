@@ -8,7 +8,7 @@
     "MobEffectInstanceMixin", "PillagerMixin", "PlayerMixin"
   ],
   "client": [
-    "client.HumanoidArmorLayerAccessor", "client.HumanoidArmorLayerMixin"
+    "client.GuiAccessor", "client.GuiMixin", "client.HumanoidArmorLayerAccessor", "client.HumanoidArmorLayerMixin"
   ],
   "server": [],
   "injectors": {

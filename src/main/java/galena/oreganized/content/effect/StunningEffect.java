@@ -1,7 +1,7 @@
 package galena.oreganized.content.effect;
 
 import galena.oreganized.Oreganized;
-import galena.oreganized.index.OEffects;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -23,13 +23,6 @@ public class StunningEffect extends MobEffect {
         addAttributeModifier(Attributes.MOVEMENT_SPEED, SLOWNESS_UUID, -0.075, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 
-    public static double getTurnModifier(LivingEntity entity) {
-        var effect = entity.getEffect(OEffects.STUNNING.get());
-        if (effect == null) return 1.0;
-
-        return 0.95 - effect.getAmplifier() * 0.05;
-    }
-
     @Override
     public void applyEffectTick(@NotNull LivingEntity entity, int amplifier) {
         if (entity.level().getGameTime() % 5 != 0L) return;
@@ -45,6 +38,7 @@ public class StunningEffect extends MobEffect {
 
         if (instance.update(new MobEffectInstance(this, instance.getDuration() + 1, amplifier + step, instance.isAmbient(), instance.isVisible(), instance.showIcon()))) {
             addAttributeModifiers(entity, entity.getAttributes(), instance.getAmplifier());
+            entity.playSound(SoundEvents.SCULK_BLOCK_SPREAD, instance.getAmplifier() * 0.8F / MAX_AMPLIFIER + 0.2F, entity.getRandom().nextFloat() * 0.2F + 0.8F);
         }
     }
 
