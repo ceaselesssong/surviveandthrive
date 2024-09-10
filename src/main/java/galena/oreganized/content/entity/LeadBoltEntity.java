@@ -82,7 +82,7 @@ public class LeadBoltEntity extends AbstractArrow {
                     serverLevel.sendParticles(ParticleTypes.POOF, vec.x, vec.y + 2, vec.z, 4, 0.1, 0.1, 0.1, 0.0);
                 }
 
-                playSound(OSoundEvents.BOLT_HIT_ARMOR.get(), 1.0F, 1.2F / (random.nextFloat() * 0.2F + 0.9F));
+                playSound(OSoundEvents.BOLT_HIT_ARMOR.get(), 1.5F, 1.2F / (random.nextFloat() * 0.2F + 0.9F));
                 if (knockedOff.getItem() instanceof Equipable item) {
                     playSound(item.getEquipSound());
                 }

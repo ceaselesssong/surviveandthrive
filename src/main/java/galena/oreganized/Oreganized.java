@@ -349,6 +349,9 @@ public class Oreganized {
             putAfter(entries, OBlocks.SILVER_ORE.get(), OBlocks.DEEPSLATE_SILVER_ORE);
             putAfter(entries, Items.RAW_COPPER_BLOCK, OBlocks.RAW_LEAD_BLOCK);
             putAfter(entries, Items.RAW_GOLD_BLOCK, OBlocks.RAW_SILVER_BLOCK);
+            putAfter(entries, Blocks.ICE, OBlocks.GROOVED_ICE);
+            putAfter(entries, Blocks.PACKED_ICE, OBlocks.GROOVED_PACKED_ICE);
+            putAfter(entries, Blocks.BLUE_ICE, OBlocks.GROOVED_BLUE_ICE);
         }
         if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {
             putBefore(entries, Items.NOTE_BLOCK, OBlocks.GARGOYLE);

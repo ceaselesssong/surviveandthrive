@@ -83,6 +83,10 @@ public class OLootTables extends LootTableProvider {
             dropSelf(OBlocks.SHRAPNEL_BOMB);
             dropSelf(OBlocks.LEAD_BOLT_CRATE);
 
+            dropAsSilk(OBlocks.GROOVED_ICE);
+            dropAsSilk(OBlocks.GROOVED_PACKED_ICE);
+            dropAsSilk(OBlocks.GROOVED_BLUE_ICE);
+
             add(OBlocks.LEAD_DOOR.get(), LootTable.lootTable()
                     .withPool(applyExplosionCondition(OBlocks.LEAD_DOOR.get(), LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0F))

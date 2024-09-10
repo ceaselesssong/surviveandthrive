@@ -1,6 +1,7 @@
 package galena.oreganized.content.item;
 
 import galena.oreganized.content.block.ICrystalGlass;
+import galena.oreganized.index.OBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -15,14 +16,32 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 import static galena.oreganized.index.OTags.Blocks.MINEABLE_WITH_SCRIBE;
 import static galena.oreganized.index.OTags.Blocks.SILKTOUCH_WITH_SCRIBE;
 
 public class ScribeItem extends Item {
+
+    private static final Map<Block, Supplier<Block>> GROOVED_BLOCKS = new HashMap<>();
+
+    public static void registerGroovedBlock(Block from, Supplier<Block> to) {
+        GROOVED_BLOCKS.put(from, to);
+    }
+
+    static {
+        registerGroovedBlock(Blocks.ICE, OBlocks.GROOVED_ICE);
+        registerGroovedBlock(Blocks.PACKED_ICE, OBlocks.GROOVED_PACKED_ICE);
+        registerGroovedBlock(Blocks.BLUE_ICE, OBlocks.GROOVED_BLUE_ICE);
+    }
 
     public ScribeItem(Properties properties) {
         super(properties);
@@ -65,31 +84,41 @@ public class ScribeItem extends Item {
         return super.canApplyAtEnchantingTable(stack, enchantment);
     }
 
+    private InteractionResult replaceBlock(UseOnContext context, BlockState to) {
+        var level = context.getLevel();
+        var pos = context.getClickedPos();
+        var from = level.getBlockState(pos);
+
+        level.setBlockAndUpdate(pos, to);
+        level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(context.getPlayer(), from));
+        level.addDestroyBlockEffect(pos, from);
+
+        var vec = Vec3.atCenterOf(pos);
+        level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, from), vec.x, vec.y + 1, vec.z, 0.0, 0.0, 0.0);
+
+        if (context.getPlayer() != null) {
+            context.getPlayer().playSound(SoundEvents.GRINDSTONE_USE, 1F, 1.5F);
+
+            context.getItemInHand().hurtAndBreak(1, context.getPlayer(), player -> {
+                player.broadcastBreakEvent(context.getHand());
+            });
+        }
+
+        return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        var pos = context.getClickedPos();
-        var level = context.getLevel();
-        var state = level.getBlockState(pos);
+        var state = context.getLevel().getBlockState(context.getClickedPos());
 
         if (state.hasProperty(ICrystalGlass.TYPE)) {
             var type = state.getValue(ICrystalGlass.TYPE);
+            return replaceBlock(context, state.setValue(ICrystalGlass.TYPE, (type + 1) % (ICrystalGlass.MAX_TYPE + 1)));
+        }
 
-            level.setBlockAndUpdate(pos, state.setValue(ICrystalGlass.TYPE, (type + 1) % (ICrystalGlass.MAX_TYPE + 1)));
-            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(context.getPlayer(), state));
-            level.addDestroyBlockEffect(pos, state);
-
-            var vec = Vec3.atCenterOf(pos);
-            level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), vec.x, vec.y + 1, vec.z, 0.0, 0.0, 0.0);
-
-            if (context.getPlayer() != null) {
-                context.getPlayer().playSound(SoundEvents.GRINDSTONE_USE, 1F, 1.5F);
-
-                context.getItemInHand().hurtAndBreak(1, context.getPlayer(), player -> {
-                    player.broadcastBreakEvent(context.getHand());
-                });
-            }
-
-            return InteractionResult.sidedSuccess(level.isClientSide);
+        var grooved = GROOVED_BLOCKS.get(state.getBlock());
+        if (grooved != null) {
+            return replaceBlock(context, grooved.get().defaultBlockState());
         }
 
         return super.useOn(context);

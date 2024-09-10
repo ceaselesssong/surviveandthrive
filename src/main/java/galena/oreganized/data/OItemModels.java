@@ -124,6 +124,10 @@ public class OItemModels extends OItemModelProvider {
         block(OBlocks.BLACK_CRYSTAL_GLASS);
         blockFlat(OBlocks.BLACK_CRYSTAL_GLASS_PANE, OBlocks.BLACK_CRYSTAL_GLASS);
 
+        block(OBlocks.GROOVED_ICE);
+        block(OBlocks.GROOVED_PACKED_ICE);
+        block(OBlocks.GROOVED_BLUE_ICE);
+
         for (Supplier<? extends Block> blocks : OBlocks.WAXED_CONRETE_POWDER) {
             withExistingParent(blockName(blocks), "minecraft:block/" + blockName(blocks).replace("waxed_", ""));
         }

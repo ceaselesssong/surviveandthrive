@@ -135,6 +135,10 @@ public class OBlocks {
     public static final RegistryObject<Block> RED_CRYSTAL_GLASS = register("red_crystal_glass", () -> new CrystalGlassBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_STAINED_GLASS)));
     public static final RegistryObject<Block> BLACK_CRYSTAL_GLASS = register("black_crystal_glass", () -> new CrystalGlassBlock(DyeColor.BLACK, BlockBehaviour.Properties.copy(Blocks.BLACK_STAINED_GLASS)));
 
+    public static final RegistryObject<Block> GROOVED_ICE = register("grooved_ice", () -> new Block(BlockBehaviour.Properties.copy(Blocks.ICE).friction(0.6F)));
+    public static final RegistryObject<Block> GROOVED_PACKED_ICE = register("grooved_packed_ice", () -> new Block(BlockBehaviour.Properties.copy(Blocks.PACKED_ICE).friction(0.6F)));
+    public static final RegistryObject<Block> GROOVED_BLUE_ICE = register("grooved_blue_ice", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BLUE_ICE).friction(0.6F)));
+
     public static final List<RegistryObject<Block>> CRYSTAL_GLASS = List.of(
             WHITE_CRYSTAL_GLASS, ORANGE_CRYSTAL_GLASS, MAGENTA_CRYSTAL_GLASS, LIGHT_BLUE_CRYSTAL_GLASS,
             YELLOW_CRYSTAL_GLASS, LIME_CRYSTAL_GLASS, PINK_CRYSTAL_GLASS, GRAY_CRYSTAL_GLASS, LIGHT_GRAY_CRYSTAL_GLASS,

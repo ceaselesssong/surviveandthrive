@@ -107,6 +107,10 @@ public class OBlockStates extends OBlockStateProvider {
         crystalGlassBlock(OBlocks.BLACK_CRYSTAL_GLASS);
         crystalGlassPaneBlock(OBlocks.BLACK_CRYSTAL_GLASS_PANE, OBlocks.BLACK_CRYSTAL_GLASS);
 
+        simpleBlock(OBlocks.GROOVED_ICE);
+        simpleBlock(OBlocks.GROOVED_PACKED_ICE);
+        simpleBlock(OBlocks.GROOVED_BLUE_ICE);
+
         gargoyleBlock(OBlocks.GARGOYLE);
     }
 
