@@ -5,6 +5,7 @@ import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.ODamageSources;
 import galena.oreganized.world.IDoorProgressHolder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -77,6 +78,18 @@ public class HeavyDoorBlockEntity extends BlockEntity {
 
     private void stopUsing(BlockState state, Level level, BlockPos pos, @Nullable Player player) {
         setAnimationState(level, pos, state, false);
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag nbt) {
+        super.saveAdditional(nbt);
+        nbt.putInt("Pressure", pressure);
+    }
+
+    @Override
+    public void load(CompoundTag nbt) {
+        super.load(nbt);
+        if(nbt.contains("Pressure", 99)) pressure = nbt.getInt("Pressure");
     }
 
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player) {
