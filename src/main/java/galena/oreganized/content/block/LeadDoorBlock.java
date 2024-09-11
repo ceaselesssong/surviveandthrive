@@ -2,7 +2,6 @@ package galena.oreganized.content.block;
 
 import galena.oreganized.index.OBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -11,7 +10,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.EntityBlock;
@@ -27,35 +25,39 @@ import org.jetbrains.annotations.Nullable;
 
 public class LeadDoorBlock extends DoorBlock implements IMeltableBlock, EntityBlock, IHeavyDoor {
 
+    /**
+     * Not fully implemented yet
+     */
     public static final BooleanProperty ANIMATED = BooleanProperty.create("animated");
 
 
     public LeadDoorBlock(Properties properties) {
         super(properties, OBlocks.LEAD_BLOCK_SET);
-        registerDefaultState(defaultBlockState().setValue(ANIMATED, false));
+        //registerDefaultState(defaultBlockState().setValue(ANIMATED, false));
     }
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         if (state.getValue(HALF) == DoubleBlockHalf.UPPER) return null;
-        return new AnimatedDoorBlockEntity(pos, state);
+        return new HeavyDoorBlockEntity(pos, state);
     }
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return AnimatedDoorBlockEntity.getTicker(level, state, type);
+        return HeavyDoorBlockEntity.getTicker(level, state, type);
     }
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         var controller = state.getValue(HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos;
-        return AnimatedDoorBlockEntity.getAt(level, controller).map(it -> it.use(state, level, pos, player)).orElse(InteractionResult.PASS);
+        return HeavyDoorBlockEntity.getAt(level, controller).map(it -> it.use(state, level, pos, player)).orElse(InteractionResult.PASS);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(getGoopynessProperty(), ANIMATED);
+        builder.add(getGoopynessProperty());
+        //builder.add(ANIMATED);
     }
 
     @Override
@@ -83,6 +85,9 @@ public class LeadDoorBlock extends DoorBlock implements IMeltableBlock, EntityBl
         return IMeltableBlock.super.getInducedGoopyness(world, state, pos, selfState, selfPos);
     }
 
+    /*
+    Only required for `ANIMATABLE` property
+
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState changedState, LevelAccessor level, BlockPos pos, BlockPos changedPos) {
         var updated = super.updateShape(state, direction, changedState, level, pos, changedPos);
@@ -92,6 +97,7 @@ public class LeadDoorBlock extends DoorBlock implements IMeltableBlock, EntityBl
         }
         return updated;
     }
+    */
 
     @Override
     public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {

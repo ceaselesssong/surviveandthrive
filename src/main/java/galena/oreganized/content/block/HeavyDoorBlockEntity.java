@@ -21,7 +21,7 @@ import java.util.Optional;
 import static galena.oreganized.content.block.LeadDoorBlock.ANIMATED;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.OPEN;
 
-public class AnimatedDoorBlockEntity extends BlockEntity {
+public class HeavyDoorBlockEntity extends BlockEntity {
 
     private int pressure = 0;
 
@@ -29,20 +29,20 @@ public class AnimatedDoorBlockEntity extends BlockEntity {
 
     private static final int REQUIRED_PRESSURE_OPEN = 60;
 
-    public AnimatedDoorBlockEntity(BlockPos pos, BlockState state) {
-        super(OBlockEntities.ANIMATED_DOOR.get(), pos, state);
+    public HeavyDoorBlockEntity(BlockPos pos, BlockState state) {
+        super(OBlockEntities.HEAVY_DOOR.get(), pos, state);
     }
 
-    public static Optional<AnimatedDoorBlockEntity> getAt(LevelAccessor level, BlockPos pos) {
+    public static Optional<HeavyDoorBlockEntity> getAt(LevelAccessor level, BlockPos pos) {
         var be = level.getBlockEntity(pos);
-        if (be instanceof AnimatedDoorBlockEntity door) return Optional.of(door);
+        if (be instanceof HeavyDoorBlockEntity door) return Optional.of(door);
         return Optional.empty();
     }
 
     @SuppressWarnings("unchecked")
     public static @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (type == OBlockEntities.ANIMATED_DOOR.get()) {
-            BlockEntityTicker<AnimatedDoorBlockEntity> ticker = (l, p, s, be) -> be.tick(s, l, p);
+        if (type == OBlockEntities.HEAVY_DOOR.get()) {
+            BlockEntityTicker<HeavyDoorBlockEntity> ticker = (l, p, s, be) -> be.tick(s, l, p);
             return (BlockEntityTicker<T>) ticker;
         }
 

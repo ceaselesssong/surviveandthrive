@@ -257,7 +257,7 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
         var prefixes = List.of("", "goopy_", "red_hot_");
 
         getVariantBuilder(block.get()).forAllStatesExcept((state) -> {
-            boolean animation = state.getValue(LeadDoorBlock.ANIMATED);
+            boolean animated = state.hasProperty(LeadDoorBlock.ANIMATED) && state.getValue(LeadDoorBlock.ANIMATED);
             boolean right = state.getValue(DoorBlock.HINGE) == DoorHingeSide.RIGHT;
             boolean open = state.getValue(DoorBlock.OPEN);
             boolean lower = state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER;
@@ -265,8 +265,8 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
             int goopyness = block.get().getGoopyness(state);
             var name = prefixes.get(goopyness) + baseName;
             var textureSuffix = (open
-                    ? animation ? "_closing" : "_open"
-                    : animation ? "_opening" : "");
+                    ? animated ? "_closing" : "_open"
+                    : animated ? "_opening" : "");
             var bottom = texture(goopyness < 2 ? (name + "_bottom" + textureSuffix) : "red_hot_lead");
             var top = texture(goopyness < 2 ? (name + "_top" + textureSuffix) : "red_hot_lead");
 
