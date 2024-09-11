@@ -88,7 +88,8 @@ public interface IMeltableBlock {
             }
         }
 
-        world.scheduleTick(pos, state.getBlock(), 1);
+        scheduleUpdate(world, pos, state.getBlock());
+        //world.scheduleTick(pos, state.getBlock(), 1);
     }
 
     default void hurt(BlockState state, Level world, Entity entity) {

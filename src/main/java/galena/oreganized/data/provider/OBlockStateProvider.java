@@ -6,6 +6,7 @@ import galena.oreganized.content.block.CrystalGlassBlock;
 import galena.oreganized.content.block.CrystalGlassPaneBlock;
 import galena.oreganized.content.block.GargoyleBlock;
 import galena.oreganized.content.block.IMeltableBlock;
+import galena.oreganized.content.block.LeadDoorBlock;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
@@ -256,24 +257,25 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
         var prefixes = List.of("", "goopy_", "red_hot_");
 
         getVariantBuilder(block.get()).forAllStatesExcept((state) -> {
-            int goopyness = block.get().getGoopyness(state);
-            var name = prefixes.get(goopyness) + baseName;
-            var bottom = texture(goopyness < 2 ? (name + "_bottom") : "red_hot_lead");
-            var top = texture(goopyness < 2 ? (name + "_top") : "red_hot_lead");
-
-            var bottomLeft = this.models().doorBottomLeft(name + "_bottom_left", bottom, top);
-            var bottomLeftOpen = this.models().doorBottomLeftOpen(name + "_bottom_left_open", bottom, top);
-            var bottomRight = this.models().doorBottomRight(name + "_bottom_right", bottom, top);
-            var bottomRightOpen = this.models().doorBottomRightOpen(name + "_bottom_right_open", bottom, top);
-            var topLeft = this.models().doorTopLeft(name + "_top_left", bottom, top);
-            var topLeftOpen = this.models().doorTopLeftOpen(name + "_top_left_open", bottom, top);
-            var topRight = this.models().doorTopRight(name + "_top_right", bottom, top);
-            var topRightOpen = this.models().doorTopRightOpen(name + "_top_right_open", bottom, top);
-
-            int yRot = (int) state.getValue(DoorBlock.FACING).toYRot() + 90;
+            boolean animation = state.getValue(LeadDoorBlock.ANIMATED);
             boolean right = state.getValue(DoorBlock.HINGE) == DoorHingeSide.RIGHT;
             boolean open = state.getValue(DoorBlock.OPEN);
             boolean lower = state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER;
+
+            int goopyness = block.get().getGoopyness(state);
+            var name = prefixes.get(goopyness) + baseName;
+            var textureSuffix = (open
+                    ? animation ? "_closing" : "_open"
+                    : animation ? "_opening" : "");
+            var bottom = texture(goopyness < 2 ? (name + "_bottom" + textureSuffix) : "red_hot_lead");
+            var top = texture(goopyness < 2 ? (name + "_top" + textureSuffix) : "red_hot_lead");
+
+            var bottomLeft = this.models().doorBottomLeft(name + "_bottom_left" + textureSuffix, bottom, top);
+            var bottomRight = this.models().doorBottomRight(name + "_bottom_right" + textureSuffix, bottom, top);
+            var topLeft = this.models().doorTopLeft(name + "_top_left" + textureSuffix, bottom, top);
+            var topRight = this.models().doorTopRight(name + "_top_right" + textureSuffix, bottom, top);
+
+            int yRot = (int) state.getValue(DoorBlock.FACING).toYRot() + 90;
             if (open) {
                 yRot += 90;
             }
@@ -284,28 +286,19 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
 
             yRot %= 360;
             ModelFile model = null;
-            if (lower && right && open) {
-                model = bottomRightOpen;
-            } else if (lower && !right && open) {
-                model = bottomLeftOpen;
-            }
 
-            if (lower && right && !open) {
-                model = bottomRight;
-            } else if (lower && !right && !open) {
-                model = bottomLeft;
-            }
-
-            if (!lower && right && open) {
-                model = topRightOpen;
-            } else if (!lower && !right && open) {
-                model = topLeftOpen;
-            }
-
-            if (!lower && right && !open) {
-                model = topRight;
-            } else if (!lower && !right && !open) {
-                model = topLeft;
+            if (lower) {
+                if (right) {
+                    model = bottomRight;
+                } else {
+                    model = bottomLeft;
+                }
+            } else {
+                if (right) {
+                    model = topRight;
+                } else {
+                    model = topLeft;
+                }
             }
 
             return ConfiguredModel.builder().modelFile(model).rotationY(yRot).build();
