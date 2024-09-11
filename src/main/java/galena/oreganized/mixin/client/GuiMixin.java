@@ -26,7 +26,8 @@ public class GuiMixin {
         var accessor = (GuiAccessor) instance;
 
         if (player.hasEffect(OEffects.STUNNING.get())) {
-            var u = type.getX(flag1, flag2);
+            var renderedType = type == Gui.HeartType.POISIONED ? type : Gui.HeartType.NORMAL;
+            var u = renderedType.getX(flag1, flag2);
             OGui.renderStunnedHeart(graphics, u - 52, x, y, v / 5);
         } else {
             accessor.callRenderHeart(graphics, type, x, y, v, flag1, flag2);

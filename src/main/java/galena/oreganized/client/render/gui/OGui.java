@@ -46,6 +46,6 @@ public class OGui extends ForgeGui {
     }
 
     public static void renderStunnedHeart(GuiGraphics graphics, int u, int x, int y, int v) {
-        graphics.blit(STUNNED_HEARTS, x, y, u - 52, v, 9, 9, 72, 18);
+        graphics.blit(STUNNED_HEARTS, x, y, u, v, 9, 9, 72, 18);
     }
 }
