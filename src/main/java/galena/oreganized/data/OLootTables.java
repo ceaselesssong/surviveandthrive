@@ -6,6 +6,7 @@ import galena.oreganized.data.provider.OBlockLootProvider;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEntityTypes;
 import galena.oreganized.index.OItems;
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.EntityLootSubProvider;
@@ -14,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -24,6 +26,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.List;
@@ -37,8 +40,8 @@ public class OLootTables extends LootTableProvider {
 
     public OLootTables(PackOutput output) {
         super(output, Set.of(), List.of(
-                new SubProviderEntry(Blocks::new, LootContextParamSets.BLOCK),
-                new SubProviderEntry(Entities::new, LootContextParamSets.ENTITY)
+                new SubProviderEntry(BlockLoot::new, LootContextParamSets.BLOCK),
+                new SubProviderEntry(EntityLoot::new, LootContextParamSets.ENTITY)
         ));
     }
 
@@ -46,7 +49,7 @@ public class OLootTables extends LootTableProvider {
     protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext tracker) {
     }
 
-    public static class Blocks extends OBlockLootProvider {
+    public static class BlockLoot extends OBlockLootProvider {
 
         protected void generate() {
             //dropNothing(OBlocks.MOLTEN_LEAD);
@@ -83,9 +86,9 @@ public class OLootTables extends LootTableProvider {
             dropSelf(OBlocks.SHRAPNEL_BOMB);
             dropSelf(OBlocks.LEAD_BOLT_CRATE);
 
-            dropAsSilk(OBlocks.GROOVED_ICE);
-            dropAsSilk(OBlocks.GROOVED_PACKED_ICE);
-            dropAsSilk(OBlocks.GROOVED_BLUE_ICE);
+            grooved(OBlocks.GROOVED_ICE, Blocks.ICE);
+            grooved(OBlocks.GROOVED_BLUE_ICE, Blocks.BLUE_ICE);
+            grooved(OBlocks.GROOVED_PACKED_ICE, Blocks.PACKED_ICE);
 
             add(OBlocks.LEAD_DOOR.get(), LootTable.lootTable()
                     .withPool(applyExplosionCondition(OBlocks.LEAD_DOOR.get(), LootPool.lootPool()
@@ -125,15 +128,29 @@ public class OLootTables extends LootTableProvider {
             }
         }
 
+        private void grooved(Supplier<Block> block, Block other) {
+            var hasScribe = MatchTool.toolMatches(ItemPredicate.Builder.item().of(OItems.SCRIBE.get()));
+            add(block.get(), LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0F))
+                            .add(AlternativesEntry.alternatives(
+                                    LootItem.lootTableItem(block.get().asItem())
+                                            .when(HAS_SILK_TOUCH),
+                                    LootItem.lootTableItem(other.asItem())
+                                            .when(hasScribe)
+                            ))
+                    ));
+        }
+
         @Override
         protected Iterable<Block> getKnownBlocks() {
             return Oreganized.REGISTRY_HELPER.getBlockSubHelper().getDeferredRegister().getEntries().stream().map(Supplier::get).collect(Collectors.toList());
         }
     }
 
-    public static class Entities extends EntityLootSubProvider {
+    public static class EntityLoot extends EntityLootSubProvider {
 
-        public Entities() {
+        public EntityLoot() {
             super(FeatureFlags.REGISTRY.allFlags());
         }
 

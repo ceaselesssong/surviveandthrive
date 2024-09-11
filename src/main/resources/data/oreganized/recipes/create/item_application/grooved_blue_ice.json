@@ -1,0 +1,17 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {
+      "item": "minecraft:blue_ice"
+    },
+    {
+      "item": "oreganized:scribe"
+    }
+  ],
+  "results": [
+    {
+      "item": "oreganized:grooved_blue_ice"
+    }
+  ],
+  "keepHeldItem": true
+}
