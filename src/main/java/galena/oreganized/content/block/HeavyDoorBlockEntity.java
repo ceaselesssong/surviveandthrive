@@ -2,6 +2,7 @@ package galena.oreganized.content.block;
 
 import galena.oreganized.index.OBlockEntities;
 import galena.oreganized.index.OBlocks;
+import galena.oreganized.index.ODamageSources;
 import galena.oreganized.world.IDoorProgressHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
@@ -27,7 +28,7 @@ public class HeavyDoorBlockEntity extends BlockEntity {
 
     private final BlockSetType set = OBlocks.LEAD_BLOCK_SET;
 
-    private static final int REQUIRED_PRESSURE_OPEN = 60;
+    private static final int REQUIRED_PRESSURE_OPEN = 20;
 
     public HeavyDoorBlockEntity(BlockPos pos, BlockState state) {
         super(OBlockEntities.HEAVY_DOOR.get(), pos, state);
@@ -59,7 +60,7 @@ public class HeavyDoorBlockEntity extends BlockEntity {
                 state = state.setValue(OPEN, false);
                 level.setBlock(pos, state, 10);
                 level.gameEvent(GameEvent.BLOCK_CLOSE, pos, GameEvent.Context.of(state));
-                if(state.getBlock() instanceof IHeavyDoor heavy) heavy.sound(null, level, pos, false);
+                if (state.getBlock() instanceof IHeavyDoor heavy) heavy.sound(null, level, pos, false);
             }
 
             stopUsing(state, level, pos, null);
@@ -82,6 +83,14 @@ public class HeavyDoorBlockEntity extends BlockEntity {
         var progressHolder = (IDoorProgressHolder) player;
         progressHolder.oreganised$incrementOpeningProgress();
 
+        if (state.getBlock() instanceof IMeltableBlock meltable) {
+            var goopyness = meltable.getGoopyness(state);
+            if (goopyness > 0) {
+                player.hurt(level.damageSources().source(ODamageSources.MOLTEN_LEAD), 1F);
+            }
+            if (goopyness > 1) return InteractionResult.FAIL;
+        }
+
         if (pressure == 0) {
             setAnimationState(level, pos, state, true);
         }
@@ -89,14 +98,14 @@ public class HeavyDoorBlockEntity extends BlockEntity {
         if (!level.isClientSide) System.out.println(pressure);
 
         if (pressure < REQUIRED_PRESSURE_OPEN) {
-            pressure += 10;
+            pressure += 6;
         }
 
         if (pressure > REQUIRED_PRESSURE_OPEN && !state.getValue(OPEN)) {
             state = state.setValue(OPEN, true);
             level.setBlock(pos, state, 10);
             level.gameEvent(GameEvent.BLOCK_OPEN, pos, GameEvent.Context.of(state));
-            if(state.getBlock() instanceof IHeavyDoor heavy) heavy.sound(player, level, pos, true);
+            if (state.getBlock() instanceof IHeavyDoor heavy) heavy.sound(player, level, pos, true);
             stopUsing(state, level, pos, player);
         }
 
