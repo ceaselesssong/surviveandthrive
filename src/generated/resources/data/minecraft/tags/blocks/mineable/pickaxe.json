@@ -31,6 +31,9 @@
     "oreganized:molten_lead_cauldron",
     "oreganized:lead_door",
     "oreganized:lead_trapdoor",
-    "oreganized:lead_bars"
+    "oreganized:lead_bars",
+    "oreganized:grooved_ice",
+    "oreganized:grooved_packed_ice",
+    "oreganized:grooved_blue_ice"
   ]
 }

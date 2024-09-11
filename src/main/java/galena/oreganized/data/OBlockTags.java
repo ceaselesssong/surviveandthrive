@@ -26,6 +26,7 @@ import static galena.oreganized.index.OTags.Blocks.MINEABLE_WITH_SCRIBE;
 import static galena.oreganized.index.OTags.Blocks.ORES_LEAD;
 import static galena.oreganized.index.OTags.Blocks.ORES_SILVER;
 import static galena.oreganized.index.OTags.Blocks.SILKTOUCH_WITH_SCRIBE;
+import static galena.oreganized.index.OTags.Blocks.SILKTOUCH_WITH_SCRIBE_BLACKLIST;
 import static galena.oreganized.index.OTags.Blocks.STONE_TYPES_GLANCE;
 import static galena.oreganized.index.OTags.Blocks.STORAGE_BLOCKS_ELECTRUM;
 import static galena.oreganized.index.OTags.Blocks.STORAGE_BLOCKS_LEAD;
@@ -130,7 +131,11 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
 
                 OBlocks.LEAD_DOOR.get(),
                 OBlocks.LEAD_TRAPDOOR.get(),
-                OBlocks.LEAD_BARS.get()
+                OBlocks.LEAD_BARS.get(),
+
+                OBlocks.GROOVED_ICE.get(),
+                OBlocks.GROOVED_PACKED_ICE.get(),
+                OBlocks.GROOVED_BLUE_ICE.get()
         );
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
                 OBlocks.WAXED_WHITE_CONCRETE_POWDER.get(),
@@ -169,6 +174,11 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
                 .addTags(BlockTags.CAMPFIRES)
                 .addTags(BlockTags.FIRE);
 
+        tag(BlockTags.ICE)
+                .add(OBlocks.GROOVED_ICE.get())
+                .add(OBlocks.GROOVED_PACKED_ICE.get())
+                .add(OBlocks.GROOVED_BLUE_ICE.get());
+
         var scribeMineable = tag(MINEABLE_WITH_SCRIBE)
                 .addTags(Tags.Blocks.GLASS)
                 .addTags(Tags.Blocks.OBSIDIAN)
@@ -204,6 +214,11 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
                     .addOptional(new ResourceLocation("quark", pattern.formatted("black_corundum")))
             ;
         });
+
+        tag(SILKTOUCH_WITH_SCRIBE_BLACKLIST)
+                .add(OBlocks.GROOVED_ICE.get())
+                .add(OBlocks.GROOVED_PACKED_ICE.get())
+                .add(OBlocks.GROOVED_BLUE_ICE.get());
 
         tag(SILKTOUCH_WITH_SCRIBE)
                 .addTags(MINEABLE_WITH_SCRIBE)

@@ -27,6 +27,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraft.world.level.block.IceBlock;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -135,7 +136,7 @@ public class OBlocks {
     public static final RegistryObject<Block> RED_CRYSTAL_GLASS = register("red_crystal_glass", () -> new CrystalGlassBlock(DyeColor.RED, BlockBehaviour.Properties.copy(Blocks.RED_STAINED_GLASS)));
     public static final RegistryObject<Block> BLACK_CRYSTAL_GLASS = register("black_crystal_glass", () -> new CrystalGlassBlock(DyeColor.BLACK, BlockBehaviour.Properties.copy(Blocks.BLACK_STAINED_GLASS)));
 
-    public static final RegistryObject<Block> GROOVED_ICE = register("grooved_ice", () -> new Block(BlockBehaviour.Properties.copy(Blocks.ICE).friction(0.6F)));
+    public static final RegistryObject<Block> GROOVED_ICE = register("grooved_ice", () -> new IceBlock(BlockBehaviour.Properties.copy(Blocks.ICE).friction(0.6F)));
     public static final RegistryObject<Block> GROOVED_PACKED_ICE = register("grooved_packed_ice", () -> new Block(BlockBehaviour.Properties.copy(Blocks.PACKED_ICE).friction(0.6F)));
     public static final RegistryObject<Block> GROOVED_BLUE_ICE = register("grooved_blue_ice", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BLUE_ICE).friction(0.6F)));
 

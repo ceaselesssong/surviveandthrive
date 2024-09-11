@@ -28,6 +28,7 @@ import java.util.function.Supplier;
 
 import static galena.oreganized.index.OTags.Blocks.MINEABLE_WITH_SCRIBE;
 import static galena.oreganized.index.OTags.Blocks.SILKTOUCH_WITH_SCRIBE;
+import static galena.oreganized.index.OTags.Blocks.SILKTOUCH_WITH_SCRIBE_BLACKLIST;
 
 public class ScribeItem extends Item {
 
@@ -65,7 +66,11 @@ public class ScribeItem extends Item {
     }
 
     public boolean dropsLikeSilktouch(ItemStack stack, BlockState state) {
-        return isCorrectToolForDrops(state);
+        return isCorrectToolForDrops(state) && !shouldNotSilktouch(stack, state);
+    }
+
+    private boolean shouldNotSilktouch(ItemStack stack, BlockState state) {
+        return state.is(SILKTOUCH_WITH_SCRIBE_BLACKLIST);
     }
 
     @Override

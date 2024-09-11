@@ -1,0 +1,17 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "item": "oreganized:scribe"
+    }
+  ],
+  "results": [
+    {
+      "item": "oreganized:grooved_ice"
+    }
+  ],
+  "keepHeldItem": true
+}
