@@ -1,7 +1,6 @@
 package galena.oreganized.content.block;
 
 import galena.oreganized.index.OBlocks;
-import galena.oreganized.world.IDoorProgressHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -9,53 +8,58 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.Nullable;
 
-public class LeadDoorBlock extends DoorBlock implements IMeltableBlock {
+public class LeadDoorBlock extends DoorBlock implements IMeltableBlock, EntityBlock, IHeavyDoor {
+
+    /**
+     * Not fully implemented yet
+     */
+    public static final BooleanProperty ANIMATED = BooleanProperty.create("animated");
+
 
     public LeadDoorBlock(Properties properties) {
         super(properties, OBlocks.LEAD_BLOCK_SET);
+        //registerDefaultState(defaultBlockState().setValue(ANIMATED, false));
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        if (state.getValue(HALF) == DoubleBlockHalf.UPPER) return null;
+        return new HeavyDoorBlockEntity(pos, state);
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return HeavyDoorBlockEntity.getTicker(level, state, type);
     }
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        var progressHolder = (IDoorProgressHolder) player;
-
-        if (progressHolder.oreganised$incrementOpeningProgress() > 9) {
-            progressHolder.oreganised$resetOpeningProgress();
-            return super.use(state, level, pos, player, hand, hit);
-        } else {
-            return InteractionResult.sidedSuccess(level.isClientSide);
-        }
+        var controller = state.getValue(HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos;
+        return HeavyDoorBlockEntity.getAt(level, controller).map(it -> it.use(state, level, pos, player)).orElse(InteractionResult.PASS);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(getGoopynessProperty());
+        //builder.add(ANIMATED);
     }
-
-    /*
-    @Override
-    public boolean onGoopynessChange(Level world, BlockState state, BlockPos pos, RandomSource random, int from, int to) {
-        var half = state.getValue(HALF);
-        var otherPos = half == DoubleBlockHalf.LOWER ? pos.above() : pos.below();
-        var otherState = world.getBlockState(otherPos);
-
-        if (otherState.is(this) && getGoopyness(otherState) != to) {
-            world.setBlockAndUpdate(otherPos, otherState.setValue(getGoopynessProperty(), to));
-        }
-
-        return IMeltableBlock.super.onGoopynessChange(world, state, pos, random, from, to);
-    }
-     */
 
     @Override
     public int getNextGoopyness(BlockGetter world, BlockState selfState, BlockPos selfPos) {
@@ -77,11 +81,24 @@ public class LeadDoorBlock extends DoorBlock implements IMeltableBlock {
                     || selfHalf == DoubleBlockHalf.LOWER && pos.getY() > selfPos.getY()
             ) {
                 return 0;
-                //return getGoopyness(state);
             }
         }
         return IMeltableBlock.super.getInducedGoopyness(world, state, pos, selfState, selfPos);
     }
+
+    /*
+    Only required for `ANIMATABLE` property
+
+    @Override
+    public BlockState updateShape(BlockState state, Direction direction, BlockState changedState, LevelAccessor level, BlockPos pos, BlockPos changedPos) {
+        var updated = super.updateShape(state, direction, changedState, level, pos, changedPos);
+        var half = state.getValue(HALF);
+        if (changedState.is(this) && ((direction == Direction.UP && half == DoubleBlockHalf.LOWER) || (direction == Direction.DOWN && half == DoubleBlockHalf.UPPER))) {
+            return updated.setValue(ANIMATED, changedState.getValue(ANIMATED));
+        }
+        return updated;
+    }
+    */
 
     @Override
     public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
@@ -96,13 +113,22 @@ public class LeadDoorBlock extends DoorBlock implements IMeltableBlock {
 
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-        super.neighborChanged(state, level, pos, block, fromPos, isMoving);
         scheduleUpdate(level, pos, block);
+    }
+
+    @Override
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+        return super.getStateForPlacement(context).setValue(POWERED, false);
     }
 
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
         super.onPlace(state, level, pos, oldState, isMoving);
         scheduleUpdate(level, pos, state.getBlock());
+    }
+
+    @Override
+    public void sound(@Nullable Player player, Level level, BlockPos pos, boolean open) {
+        playSound(player, level, pos, open);
     }
 }
