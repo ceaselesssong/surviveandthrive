@@ -122,7 +122,7 @@ public class HeavyDoorBlockEntity extends BlockEntity {
             stopUsing(state, level, pos, player);
         }
 
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        return InteractionResult.FAIL;
     }
 
 }

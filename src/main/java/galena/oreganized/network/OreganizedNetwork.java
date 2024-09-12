@@ -1,6 +1,7 @@
 package galena.oreganized.network;
 
 import galena.oreganized.Oreganized;
+import galena.oreganized.network.packet.DoorPushingPacket;
 import galena.oreganized.network.packet.GargoyleParticlePacket;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
@@ -18,5 +19,6 @@ public class OreganizedNetwork {
         int id = 0;
 
         CHANNEL.registerMessage(id++, GargoyleParticlePacket.class, GargoyleParticlePacket::write, GargoyleParticlePacket::from, GargoyleParticlePacket::handle);
+        CHANNEL.registerMessage(id++, DoorPushingPacket.class, DoorPushingPacket::write, DoorPushingPacket::from, DoorPushingPacket::handle);
     }
 }

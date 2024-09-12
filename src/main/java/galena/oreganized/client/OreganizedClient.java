@@ -12,6 +12,7 @@ import galena.oreganized.index.OItems;
 import galena.oreganized.world.IDoorProgressHolder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
@@ -100,6 +101,10 @@ public class OreganizedClient {
         event.registerAbove(VanillaGuiOverlay.FROSTBITE.id(), "stunning", new StunningOverlay());
     }
 
+    public static void renderThirdPersonArm(ModelPart arm, boolean rightArm) {
+        arm.xRot = -1.7F;
+        arm.yRot = rightArm ? -0.1F : 0.2F;
+    }
 
     @Mod.EventBusSubscriber(modid = Oreganized.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
     public static class ForgeBusEvents {
