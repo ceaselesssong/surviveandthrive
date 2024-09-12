@@ -2,6 +2,7 @@ package galena.oreganized.content.effect;
 
 import galena.oreganized.Oreganized;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -38,7 +39,9 @@ public class StunningEffect extends MobEffect {
 
         if (instance.update(new MobEffectInstance(this, instance.getDuration() + 1, amplifier + step, instance.isAmbient(), instance.isVisible(), instance.showIcon()))) {
             addAttributeModifiers(entity, entity.getAttributes(), instance.getAmplifier());
-            entity.playSound(SoundEvents.SCULK_BLOCK_SPREAD, instance.getAmplifier() * 0.8F / MAX_AMPLIFIER + 0.2F, entity.getRandom().nextFloat() * 0.2F + 0.8F);
+            if (entity.level().isClientSide) {
+                entity.level().playSound(entity, entity.blockPosition(), SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.PLAYERS, instance.getAmplifier() * 0.8F / MAX_AMPLIFIER + 0.2F, entity.getRandom().nextFloat() * 0.2F + 0.8F);
+            }
         }
     }
 
