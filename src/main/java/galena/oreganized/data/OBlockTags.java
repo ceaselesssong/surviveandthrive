@@ -220,6 +220,10 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
                 .add(OBlocks.GROOVED_PACKED_ICE.get())
                 .add(OBlocks.GROOVED_BLUE_ICE.get());
 
+        tag(BlockTags.SNOW_LAYER_CANNOT_SURVIVE_ON)
+                .add(OBlocks.GROOVED_ICE.get())
+                .add(OBlocks.GROOVED_PACKED_ICE.get());
+
         tag(SILKTOUCH_WITH_SCRIBE)
                 .addTags(MINEABLE_WITH_SCRIBE)
                 .addTags(BlockTags.MINEABLE_WITH_PICKAXE);

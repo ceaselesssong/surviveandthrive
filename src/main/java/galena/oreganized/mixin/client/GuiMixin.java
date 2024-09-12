@@ -22,15 +22,15 @@ public class GuiMixin {
                     to = @At("TAIL")
             )
     )
-    private void renderStunnedHeart(Gui instance, GuiGraphics graphics, Gui.HeartType type, int x, int y, int v, boolean flag1, boolean flag2, @Local Player player) {
+    private void renderStunnedHeart(Gui instance, GuiGraphics graphics, Gui.HeartType type, int x, int y, int v, boolean blinking, boolean half, @Local Player player) {
         var accessor = (GuiAccessor) instance;
 
         if (player.hasEffect(OEffects.STUNNING.get())) {
             var renderedType = type == Gui.HeartType.POISIONED ? type : Gui.HeartType.NORMAL;
-            var u = renderedType.getX(flag1, flag2);
+            var u = renderedType.getX(half, blinking);
             OGui.renderStunnedHeart(graphics, u - 52, x, y, v / 5);
         } else {
-            accessor.callRenderHeart(graphics, type, x, y, v, flag1, flag2);
+            accessor.callRenderHeart(graphics, type, x, y, v, blinking, half);
         }
     }
 

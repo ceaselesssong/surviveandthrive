@@ -65,7 +65,7 @@ public class OLang extends OLangProvider {
         add("effect.oreganized.stunning.description", "Paralyzes the victim periodically with random intervals");
 
         addSubtitle("entity", "shrapnel_bomb.primed", "Shrapnel Bomb fizzes");
-
+        addSubtitle("entity", "bolt_hit", "Bolt hits");
         addSubtitle("block", "gargoyle.growl", "Gargoyle growls");
 
         add("tooltip.oreganized.wip.title", "Work In Progress");

@@ -1,4 +1,4 @@
-// 1.20.1	2024-09-11T15:31:25.0347469	Oreganized Block Tags
+// 1.20.1	2024-09-12T10:08:48.1791634	Oreganized Block Tags
 7a2d68d81bc5ee59f9a2f4ba68ddb39bfd9c875d data/forge/tags/blocks/glass.json
 d96b4f83e03abe39a1b97d92b7818c8f6b2e5c68 data/forge/tags/blocks/glass_panes.json
 d062c23ad5308b7de0b2e86f6531ea724530f898 data/forge/tags/blocks/melts_lead.json
@@ -25,6 +25,7 @@ f7079c32fc948b65cb486bea80e2dc93d13ce577 data/minecraft/tags/blocks/mineable/axe
 bb86ac7ab19373da790ec5711f473614e4b62d79 data/minecraft/tags/blocks/needs_iron_tool.json
 dc9cc2dca9fa3a28a0458ec282e3e0fe81999ee1 data/minecraft/tags/blocks/needs_stone_tool.json
 e9873026bc587ab0729bda85f9d2a6ca7790d410 data/minecraft/tags/blocks/slabs.json
+8dcd7041424abab98a418b19eadece10284b87f0 data/minecraft/tags/blocks/snow_layer_cannot_survive_on.json
 e231a716e19756d6a2326e873062dab206b37184 data/minecraft/tags/blocks/stairs.json
 0071c009a80f1ab7661b261dcf94799070b8cbea data/minecraft/tags/blocks/trapdoors.json
 a4acb3623320f801e89e3451f8b7d9e2246f99d0 data/minecraft/tags/blocks/walls.json
