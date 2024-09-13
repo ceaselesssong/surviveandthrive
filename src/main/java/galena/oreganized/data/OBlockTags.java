@@ -181,6 +181,7 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
 
         var scribeMineable = tag(MINEABLE_WITH_SCRIBE)
                 .addTags(Tags.Blocks.GLASS)
+                .addTags(Tags.Blocks.GLASS_PANES)
                 .addTags(Tags.Blocks.OBSIDIAN)
                 .addTags(BlockTags.ICE)
                 .addTags(BlockTags.CRYSTAL_SOUND_BLOCKS)

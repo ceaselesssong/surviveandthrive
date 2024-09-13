@@ -1,6 +1,7 @@
 {
   "values": [
     "#forge:glass",
+    "#forge:glass_panes",
     "#forge:obsidian",
     "#minecraft:ice",
     "#minecraft:crystal_sound_blocks",
