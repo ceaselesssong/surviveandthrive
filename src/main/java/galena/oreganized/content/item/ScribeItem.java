@@ -3,8 +3,6 @@ package galena.oreganized.content.item;
 import galena.oreganized.content.block.ICrystalGlass;
 import galena.oreganized.index.OBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -16,11 +14,11 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AmethystClusterBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.Vec3;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -89,17 +87,17 @@ public class ScribeItem extends Item {
         return super.canApplyAtEnchantingTable(stack, enchantment);
     }
 
-    private InteractionResult replaceBlock(UseOnContext context, BlockState to) {
+    private InteractionResult replaceBlock(UseOnContext context, BlockState to, boolean particles) {
         var level = context.getLevel();
         var pos = context.getClickedPos();
         var from = level.getBlockState(pos);
 
         level.setBlockAndUpdate(pos, to);
         level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(context.getPlayer(), from));
-        level.addDestroyBlockEffect(pos, from);
 
-        var vec = Vec3.atCenterOf(pos);
-        level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, from), vec.x, vec.y + 1, vec.z, 0.0, 0.0, 0.0);
+        if (particles) {
+            level.addDestroyBlockEffect(pos, from);
+        }
 
         if (context.getPlayer() != null) {
             context.getPlayer().playSound(SoundEvents.GRINDSTONE_USE, 1F, 1.5F);
@@ -118,12 +116,17 @@ public class ScribeItem extends Item {
 
         if (state.hasProperty(ICrystalGlass.TYPE)) {
             var type = state.getValue(ICrystalGlass.TYPE);
-            return replaceBlock(context, state.setValue(ICrystalGlass.TYPE, (type + 1) % (ICrystalGlass.MAX_TYPE + 1)));
+            return replaceBlock(context, state.setValue(ICrystalGlass.TYPE, (type + 1) % (ICrystalGlass.MAX_TYPE + 1)), true);
         }
 
         var grooved = GROOVED_BLOCKS.get(state.getBlock());
         if (grooved != null) {
-            return replaceBlock(context, grooved.get().defaultBlockState());
+            return replaceBlock(context, grooved.get().defaultBlockState(), true);
+        }
+
+        if (state.getBlock() instanceof AmethystClusterBlock && !state.is(Blocks.SMALL_AMETHYST_BUD)) {
+            Block.dropResources(state, context.getLevel(), context.getClickedPos(), null, context.getPlayer(), new ItemStack(Items.IRON_PICKAXE));
+            return replaceBlock(context, Blocks.SMALL_AMETHYST_BUD.withPropertiesOf(state), false);
         }
 
         return super.useOn(context);
