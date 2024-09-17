@@ -125,7 +125,9 @@ public class ScribeItem extends Item {
         }
 
         if (state.getBlock() instanceof AmethystClusterBlock && !state.is(Blocks.SMALL_AMETHYST_BUD)) {
-            Block.dropResources(state, context.getLevel(), context.getClickedPos(), null, context.getPlayer(), new ItemStack(Items.IRON_PICKAXE));
+            var tool = new ItemStack(Items.IRON_PICKAXE);
+            tool.setTag(context.getItemInHand().getTag());
+            Block.dropResources(state, context.getLevel(), context.getClickedPos(), null, context.getPlayer(), tool);
             return replaceBlock(context, Blocks.SMALL_AMETHYST_BUD.withPropertiesOf(state), false);
         }
 
