@@ -22,6 +22,7 @@ import galena.oreganized.data.ORecipes;
 import galena.oreganized.data.ORegistries;
 import galena.oreganized.data.OSoundDefinitions;
 import galena.oreganized.data.OSpriteSourceProvider;
+import galena.oreganized.index.OAttributes;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEffects;
 import galena.oreganized.index.OEntityTypes;
@@ -138,6 +139,7 @@ public class Oreganized {
                 OStructures.STRUCTURES,
                 OFeatures.FEATURES,
                 OPaintingVariants.PAINTING_VARIANTS,
+                OAttributes.ATTRIBUTES,
                 LOOT_MODIFIERS,
         };
 

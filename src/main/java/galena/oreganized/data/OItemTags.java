@@ -104,6 +104,16 @@ public class OItemTags extends ItemTagsProvider {
         tag(SHIELDS_SE).add(OItems.ELECTRUM_SHIELD.get());
         tag(MACHETES).add(OItems.ELECTRUM_MACHETE.get());
 
+        tag(HAS_KINETIC_DAMAGE).add(
+                OItems.ELECTRUM_AXE.get(),
+                OItems.ELECTRUM_HOE.get(),
+                OItems.ELECTRUM_KNIFE.get(),
+                OItems.ELECTRUM_MACHETE.get(),
+                OItems.ELECTRUM_PICKAXE.get(),
+                OItems.ELECTRUM_SHOVEL.get(),
+                OItems.ELECTRUM_SWORD.get()
+        );
+
         tag(OTags.Items.GARGOYLE_SNACK).addTags(INGOTS_SILVER);
     }
 }

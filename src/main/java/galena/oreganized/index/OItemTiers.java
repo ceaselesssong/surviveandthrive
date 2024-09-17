@@ -9,25 +9,7 @@ import java.util.function.Supplier;
 public enum OItemTiers implements Tier {
     LEAD(0, 150, 7.0F, 1.5F, 8, () -> Ingredient.of(OTags.Items.INGOTS_LEAD)),
 
-    /*
-        Electrum should be better than diamond but not the same as netherite
-        in terms of toughness and durability, taking on some benefits
-        from gold tools such as speed and enchantability instead.
-
-        Here's the tiers for diamond, gold and netherite for comparison.
-
-         DIAMOND(3, 1561, 8.0F, 3.0F, 10, () -> {
-            return Ingredient.of(Items.DIAMOND);
-        }),
-        GOLD(0, 32, 12.0F, 0.0F, 22, () -> {
-            return Ingredient.of(Items.GOLD_INGOT);
-        }),
-        NETHERITE(4, 2031, 9.0F, 4.0F, 15, () -> {
-            return Ingredient.of(Items.NETHERITE_INGOT);
-        });
-    */
-    ELECTRUM(4,1561,11.0F,3.0F,18, () -> Ingredient.of(OTags.Items.INGOTS_ELECTRUM));
-
+    ELECTRUM(4,1561,8.0F,3.0F,14, () -> Ingredient.of(OTags.Items.INGOTS_ELECTRUM));
 
     private final int level;
     private final int durability;

@@ -63,11 +63,11 @@ public class OItems {
     public static final RegistryObject<Item> BUSH_HAMMER = HELPER.createItem("bush_hammer", () -> new BushHammerItem(OItemTiers.LEAD, 2.5F, -2.8F, (new Item.Properties()).stacksTo(1)));
     public static final RegistryObject<Item> SCRIBE = HELPER.createItem("scribe", () -> new ScribeItem(new Item.Properties().durability(250)));
 
-    public static final RegistryObject<Item> ELECTRUM_SWORD = HELPER.createItem("electrum_sword", () -> new SwordItem(OItemTiers.ELECTRUM, 3, -2.2F, (new Item.Properties())));
-    public static final RegistryObject<Item> ELECTRUM_SHOVEL = HELPER.createItem("electrum_shovel", () -> new ShovelItem(OItemTiers.ELECTRUM, 1.5F, -2.8F, (new Item.Properties())));
-    public static final RegistryObject<Item> ELECTRUM_PICKAXE = HELPER.createItem("electrum_pickaxe", () -> new PickaxeItem(OItemTiers.ELECTRUM, 1, -2.6F, (new Item.Properties())));
-    public static final RegistryObject<Item> ELECTRUM_AXE = HELPER.createItem("electrum_axe", () -> new AxeItem(OItemTiers.ELECTRUM, 6.0F, -2.8F, (new Item.Properties())));
-    public static final RegistryObject<Item> ELECTRUM_HOE = HELPER.createItem("electrum_hoe", () -> new HoeItem(OItemTiers.ELECTRUM, 0, -2.8F, (new Item.Properties())));
+    public static final RegistryObject<Item> ELECTRUM_SWORD = HELPER.createItem("electrum_sword", () -> new SwordItem(OItemTiers.ELECTRUM, 3, -2.4F, (new Item.Properties())));
+    public static final RegistryObject<Item> ELECTRUM_SHOVEL = HELPER.createItem("electrum_shovel", () -> new ShovelItem(OItemTiers.ELECTRUM, 1.5F, -3.0F, (new Item.Properties())));
+    public static final RegistryObject<Item> ELECTRUM_PICKAXE = HELPER.createItem("electrum_pickaxe", () -> new PickaxeItem(OItemTiers.ELECTRUM, 1, -2.8F, (new Item.Properties())));
+    public static final RegistryObject<Item> ELECTRUM_AXE = HELPER.createItem("electrum_axe", () -> new AxeItem(OItemTiers.ELECTRUM, 5.0F, -3.0F, (new Item.Properties())));
+    public static final RegistryObject<Item> ELECTRUM_HOE = HELPER.createItem("electrum_hoe", () -> new HoeItem(OItemTiers.ELECTRUM, -3, 0.0F, (new Item.Properties())));
 
     public static final RegistryObject<Item> ELECTRUM_KNIFE = HELPER.createItem("electrum_knife", compat(FARMERS_DELIGHT_ID, it -> FarmersDelightCompat.KNIFE_FACTORY.apply(it), new Item.Properties()));
     public static final RegistryObject<Item> ELECTRUM_SHIELD = HELPER.createItem("electrum_shield", () -> new ShieldItem(new Item.Properties().durability(363)));
