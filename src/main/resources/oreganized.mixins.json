@@ -4,7 +4,7 @@
   "package": "galena.oreganized.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "AbstractArrowMixin", "BlockMixin", "CrossbowMixin", "DispenserBlockMixin", "EnchantmentHelperMixin",
+    "AbstractArrowMixin", "BlockMixin", "CrossbowMixin", "DispenserBlockMixin", "EnchantmentHelperMixin", "EntityMixin",
     "FoodDataMixin", "IceBlockMixin", "MobEffectInstanceMixin", "PillagerMixin", "PlayerMixin"
   ],
   "client": [

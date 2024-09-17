@@ -19,8 +19,12 @@ public class KineticDamage {
         var mods = stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(OAttributes.KINETIC_DAMAGE.get());
 
         if (mods.isEmpty()) return;
+        if (!(cause instanceof IMotionHolder motionHolder)) return;
 
-        var factor = Math.min(cause.getDeltaMovement().horizontalDistance() / 0.046F, 1F);
+        var motion = Math.sqrt(motionHolder.oreganised$getMotion()) - 0.1;
+
+        var factor = Math.min(motion / 0.2, 1F);
+        if (factor <= 0.0) return;
 
         // ignores modifier operation, since only addition is used by oreganized this works, but may be adapted in the future
         var kineticDamage = factor * mods.stream().mapToDouble(AttributeModifier::getAmount).sum();
@@ -32,13 +36,13 @@ public class KineticDamage {
         target.hurt(source, (float) kineticDamage);
         OreganizedNetwork.CHANNEL.send(
                 PacketDistributor.NEAR.with(PacketDistributor.TargetPoint.p(target.getX(), target.getY(), target.getZ(), 16.0, target.level().dimension())),
-                new KineticHitPacket(target.getId())
+                new KineticHitPacket(target.getId(), factor)
         );
     }
 
-    public static void spawnParticles(Entity target) {
+    public static void spawnParticles(Entity target, double factor) {
         var level = target.level();
-        var count = 3 + level.random.nextInt(2) + level.random.nextInt(2);
+        var count = (int) (2 + Math.floor(6 * factor));
 
         for (int i = 0; i < count; i++) {
             level.addParticle(

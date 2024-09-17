@@ -7,10 +7,11 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public record KineticHitPacket(int target) {
+public record KineticHitPacket(int target, double factor) {
 
     public void write(FriendlyByteBuf buffer) {
         buffer.writeInt(target);
+        buffer.writeDouble(factor);
     }
 
     public void handle(Supplier<NetworkEvent.Context> contextSupplier) {
@@ -22,7 +23,7 @@ public record KineticHitPacket(int target) {
             var target = level.getEntity(target());
             if (target == null) return;
 
-            KineticDamage.spawnParticles(target);
+            KineticDamage.spawnParticles(target, factor);
         });
 
         context.setPacketHandled(true);
@@ -30,7 +31,8 @@ public record KineticHitPacket(int target) {
 
     public static KineticHitPacket from(FriendlyByteBuf buffer) {
         var target = buffer.readInt();
-        return new KineticHitPacket(target);
+        var factor = buffer.readDouble();
+        return new KineticHitPacket(target, factor);
     }
 
 }
