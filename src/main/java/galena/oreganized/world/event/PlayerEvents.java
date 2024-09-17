@@ -5,6 +5,7 @@ import galena.oreganized.OreganizedConfig;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.content.entity.GargoyleBlockEntity;
 import galena.oreganized.content.item.ScribeItem;
+import galena.oreganized.index.OAttributes;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEffects;
 import galena.oreganized.index.OFluids;
@@ -19,22 +20,30 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
+import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = Oreganized.MOD_ID)
 public class PlayerEvents {
@@ -143,4 +152,24 @@ public class PlayerEvents {
             event.setExpToDrop(0);
         }
     }
+
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public static void onItemAttributes(ItemAttributeModifierEvent event) {
+        var stack = event.getItemStack();
+        var mods = event.getModifiers();
+
+        if (event.getSlotType() != EquipmentSlot.MAINHAND) return;
+
+        if (stack.is(OTags.Items.HAS_KINETIC_DAMAGE) && !mods.containsKey(OAttributes.KINETIC_DAMAGE.get())) {
+            var damage = stack.getItem() instanceof DiggerItem item
+                    ? item.getAttackDamage()
+                    : stack.getItem() instanceof SwordItem item
+                    ? item.getDamage()
+                    : 2.0F;
+            event.addModifier(OAttributes.KINETIC_DAMAGE.get(), new AttributeModifier(
+                    UUID.fromString("0191ff58-54d7-711d-8a94-692379277c23"), "Kinetic Damage", damage / 3, AttributeModifier.Operation.ADDITION)
+            );
+        }
+    }
+
 }

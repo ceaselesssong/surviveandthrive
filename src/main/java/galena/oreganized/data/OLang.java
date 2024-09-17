@@ -77,6 +77,8 @@ public class OLang extends OLangProvider {
         add("death.attack.lead_bolt.item", "%1$s was shot %2$s using %3$s");
         add("death.attack.molten_lead", "%1$s refused to let go of the soaring hot metal");
 
+        add("attribute.oreganized.kinetic_damage", "Kinetic Damage");
+
         /*
             Automatically create translations for blocks and items based on their registry name.
 
