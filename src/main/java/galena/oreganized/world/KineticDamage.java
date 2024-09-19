@@ -4,10 +4,12 @@ import galena.oreganized.index.OAttributes;
 import galena.oreganized.index.OParticleTypes;
 import galena.oreganized.network.OreganizedNetwork;
 import galena.oreganized.network.packet.KineticHitPacket;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.PacketDistributor;
 
 public class KineticDamage {
@@ -21,9 +23,9 @@ public class KineticDamage {
         if (mods.isEmpty()) return;
         if (!(cause instanceof IMotionHolder motionHolder)) return;
 
-        var motion = Math.sqrt(motionHolder.oreganised$getMotion()) - 0.1;
+        var motion = Math.sqrt(motionHolder.oreganised$getMotion()) - 0.15;
 
-        var factor = Math.min(motion / 0.2, 1F);
+        var factor = Math.min(motion / 0.12, 1F);
         if (factor <= 0.0) return;
 
         // ignores modifier operation, since only addition is used by oreganized this works, but may be adapted in the future
@@ -42,7 +44,7 @@ public class KineticDamage {
 
     public static void spawnParticles(Entity target, double factor) {
         var level = target.level();
-        var count = (int) (2 + Math.floor(6 * factor));
+        var count = (int) (1 + Math.floor(4 * factor));
 
         for (int i = 0; i < count; i++) {
             level.addParticle(

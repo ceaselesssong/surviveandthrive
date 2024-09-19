@@ -2,10 +2,10 @@ package galena.oreganized.index;
 
 import galena.oreganized.Oreganized;
 import galena.oreganized.client.particle.CustomDrippingParticle;
+import galena.oreganized.client.particle.KineticHitParticle;
 import galena.oreganized.client.particle.LeadShrapnelParticle;
 import galena.oreganized.client.particle.VengeanceParticleProvider;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.CritParticle;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -39,6 +39,6 @@ public class OParticleTypes {
         engine.register(LANDING_LEAD.get(), CustomDrippingParticle.LeadLandProvider::new);
         engine.register(LEAD_SHRAPNEL.get(), LeadShrapnelParticle.Provider::new);
         engine.register(VENGEANCE.get(), VengeanceParticleProvider::new);
-        engine.register(KINETIC_HIT.get(), CritParticle.DamageIndicatorProvider::new);
+        engine.register(KINETIC_HIT.get(), KineticHitParticle.Provider::new);
     }
 }
