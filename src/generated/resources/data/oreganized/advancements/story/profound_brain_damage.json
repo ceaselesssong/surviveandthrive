@@ -2,16 +2,8 @@
   "parent": "oreganized:story/like_the_romans",
   "criteria": {
     "stunned": {
-      "conditions": {
-        "effects": {
-          "oreganized:stunning": {
-            "amplifier": {
-              "max": 6
-            }
-          }
-        }
-      },
-      "trigger": "minecraft:effects_changed"
+      "conditions": {},
+      "trigger": "oreganized:profound_brain_damage"
     }
   },
   "display": {

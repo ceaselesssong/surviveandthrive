@@ -1,6 +1,8 @@
 package galena.oreganized.content.effect;
 
 import galena.oreganized.Oreganized;
+import galena.oreganized.index.OCriteriaTriggers;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
@@ -30,6 +32,10 @@ public class StunningEffect extends MobEffect {
 
         var health = entity.getHealth() / entity.getMaxHealth();
         var targetAmplifier = (int) Math.ceil((1.0 - health) * MAX_AMPLIFIER);
+
+        if (entity.getHealth() <= 1 && entity instanceof ServerPlayer player) {
+            OCriteriaTriggers.PROFOUND_BRAIN_DAMAGE.trigger(player);
+        }
 
         if (targetAmplifier == amplifier) return;
         var instance = entity.getEffect(this);

@@ -16,7 +16,6 @@ import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.ItemUsedOnLocationTrigger;
 import net.minecraft.advancements.critereon.LocationPredicate;
-import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -70,8 +69,7 @@ public class OAdvancements extends ForgeAdvancementProvider {
                     .parent(likeTheRomans)
                     .display(info(OItems.MOLTEN_LEAD_BUCKET.get(), "profound_brain_damage", FrameType.TASK,
                             "Profound Brain Damage", "Let your health reach half a heart while having the Brain Damage effect"))
-                    .addCriterion("stunned", EffectsChangedTrigger.TriggerInstance.hasEffects(MobEffectsPredicate.effects()
-                            .and(OEffects.STUNNING.get(), new MobEffectsPredicate.MobEffectInstancePredicate(MinMaxBounds.Ints.atMost(6), MinMaxBounds.Ints.ANY, null, null))))
+                    .addCriterion("stunned", OCriteriaTriggers.PROFOUND_BRAIN_DAMAGE.instance())
                     .save(consumer, "oreganized:story/profound_brain_damage");
 
             var obtainSilver = Advancement.Builder.advancement()
