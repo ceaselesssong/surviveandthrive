@@ -6,7 +6,7 @@
         "effects": {
           "oreganized:stunning": {
             "amplifier": {
-              "max": 4
+              "max": 6
             }
           }
         }

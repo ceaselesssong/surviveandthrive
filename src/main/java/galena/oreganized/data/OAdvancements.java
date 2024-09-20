@@ -1,7 +1,6 @@
 package galena.oreganized.data;
 
 import galena.oreganized.Oreganized;
-import galena.oreganized.content.effect.StunningEffect;
 import galena.oreganized.data.provider.OLangProvider;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OCriteriaTriggers;
@@ -72,7 +71,7 @@ public class OAdvancements extends ForgeAdvancementProvider {
                     .display(info(OItems.MOLTEN_LEAD_BUCKET.get(), "profound_brain_damage", FrameType.TASK,
                             "Profound Brain Damage", "Let your health reach half a heart while having the Brain Damage effect"))
                     .addCriterion("stunned", EffectsChangedTrigger.TriggerInstance.hasEffects(MobEffectsPredicate.effects()
-                            .and(OEffects.STUNNING.get(), new MobEffectsPredicate.MobEffectInstancePredicate(MinMaxBounds.Ints.atMost(StunningEffect.MAX_AMPLIFIER / 2), MinMaxBounds.Ints.ANY, null, null))))
+                            .and(OEffects.STUNNING.get(), new MobEffectsPredicate.MobEffectInstancePredicate(MinMaxBounds.Ints.atMost(6), MinMaxBounds.Ints.ANY, null, null))))
                     .save(consumer, "oreganized:story/profound_brain_damage");
 
             var obtainSilver = Advancement.Builder.advancement()

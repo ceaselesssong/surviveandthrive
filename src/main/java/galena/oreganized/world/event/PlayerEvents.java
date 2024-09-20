@@ -110,26 +110,6 @@ public class PlayerEvents {
     }
 
     @SubscribeEvent
-    public static void finishUsingItem(final LivingEntityUseItemEvent.Finish event) {
-        LivingEntity entity = event.getEntity();
-        ItemStack itemStack = event.getItem();
-        if (itemStack.isEdible()) {
-            boolean leadPoisoning = entity.isInFluidType(OFluids.MOLTEN_LEAD_TYPE.get());
-            if (entity instanceof Player player) {
-                for (int i = 0; i < 9; i++) {
-                    if (player.getInventory().items.get(i).is(OTags.Items.LEAD_SOURCE))
-                        leadPoisoning = true;
-                }
-            }
-            if ((entity.getOffhandItem().is(OTags.Items.LEAD_SOURCE) || leadPoisoning) && OreganizedConfig.COMMON.leadPoisining.get()) {
-                if (OreganizedConfig.stunningFromConfig())
-                    entity.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 40 * 20));
-                entity.addEffect(new MobEffectInstance(MobEffects.POISON, 200));
-            }
-        }
-    }
-
-    @SubscribeEvent
     public static void tickPlayer(final TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.START) return;
 
