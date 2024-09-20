@@ -15,7 +15,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.story.obtain_silver.description"
+      "translate": "advancements.oreganized.obtain_silver.description"
     },
     "frame": "task",
     "hidden": false,
@@ -24,7 +24,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.story.obtain_silver.title"
+      "translate": "advancements.oreganized.obtain_silver.title"
     }
   },
   "requirements": [

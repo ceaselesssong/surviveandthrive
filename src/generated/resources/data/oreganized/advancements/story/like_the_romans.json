@@ -1,21 +1,7 @@
 {
   "parent": "minecraft:story/upgrade_tools",
   "criteria": {
-    "eaten": {
-      "conditions": {},
-      "trigger": "minecraft:consume_item"
-    },
-    "has_lead": {
-      "conditions": {
-        "items": [
-          {
-            "tag": "forge:ingots/lead"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "stunned": {
+    "has_brain_damage": {
       "conditions": {
         "effects": {
           "oreganized:stunning": {}
@@ -27,7 +13,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.story.eat_with_lead.description"
+      "translate": "advancements.oreganized.like_the_romans.description"
     },
     "frame": "task",
     "hidden": false,
@@ -36,18 +22,12 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.story.eat_with_lead.title"
+      "translate": "advancements.oreganized.like_the_romans.title"
     }
   },
   "requirements": [
     [
-      "stunned"
-    ],
-    [
-      "has_lead"
-    ],
-    [
-      "eaten"
+      "has_brain_damage"
     ]
   ],
   "sends_telemetry_event": true

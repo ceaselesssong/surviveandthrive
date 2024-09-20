@@ -3,6 +3,7 @@ package galena.oreganized.content.entity;
 import galena.oreganized.Oreganized;
 import galena.oreganized.content.block.GargoyleBlock;
 import galena.oreganized.index.OBlockEntities;
+import galena.oreganized.index.OCriteriaTriggers;
 import galena.oreganized.index.OParticleTypes;
 import galena.oreganized.index.OSoundEvents;
 import galena.oreganized.index.OTags;
@@ -15,6 +16,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -27,6 +29,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PacketDistributor;
@@ -99,12 +102,20 @@ public class GargoyleBlockEntity extends BlockEntity {
             var targetPos = pos.relative(fluidOffset, i);
             var targetState = level.getBlockState(targetPos);
             var fluid = targetState.getFluidState();
+
             if (!fluid.isEmpty()) {
                 drippingFluid = fluid.getDripParticle();
+
+                if (fluid.is(Fluids.WATER)) {
+                    level.getEntitiesOfClass(ServerPlayer.class, new AABB(pos).inflate(10.0, 5.0, 10.0)).forEach(player -> {
+                        OCriteriaTriggers.SEE_GARGOYLE_GARGLE.trigger(player);
+                    });
+                }
+
                 return;
             }
 
-            if(!targetState.isRedstoneConductor(level, pos)) {
+            if (!targetState.isRedstoneConductor(level, pos)) {
                 break;
             }
 

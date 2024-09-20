@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.adventure.mirror_mirror.description"
+      "translate": "advancements.oreganized.mirror_mirror.description"
     },
     "frame": "task",
     "hidden": false,
@@ -26,7 +26,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.adventure.mirror_mirror.title"
+      "translate": "advancements.oreganized.mirror_mirror.title"
     }
   },
   "requirements": [

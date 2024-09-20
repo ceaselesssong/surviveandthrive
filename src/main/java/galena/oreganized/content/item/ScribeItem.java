@@ -22,6 +22,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Supplier;
 
 import static galena.oreganized.index.OTags.Blocks.MINEABLE_WITH_SCRIBE;
@@ -34,6 +35,10 @@ public class ScribeItem extends Item {
 
     public static void registerGroovedBlock(Block from, Supplier<Block> to) {
         GROOVED_BLOCKS.put(from, to);
+    }
+
+    public static Set<Map.Entry<Block, Supplier<Block>>> getGroovedBlocks() {
+        return GROOVED_BLOCKS.entrySet();
     }
 
     static {

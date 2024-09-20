@@ -250,9 +250,11 @@ public class Oreganized {
         boolean client = event.includeClient();
         boolean server = event.includeServer();
 
+        var lang = new OLang(output);
+
         generator.addProvider(client, new OBlockStates(output, helper));
         generator.addProvider(client, new OItemModels(output, helper));
-        generator.addProvider(client, new OLang(output));
+        generator.addProvider(client, lang);
         generator.addProvider(client, new OSoundDefinitions(output, helper));
         generator.addProvider(client, new OSpriteSourceProvider(output, helper));
 
@@ -262,7 +264,7 @@ public class Oreganized {
         generator.addProvider(server, blockTags);
         generator.addProvider(server, new OItemTags(output, future, blockTags.contentsGetter(), helper));
         generator.addProvider(server, new OEntityTags(output, future, helper));
-        generator.addProvider(server, new OAdvancements(output, future, helper));
+        generator.addProvider(server, new OAdvancements(output, future, helper, lang));
         generator.addProvider(server, new OFluidTags(output, future, helper));
         DatapackBuiltinEntriesProvider datapackProvider = new ORegistries(output, future);
         CompletableFuture<HolderLookup.Provider> lookupProvider = datapackProvider.getRegistryProvider();

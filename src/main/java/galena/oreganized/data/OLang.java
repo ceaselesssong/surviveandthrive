@@ -1,5 +1,6 @@
 package galena.oreganized.data;
 
+import com.google.common.collect.Lists;
 import galena.oreganized.Oreganized;
 import galena.oreganized.data.provider.OLangProvider;
 import galena.oreganized.index.OBlocks;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class OLang extends OLangProvider {
@@ -21,6 +23,7 @@ public class OLang extends OLangProvider {
     public OLang(PackOutput output) {
         super(output, Oreganized.MOD_ID, "en_us");
     }
+
     @Override
     protected void addTranslations() {
         addDisc(OItems.MUSIC_DISC_STRUCTURE, "Firch", "structure");
@@ -40,19 +43,6 @@ public class OLang extends OLangProvider {
 
         addEffect(OEffects.STUNNING, "Brain Damage");
         addPotion(OPotions.STUNNING, "Brain Damage");
-
-        addAdvTitle("adventure.mirror_mirror", "Mirror, Mirror who is the fairest?");
-        addAdvDesc("adventure.mirror_mirror", "Obtain a Silver Mirror");
-        addAdvTitle("story.melting_point", "Melting Point");
-        addAdvDesc("story.melting_point", "Pick up Molten Lead from a cauldron");
-        addAdvTitle("story.obtain_silver", "Every Stone has a Silver Lining");
-        addAdvDesc("story.obtain_silver", "Smelt Raw Silver");
-        addAdvTitle("story.electrum_gear", "Cover me in... Wings?");
-        addAdvDesc("story.electrum_gear", "Obtain a full set of electrum armor");
-        addAdvTitle("story.eat_with_lead", "Like the Romans");
-        addAdvDesc("story.eat_with_lead", "Eat anything with lead in your hotbar");
-        addAdvTitle("story.disc_smith", "Disc Smith");
-        addAdvDesc("story.disc_smith", "Submerge a broken music disc into molten lead");
 
         add("trim_material.oreganized.lead", "Lead material");
         add("trim_material.oreganized.silver", "Silver material");

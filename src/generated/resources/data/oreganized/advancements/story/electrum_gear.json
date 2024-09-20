@@ -32,7 +32,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.story.electrum_gear.description"
+      "translate": "advancements.oreganized.electrum_gear.description"
     },
     "frame": "challenge",
     "hidden": false,
@@ -42,7 +42,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.story.electrum_gear.title"
+      "translate": "advancements.oreganized.electrum_gear.title"
     }
   },
   "requirements": [

@@ -1,12 +1,9 @@
 package galena.oreganized.data.provider;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 import net.minecraft.Util;
-import net.minecraft.core.Registry;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.effect.MobEffect;
@@ -18,11 +15,10 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.CompletableFuture;
@@ -34,16 +30,23 @@ public abstract class OLangProvider implements DataProvider {
     private final String modid;
     private final String locale;
 
+    private final List<Runnable> subProviders = Lists.newArrayList();
+
     public OLangProvider(PackOutput output, String modid, String locale) {
         this.output = output;
         this.modid = modid;
         this.locale = locale;
     }
 
+    public void addSubProvider(Runnable runnable) {
+        this.subProviders.add(runnable);
+    }
+
     protected abstract void addTranslations();
 
     @Override
     public CompletableFuture<?> run(CachedOutput cache) {
+        this.subProviders.forEach(Runnable::run);
         addTranslations();
         if (!data.isEmpty())
             return save(cache, this.output.getOutputFolder(PackOutput.Target.RESOURCE_PACK).resolve(this.modid).resolve("lang").resolve(this.locale + ".json"));
@@ -97,11 +100,11 @@ public abstract class OLangProvider implements DataProvider {
     }
 
     public void addAdvTitle(String advancementTitle, String name) {
-        add("advancements." + advancementTitle + ".title", name);
+        data.putIfAbsent("advancements." + advancementTitle + ".title", name);
     }
 
     public void addAdvDesc(String advancementTitle, String name) {
-        add("advancements." + advancementTitle + ".description", name);
+        data.putIfAbsent("advancements." + advancementTitle + ".description", name);
     }
 
     public void addSubtitle(String category, String subtitleName, String name) {

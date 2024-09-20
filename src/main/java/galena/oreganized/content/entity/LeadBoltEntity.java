@@ -1,16 +1,20 @@
 package galena.oreganized.content.entity;
 
+import galena.oreganized.index.OCriteriaTriggers;
 import galena.oreganized.index.OItems;
 import galena.oreganized.index.OSoundEvents;
 import net.minecraft.core.Position;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.ItemStack;
@@ -85,6 +89,12 @@ public class LeadBoltEntity extends AbstractArrow {
                 playSound(OSoundEvents.BOLT_HIT_ARMOR.get(), 1.5F, 1.2F / (random.nextFloat() * 0.2F + 0.9F));
                 if (knockedOff.getItem() instanceof Equipable item) {
                     playSound(item.getEquipSound());
+                }
+
+                if (result.getEntity() instanceof Pillager &&  knockedOff.is(ItemTags.BANNERS)) {
+                    if (getOwner() instanceof ServerPlayer player) {
+                        OCriteriaTriggers.KNOCKED_BANNER_OFF.trigger(player);
+                    }
                 }
 
                 discard();

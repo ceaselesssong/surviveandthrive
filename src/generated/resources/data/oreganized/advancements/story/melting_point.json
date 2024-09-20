@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.story.melting_point.description"
+      "translate": "advancements.oreganized.melting_point.description"
     },
     "frame": "task",
     "hidden": false,
@@ -26,7 +26,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.story.melting_point.title"
+      "translate": "advancements.oreganized.melting_point.title"
     }
   },
   "requirements": [
