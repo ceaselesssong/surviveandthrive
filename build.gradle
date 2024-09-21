@@ -126,6 +126,7 @@ dependencies {
 }
 
 jar {
+    archiveClassifier.set("raw")
     manifest {
         attributes([
                 'Specification-Title'     : mod_name,
@@ -140,6 +141,10 @@ jar {
                 'Build-On-Minecraft'      : minecraft_version
         ])
     }
+}
+
+tasks.jarJar {
+    archiveClassifier.set("")
 }
 
 jar.finalizedBy('reobfJar')
