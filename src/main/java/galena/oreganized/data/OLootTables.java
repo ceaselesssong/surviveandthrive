@@ -28,6 +28,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.List;
 import java.util.Map;
@@ -104,7 +105,7 @@ public class OLootTables extends LootTableProvider {
                             .add(AlternativesEntry.alternatives(
                                     LootItem.lootTableItem(OBlocks.LEAD_BARS.get()).when(HAS_SILK_TOUCH),
                                     LootItem.lootTableItem(OItems.LEAD_NUGGET.get())
-                                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(6)))
+                                            .apply(SetItemCountFunction.setCount((UniformGenerator.between(2F, 3F))))
                                             .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(OBlocks.LEAD_BARS.get())
                                                     .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(IMeltableBlock.GOOPYNESS_3, 2))
                                             ),
