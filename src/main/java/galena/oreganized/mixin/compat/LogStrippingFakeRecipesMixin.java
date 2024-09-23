@@ -1,5 +1,6 @@
 package galena.oreganized.mixin.compat;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.simibubi.create.content.kinetics.deployer.ManualApplicationRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingOutput;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
@@ -12,8 +13,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +20,9 @@ import java.util.List;
 @Mixin(value = LogStrippingFakeRecipes.class, remap = false)
 public class LogStrippingFakeRecipesMixin {
 
-    @Inject(method = "createRecipes", at = @At("RETURN"), require = 0, cancellable = true)
-    private static void addGroovedRecipes(CallbackInfoReturnable<List<ManualApplicationRecipe>> cir) {
-        var newList = new ArrayList<>(cir.getReturnValue());
+    @ModifyReturnValue(method = "createRecipes", at = @At("RETURN"), require = 0)
+    private static List<ManualApplicationRecipe> addGroovedRecipes(List<ManualApplicationRecipe> value) {
+        var newList = new ArrayList<>(value);
 
         ScribeItem.getGroovedBlocks().forEach(entry -> {
             var blockId = BuiltInRegistries.BLOCK.getKey(entry.getKey()).getPath();
@@ -36,7 +35,7 @@ public class LogStrippingFakeRecipesMixin {
             );
         });
 
-        cir.setReturnValue(newList);
+        return newList;
     }
 
 }

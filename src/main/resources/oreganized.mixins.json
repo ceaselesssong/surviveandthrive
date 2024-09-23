@@ -9,7 +9,7 @@
     "compat.LogStrippingFakeRecipesMixin"
   ],
   "client": [
-    "client.GuiAccessor", "client.GuiMixin", "client.HumanoidArmorLayerAccessor", "client.HumanoidArmorLayerMixin",
+    "client.GuiMixin", "client.HumanoidArmorLayerAccessor", "client.HumanoidArmorLayerMixin",
     "client.HumanoidModelMixin"
   ],
   "server": [],
