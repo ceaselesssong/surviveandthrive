@@ -121,9 +121,12 @@ public class MinecartShrapnelBomb extends AbstractMinecart {
                 if (random < 5) shouldPoison = true;
             }
             if (shouldPoison && entity instanceof LivingEntity living) {
-                living.hurt(this.damageSources().magic(), 2);
-                if (OreganizedConfig.stunningFromConfig()) living.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 800));
+                living.hurt(this.damageSources().source(ODamageSources.LEAD_POISONING), 2);
+
                 living.addEffect(new MobEffectInstance(MobEffects.POISON, 260));
+                if (!OreganizedConfig.COMMON.poisonInsteadOfStunning.get()) {
+                    living.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 800));
+                }
             }
         }
         this.discard();

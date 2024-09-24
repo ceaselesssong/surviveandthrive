@@ -1,5 +1,6 @@
 package galena.oreganized.content.item;
 
+import galena.oreganized.OreganizedConfig;
 import galena.oreganized.content.block.ICrystalGlass;
 import galena.oreganized.index.OBlocks;
 import net.minecraft.core.BlockPos;
@@ -78,7 +79,11 @@ public class ScribeItem extends Item {
 
     @Override
     public boolean isCorrectToolForDrops(BlockState state) {
-        return state.is(SILKTOUCH_WITH_SCRIBE);
+        if(OreganizedConfig.COMMON.scribeSilkTouchStone.get()) {
+            return state.is(SILKTOUCH_WITH_SCRIBE);
+        } else {
+            return state.is(MINEABLE_WITH_SCRIBE);
+        }
     }
 
     @Override

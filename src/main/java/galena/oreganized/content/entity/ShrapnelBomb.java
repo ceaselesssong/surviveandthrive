@@ -1,18 +1,17 @@
 package galena.oreganized.content.entity;
 
 import galena.oreganized.OreganizedConfig;
+import galena.oreganized.index.ODamageSources;
 import galena.oreganized.index.OEffects;
 import galena.oreganized.index.OEntityTypes;
 import galena.oreganized.index.OParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
@@ -54,9 +53,12 @@ public class ShrapnelBomb extends PrimedTnt {
                 if (random < 5) shouldPoison = true;
             }
             if (shouldPoison && entity instanceof LivingEntity living) {
-                living.hurt(this.damageSources().magic(), 2);
-                if (OreganizedConfig.stunningFromConfig()) living.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 800));
+                living.hurt(this.damageSources().source(ODamageSources.LEAD_POISONING), 2);
+
                 living.addEffect(new MobEffectInstance(MobEffects.POISON, 260));
+                if (!OreganizedConfig.COMMON.poisonInsteadOfStunning.get()) {
+                    living.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 800));
+                }
             }
         }
     }

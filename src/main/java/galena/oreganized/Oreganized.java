@@ -121,6 +121,8 @@ public class Oreganized {
         final IEventBus modBus = Bus.MOD.bus().get();
         final IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 
+        OreganizedConfig.register();
+
         modBus.addListener(this::setup);
         modBus.addListener(this::clientSetup);
         modBus.addListener(this::gatherData);

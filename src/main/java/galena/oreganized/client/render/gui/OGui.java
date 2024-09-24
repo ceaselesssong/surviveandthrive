@@ -2,6 +2,7 @@ package galena.oreganized.client.render.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import galena.oreganized.Oreganized;
+import galena.oreganized.OreganizedConfig;
 import galena.oreganized.content.effect.StunningEffect;
 import galena.oreganized.index.OEffects;
 import galena.oreganized.index.OFluids;
@@ -35,7 +36,7 @@ public class OGui extends ForgeGui {
         RenderSystem.enableBlend();
 
         var stunning = this.minecraft.player.getEffect(OEffects.STUNNING.get());
-        if (stunning != null) {
+        if (stunning != null && OreganizedConfig.CLIENT.renderStunningOverlay.get()) {
             var opacity = stunning.getAmplifier() * 1F / StunningEffect.MAX_AMPLIFIER;
             this.renderTextureOverlay(guiGraphics, STUNNING_VIGNETTE_LOCATION, opacity);
             this.renderTextureOverlay(guiGraphics, getStunningOutline(stunning.getAmplifier()), 1F);

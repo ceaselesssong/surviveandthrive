@@ -1,5 +1,6 @@
 package galena.oreganized.content.block;
 
+import galena.oreganized.OreganizedConfig;
 import galena.oreganized.index.OCriteriaTriggers;
 import galena.oreganized.index.OEffects;
 import galena.oreganized.index.OItems;
@@ -36,8 +37,13 @@ public class LeadOreBlock extends DropExperienceBlock {
             var vec = Vec3.atCenterOf(pos);
             var cloud = new AreaEffectCloud(level, vec.x, vec.y, vec.z);
 
-            cloud.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 20 * 60));
-            cloud.addEffect(new MobEffectInstance(MobEffects.POISON, 20 * 2));
+            if (OreganizedConfig.COMMON.poisonInsteadOfStunning.get()) {
+                cloud.addEffect(new MobEffectInstance(MobEffects.POISON, 20 * 15));
+            } else {
+                cloud.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 20 * 60));
+                cloud.addEffect(new MobEffectInstance(MobEffects.POISON, 20 * 2));
+            }
+
             cloud.setParticle(OParticleTypes.LEAD_CLOUD.get());
             cloud.setDuration(60);
 
@@ -56,6 +62,7 @@ public class LeadOreBlock extends DropExperienceBlock {
     }
 
     protected boolean shouldSpawnCloud(BlockState state, LevelAccessor level, BlockPos pos, ItemStack stack) {
+        if (!OreganizedConfig.COMMON.leadDustCloud.get()) return false;
         if (stack.is(OItems.SCRIBE.get()) || EnchantmentHelper.hasSilkTouch(stack)) return false;
 
         for (var direction : Direction.values()) {
