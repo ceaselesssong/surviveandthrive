@@ -141,6 +141,13 @@ public class OAdvancements extends ForgeAdvancementProvider {
                             ItemPredicate.Builder.item().of(OItems.SCRIBE.get())
                     ))
                     .save(consumer, "oreganized:husbandry/groovy");
+
+            Advancement.Builder.advancement()
+                    .parent(getAdv("story/root"))
+                    .display(info(OBlocks.LEAD_ORE.get(), "lead_to_dust", FrameType.TASK,
+                            "Well... That leads to dust", "Mine lead ore without adjacent water to block the toxic dust cloud from forming"))
+                    .addCriterion("in_lead_cloud", OCriteriaTriggers.IN_LEAD_CLOUD.instance())
+                    .save(consumer, "oreganized:story/lead_to_dust");
         }
 
         protected Advancement getAdv(String loc) {

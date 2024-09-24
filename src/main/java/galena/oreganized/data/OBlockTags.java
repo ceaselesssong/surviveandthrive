@@ -25,6 +25,7 @@ import static galena.oreganized.index.OTags.Blocks.MELTS_LEAD;
 import static galena.oreganized.index.OTags.Blocks.MINEABLE_WITH_SCRIBE;
 import static galena.oreganized.index.OTags.Blocks.ORES_LEAD;
 import static galena.oreganized.index.OTags.Blocks.ORES_SILVER;
+import static galena.oreganized.index.OTags.Blocks.PREVENTS_LEAD_CLOUD;
 import static galena.oreganized.index.OTags.Blocks.SILKTOUCH_WITH_SCRIBE;
 import static galena.oreganized.index.OTags.Blocks.SILKTOUCH_WITH_SCRIBE_BLACKLIST;
 import static galena.oreganized.index.OTags.Blocks.STONE_TYPES_GLANCE;
@@ -228,5 +229,8 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
         tag(SILKTOUCH_WITH_SCRIBE)
                 .addTags(MINEABLE_WITH_SCRIBE)
                 .addTags(BlockTags.MINEABLE_WITH_PICKAXE);
+
+        tag(PREVENTS_LEAD_CLOUD)
+                .add(Blocks.WATER);
     }
 }

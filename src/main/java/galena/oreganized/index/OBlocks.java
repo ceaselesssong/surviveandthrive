@@ -10,6 +10,7 @@ import galena.oreganized.content.block.GargoyleBlock;
 import galena.oreganized.content.block.IMeltableBlock;
 import galena.oreganized.content.block.LeadBarsBlock;
 import galena.oreganized.content.block.LeadDoorBlock;
+import galena.oreganized.content.block.LeadOreBlock;
 import galena.oreganized.content.block.LeadTrapdoorBlock;
 import galena.oreganized.content.block.MeltableBlock;
 import galena.oreganized.content.block.MeltablePillarBlock;
@@ -19,7 +20,6 @@ import galena.oreganized.content.block.ShrapnelBombBlock;
 import galena.oreganized.content.block.SilverBlock;
 import galena.oreganized.content.block.SpottedGlanceBlock;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.DyeColor;
@@ -72,10 +72,8 @@ public class OBlocks {
     public static final RegistryObject<Block> SILVER_ORE = register("silver_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.GOLD_ORE)));
     public static final RegistryObject<Block> DEEPSLATE_SILVER_ORE = register("deepslate_silver_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_GOLD_ORE)));
 
-    public static final RegistryObject<Block> LEAD_ORE = register("lead_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of()
-            .strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.STONE), UniformInt.of(0, 3))
-    );
-    public static final RegistryObject<Block> DEEPSLATE_LEAD_ORE = register("deepslate_lead_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_GOLD_ORE)));
+    public static final RegistryObject<Block> LEAD_ORE = register("lead_ore", () -> new LeadOreBlock(BlockBehaviour.Properties.copy(Blocks.GOLD_ORE).strength(3.0F, 3.0F)));
+    public static final RegistryObject<Block> DEEPSLATE_LEAD_ORE = register("deepslate_lead_ore", () -> new LeadOreBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_GOLD_ORE)));
 
     // Storage Blocks
     public static final RegistryObject<Block> RAW_SILVER_BLOCK = register("raw_silver_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.RAW_IRON_BLOCK)));
