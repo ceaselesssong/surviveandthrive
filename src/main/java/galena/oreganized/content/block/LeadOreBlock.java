@@ -73,4 +73,47 @@ public class LeadOreBlock extends DropExperienceBlock {
         return true;
     }
 
+    public static AreaEffectCloud spawnCloud(Level level, BlockPos pos, float size) {
+        var vec = Vec3.atCenterOf(pos);
+        var cloud = new AreaEffectCloud(level, vec.x, vec.y, vec.z);
+
+        getEffects(Math.max(1, (int) (size))).forEach(cloud::addEffect);
+
+        cloud.setParticle(OParticleTypes.LEAD_CLOUD.get());
+        cloud.setRadius(1.5F * size);
+        cloud.setRadiusPerTick(-0.02F);
+        cloud.setDuration((int) (120 * size));
+
+        level.addFreshEntity(cloud);
+        return cloud;
+    }
+
+    public static void blowParticles(LevelAccessor level, BlockPos pos, Direction facing, int maxDistance) {
+        var speed = 0.5;
+        maxDistance = Math.min(maxDistance, 8);
+
+        for (int distance = 1; distance < maxDistance; distance++) {
+            var frontPos = pos.relative(facing, distance);
+            var frontState = level.getBlockState(frontPos);
+
+            if (frontState.getBlock() instanceof LeadOreBlock) {
+                var vec = Vec3.atCenterOf(frontPos);
+                level.addParticle(OParticleTypes.LEAD_BLOW.get(),
+                        vec.x, vec.y, vec.z,
+                        facing.getStepX() * speed, facing.getStepY() * speed, facing.getStepZ() * speed
+                );
+
+                var targets = level.getEntitiesOfClass(LivingEntity.class, new AABB(frontPos, pos.relative(facing, maxDistance)).expandTowards(1, 1, 1));
+
+                targets.forEach(target -> {
+                    getEffects(1)
+                            .filter(it -> !target.hasEffect(it.getEffect()))
+                            .forEach(target::addEffect);
+                });
+
+                return;
+            }
+        }
+    }
+
 }

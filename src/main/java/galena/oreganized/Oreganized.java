@@ -2,6 +2,7 @@ package galena.oreganized;
 
 import com.google.common.collect.ImmutableBiMap;
 import com.mojang.serialization.Codec;
+import com.teamabnormals.blueprint.common.dispenser.FishBucketDispenseItemBehavior;
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import galena.oreganized.compat.create.CreateCompat;
@@ -212,6 +213,8 @@ public class Oreganized {
                     return entity;
                 }
             });
+
+            DispenserBlock.registerBehavior(OItems.MOLTEN_LEAD_BUCKET.get(), new FishBucketDispenseItemBehavior());
 
             Stream.of("lead_bolt_crates1", "lead_bolt_crates2").forEach(name -> {
                 DataUtil.addToJigsawPattern(new ResourceLocation("pillager_outpost/features"), $ -> {

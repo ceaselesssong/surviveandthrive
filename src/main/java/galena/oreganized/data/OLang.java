@@ -1,6 +1,5 @@
 package galena.oreganized.data;
 
-import com.google.common.collect.Lists;
 import galena.oreganized.Oreganized;
 import galena.oreganized.data.provider.OLangProvider;
 import galena.oreganized.index.OBlocks;
@@ -15,7 +14,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 public class OLang extends OLangProvider {
@@ -68,6 +66,8 @@ public class OLang extends OLangProvider {
         add("death.attack.molten_lead", "%1$s refused to let go of the soaring hot metal");
 
         add("attribute.oreganized.kinetic_damage", "Kinetic Damage");
+
+        add("item.oreganized.flint_and_pewter", "Flint and Pewter");
 
         /*
             Automatically create translations for blocks and items based on their registry name.

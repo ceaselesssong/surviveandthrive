@@ -77,7 +77,7 @@ public class OBlocks {
 
     // Storage Blocks
     public static final RegistryObject<Block> RAW_SILVER_BLOCK = register("raw_silver_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.RAW_IRON_BLOCK)));
-    public static final RegistryObject<Block> RAW_LEAD_BLOCK = register("raw_lead_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.RAW_IRON_BLOCK)));
+    public static final RegistryObject<Block> RAW_LEAD_BLOCK = register("raw_lead_block", () -> new LeadOreBlock(BlockBehaviour.Properties.copy(Blocks.RAW_IRON_BLOCK)));
     public static final RegistryObject<Block> SILVER_BLOCK = register("silver_block", () -> new SilverBlock(BlockBehaviour.Properties.of()
             .strength(5.0F, 6.0F).sound(SoundType.METAL)));
 
