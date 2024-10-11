@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-// 1.20.1	2024-09-07T19:29:24.7369347	Recipes
-=======
-// 1.20.1	2024-10-10T23:57:18.3485479	Recipes
->>>>>>> Stashed changes
+// 1.20.1	2024-10-11T21:00:01.051565	Recipes
 c27d3499944bf522a573dc8987582db2d7349b41 data/oreganized/advancements/recipes/brewing/poisonous_potato_from_lead.json
 ee5e42ab2e9ac549022fadf1c2cbf9faebc2c53c data/oreganized/advancements/recipes/building_blocks/black_crystal_glass_pane.json
 40700c3f2f5c78c617650fdd16e2ba248967353f data/oreganized/advancements/recipes/building_blocks/blue_crystal_glass_pane.json
@@ -143,6 +139,7 @@ fea94b2bd9d8d2a9ef8e130ad2eb404691da858d data/oreganized/advancements/recipes/re
 716ef31e308f24d22ef6dae98e96fe9b16169e9b data/oreganized/advancements/recipes/redstone/lead_trapdoor.json
 d8d4342744c72378bf0e7430305569819e8eeef1 data/oreganized/advancements/recipes/redstone/shrapnel_bomb.json
 430e8110352b21c77fe0b3cb175b5b3fc4c6e4fd data/oreganized/advancements/recipes/tools/bush_hammer.json
+54315d01f4b0a57f8c13766c770aa7b305a0c4bc data/oreganized/advancements/recipes/tools/flint_and_pewter.json
 4a68b65b81f872d9396798417f3ff5be886ce70c data/oreganized/advancements/recipes/tools/scribe.json
 57cf50f8e6ff4069b2fdc5fcf0e5092b68377468 data/oreganized/advancements/recipes/tools/silver_mirror.json
 bd88fa660d3a40c321d3288b127cfe99e795cb6f data/oreganized/advancements/recipes/transportation/shrapnel_bomb_minecart.json
@@ -180,10 +177,7 @@ db731a127ba3046ceee5ae0e2f6e86d5d01504b2 data/oreganized/recipes/electrum_pickax
 facfd8f07459c400bb70163f4867e70d66652787 data/oreganized/recipes/electrum_shovel.json
 cf15ffd760d39ce405ab20a1a677b1798ae80437 data/oreganized/recipes/electrum_sword.json
 4a09ce0c226b618b61938286b85395b81ecb3efb data/oreganized/recipes/electrum_upgrade_smithing_template.json
-<<<<<<< Updated upstream
-=======
 d68f51c4e7cbe030b9d3767eb034a19dd16849b1 data/oreganized/recipes/flint_and_pewter.json
->>>>>>> Stashed changes
 1fe4c5cc425db61412f873704d046425f07198e0 data/oreganized/recipes/gargoyle.json
 00290f492ce615c61417079534a6aa00d08c3157 data/oreganized/recipes/glance.json
 6b6c7d006b274224fdd9b469859e18aaf20040ff data/oreganized/recipes/glance_bricks.json

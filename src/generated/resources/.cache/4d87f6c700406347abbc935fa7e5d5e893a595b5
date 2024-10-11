@@ -1,4 +1,4 @@
-// 1.20.1	2024-09-10T14:28:17.9851553	oreganized Item Models
+// 1.20.1	2024-10-11T21:00:01.0555679	oreganized Item Models
 18fcb236eeab67fa16a0014d9af5ba7dd6f9e7c8 assets/oreganized/models/item/black_crystal_glass.json
 30bbb36792cb2d3f0a8a399f25238120cdf7e659 assets/oreganized/models/item/black_crystal_glass_pane.json
 8dcab59e8c34403761c4aec2c3357b7db80b3f0b assets/oreganized/models/item/blue_crystal_glass.json
@@ -70,6 +70,7 @@ f3871ff234873195dd47e570e62f802f7f67c889 assets/oreganized/models/item/electrum_
 ba6dafcb3b21faf4eb7886b812f205e91e59a49d assets/oreganized/models/item/electrum_shovel.json
 05cacc76a2e9820c58a78e8456d69278e41ce32f assets/oreganized/models/item/electrum_sword.json
 35a59e558e3caa534b1d2e155dea97863ed6bd56 assets/oreganized/models/item/electrum_upgrade_smithing_template.json
+09db973c662b9a4617005b092f5c1f9a3e6c2840 assets/oreganized/models/item/flint_and_pewter.json
 90794871c3e583844d22b86e27ef20d936d60715 assets/oreganized/models/item/gargoyle.json
 5d88c542b8ca2e9e8768e2624f1b560ef793d32c assets/oreganized/models/item/glance.json
 fb4d349a3ebe34df2254a4748e6e051d29730cae assets/oreganized/models/item/glance_bricks.json
