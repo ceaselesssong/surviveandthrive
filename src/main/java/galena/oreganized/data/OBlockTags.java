@@ -18,6 +18,7 @@ import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
+import static galena.oreganized.index.OTags.Blocks.BLOWS_LEAD_CLOUD;
 import static galena.oreganized.index.OTags.Blocks.CRYSTAL_GLASS;
 import static galena.oreganized.index.OTags.Blocks.CRYSTAL_GLASS_PANES;
 import static galena.oreganized.index.OTags.Blocks.FIRE_SOURCE;
@@ -232,5 +233,9 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
 
         tag(PREVENTS_LEAD_CLOUD)
                 .add(Blocks.WATER);
+
+        tag(BLOWS_LEAD_CLOUD)
+                .addTags(ORES_LEAD)
+                .addTags(STORAGE_BLOCKS_RAW_LEAD);
     }
 }

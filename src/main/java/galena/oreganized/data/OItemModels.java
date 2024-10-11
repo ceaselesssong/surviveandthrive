@@ -43,6 +43,7 @@ public class OItemModels extends OItemModelProvider {
         normalItem(OItems.SHRAPNEL_BOMB_MINECART);
         normalItem(OItems.ELECTRUM_UPGRADE_SMITHING_TEMPLATE);
         normalItem(OItems.LEAD_BOLT);
+        normalItem(OItems.FLINT_AND_PEWTER);
 
         toolItem(OItems.BUSH_HAMMER);
         toolItem(OItems.SCRIBE);

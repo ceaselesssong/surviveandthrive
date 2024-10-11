@@ -6,6 +6,7 @@ import galena.oreganized.Oreganized;
 import galena.oreganized.compat.farmers_delight.FarmersDelightCompat;
 import galena.oreganized.content.item.BushHammerItem;
 import galena.oreganized.content.item.ElectrumArmorItem;
+import galena.oreganized.content.item.FlintAndPewterItem;
 import galena.oreganized.content.item.LeadBoltItem;
 import galena.oreganized.content.item.MinecartShrapnelBombItem;
 import galena.oreganized.content.item.OSmithingTemplateItem;
@@ -91,6 +92,8 @@ public class OItems {
             () -> new ElectrumArmorItem(ArmorItem.Type.BOOTS));
 
     public static final RegistryObject<Item> LEAD_BOLT = HELPER.createItem("lead_bolt", () -> new LeadBoltItem(new Item.Properties()));
+
+    public static final RegistryObject<Item> FLINT_AND_PEWTER = HELPER.createItem("flint_and_pewter", () -> new FlintAndPewterItem(new Item.Properties().durability(64)));
 
     // Transportation
     public static final RegistryObject<Item> SHRAPNEL_BOMB_MINECART = HELPER.createItem("shrapnel_bomb_minecart", () -> new MinecartShrapnelBombItem(AbstractMinecart.Type.TNT, OEntityTypes.SHRAPNEL_BOMB_MINECART));

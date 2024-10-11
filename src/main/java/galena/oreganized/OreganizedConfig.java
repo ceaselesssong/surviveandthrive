@@ -19,6 +19,7 @@ public class OreganizedConfig {
         public final ConfigValue<Boolean> leadDustCloud;
         public final ConfigValue<Boolean> pillagerSpawnWithBolts;
         public final ConfigValue<Boolean> scribeSilkTouchStone;
+        public final ConfigValue<Integer> moltenLeadDelay;
 
         private Common(ForgeConfigSpec.Builder builder) {
             builder.comment("Common");
@@ -28,6 +29,7 @@ public class OreganizedConfig {
             leadDustCloud = builder.comment("Should lead ore spawn dust clouds when broken without adjacent water?").define("leadDustCloud", true);
             pillagerSpawnWithBolts = builder.comment("Pillagers have a chance to spawn with a lead bolt in their offhand").define("pillagerSpawnWithBolts", true);
             scribeSilkTouchStone = builder.comment("The scribe is able to silk-touch pickaxe-related blocks").define("scribeSilkTouchStone", true);
+            moltenLeadDelay = builder.comment("Time in ticks molten lead waits until flowing downwards").defineInRange("moltenLeadDelay", 20 * 10, 0, 20 * 100);
 
             builder.pop();
         }

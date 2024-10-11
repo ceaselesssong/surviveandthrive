@@ -6,6 +6,7 @@ import com.teamabnormals.blueprint.common.dispenser.FishBucketDispenseItemBehavi
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import galena.oreganized.compat.create.CreateCompat;
+import galena.oreganized.content.block.LeadOreBlock;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.content.entity.LeadBoltEntity;
 import galena.oreganized.data.OAdvancements;
@@ -49,6 +50,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -68,7 +70,6 @@ import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraftforge.common.BasicItemListing;
-import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -172,8 +173,17 @@ public class Oreganized {
 
     private void setup(FMLCommonSetupEvent event) {
         FluidInteractionRegistry.addInteraction(OFluids.MOLTEN_LEAD_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
-                ForgeMod.WATER_TYPE.get(),
+                (level, pos, relativePos, fluidState) -> level.getFluidState(relativePos).is(FluidTags.WATER) && fluidState.isSource(),
                 fluidState -> OBlocks.LEAD_BLOCK.get().defaultBlockState()
+        ));
+
+        FluidInteractionRegistry.addInteraction(OFluids.MOLTEN_LEAD_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
+                (level, blockPos, relativePos, fluidState) -> level.getFluidState(relativePos).is(FluidTags.LAVA) && fluidState.isSource(),
+                (level, pos, relativePos, fluidState) -> {
+                    LeadOreBlock.spawnCloud(level, pos, 2F);
+                    level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                    level.levelEvent(1501, pos, 0);
+                }
         ));
 
         event.enqueueWork(() -> {
@@ -380,6 +390,7 @@ public class Oreganized {
             putAfter(entries, Items.TNT_MINECART, OItems.SHRAPNEL_BOMB_MINECART);
             putBefore(entries, Items.MUSIC_DISC_5, OItems.MUSIC_DISC_STRUCTURE);
             putAfter(entries, Items.SHEARS, OItems.SCRIBE);
+            putAfter(entries, Items.FLINT_AND_STEEL, OItems.FLINT_AND_PEWTER);
         }
         if (tab == CreativeModeTabs.COMBAT) {
             putBefore(entries, Items.NETHERITE_SWORD, OItems.ELECTRUM_SWORD);

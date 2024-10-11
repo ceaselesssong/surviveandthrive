@@ -6,7 +6,7 @@
   "mixins": [
     "AbstractArrowMixin", "BlockMixin", "CrossbowMixin", "DispenserBlockMixin", "EnchantmentHelperMixin", "EntityMixin",
     "FoodDataMixin", "IceBlockMixin", "MobEffectInstanceMixin", "PillagerMixin", "PlayerMixin",
-    "compat.LogStrippingFakeRecipesMixin"
+    "compat.AirCurrentMixin", "compat.BellowBlockTileMixin", "compat.LogStrippingFakeRecipesMixin"
   ],
   "client": [
     "client.GuiMixin", "client.HumanoidArmorLayerAccessor", "client.HumanoidArmorLayerMixin",

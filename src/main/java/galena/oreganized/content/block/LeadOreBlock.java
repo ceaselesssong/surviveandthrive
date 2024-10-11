@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -21,7 +22,10 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.stream.Stream;
 
 public class LeadOreBlock extends DropExperienceBlock {
 
@@ -29,30 +33,29 @@ public class LeadOreBlock extends DropExperienceBlock {
         super(properties);
     }
 
+    private static Stream<MobEffectInstance> getEffects(int durationMultiplier) {
+        if (OreganizedConfig.COMMON.poisonInsteadOfStunning.get()) {
+            return Stream.of(new MobEffectInstance(MobEffects.POISON, 150 * durationMultiplier));
+        }
+
+        return Stream.of(
+                new MobEffectInstance(OEffects.STUNNING.get(), 600 * durationMultiplier),
+                new MobEffectInstance(MobEffects.POISON, 40)
+        );
+    }
+
     @Override
     public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropXp) {
         super.spawnAfterBreak(state, level, pos, stack, dropXp);
 
         if (shouldSpawnCloud(state, level, pos, stack)) {
-            var vec = Vec3.atCenterOf(pos);
-            var cloud = new AreaEffectCloud(level, vec.x, vec.y, vec.z);
-
-            if (OreganizedConfig.COMMON.poisonInsteadOfStunning.get()) {
-                cloud.addEffect(new MobEffectInstance(MobEffects.POISON, 20 * 15));
-            } else {
-                cloud.addEffect(new MobEffectInstance(OEffects.STUNNING.get(), 20 * 60));
-                cloud.addEffect(new MobEffectInstance(MobEffects.POISON, 20 * 2));
-            }
-
-            cloud.setParticle(OParticleTypes.LEAD_CLOUD.get());
-            cloud.setDuration(60);
-
-            level.addFreshEntity(cloud);
+            spawnCloud(level, pos, 2F);
         }
     }
 
     @Override
-    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
+    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player,
+                                       boolean willHarvest, FluidState fluid) {
         var stack = player.getItemInHand(player.getUsedItemHand());
         if (shouldSpawnCloud(state, level, pos, stack) && player instanceof ServerPlayer serverPlayer) {
             OCriteriaTriggers.IN_LEAD_CLOUD.trigger(serverPlayer);

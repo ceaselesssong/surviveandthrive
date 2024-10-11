@@ -233,6 +233,12 @@ public class ORecipes extends ORecipeProvider {
                 .unlockedBy("has_lead", has(OTags.Items.INGOTS_LEAD))
                 .save(consumer);
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, OItems.FLINT_AND_PEWTER.get(), 1)
+                .requires(OTags.Items.INGOTS_LEAD)
+                .requires(Items.FLINT)
+                .unlockedBy("has_lead", has(OTags.Items.INGOTS_LEAD))
+                .save(consumer);
+
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, Items.POISONOUS_POTATO, 1)
                 .requires(Items.POTATO)
                 .requires(OTags.Items.NUGGETS_LEAD)
