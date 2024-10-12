@@ -31,7 +31,6 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
@@ -83,14 +82,6 @@ public class MoltenLeadBlock extends LiquidBlock {
         }
 
         super.onPlace(state, level, pos, oldState, isMoving);
-    }
-
-    @Override
-    public VoxelShape getCollisionShape(BlockState blockState, BlockGetter world, BlockPos blockPos, CollisionContext ctx) {
-        if (ctx instanceof EntityCollisionContext eCtx && eCtx.getEntity() != null)
-            return ctx.isAbove(STABLE_SHAPE, blockPos, true) && isEntityLighterThanLead(eCtx.getEntity()) ? STABLE_SHAPE : Shapes.empty();
-
-        return super.getCollisionShape(blockState, world, blockPos, ctx);
     }
 
     @Override
