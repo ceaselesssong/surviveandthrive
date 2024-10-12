@@ -7,7 +7,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.gameevent.GameEvent;
 
 public class FlintAndPewterItem extends Item {
 
@@ -20,6 +19,10 @@ public class FlintAndPewterItem extends Item {
         var level = context.getLevel();
         var player = context.getPlayer();
         var pos = context.getClickedPos().relative(context.getClickedFace());
+
+        if (level.isWaterAt(pos)) {
+            return InteractionResult.FAIL;
+        }
 
         level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.4F);
 
