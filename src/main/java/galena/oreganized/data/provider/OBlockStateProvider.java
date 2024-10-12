@@ -376,6 +376,10 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
         });
     }
 
+    public void sepulcherBlock(Supplier<? extends Block> block) {
+        simpleBlock(block.get(), models().getExistingFile(blockTexture(block.get())));
+    }
+
     public void crate(Supplier<? extends Block> block) {
         var name = name(block);
         simpleBlock(block.get(), models().cubeBottomTop(

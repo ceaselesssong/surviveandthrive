@@ -1,4 +1,4 @@
-// 1.20.1	2024-09-11T16:17:06.6440035	oreganized Block States
+// 1.20.1	2024-10-11T21:16:46.8848719	oreganized Block States
 d85b0fb9e5cad1d9c4f22ed192b0fa621ee3373c assets/oreganized/blockstates/black_crystal_glass.json
 05bb006ff7f48557fe5c5333bc120f7206052717 assets/oreganized/blockstates/black_crystal_glass_pane.json
 5e5002e9c77ee7221425eeacce8834af484db877 assets/oreganized/blockstates/blue_crystal_glass.json
@@ -59,6 +59,7 @@ c9cb5c7d3dcf17e64b42b21b3ca32e2f872b32f7 assets/oreganized/blockstates/purple_cr
 a8b05dbdd23fe1cf5ce82b267a4648b0629fc297 assets/oreganized/blockstates/raw_silver_block.json
 5085b50121f91c56256b5f1189c8dc614c340d11 assets/oreganized/blockstates/red_crystal_glass.json
 7a46fe801476209d2d5eb40213397140a7a06b8f assets/oreganized/blockstates/red_crystal_glass_pane.json
+48e394ec30871f2d62691e7c8683ade4e3eaa17f assets/oreganized/blockstates/sepulcher.json
 398fed72da8aa72d33e773d22a7fb5a5292e6fa5 assets/oreganized/blockstates/shrapnel_bomb.json
 89f5cc8a105178b0b12f32963a320afc120bf868 assets/oreganized/blockstates/silver_ore.json
 870599b8654e91dfb946d3e8afc4d0de08e49f9d assets/oreganized/blockstates/spotted_glance.json

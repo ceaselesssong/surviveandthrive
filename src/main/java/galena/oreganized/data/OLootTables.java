@@ -127,6 +127,8 @@ public class OLootTables extends LootTableProvider {
             for (Supplier<? extends Block> blocks : OBlocks.WAXED_CONRETE_POWDER) {
                 dropSelf(blocks);
             }
+
+            dropSelf(OBlocks.SEPULCHER);
         }
 
         private void grooved(Supplier<Block> block, Block other) {

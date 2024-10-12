@@ -198,6 +198,8 @@ public class OBlocks {
             new MoltenLeadBlock(OFluids.MOLTEN_LEAD, BlockBehaviour.Properties.copy(Blocks.LAVA).mapColor(MapColor.COLOR_PURPLE)));
     public static final RegistryObject<Block> MOLTEN_LEAD_CAULDRON = HELPER.createBlock("molten_lead_cauldron", () -> new MoltenLeadCauldronBlock(BlockBehaviour.Properties.copy(Blocks.LAVA_CAULDRON).randomTicks()));
 
+    public static final RegistryObject<Block> SEPULCHER =  register("sepulcher", () -> new Block(BlockBehaviour.Properties.copy(Blocks.CAULDRON)));
+
     public static <T extends Block> RegistryObject<T> baseRegister(String name, Supplier<? extends T> block, Function<RegistryObject<T>, Supplier<? extends Item>> item) {
         RegistryObject<T> register = HELPER.createBlockNoItem(name, block);
         OItems.HELPER.createItem(name, item.apply(register));

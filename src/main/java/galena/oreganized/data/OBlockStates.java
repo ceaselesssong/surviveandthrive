@@ -112,6 +112,7 @@ public class OBlockStates extends OBlockStateProvider {
         simpleBlock(OBlocks.GROOVED_BLUE_ICE);
 
         gargoyleBlock(OBlocks.GARGOYLE);
+        sepulcherBlock(OBlocks.SEPULCHER);
     }
 
 }
