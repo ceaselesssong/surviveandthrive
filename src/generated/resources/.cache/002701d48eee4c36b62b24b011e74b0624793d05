@@ -1,4 +1,4 @@
-// 1.20.1	2024-09-11T16:17:06.6440035	oreganized Block States
+// 1.20.1	2024-10-14T09:19:15.8831231	oreganized Block States
 d85b0fb9e5cad1d9c4f22ed192b0fa621ee3373c assets/oreganized/blockstates/black_crystal_glass.json
 05bb006ff7f48557fe5c5333bc120f7206052717 assets/oreganized/blockstates/black_crystal_glass_pane.json
 5e5002e9c77ee7221425eeacce8834af484db877 assets/oreganized/blockstates/blue_crystal_glass.json
@@ -60,6 +60,7 @@ a8b05dbdd23fe1cf5ce82b267a4648b0629fc297 assets/oreganized/blockstates/raw_silve
 5085b50121f91c56256b5f1189c8dc614c340d11 assets/oreganized/blockstates/red_crystal_glass.json
 7a46fe801476209d2d5eb40213397140a7a06b8f assets/oreganized/blockstates/red_crystal_glass_pane.json
 398fed72da8aa72d33e773d22a7fb5a5292e6fa5 assets/oreganized/blockstates/shrapnel_bomb.json
+dcdf3b0a7a2bb1bd00f698b3325e8ffadd0bf98c assets/oreganized/blockstates/silver_block.json
 89f5cc8a105178b0b12f32963a320afc120bf868 assets/oreganized/blockstates/silver_ore.json
 870599b8654e91dfb946d3e8afc4d0de08e49f9d assets/oreganized/blockstates/spotted_glance.json
 6992b8d448ed847ea9391428732a4f3aaddf258e assets/oreganized/blockstates/waxed_black_concrete_powder.json
@@ -536,6 +537,7 @@ d606f62302a9656482f8076d3592122a95ebda2a assets/oreganized/models/block/red_hot_
 6056202082cd609584dd6fd4571c8e4b615988a5 assets/oreganized/models/block/red_hot_lead_trapdoor_open.json
 1974b68a782c0fcbe8b00eaf5c913341456bcfc3 assets/oreganized/models/block/red_hot_lead_trapdoor_top.json
 325f19d03a38f249bcceb44770d7af7a5d956821 assets/oreganized/models/block/shrapnel_bomb.json
+8b672f8e74c40583b323d948f93266ac9dc51d4e assets/oreganized/models/block/silver_block.json
 e7ae7144c130a6d2636fe8e2702c99666720d878 assets/oreganized/models/block/silver_ore.json
 4afbdc94277d1af98491836904766a30c027965b assets/oreganized/models/block/spotted_glance.json
 d3acbbfbb7ca49fa57f8df95a92a67ed211fa6bd assets/oreganized/models/block/white_concrete_powder.json

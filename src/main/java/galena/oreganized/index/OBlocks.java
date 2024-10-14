@@ -17,7 +17,6 @@ import galena.oreganized.content.block.MeltablePillarBlock;
 import galena.oreganized.content.block.MoltenLeadBlock;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.content.block.ShrapnelBombBlock;
-import galena.oreganized.content.block.SilverBlock;
 import galena.oreganized.content.block.SpottedGlanceBlock;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.BlockItem;
@@ -78,7 +77,7 @@ public class OBlocks {
     // Storage Blocks
     public static final RegistryObject<Block> RAW_SILVER_BLOCK = register("raw_silver_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.RAW_IRON_BLOCK)));
     public static final RegistryObject<Block> RAW_LEAD_BLOCK = register("raw_lead_block", () -> new LeadOreBlock(BlockBehaviour.Properties.copy(Blocks.RAW_IRON_BLOCK)));
-    public static final RegistryObject<Block> SILVER_BLOCK = register("silver_block", () -> new SilverBlock(BlockBehaviour.Properties.of()
+    public static final RegistryObject<Block> SILVER_BLOCK = register("silver_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
             .strength(5.0F, 6.0F).sound(SoundType.METAL)));
 
     public static final RegistryObject<Block> GARGOYLE = register("gargoyle", () -> new GargoyleBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
