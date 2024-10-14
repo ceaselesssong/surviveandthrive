@@ -127,6 +127,9 @@ public class OLootTables extends LootTableProvider {
             for (Supplier<? extends Block> blocks : OBlocks.WAXED_CONRETE_POWDER) {
                 dropSelf(blocks);
             }
+
+            vigilCandle(OBlocks.VIGIL_CANDLE);
+            OBlocks.COLORED_VIGIL_CANDLES.forEach((color, block) -> vigilCandle(block));
         }
 
         private void grooved(Supplier<Block> block, Block other) {

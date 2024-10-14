@@ -18,6 +18,7 @@ import galena.oreganized.content.block.MoltenLeadBlock;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.content.block.ShrapnelBombBlock;
 import galena.oreganized.content.block.SpottedGlanceBlock;
+import galena.oreganized.content.block.VigilCandleBlock;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
@@ -35,13 +36,17 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber(modid = Oreganized.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class OBlocks {
@@ -196,6 +201,17 @@ public class OBlocks {
     public static final RegistryObject<LiquidBlock> MOLTEN_LEAD = HELPER.createBlock("molten_lead", () ->
             new MoltenLeadBlock(OFluids.MOLTEN_LEAD, BlockBehaviour.Properties.copy(Blocks.LAVA).mapColor(MapColor.COLOR_PURPLE)));
     public static final RegistryObject<Block> MOLTEN_LEAD_CAULDRON = HELPER.createBlock("molten_lead_cauldron", () -> new MoltenLeadCauldronBlock(BlockBehaviour.Properties.copy(Blocks.LAVA_CAULDRON).randomTicks()));
+
+    private static final Supplier<BlockBehaviour.Properties> VIGIL_CANDLE_PROPERTIES = () -> BlockBehaviour.Properties.of().lightLevel(state -> 10).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY);
+    public static final RegistryObject<Block> VIGIL_CANDLE = register("vigil_candle", () ->new VigilCandleBlock(VIGIL_CANDLE_PROPERTIES.get()));
+    public static final Map<DyeColor, RegistryObject<Block>> COLORED_VIGIL_CANDLES = registerColored("vigil_candle", color -> new VigilCandleBlock(VIGIL_CANDLE_PROPERTIES.get().mapColor(color)));
+
+    public static <T extends Block> Map<DyeColor, RegistryObject<T>> registerColored(String baseName, Function<DyeColor, ? extends T> factory) {
+        return Arrays.stream(DyeColor.values()).collect(Collectors.toMap(
+                it -> it,
+                color -> register(color.getSerializedName() + "_" + baseName, () -> factory.apply(color))
+        ));
+    }
 
     public static <T extends Block> RegistryObject<T> baseRegister(String name, Supplier<? extends T> block, Function<RegistryObject<T>, Supplier<? extends Item>> item) {
         RegistryObject<T> register = HELPER.createBlockNoItem(name, block);

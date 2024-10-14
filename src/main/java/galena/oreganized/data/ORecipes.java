@@ -6,12 +6,16 @@ import galena.oreganized.data.provider.ORecipeProvider;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OItems;
 import galena.oreganized.index.OTags;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -292,5 +296,19 @@ public class ORecipes extends ORecipeProvider {
                 .unlockedBy("has_silver", has(OTags.Items.INGOTS_SILVER))
                 .unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
                 .save(consumer);
+
+        vigilCandle(OBlocks.VIGIL_CANDLE, Blocks.CANDLE).save(consumer);
+
+        OBlocks.COLORED_VIGIL_CANDLES.forEach((color, block) -> {
+            var candle = BuiltInRegistries.BLOCK.get(new ResourceLocation(color.getSerializedName() + "_candle"));
+            vigilCandle(block, candle).save(consumer);
+
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, block.get())
+                    .requires(OBlocks.VIGIL_CANDLE.get())
+                    .requires(DyeItem.byColor(color))
+                    .unlockedBy("has_vigil_candle", has(OBlocks.VIGIL_CANDLE.get()))
+                    .group("vigil_candle")
+                    .save(consumer, RecipeBuilder.getDefaultRecipeId(block.get()).withSuffix("_dyeing"));
+        });
     }
 }

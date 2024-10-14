@@ -1,8 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "red_vigil_candle",
-		"particle": "red_vigil_candle"
+		"particle": "#0"
 	},
 	"elements": [
 		{

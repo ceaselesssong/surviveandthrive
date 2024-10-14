@@ -80,6 +80,9 @@ public class OreganizedClient {
         render(OBlocks.LEAD_BARS, cutout);
         render(OBlocks.GARGOYLE, cutout);
 
+        render(OBlocks.VIGIL_CANDLE, cutout);
+        OBlocks.COLORED_VIGIL_CANDLES.forEach((color, block) -> render(block, cutout));
+
         for (int i = 0; OBlocks.CRYSTAL_GLASS.size() > i; i++) {
             render(OBlocks.CRYSTAL_GLASS.get(i), translucent);
             render(OBlocks.CRYSTAL_GLASS_PANES.get(i), translucent);

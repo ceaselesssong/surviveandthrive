@@ -130,6 +130,9 @@ public class OItemModels extends OItemModelProvider {
         block(OBlocks.GROOVED_PACKED_ICE);
         block(OBlocks.GROOVED_BLUE_ICE);
 
+        normalItem(OBlocks.VIGIL_CANDLE);
+        OBlocks.COLORED_VIGIL_CANDLES.forEach((color, block) -> normalItem(block));
+
         for (Supplier<? extends Block> blocks : OBlocks.WAXED_CONRETE_POWDER) {
             withExistingParent(blockName(blocks), "minecraft:block/" + blockName(blocks).replace("waxed_", ""));
         }

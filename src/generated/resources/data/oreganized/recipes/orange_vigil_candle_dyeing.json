@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "vigil_candle",
+  "ingredients": [
+    {
+      "item": "oreganized:vigil_candle"
+    },
+    {
+      "item": "minecraft:orange_dye"
+    }
+  ],
+  "result": {
+    "item": "oreganized:orange_vigil_candle"
+  }
+}

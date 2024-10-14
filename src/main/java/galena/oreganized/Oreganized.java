@@ -326,6 +326,8 @@ public class Oreganized {
         }
         if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             putBefore(entries, Blocks.CHEST, OBlocks.LEAD_BOLT_CRATE);
+            putAfter(entries, Blocks.LANTERN, OBlocks.VIGIL_CANDLE);
+            OBlocks.COLORED_VIGIL_CANDLES.forEach((color, block) ->putAfter(entries, OBlocks.VIGIL_CANDLE.get(), block));
         }
         if (tab == CreativeModeTabs.COLORED_BLOCKS) {
             putBefore(entries, Items.SHULKER_BOX, OBlocks.WHITE_CRYSTAL_GLASS);

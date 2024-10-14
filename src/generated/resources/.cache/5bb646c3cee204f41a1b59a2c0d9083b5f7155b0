@@ -1,4 +1,4 @@
-// 1.20.1	2024-10-11T21:00:01.0565671	Oreganized Block Tags
+// 1.20.1	2024-10-14T21:56:57.8734426	Oreganized Block Tags
 7a2d68d81bc5ee59f9a2f4ba68ddb39bfd9c875d data/forge/tags/blocks/glass.json
 d96b4f83e03abe39a1b97d92b7818c8f6b2e5c68 data/forge/tags/blocks/glass_panes.json
 d062c23ad5308b7de0b2e86f6531ea724530f898 data/forge/tags/blocks/melts_lead.json
@@ -20,7 +20,7 @@ bff6697a058fddfe9e14615bc043fcb2071fd6fc data/forge/tags/blocks/storage_blocks/s
 0f64e9b9dc279dd460f6408313b130a37a0c9d86 data/minecraft/tags/blocks/ice.json
 7a2d68d81bc5ee59f9a2f4ba68ddb39bfd9c875d data/minecraft/tags/blocks/impermeable.json
 f7079c32fc948b65cb486bea80e2dc93d13ce577 data/minecraft/tags/blocks/mineable/axe.json
-8794e7f7fcf41783b7738503b68f535efa58d511 data/minecraft/tags/blocks/mineable/pickaxe.json
+bb012b5952f56da417a3022bb00d105f9a28dc10 data/minecraft/tags/blocks/mineable/pickaxe.json
 84a13f81c79f0c05f8f7a8cbf1d3c25129a97179 data/minecraft/tags/blocks/mineable/shovel.json
 bb86ac7ab19373da790ec5711f473614e4b62d79 data/minecraft/tags/blocks/needs_iron_tool.json
 dc9cc2dca9fa3a28a0458ec282e3e0fe81999ee1 data/minecraft/tags/blocks/needs_stone_tool.json
