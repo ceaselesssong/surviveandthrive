@@ -40,6 +40,7 @@ public class OBlockStates extends OBlockStateProvider {
         simpleBlock(OBlocks.DEEPSLATE_LEAD_ORE);
         simpleBlock(OBlocks.RAW_SILVER_BLOCK);
         simpleBlock(OBlocks.RAW_LEAD_BLOCK);
+        simpleBlock(OBlocks.SILVER_BLOCK);
         meltableBlock(OBlocks.LEAD_BLOCK, (n, t) -> models().cubeAll(n, t));
         meltableBlock(OBlocks.LEAD_BRICKS, (n, t) -> models().cubeAll(n, t));
         meltablePillar(OBlocks.LEAD_PILLAR);

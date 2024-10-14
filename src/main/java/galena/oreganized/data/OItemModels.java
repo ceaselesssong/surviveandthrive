@@ -77,6 +77,7 @@ public class OItemModels extends OItemModelProvider {
         block(OBlocks.LEAD_ORE);
         block(OBlocks.DEEPSLATE_LEAD_ORE);
         block(OBlocks.RAW_SILVER_BLOCK);
+        block(OBlocks.SILVER_BLOCK);
         block(OBlocks.RAW_LEAD_BLOCK);
         block(OBlocks.LEAD_BLOCK);
         block(OBlocks.LEAD_BRICKS);
