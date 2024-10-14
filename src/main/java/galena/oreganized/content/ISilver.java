@@ -1,6 +1,5 @@
 package galena.oreganized.content;
 
-import galena.oreganized.content.block.SilverBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,8 +15,8 @@ public interface ISilver {
 
     default List<Entity> getEntities(Level world, BlockPos pos, @Nullable Player player) {
         return world.getEntities((Entity) player,
-                new AABB(pos.getX() + SilverBlock.RANGE, pos.getY() + SilverBlock.RANGE, pos.getZ() + SilverBlock.RANGE,
-                        pos.getX() - SilverBlock.RANGE, pos.getY() - SilverBlock.RANGE, pos.getZ() - SilverBlock.RANGE),
+                new AABB(pos.getX() + RANGE, pos.getY() + RANGE, pos.getZ() + RANGE,
+                        pos.getX() - RANGE, pos.getY() - RANGE, pos.getZ() - RANGE),
                 (Entity living) -> living instanceof LivingEntity && ((LivingEntity) living).isInvertedHealAndHarm()
         );
     }
@@ -38,8 +37,8 @@ public interface ISilver {
         for (Entity e : getEntities(world, pos, player)) {
             LivingEntity living = (LivingEntity) e;
             double distance = player != null ? living.distanceTo(player) : Math.sqrt(living.distanceToSqr(pos.getX(), pos.getY(), pos.getZ()));
-            double ceil = Math.ceil(distance / (SilverBlock.RANGE / frames));
-            if (distance < SilverBlock.RANGE && ((int) ceil) < dist) {
+            double ceil = Math.ceil(distance / (RANGE / frames));
+            if (distance < RANGE && ((int) ceil) < dist) {
                 if (distance < 6) {
                     dist = 1;
                 } else dist = Math.max( (int) ceil, 2);
