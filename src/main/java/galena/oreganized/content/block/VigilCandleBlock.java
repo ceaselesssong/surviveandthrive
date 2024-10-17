@@ -2,13 +2,22 @@ package galena.oreganized.content.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.AbstractCandleBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LanternBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -16,6 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
+import static net.minecraft.world.level.block.CandleBlock.LIT;
 import static net.minecraft.world.level.block.CandleBlock.MAX_CANDLES;
 import static net.minecraft.world.level.block.CandleBlock.MIN_CANDLES;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.CANDLES;
@@ -54,6 +64,7 @@ public class VigilCandleBlock extends LanternBlock {
         super(properties);
         registerDefaultState(defaultBlockState()
                 .setValue(HANGING, false)
+                .setValue(LIT, false)
                 .setValue(WATERLOGGED, false)
                 .setValue(CANDLES, MIN_CANDLES));
     }
@@ -61,7 +72,7 @@ public class VigilCandleBlock extends LanternBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(CANDLES);
+        builder.add(CANDLES, LIT);
     }
 
     public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
@@ -96,6 +107,31 @@ public class VigilCandleBlock extends LanternBlock {
             return Block.isFaceFull(level.getBlockState(supporting).getCollisionShape(level, supporting), support.getOpposite());
         } else {
             return Block.canSupportCenter(level, pos.relative(support), support.getOpposite());
+        }
+    }
+
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (player.getAbilities().mayBuild && player.getItemInHand(hand).isEmpty() && state.getValue(LIT)) {
+            AbstractCandleBlock.extinguish(player, state, level, pos);
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        } else {
+            return InteractionResult.PASS;
+        }
+    }
+
+    public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluid) {
+        if (!state.getValue(WATERLOGGED) && fluid.getType() == Fluids.WATER) {
+            BlockState waterlogged = state.setValue(WATERLOGGED, true);
+            if (state.getValue(LIT)) {
+                AbstractCandleBlock.extinguish(null, waterlogged, level, pos);
+            } else {
+                level.setBlock(pos, waterlogged, 3);
+            }
+
+            level.scheduleTick(pos, fluid.getType(), fluid.getType().getTickDelay(level));
+            return true;
+        } else {
+            return false;
         }
     }
 
