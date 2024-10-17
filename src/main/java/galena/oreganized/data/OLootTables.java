@@ -128,8 +128,7 @@ public class OLootTables extends LootTableProvider {
                 dropSelf(blocks);
             }
 
-            vigilCandle(OBlocks.VIGIL_CANDLE);
-            OBlocks.COLORED_VIGIL_CANDLES.forEach((color, block) -> vigilCandle(block));
+            OBlocks.vigilCandles().forEach(this::vigilCandle);
         }
 
         private void grooved(Supplier<Block> block, Block other) {

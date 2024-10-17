@@ -1,8 +1,10 @@
 package galena.oreganized.index;
 
 import galena.oreganized.Oreganized;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.*;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
@@ -93,6 +95,8 @@ public class OTags {
         public static final TagKey<Block> PREVENTS_LEAD_CLOUD = tag("prevents_lead_cloud");
         public static final TagKey<Block> BLOWS_LEAD_CLOUD = tag("blows_lead_cloud");
 
+        public static final TagKey<Block> VIGIL_CANDLES = tag("vigil_candles");
+
         private static TagKey<Block> tag(String name) {
             return BlockTags.create(Oreganized.modLoc(name));
         }
@@ -130,6 +134,15 @@ public class OTags {
 
         private static TagKey<Biome> tag(String name) {
             return BiomeTags.create(Oreganized.modLoc(name).toString());
+        }
+    }
+
+    public static class Effects {
+
+        public static final TagKey<MobEffect> VIGIL_CANDLE_CLEARS = tag("cleared_by_vigil_candle");
+
+        private static TagKey<MobEffect> tag(String name) {
+            return TagKey.create(Registries.MOB_EFFECT, Oreganized.modLoc(name));
         }
     }
 }

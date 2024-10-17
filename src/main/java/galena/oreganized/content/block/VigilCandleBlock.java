@@ -1,5 +1,7 @@
 package galena.oreganized.content.block;
 
+import galena.oreganized.content.entity.VigilCandleBlockEntity;
+import galena.oreganized.index.OBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -12,7 +14,11 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.AbstractCandleBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.LanternBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.FluidState;
@@ -30,7 +36,7 @@ import static net.minecraft.world.level.block.CandleBlock.MAX_CANDLES;
 import static net.minecraft.world.level.block.CandleBlock.MIN_CANDLES;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.CANDLES;
 
-public class VigilCandleBlock extends LanternBlock {
+public class VigilCandleBlock extends LanternBlock implements EntityBlock {
 
     private static VoxelShape shape(double x, double y, double z) {
         return Block.box(x, y, z, 6 + x, 10 + y, 6 + z);
@@ -135,4 +141,16 @@ public class VigilCandleBlock extends LanternBlock {
         }
     }
 
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new VigilCandleBlockEntity(pos, state);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if(type != OBlockEntities.VIGIL_CANDLE.get()) return null;
+        BlockEntityTicker<VigilCandleBlockEntity> ticker = (l, p, s, be) -> be.tick(l, p, s);
+        return (BlockEntityTicker<T>) ticker;
+    }
 }

@@ -11,6 +11,7 @@ import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.AbstractCandleBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CrossCollisionBlock;
 import net.minecraft.world.level.block.DoorBlock;
@@ -410,7 +411,7 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
             return ConfiguredModel.builder()
                     .modelFile(model)
                     .build();
-        }, BlockStateProperties.WATERLOGGED);
+        }, BlockStateProperties.WATERLOGGED, AbstractCandleBlock.LIT);
     }
 
     public void crate(Supplier<? extends Block> block) {
