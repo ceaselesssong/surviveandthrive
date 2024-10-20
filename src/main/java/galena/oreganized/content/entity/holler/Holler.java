@@ -3,14 +3,19 @@ package galena.oreganized.content.entity.holler;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import galena.oreganized.index.OBlocks;
+import galena.oreganized.index.OEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffectUtil;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -24,10 +29,12 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowyDirtBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 
@@ -53,7 +60,7 @@ public class Holler extends PathfinderMob {
 
     public Holler(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new FlyingMoveControl(this, 20, true);
+        moveControl = new FlyingMoveControl(this, 20, true);
     }
 
     protected Brain.Provider<Holler> brainProvider() {
@@ -61,7 +68,7 @@ public class Holler extends PathfinderMob {
     }
 
     protected Brain<?> makeBrain(Dynamic<?> p_218344_) {
-        return HollerAi.makeBrain(this.brainProvider().makeBrain(p_218344_));
+        return HollerAi.makeBrain(brainProvider().makeBrain(p_218344_));
     }
 
     @Override
@@ -76,20 +83,28 @@ public class Holler extends PathfinderMob {
 
     @Override
     protected void customServerAiStep() {
-        this.level().getProfiler().push("hollerBrain");
-        this.getBrain().tick((ServerLevel)this.level(), this);
-        this.level().getProfiler().pop();
-        this.level().getProfiler().push("hollerActivityUpdate");
+        level().getProfiler().push("hollerBrain");
+        getBrain().tick((ServerLevel)level(), this);
+        level().getProfiler().pop();
+        level().getProfiler().push("hollerActivityUpdate");
         HollerAi.updateActivity(this);
-        this.level().getProfiler().pop();
+        level().getProfiler().pop();
         super.customServerAiStep();
+        if ((tickCount + getId()) % 120 == 0) {
+            applyFogAround((ServerLevel) level(), position(), this, 20);
+        }
+    }
+
+    public static void applyFogAround(ServerLevel level, Vec3 pos, @Nullable Entity source, int radius) {
+        MobEffectInstance mobeffectinstance = new MobEffectInstance(OEffects.FOG.get(), 260, 0, false, false);
+        MobEffectUtil.addEffectToPlayersAround(level, source, pos, radius, mobeffectinstance, 200);
     }
 
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level().isClientSide && this.isAlive() && this.tickCount % 10 == 0) {
-            this.heal(1.0F);
+        if (!level().isClientSide && isAlive() && tickCount % 10 == 0) {
+            heal(1.0F);
         }
     }
 
@@ -101,10 +116,10 @@ public class Holler extends PathfinderMob {
 
     @Override
     public void tick() {
-        this.noPhysics = true;
+        noPhysics = true;
         super.tick();
-        this.noPhysics = false;
-        this.setNoGravity(true);
+        noPhysics = false;
+        setNoGravity(true);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -127,24 +142,24 @@ public class Holler extends PathfinderMob {
 
     @Override
     public void travel(Vec3 vec3) {
-        if (this.isControlledByLocalInstance()) {
-            if (this.isInWater()) {
-                this.moveRelative(0.02F, vec3);
-                this.move(MoverType.SELF, this.getDeltaMovement());
-                this.setDeltaMovement(this.getDeltaMovement().scale(0.800000011920929));
-            } else if (this.isInLava()) {
-                this.moveRelative(0.02F, vec3);
-                this.move(MoverType.SELF, this.getDeltaMovement());
-                this.setDeltaMovement(this.getDeltaMovement().scale(0.5));
+        if (isControlledByLocalInstance()) {
+            if (isInWater()) {
+                moveRelative(0.02F, vec3);
+                move(MoverType.SELF, getDeltaMovement());
+                setDeltaMovement(getDeltaMovement().scale(0.800000011920929));
+            } else if (isInLava()) {
+                moveRelative(0.02F, vec3);
+                move(MoverType.SELF, getDeltaMovement());
+                setDeltaMovement(getDeltaMovement().scale(0.5));
             } else {
-                this.moveRelative(this.getSpeed(), vec3);
-                this.move(MoverType.SELF, this.getDeltaMovement());
-                this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437));
+                moveRelative(getSpeed(), vec3);
+                move(MoverType.SELF, getDeltaMovement());
+                setDeltaMovement(getDeltaMovement().scale(0.9100000262260437));
             }
         }
 
-        this.calculateEntityAnimation(false);
-        this.tryCheckInsideBlocks();
+        calculateEntityAnimation(false);
+        tryCheckInsideBlocks();
     }
 
     @Override
@@ -177,18 +192,24 @@ public class Holler extends PathfinderMob {
 
     @Override
     protected void onInsideBlock(BlockState state) {
-        if (!state.isAir() && isPanicking()) {
+        if ((state.getBlock() instanceof SnowyDirtBlock || state.is(Blocks.DIRT)) && isPanicking()) {
             BlockPos.withinManhattan(blockPosition(), 3, 1, 3).forEach(pos -> {
                 if (level().getBlockState(pos).getBlock() instanceof SnowyDirtBlock && level().random.nextFloat() < 0.25)
                     level().setBlockAndUpdate(pos, OBlocks.BURIAL_DIRT.get().withPropertiesOf(state));
-                if (level().isClientSide) level().addParticle(ParticleTypes.SMOKE, pos.getX(), pos.getY()+1.5, pos.getZ(), 0, 0, 0);
+                double x = getX()+0.5+random.nextInt(-100, 100)*0.01;
+                double y = getY()+1+random.nextInt(-100, 100)*0.01;
+                double z = getZ()+0.5+random.nextInt(-100, 100)*0.01;
+                if (!level().isClientSide) ((ServerLevel) level()).sendParticles(ParticleTypes.SMOKE, x, y, z, 3, 0, 0, 0, 0);
             });
 
-            if (level().isClientSide) {
-                //            level().playSound(this, SoundEvents.IT);
-                level().addParticle(ParticleTypes.SMOKE, getX(), getY(), getZ(), 0, 0, 0);
+            if (!level().isClientSide) {
+                ServerLevel level = (ServerLevel) level();
+                double x = getX()+0.5+random.nextInt(-100, 100)*0.01;
+                double y = getY()+random.nextInt(-100, 100)*0.01;
+                double z = getZ()+0.5+random.nextInt(-100, 100)*0.01;
+                level.sendParticles(ParticleTypes.SMOKE, x, y, z, 3, 0, 0, 0, 0);
             }
-            this.remove(RemovalReason.KILLED);
+            remove(RemovalReason.KILLED);
         }
     }
 
@@ -197,7 +218,7 @@ public class Holler extends PathfinderMob {
     }
 
     public boolean isPanicking() {
-        return this.brain.getMemory(MemoryModuleType.IS_PANICKING).isPresent();
+        return brain.getMemory(MemoryModuleType.IS_PANICKING).isPresent();
     }
 
     private static boolean isHalloween() {

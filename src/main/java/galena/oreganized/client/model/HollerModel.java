@@ -28,6 +28,7 @@ public class HollerModel<T extends Entity> extends EntityModel<T> {
         PartDefinition partdefinition = meshdefinition.getRoot();
 
         PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -5, -2.5F, 5, 5, 5)
+                .texOffs(10, 28).addBox(-1.5F, 0, -2.5F, 3, 2, 2)
                 .texOffs(12, 16).addBox(-2.5F, -5, -2.5F, 5, 5, 5, new CubeDeformation(0.5F)), PartPose.offset(0, 18, 0));
 
         PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 10).addBox(-1.5F, 0, -1, 3, 4, 2)
@@ -41,7 +42,7 @@ public class HollerModel<T extends Entity> extends EntityModel<T> {
         PartDefinition left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(22, 26).addBox(-6.25F, -0.5F, 0.9F, 5, 6, 0)
                 .texOffs(22, 26).addBox(-4.25F, -0.5F, -0.9F, 5, 6, 0)
                 .texOffs(22, 8).addBox(-1.25F, -0.5F, -1, 2, 6, 2), PartPose.offsetAndRotation(1.75F, 18.5F, 0, 0, 0, -1.5708F));
-
+        
         return LayerDefinition.create(meshdefinition, 32, 32);
     }
 

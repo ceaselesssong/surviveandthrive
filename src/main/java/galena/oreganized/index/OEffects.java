@@ -1,6 +1,7 @@
 package galena.oreganized.index;
 
 import galena.oreganized.Oreganized;
+import galena.oreganized.content.effect.FogEffect;
 import galena.oreganized.content.effect.StunningEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.registries.DeferredRegister;
@@ -12,4 +13,6 @@ public class OEffects {
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, Oreganized.MOD_ID);
 
     public static final RegistryObject<MobEffect> STUNNING = EFFECTS.register("stunning", StunningEffect::new);
+    public static final RegistryObject<MobEffect> FOG = EFFECTS.register("fog", FogEffect::new);
+
 }

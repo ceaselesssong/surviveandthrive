@@ -23,7 +23,7 @@ public class HollerAi {
     }
 
     private static void initCoreActivity(Brain<Holler> hollerBrain) {
-        hollerBrain.addActivity(Activity.CORE, 0, ImmutableList.of(new Swim(0.8F), new AnimalPanic(3F), new LookAtTargetSink(45, 90), new MoveToTargetSink()));
+        hollerBrain.addActivity(Activity.CORE, 0, ImmutableList.of(new Swim(0.8F), new HollerPanic(3F), new LookAtTargetSink(45, 90), new MoveToTargetSink()));
     }
 
     private static void initIdleActivity(Brain<Holler> hollerBrain) {

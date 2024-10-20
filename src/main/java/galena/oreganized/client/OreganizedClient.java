@@ -9,12 +9,14 @@ import galena.oreganized.client.render.entity.ShrapnelBombMinecartRender;
 import galena.oreganized.client.render.entity.ShrapnelBombRender;
 import galena.oreganized.client.render.gui.StunningOverlay;
 import galena.oreganized.index.OBlocks;
+import galena.oreganized.index.OEffects;
 import galena.oreganized.index.OEntityTypes;
 import galena.oreganized.index.OItems;
 import galena.oreganized.world.IDoorProgressHolder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
@@ -22,8 +24,12 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -31,8 +37,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
+import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -116,6 +124,37 @@ public class OreganizedClient {
 
     @Mod.EventBusSubscriber(modid = Oreganized.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
     public static class ForgeBusEvents {
+
+        public static MobEffectInstance fogEffect;
+        private static int timer = 0;
+
+        @SubscribeEvent
+        public static void clientTick(TickEvent.ClientTickEvent event) {
+            if (!(Minecraft.getInstance().gameRenderer.getMainCamera().getEntity() instanceof Player player)) return;
+            fogEffect = player.getEffect(OEffects.FOG.get());
+        }
+
+        @SubscribeEvent
+        public static void fogEffectFog(ViewportEvent.RenderFog event) {
+            if (fogEffect != null && fogEffect.getFactorData().isPresent()) {
+                LivingEntity entity = (LivingEntity) Minecraft.getInstance().gameRenderer.getMainCamera().getEntity();
+                float f = Mth.lerp(fogEffect.getFactorData().get().getFactor(entity, (float) event.getPartialTick()), event.getFarPlaneDistance(), 25.0F);
+                event.setNearPlaneDistance(event.getMode() == FogRenderer.FogMode.FOG_SKY ? -2F : f * -0.5F);
+                event.setFarPlaneDistance(f);
+                event.setCanceled(true);
+            }
+        }
+
+        @SubscribeEvent
+        public static void fogEffectColor(ViewportEvent.ComputeFogColor event) {
+            if (fogEffect != null) {
+                LivingEntity entity = (LivingEntity) Minecraft.getInstance().gameRenderer.getMainCamera().getEntity();
+                float color = fogEffect.getFactorData().isPresent() ? 1.2F - (fogEffect.getFactorData().get()).getFactor(entity, (float) event.getPartialTick()) : 0.0F;
+                event.setRed(event.getRed()*color);
+                event.setGreen(event.getGreen()*color);
+                event.setBlue(event.getBlue()*color);
+            }
+        }
 
         @SubscribeEvent
         public static void addTooltips(ItemTooltipEvent event) {
