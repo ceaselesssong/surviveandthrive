@@ -8,6 +8,7 @@ import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import galena.oreganized.compat.create.CreateCompat;
 import galena.oreganized.content.block.LeadOreBlock;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
+import galena.oreganized.content.entity.holler.Holler;
 import galena.oreganized.content.entity.LeadBoltEntity;
 import galena.oreganized.data.OAdvancements;
 import galena.oreganized.data.OBiomeTags;
@@ -51,6 +52,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -67,6 +69,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraftforge.common.BasicItemListing;
@@ -77,6 +80,8 @@ import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.util.MutableHashedLinkedMap;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -129,6 +134,8 @@ public class Oreganized {
         modBus.addListener(this::clientSetup);
         modBus.addListener(this::gatherData);
         modBus.addListener(this::buildCreativeModeTabContents);
+        modBus.addListener(this::registerAttributes);
+        modBus.addListener(this::registerSpawnPlacements);
         forgeBus.addListener(this::injectVillagerTrades);
 
         LOOT_MODIFIERS.register("add_item", () -> AddItemLootModifier.CODEC);
@@ -164,6 +171,15 @@ public class Oreganized {
         //context.registerConfig(ModConfig.Type.COMMON, OreganizedConfig.COMMON_SPEC);
         //context.registerConfig(ModConfig.Type.CLIENT, OreganizedConfig.CLIENT_SPEC);
     }
+
+    private void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(OEntityTypes.HOLLER.get(), Holler.createAttributes().build());
+    }
+
+    private void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
+        event.register(OEntityTypes.HOLLER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Holler::checkHollerSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+    }
+
 
     private void injectVillagerTrades(VillagerTradesEvent event) {
         if (event.getType() == VillagerProfession.MASON) {
@@ -371,6 +387,7 @@ public class Oreganized {
             putAfter(entries, Blocks.ICE, OBlocks.GROOVED_ICE);
             putAfter(entries, Blocks.PACKED_ICE, OBlocks.GROOVED_PACKED_ICE);
             putAfter(entries, Blocks.BLUE_ICE, OBlocks.GROOVED_BLUE_ICE);
+            putAfter(entries, Blocks.FARMLAND, OBlocks.BURIAL_DIRT);
         }
         if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {
             putBefore(entries, Items.NOTE_BLOCK, OBlocks.GARGOYLE);

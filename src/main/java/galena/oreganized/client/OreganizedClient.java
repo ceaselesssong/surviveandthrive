@@ -2,6 +2,8 @@ package galena.oreganized.client;
 
 import com.mojang.math.Axis;
 import galena.oreganized.Oreganized;
+import galena.oreganized.client.model.HollerModel;
+import galena.oreganized.client.render.entity.HollerRender;
 import galena.oreganized.client.render.entity.LeadBoltRender;
 import galena.oreganized.client.render.entity.ShrapnelBombMinecartRender;
 import galena.oreganized.client.render.entity.ShrapnelBombRender;
@@ -93,6 +95,12 @@ public class OreganizedClient {
         event.registerEntityRenderer(OEntityTypes.SHRAPNEL_BOMB.get(), ShrapnelBombRender::new);
         event.registerEntityRenderer(OEntityTypes.SHRAPNEL_BOMB_MINECART.get(), ShrapnelBombMinecartRender::new);
         event.registerEntityRenderer(OEntityTypes.LEAD_BOLT.get(), LeadBoltRender::new);
+        event.registerEntityRenderer(OEntityTypes.HOLLER.get(), HollerRender::new);
+    }
+
+    @SubscribeEvent
+    public static void registerModelLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(OModelLayers.HOLLER, HollerModel::createBodyLayer);
     }
 
     @SubscribeEvent

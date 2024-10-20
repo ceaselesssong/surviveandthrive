@@ -37,6 +37,12 @@ public abstract class OBlockLootProvider extends BlockLootSubProvider {
         super.dropWhenSilkTouch(block.get());
     }
 
+    public void dropOtherWithoutSilk(Supplier<? extends Block> block, Supplier<? extends Block> other) {
+        super.dropWhenSilkTouch(block.get());
+
+        super.otherWhenSilkTouch(block.get(), other.get());
+    }
+
     public void dropWithSilk(Supplier<? extends Block> block, Supplier<? extends ItemLike> drop) {
         add(block.get(), (result) -> createSingleItemTableWithSilkTouch(result, drop.get()));
     }

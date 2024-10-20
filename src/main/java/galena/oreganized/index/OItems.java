@@ -13,18 +13,7 @@ import galena.oreganized.content.item.OSmithingTemplateItem;
 import galena.oreganized.content.item.ScribeItem;
 import galena.oreganized.content.item.SilverMirrorItem;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.HoeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.RecordItem;
-import net.minecraft.world.item.ShieldItem;
-import net.minecraft.world.item.ShovelItem;
-import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.*;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
@@ -97,4 +86,8 @@ public class OItems {
 
     // Transportation
     public static final RegistryObject<Item> SHRAPNEL_BOMB_MINECART = HELPER.createItem("shrapnel_bomb_minecart", () -> new MinecartShrapnelBombItem(AbstractMinecart.Type.TNT, OEntityTypes.SHRAPNEL_BOMB_MINECART));
+
+    // Misc
+//    public static final RegistryObject<SpawnEggItem> HOLLER_SPAWN_EGG = HELPER.createItem("holler_spawn_egg",
+//    () -> new SpawnEggItem(OEntityTypes.HOLLER.get(), 56063, 44543, new Item.Properties()));
 }

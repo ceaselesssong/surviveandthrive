@@ -3,21 +3,7 @@ package galena.oreganized.index;
 import com.google.common.collect.ImmutableBiMap;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import galena.oreganized.Oreganized;
-import galena.oreganized.content.block.BulbBlock;
-import galena.oreganized.content.block.CrystalGlassBlock;
-import galena.oreganized.content.block.CrystalGlassPaneBlock;
-import galena.oreganized.content.block.GargoyleBlock;
-import galena.oreganized.content.block.IMeltableBlock;
-import galena.oreganized.content.block.LeadBarsBlock;
-import galena.oreganized.content.block.LeadDoorBlock;
-import galena.oreganized.content.block.LeadOreBlock;
-import galena.oreganized.content.block.LeadTrapdoorBlock;
-import galena.oreganized.content.block.MeltableBlock;
-import galena.oreganized.content.block.MeltablePillarBlock;
-import galena.oreganized.content.block.MoltenLeadBlock;
-import galena.oreganized.content.block.MoltenLeadCauldronBlock;
-import galena.oreganized.content.block.ShrapnelBombBlock;
-import galena.oreganized.content.block.SpottedGlanceBlock;
+import galena.oreganized.content.block.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
@@ -136,6 +122,8 @@ public class OBlocks {
     public static final RegistryObject<Block> GROOVED_ICE = register("grooved_ice", () -> new IceBlock(BlockBehaviour.Properties.copy(Blocks.ICE).friction(0.6F)));
     public static final RegistryObject<Block> GROOVED_PACKED_ICE = register("grooved_packed_ice", () -> new Block(BlockBehaviour.Properties.copy(Blocks.PACKED_ICE).friction(0.6F)));
     public static final RegistryObject<Block> GROOVED_BLUE_ICE = register("grooved_blue_ice", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BLUE_ICE).friction(0.6F)));
+
+    public static final RegistryObject<Block> BURIAL_DIRT = register("burial_dirt", () -> new BurialDirtBlock(BlockBehaviour.Properties.copy(Blocks.DIRT)));
 
     public static final List<RegistryObject<Block>> CRYSTAL_GLASS = List.of(
             WHITE_CRYSTAL_GLASS, ORANGE_CRYSTAL_GLASS, MAGENTA_CRYSTAL_GLASS, LIGHT_BLUE_CRYSTAL_GLASS,
