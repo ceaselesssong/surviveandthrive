@@ -139,7 +139,10 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
 
                 OBlocks.GROOVED_ICE.get(),
                 OBlocks.GROOVED_PACKED_ICE.get(),
-                OBlocks.GROOVED_BLUE_ICE.get()
+                OBlocks.GROOVED_BLUE_ICE.get(),
+
+                OBlocks.SEPULCHER.get(),
+                OBlocks.BONE_PILE.get()
         );
 
         var vigilCandles = tag(VIGIL_CANDLES);

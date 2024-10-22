@@ -1,4 +1,4 @@
-// 1.20.1	2024-10-22T21:35:16.0293337	Recipes
+// 1.20.1	2024-10-22T23:35:54.703495	Recipes
 c1dfd749997c4b830ca484062a948878ea0d34f3 data/minecraft/advancements/recipes/building_blocks/bone.json
 a8cdf899ebdba8cace47683d027002ed7064ce5a data/minecraft/recipes/bone.json
 c27d3499944bf522a573dc8987582db2d7349b41 data/oreganized/advancements/recipes/brewing/poisonous_potato_from_lead.json
@@ -123,6 +123,7 @@ d67b8fff946ef56ae53ba4718e5556f277799309 data/oreganized/advancements/recipes/de
 0b1087608b38dcbdd8e77f856cd9fb469df1e358 data/oreganized/advancements/recipes/decorations/pink_crystal_glass.json
 09b30e2267c1e9b9c804283a4e5927f909506768 data/oreganized/advancements/recipes/decorations/purple_crystal_glass.json
 31db1a4b63de5199b3389872a24d8cbb463a98a2 data/oreganized/advancements/recipes/decorations/red_crystal_glass.json
+2611d52bb502fe3a9cc32972727352f8c8ea2bef data/oreganized/advancements/recipes/decorations/sepulcher.json
 dbe2cf69f8eb30cff15328377c83ace6be8cb4a3 data/oreganized/advancements/recipes/decorations/waxed_black_concrete_powder.json
 4a16c51ac08111b39ddac755d86f12c9f28c9119 data/oreganized/advancements/recipes/decorations/waxed_blue_concrete_powder.json
 6b1858a1aee11d96bc6f5c7b4ced8dc5a3c6313e data/oreganized/advancements/recipes/decorations/waxed_brown_concrete_powder.json
@@ -296,6 +297,7 @@ f143419602a22f529db20cea44e5e370e8e4d868 data/oreganized/recipes/red_crystal_gla
 7b1ea45d203fa88ba577b2289c7bd7cd8f7bc88a data/oreganized/recipes/red_vigil_candle.json
 50b836078acf7b537c8a231ab6b9635261a2e4e5 data/oreganized/recipes/red_vigil_candle_dyeing.json
 06ea07eed909dbcff647ac8724355430c1817e0e data/oreganized/recipes/scribe.json
+d864df7f745ee19a4a400abfad7c508d0637fd30 data/oreganized/recipes/sepulcher.json
 194a5e4bfb1acbb98161ddeb6c0af5b21917e508 data/oreganized/recipes/shrapnel_bomb.json
 cedc682018d184f9f9f384afe3b157e6cbfff4b1 data/oreganized/recipes/shrapnel_bomb_minecart.json
 07595b3d623aafa3ef700093ec0449ebafa1ed27 data/oreganized/recipes/silver_block.json

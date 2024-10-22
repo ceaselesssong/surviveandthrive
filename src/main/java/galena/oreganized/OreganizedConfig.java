@@ -31,7 +31,7 @@ public class OreganizedConfig {
             pillagerSpawnWithBolts = builder.comment("Pillagers have a chance to spawn with a lead bolt in their offhand").define("pillagerSpawnWithBolts", true);
             scribeSilkTouchStone = builder.comment("The scribe is able to silk-touch pickaxe-related blocks").define("scribeSilkTouchStone", true);
             moltenLeadDelay = builder.comment("Time in ticks molten lead waits until flowing downwards").defineInRange("moltenLeadDelay", 20 * 10, 0, 20 * 100);
-            sepulcherDuration = builder.comment("Time in ticks the sepulcher takes to turn meat into bones").defineInRange("sepulcherDuration", 20 * 60 * 5, 0, Integer.MAX_VALUE);
+            sepulcherDuration = builder.comment("Time in ticks the sepulcher takes to turn meat into bones").defineInRange("sepulcherDuration", 20 * 30, 0, Integer.MAX_VALUE);
 
             builder.pop();
         }

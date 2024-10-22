@@ -130,6 +130,7 @@ public class OLootTables extends LootTableProvider {
 
             dropSelf(OBlocks.SEPULCHER);
             dropSelf(OBlocks.BONE_PILE);
+            dropNothing(OBlocks.ROTTING_FLESH);
             OBlocks.vigilCandles().forEach(this::vigilCandle);
         }
 

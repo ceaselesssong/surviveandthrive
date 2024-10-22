@@ -115,6 +115,7 @@ public class OBlockStates extends OBlockStateProvider {
         gargoyleBlock(OBlocks.GARGOYLE);
         sepulcherBlock(OBlocks.SEPULCHER);
         simpleBlock(OBlocks.BONE_PILE.get(), models().cubeAll(blockTexture(OBlocks.BONE_PILE.get()).getPath(), Oreganized.modLoc("block/sepulcher_rot_5")));
+        simpleBlock(OBlocks.ROTTING_FLESH.get(), models().cubeAll(blockTexture(OBlocks.ROTTING_FLESH.get()).getPath(), Oreganized.modLoc("block/sepulcher_rot_1")));
         vigilCandle(OBlocks.VIGIL_CANDLE, null);
         OBlocks.COLORED_VIGIL_CANDLES.forEach((color, block) -> vigilCandle(block, color.getSerializedName()));
     }

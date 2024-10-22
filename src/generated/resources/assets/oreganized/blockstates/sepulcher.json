@@ -1,89 +1,61 @@
 {
-  "multipart": [
-    {
-      "apply": {
-        "model": "oreganized:block/sepulcher"
-      }
+  "variants": {
+    "level=0": {
+      "model": "oreganized:block/sepulcher"
     },
-    {
-      "apply": {
-        "model": "oreganized:block/sepulcher_content_1"
-      },
-      "when": {
-        "level": "1"
-      }
+    "level=1": {
+      "model": "oreganized:block/sepulcher_being_filled_1"
     },
-    {
-      "apply": {
-        "model": "oreganized:block/sepulcher_content_2"
-      },
-      "when": {
-        "level": "2"
-      }
+    "level=10": {
+      "model": "oreganized:block/sepulcher_being_filled_10"
     },
-    {
-      "apply": {
-        "model": "oreganized:block/sepulcher_content_3"
-      },
-      "when": {
-        "level": "3"
-      }
+    "level=11": {
+      "model": "oreganized:block/sepulcher_being_filled_11"
     },
-    {
-      "apply": {
-        "model": "oreganized:block/sepulcher_content_4"
-      },
-      "when": {
-        "level": "4"
-      }
+    "level=12": {
+      "model": "oreganized:block/sepulcher_being_filled_12"
     },
-    {
-      "apply": {
-        "model": "oreganized:block/sepulcher_content_5"
-      },
-      "when": {
-        "level": "5"
-      }
+    "level=13": {
+      "model": "oreganized:block/sepulcher_being_filled_13"
     },
-    {
-      "apply": {
-        "model": "oreganized:block/sepulcher_content_6"
-      },
-      "when": {
-        "level": "6"
-      }
+    "level=14": {
+      "model": "oreganized:block/sepulcher_sealed_1"
     },
-    {
-      "apply": {
-        "model": "oreganized:block/sepulcher_content_7"
-      },
-      "when": {
-        "level": "7"
-      }
+    "level=15": {
+      "model": "oreganized:block/sepulcher_sealed_2"
     },
-    {
-      "apply": {
-        "model": "oreganized:block/sepulcher_content_8"
-      },
-      "when": {
-        "level": "8"
-      }
+    "level=16": {
+      "model": "oreganized:block/sepulcher_sealed_3"
     },
-    {
-      "apply": {
-        "model": "oreganized:block/sepulcher_content_9"
-      },
-      "when": {
-        "level": "9"
-      }
+    "level=17": {
+      "model": "oreganized:block/sepulcher_sealed_4"
     },
-    {
-      "apply": {
-        "model": "oreganized:block/sepulcher_content_10"
-      },
-      "when": {
-        "level": "10"
-      }
+    "level=18": {
+      "model": "oreganized:block/sepulcher_sealed_5"
+    },
+    "level=2": {
+      "model": "oreganized:block/sepulcher_being_filled_2"
+    },
+    "level=3": {
+      "model": "oreganized:block/sepulcher_being_filled_3"
+    },
+    "level=4": {
+      "model": "oreganized:block/sepulcher_being_filled_4"
+    },
+    "level=5": {
+      "model": "oreganized:block/sepulcher_being_filled_5"
+    },
+    "level=6": {
+      "model": "oreganized:block/sepulcher_being_filled_6"
+    },
+    "level=7": {
+      "model": "oreganized:block/sepulcher_being_filled_7"
+    },
+    "level=8": {
+      "model": "oreganized:block/sepulcher_being_filled_8"
+    },
+    "level=9": {
+      "model": "oreganized:block/sepulcher_being_filled_9"
     }
-  ]
+  }
 }

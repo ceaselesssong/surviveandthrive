@@ -380,34 +380,20 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
         });
     }
 
+    private String sepulcherSuffix(int fillLevel) {
+        if (fillLevel == 0) return "";
+        if (fillLevel > SepulcherBlock.MAX_LEVEL) return "_sealed_" + (fillLevel - SepulcherBlock.MAX_LEVEL);
+        return "_being_filled_" + fillLevel;
+    }
+
     public void sepulcherBlock(Supplier<? extends Block> block) {
-        var builder = getMultipartBuilder(block.get());
-
-        builder.part()
-                .modelFile(models().getExistingFile(blockTexture(block.get())))
-                .addModel();
-
-        for (int level = 1; level <= SepulcherBlock.READY; level++) {
-            var inside = level > SepulcherBlock.MAX_LEVEL
-                    ? Oreganized.modLoc("block/sepulcher_rot_" + (level - SepulcherBlock.MAX_LEVEL + 1))
-                    : Oreganized.modLoc("block/sepulcher_rot_1");
-
-            var height = level > SepulcherBlock.MAX_LEVEL  ? 15 : 3 + 2 * level;
-
-            var model = models().getBuilder("sepulcher_content_" + level)
-                    .texture("particle", inside)
-                    .texture("inside", inside)
-                    .element()
-                    .from(1, 0, 1 )
-                    .to(15, height, 15)
-                    .textureAll("#inside")
-                    .end();
-
-            builder.part()
-                    .modelFile(model)
-                    .addModel()
-                    .condition(SepulcherBlock.LEVEL, level);
-        }
+        getVariantBuilder(block.get()).forAllStates(state -> {
+            var fillLevel = state.getValue(SepulcherBlock.LEVEL);
+            var name = blockTexture(block.get()).withSuffix(sepulcherSuffix(fillLevel));
+            return ConfiguredModel.builder()
+                    .modelFile(models().getExistingFile(name))
+                    .build();
+        });
     }
 
     private String candleSuffix(int amount) {
