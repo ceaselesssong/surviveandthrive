@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "candles=1,hanging=false": {
+      "model": "oreganized:block/magenta_vigil_candle_single"
+    },
+    "candles=1,hanging=true": {
+      "model": "oreganized:block/magenta_vigil_candle_single_ceiling"
+    },
+    "candles=2,hanging=false": {
+      "model": "oreganized:block/magenta_vigil_candle_double"
+    },
+    "candles=2,hanging=true": {
+      "model": "oreganized:block/magenta_vigil_candle_double_ceiling"
+    },
+    "candles=3,hanging=false": {
+      "model": "oreganized:block/magenta_vigil_candle_triple"
+    },
+    "candles=3,hanging=true": {
+      "model": "oreganized:block/magenta_vigil_candle_triple_ceiling"
+    },
+    "candles=4,hanging=false": {
+      "model": "oreganized:block/magenta_vigil_candle_quadruple"
+    },
+    "candles=4,hanging=true": {
+      "model": "oreganized:block/magenta_vigil_candle_quadruple_ceiling"
+    }
+  }
+}

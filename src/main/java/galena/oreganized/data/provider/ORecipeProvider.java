@@ -215,4 +215,15 @@ public abstract class ORecipeProvider extends RecipeProvider {
         makeChiseled(blockOut, slabIn).save(consumer);
         stonecutting(blockIn, blockOut.get()).save(consumer, Oreganized.modLoc("stonecutting/" + ForgeRegistries.ITEMS.getKey(blockOut.get().asItem()).getPath()));
     }
+
+    public ShapedRecipeBuilder vigilCandle(Supplier<? extends Block> block, ItemLike candle) {
+        return ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, block.get())
+                .define('S', OTags.Items.INGOTS_SILVER)
+                .define('C', candle)
+                .pattern("S")
+                .unlockedBy("has_silver", has(OTags.Items.INGOTS_SILVER))
+                .group("vigil_candle")
+                .pattern("C");
+    }
+
 }

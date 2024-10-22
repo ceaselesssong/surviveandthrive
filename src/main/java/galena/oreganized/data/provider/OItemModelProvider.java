@@ -6,12 +6,14 @@ import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import static galena.oreganized.ModCompat.SHIELD_EXPANSION_ID;
@@ -56,9 +58,11 @@ public abstract class OItemModelProvider extends BlueprintItemModelProvider {
                 .texture("layer0", modLoc("item/" + name));
     }
 
-    public ItemModelBuilder normalItem(Supplier<? extends Item> item) {
-        return withExistingParent(ForgeRegistries.ITEMS.getKey(item.get()).getPath(), mcLoc("item/generated"))
-                .texture("layer0", modLoc("item/" + ForgeRegistries.ITEMS.getKey(item.get()).getPath()));
+    public ItemModelBuilder normalItem(Supplier<? extends ItemLike> supplier) {
+        var item = supplier.get().asItem();
+        var id = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item));
+        return withExistingParent(id.getPath(), mcLoc("item/generated"))
+                .texture("layer0", modLoc("item/" + id.getPath()));
     }
 
     public ItemModelBuilder toolItem(Supplier<? extends Item> item) {

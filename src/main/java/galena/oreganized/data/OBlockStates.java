@@ -113,6 +113,8 @@ public class OBlockStates extends OBlockStateProvider {
         simpleBlock(OBlocks.GROOVED_BLUE_ICE);
 
         gargoyleBlock(OBlocks.GARGOYLE);
+        vigilCandle(OBlocks.VIGIL_CANDLE, null);
+        OBlocks.COLORED_VIGIL_CANDLES.forEach((color, block) -> vigilCandle(block, color.getSerializedName()));
     }
 
 }
