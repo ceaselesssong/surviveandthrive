@@ -6,6 +6,7 @@ import com.teamabnormals.blueprint.common.dispenser.FishBucketDispenseItemBehavi
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import galena.oreganized.compat.create.CreateCompat;
+import galena.oreganized.compat.supplementaries.AmendmentsCompat;
 import galena.oreganized.content.block.LeadOreBlock;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.content.entity.LeadBoltEntity;
@@ -20,6 +21,7 @@ import galena.oreganized.data.OItemModels;
 import galena.oreganized.data.OItemTags;
 import galena.oreganized.data.OLang;
 import galena.oreganized.data.OLootTables;
+import galena.oreganized.data.OMobEffectTags;
 import galena.oreganized.data.ORecipes;
 import galena.oreganized.data.ORegistries;
 import galena.oreganized.data.OSoundDefinitions;
@@ -159,6 +161,10 @@ public class Oreganized {
             CreateCompat.register();
         }
 
+        if (ModList.get().isLoaded("amendments")) {
+            AmendmentsCompat.register();
+        }
+
         //CompatHandler.register();
 
         //context.registerConfig(ModConfig.Type.COMMON, OreganizedConfig.COMMON_SPEC);
@@ -286,6 +292,7 @@ public class Oreganized {
         generator.addProvider(server, datapackProvider);
         generator.addProvider(server, new OBiomeTags(output, lookupProvider, helper));
         generator.addProvider(server, new ODamageTags(output, lookupProvider, helper));
+        generator.addProvider(server, new OMobEffectTags(output, lookupProvider, helper));
         //generator.addProvider(server, new OPaintingVariantTags(output, lookupProvider, helper));
         //generator.addProvider(server, new OBiomeModifier.register(event));
 
@@ -326,6 +333,8 @@ public class Oreganized {
         }
         if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             putBefore(entries, Blocks.CHEST, OBlocks.LEAD_BOLT_CRATE);
+            putAfter(entries, Blocks.LANTERN, OBlocks.VIGIL_CANDLE);
+            OBlocks.COLORED_VIGIL_CANDLES.forEach((color, block) ->putAfter(entries, OBlocks.VIGIL_CANDLE.get(), block));
         }
         if (tab == CreativeModeTabs.COLORED_BLOCKS) {
             putBefore(entries, Items.SHULKER_BOX, OBlocks.WHITE_CRYSTAL_GLASS);

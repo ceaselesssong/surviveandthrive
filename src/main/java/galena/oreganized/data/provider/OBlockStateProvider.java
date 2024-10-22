@@ -11,6 +11,7 @@ import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.AbstractCandleBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CrossCollisionBlock;
 import net.minecraft.world.level.block.DoorBlock;
@@ -33,9 +34,11 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -378,6 +381,41 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
 
     public void sepulcherBlock(Supplier<? extends Block> block) {
         simpleBlock(block.get(), models().getExistingFile(blockTexture(block.get())));
+    }
+    
+    private String candleSuffix(int amount) {
+        switch (amount) {
+            case 1:
+                return "single";
+            case 2:
+                return "double";
+            case 3:
+                return "triple";
+            case 4:
+                return "quadruple";
+            default:
+                throw new IllegalArgumentException("Illegal candle amount: " + amount);
+        }
+    }
+
+    public void vigilCandle(Supplier<? extends Block> block, @Nullable String prefix) {
+        getVariantBuilder(block.get()).forAllStatesExcept(state -> {
+            var candles = state.getValue(BlockStateProperties.CANDLES);
+            var hanging = state.getValue(BlockStateProperties.HANGING);
+
+            var hangingSuffix = hanging ? "_ceiling" : "";
+            var parent = "vigil_candle_" + candleSuffix(candles) + hangingSuffix;
+            var optionalPrefix = Optional.ofNullable(prefix).map(it -> it + "_");
+            var name = optionalPrefix.orElse("default") + parent;
+            var texture = BLOCK_FOLDER + "/" + optionalPrefix.orElse("") + "vigil_candle";
+
+            var model = models().withExistingParent(name, Oreganized.modLoc(parent))
+                    .texture("0", texture);
+
+            return ConfiguredModel.builder()
+                    .modelFile(model)
+                    .build();
+        }, BlockStateProperties.WATERLOGGED, AbstractCandleBlock.LIT);
     }
 
     public void crate(Supplier<? extends Block> block) {

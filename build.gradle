@@ -108,11 +108,13 @@ dependencies {
     implementation(fg.deobf("maven.modrinth:shield-expansion:${shieldexpansion_version}"))
     implementation(fg.deobf("maven.modrinth:create:${create_version}"))
     implementation(fg.deobf("maven.modrinth:supplementaries:${supplementaries_version}"))
+    implementation(fg.deobf("maven.modrinth:amendments:${amendments_version}"))
+    implementation(fg.deobf("maven.modrinth:amendments:${amendments_version}"))
+    implementation(fg.deobf("maven.modrinth:moonlight:${moonlight_lib_version}"))
 
     // For dev testing
     runtimeOnly(fg.deobf("maven.modrinth:scannable:${scannable_version}"))
     runtimeOnly(fg.deobf("maven.modrinth:architectury-api:${architectury_version}"))
-    runtimeOnly(fg.deobf("maven.modrinth:moonlight:${moonlight_lib_version}"))
 
     /// Utilities for the development environment
     //runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_version}")

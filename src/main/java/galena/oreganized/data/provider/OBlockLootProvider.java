@@ -60,4 +60,9 @@ public abstract class OBlockLootProvider extends BlockLootSubProvider {
     public void dropNothing(Supplier<? extends Block> block) {
         dropOther(block, Blocks.AIR);
     }
+
+    public void vigilCandle(Supplier<? extends Block> block) {
+        add(block.get(), createCandleDrops(block.get()));
+    }
+
 }

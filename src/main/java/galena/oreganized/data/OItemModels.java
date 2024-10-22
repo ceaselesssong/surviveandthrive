@@ -131,6 +131,7 @@ public class OItemModels extends OItemModelProvider {
         block(OBlocks.GROOVED_BLUE_ICE);
 
         block(OBlocks.SEPULCHER);
+        OBlocks.vigilCandles().forEach(this::normalItem);
 
         for (Supplier<? extends Block> blocks : OBlocks.WAXED_CONRETE_POWDER) {
             withExistingParent(blockName(blocks), "minecraft:block/" + blockName(blocks).replace("waxed_", ""));

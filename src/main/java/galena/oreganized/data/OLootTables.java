@@ -129,6 +129,7 @@ public class OLootTables extends LootTableProvider {
             }
 
             dropSelf(OBlocks.SEPULCHER);
+            OBlocks.vigilCandles().forEach(this::vigilCandle);
         }
 
         private void grooved(Supplier<Block> block, Block other) {
