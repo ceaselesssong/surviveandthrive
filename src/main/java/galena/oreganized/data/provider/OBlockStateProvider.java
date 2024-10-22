@@ -8,6 +8,7 @@ import galena.oreganized.content.block.GargoyleBlock;
 import galena.oreganized.content.block.IMeltableBlock;
 import galena.oreganized.content.block.LeadDoorBlock;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
+import galena.oreganized.content.block.SepulcherBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -380,9 +381,35 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
     }
 
     public void sepulcherBlock(Supplier<? extends Block> block) {
-        simpleBlock(block.get(), models().getExistingFile(blockTexture(block.get())));
+        var builder = getMultipartBuilder(block.get());
+
+        builder.part()
+                .modelFile(models().getExistingFile(blockTexture(block.get())))
+                .addModel();
+
+        for (int level = 1; level <= SepulcherBlock.READY; level++) {
+            var inside = level > SepulcherBlock.MAX_LEVEL
+                    ? Oreganized.modLoc("block/sepulcher_rot_" + (level - SepulcherBlock.MAX_LEVEL + 1))
+                    : Oreganized.modLoc("block/sepulcher_rot_1");
+
+            var height = level > SepulcherBlock.MAX_LEVEL  ? 15 : 3 + 2 * level;
+
+            var model = models().getBuilder("sepulcher_content_" + level)
+                    .texture("particle", inside)
+                    .texture("inside", inside)
+                    .element()
+                    .from(1, 0, 1 )
+                    .to(15, height, 15)
+                    .textureAll("#inside")
+                    .end();
+
+            builder.part()
+                    .modelFile(model)
+                    .addModel()
+                    .condition(SepulcherBlock.LEVEL, level);
+        }
     }
-    
+
     private String candleSuffix(int amount) {
         switch (amount) {
             case 1:

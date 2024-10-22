@@ -1,4 +1,4 @@
-// 1.20.1	2024-10-22T19:11:46.8989761	Oreganized Block Tags
+// 1.20.1	2024-10-22T21:59:05.9187727	Oreganized Block Tags
 7a2d68d81bc5ee59f9a2f4ba68ddb39bfd9c875d data/forge/tags/blocks/glass.json
 d96b4f83e03abe39a1b97d92b7818c8f6b2e5c68 data/forge/tags/blocks/glass_panes.json
 d062c23ad5308b7de0b2e86f6531ea724530f898 data/forge/tags/blocks/melts_lead.json
@@ -39,4 +39,4 @@ eaca08d04b1742f418e6bc0964dd32cf16035d88 data/oreganized/tags/blocks/mineable/sc
 cf3608bd187922aeb48c566c19e8482b0dca34c7 data/oreganized/tags/blocks/prevents_lead_cloud.json
 06c2e2e512966767a31df77e646e41c4c39e3dd3 data/oreganized/tags/blocks/silktouch_using_scribe.json
 3112fb4a1df2953e2c3572fa47f886bf8e5bd679 data/oreganized/tags/blocks/stone_types/glance.json
-2c9f30e144e4871c0d4ff7aeab330c5d37062761 data/oreganized/tags/blocks/vigil_candles.json
+4c6c2866f43f74cc09dfa18b36047b869a88d10e data/oreganized/tags/blocks/vigil_candles.json

@@ -334,7 +334,8 @@ public class Oreganized {
         if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             putBefore(entries, Blocks.CHEST, OBlocks.LEAD_BOLT_CRATE);
             putAfter(entries, Blocks.LANTERN, OBlocks.VIGIL_CANDLE);
-            OBlocks.COLORED_VIGIL_CANDLES.forEach((color, block) ->putAfter(entries, OBlocks.VIGIL_CANDLE.get(), block));
+            OBlocks.COLORED_VIGIL_CANDLES.forEach((color, block) -> putAfter(entries, OBlocks.VIGIL_CANDLE.get(), block));
+            putAfter(entries, Blocks.COMPOSTER, OBlocks.SEPULCHER);
         }
         if (tab == CreativeModeTabs.COLORED_BLOCKS) {
             putBefore(entries, Items.SHULKER_BOX, OBlocks.WHITE_CRYSTAL_GLASS);
@@ -380,6 +381,7 @@ public class Oreganized {
             putAfter(entries, Blocks.ICE, OBlocks.GROOVED_ICE);
             putAfter(entries, Blocks.PACKED_ICE, OBlocks.GROOVED_PACKED_ICE);
             putAfter(entries, Blocks.BLUE_ICE, OBlocks.GROOVED_BLUE_ICE);
+            putAfter(entries, Blocks.BONE_BLOCK, OBlocks.BONE_PILE);
         }
         if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {
             putBefore(entries, Items.NOTE_BLOCK, OBlocks.GARGOYLE);

@@ -310,5 +310,8 @@ public class ORecipes extends ORecipeProvider {
                     .group("vigil_candle")
                     .save(consumer, RecipeBuilder.getDefaultRecipeId(block.get()).withSuffix("_dyeing"));
         });
+
+        compact(OBlocks.BONE_PILE.get().asItem(), Items.BONE).save(consumer);
+        unCompact(Items.BONE, OBlocks.BONE_PILE.get().asItem()).save(consumer);
     }
 }

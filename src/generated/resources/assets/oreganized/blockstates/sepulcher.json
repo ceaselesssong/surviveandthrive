@@ -1,7 +1,89 @@
 {
-  "variants": {
-    "": {
-      "model": "oreganized:block/sepulcher"
+  "multipart": [
+    {
+      "apply": {
+        "model": "oreganized:block/sepulcher"
+      }
+    },
+    {
+      "apply": {
+        "model": "oreganized:block/sepulcher_content_1"
+      },
+      "when": {
+        "level": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "oreganized:block/sepulcher_content_2"
+      },
+      "when": {
+        "level": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "oreganized:block/sepulcher_content_3"
+      },
+      "when": {
+        "level": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "oreganized:block/sepulcher_content_4"
+      },
+      "when": {
+        "level": "4"
+      }
+    },
+    {
+      "apply": {
+        "model": "oreganized:block/sepulcher_content_5"
+      },
+      "when": {
+        "level": "5"
+      }
+    },
+    {
+      "apply": {
+        "model": "oreganized:block/sepulcher_content_6"
+      },
+      "when": {
+        "level": "6"
+      }
+    },
+    {
+      "apply": {
+        "model": "oreganized:block/sepulcher_content_7"
+      },
+      "when": {
+        "level": "7"
+      }
+    },
+    {
+      "apply": {
+        "model": "oreganized:block/sepulcher_content_8"
+      },
+      "when": {
+        "level": "8"
+      }
+    },
+    {
+      "apply": {
+        "model": "oreganized:block/sepulcher_content_9"
+      },
+      "when": {
+        "level": "9"
+      }
+    },
+    {
+      "apply": {
+        "model": "oreganized:block/sepulcher_content_10"
+      },
+      "when": {
+        "level": "10"
+      }
     }
-  }
+  ]
 }
