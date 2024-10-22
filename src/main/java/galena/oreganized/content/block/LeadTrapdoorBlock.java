@@ -1,5 +1,6 @@
 package galena.oreganized.content.block;
 
+import galena.oreganized.index.OBlockEntities;
 import galena.oreganized.index.OBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -11,17 +12,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class LeadTrapdoorBlock extends TrapDoorBlock implements IMeltableBlock, EntityBlock, IHeavyDoor {
+public class LeadTrapdoorBlock extends TrapDoorBlock implements IMeltableBlock, TickingEntityBlock<HeavyDoorBlockEntity>, IHeavyDoor {
 
     public LeadTrapdoorBlock(Properties properties) {
         super(properties, OBlocks.LEAD_BLOCK_SET);
@@ -33,8 +32,8 @@ public class LeadTrapdoorBlock extends TrapDoorBlock implements IMeltableBlock, 
     }
 
     @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return HeavyDoorBlockEntity.getTicker(level, state, type);
+    public BlockEntityType<HeavyDoorBlockEntity> getType() {
+        return OBlockEntities.HEAVY_DOOR.get();
     }
 
     @Override

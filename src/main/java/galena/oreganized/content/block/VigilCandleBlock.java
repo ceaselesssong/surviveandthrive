@@ -14,10 +14,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.AbstractCandleBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.LanternBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -36,7 +34,7 @@ import static net.minecraft.world.level.block.CandleBlock.MAX_CANDLES;
 import static net.minecraft.world.level.block.CandleBlock.MIN_CANDLES;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.CANDLES;
 
-public class VigilCandleBlock extends LanternBlock implements EntityBlock {
+public class VigilCandleBlock extends LanternBlock implements TickingEntityBlock<VigilCandleBlockEntity> {
 
     private static VoxelShape shape(double x, double y, double z) {
         return Block.box(x, y, z, 6 + x, 10 + y, 6 + z);
@@ -142,15 +140,13 @@ public class VigilCandleBlock extends LanternBlock implements EntityBlock {
     }
 
     @Override
+    public BlockEntityType<VigilCandleBlockEntity> getType() {
+        return OBlockEntities.VIGIL_CANDLE.get();
+    }
+
+    @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new VigilCandleBlockEntity(pos, state);
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if(type != OBlockEntities.VIGIL_CANDLE.get()) return null;
-        BlockEntityTicker<VigilCandleBlockEntity> ticker = (l, p, s, be) -> be.tick(l, p, s);
-        return (BlockEntityTicker<T>) ticker;
-    }
 }

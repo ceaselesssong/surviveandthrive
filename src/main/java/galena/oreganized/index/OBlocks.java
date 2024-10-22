@@ -16,6 +16,7 @@ import galena.oreganized.content.block.MeltableBlock;
 import galena.oreganized.content.block.MeltablePillarBlock;
 import galena.oreganized.content.block.MoltenLeadBlock;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
+import galena.oreganized.content.block.SepulcherBlock;
 import galena.oreganized.content.block.ShrapnelBombBlock;
 import galena.oreganized.content.block.SpottedGlanceBlock;
 import galena.oreganized.content.block.VigilCandleBlock;
@@ -204,7 +205,7 @@ public class OBlocks {
             new MoltenLeadBlock(OFluids.MOLTEN_LEAD, BlockBehaviour.Properties.copy(Blocks.LAVA).mapColor(MapColor.COLOR_PURPLE)));
     public static final RegistryObject<Block> MOLTEN_LEAD_CAULDRON = HELPER.createBlock("molten_lead_cauldron", () -> new MoltenLeadCauldronBlock(BlockBehaviour.Properties.copy(Blocks.LAVA_CAULDRON).randomTicks()));
 
-    public static final RegistryObject<Block> SEPULCHER =  register("sepulcher", () -> new Block(BlockBehaviour.Properties.copy(Blocks.CAULDRON)));
+    public static final RegistryObject<Block> SEPULCHER =  register("sepulcher", () -> new SepulcherBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON)));
     
     private static final Supplier<BlockBehaviour.Properties> VIGIL_CANDLE_PROPERTIES = () -> BlockBehaviour.Properties.of().lightLevel(CandleBlock.LIGHT_EMISSION).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY);
     public static final RegistryObject<Block> VIGIL_CANDLE = register("vigil_candle", () -> new VigilCandleBlock(VIGIL_CANDLE_PROPERTIES.get()));

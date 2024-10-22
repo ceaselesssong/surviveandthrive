@@ -11,13 +11,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-public class VigilCandleBlockEntity extends BlockEntity {
+public class VigilCandleBlockEntity extends BlockEntity implements Ticking {
 
     public VigilCandleBlockEntity(BlockPos pos, BlockState state) {
         super(OBlockEntities.VIGIL_CANDLE.get(), pos, state);
     }
 
-    public void tick(Level level, BlockPos pos, BlockState state) {
+    @Override
+    public void tick(BlockState state, Level level, BlockPos pos) {
         if (level.getGameTime() % 20L != 0) return;
         if (!state.getValue(CandleBlock.LIT)) return;
 

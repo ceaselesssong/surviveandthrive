@@ -1,5 +1,6 @@
 package galena.oreganized.content.block;
 
+import galena.oreganized.index.OBlockEntities;
 import galena.oreganized.index.OBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -13,9 +14,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -24,7 +23,7 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class LeadDoorBlock extends DoorBlock implements IMeltableBlock, EntityBlock, IHeavyDoor {
+public class LeadDoorBlock extends DoorBlock implements IMeltableBlock, TickingEntityBlock<HeavyDoorBlockEntity>, IHeavyDoor {
 
     /**
      * Not fully implemented yet
@@ -44,8 +43,8 @@ public class LeadDoorBlock extends DoorBlock implements IMeltableBlock, EntityBl
     }
 
     @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return HeavyDoorBlockEntity.getTicker(level, state, type);
+    public BlockEntityType<HeavyDoorBlockEntity> getType() {
+        return OBlockEntities.HEAVY_DOOR.get();
     }
 
     @Override
