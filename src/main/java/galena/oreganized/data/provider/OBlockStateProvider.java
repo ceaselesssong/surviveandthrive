@@ -414,13 +414,15 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
     public void vigilCandle(Supplier<? extends Block> block, @Nullable String prefix) {
         getVariantBuilder(block.get()).forAllStatesExcept(state -> {
             var candles = state.getValue(BlockStateProperties.CANDLES);
-            var hanging = state.getValue(BlockStateProperties.HANGING);
+            boolean hanging = state.getValue(BlockStateProperties.HANGING);
+            boolean lit = state.getValue(AbstractCandleBlock.LIT);
 
             var hangingSuffix = hanging ? "_ceiling" : "";
             var parent = "vigil_candle_" + candleSuffix(candles) + hangingSuffix;
             var optionalPrefix = Optional.ofNullable(prefix).map(it -> it + "_");
-            var name = optionalPrefix.orElse("default") + parent;
-            var texture = BLOCK_FOLDER + "/" + optionalPrefix.orElse("") + "vigil_candle";
+            var litSuffix = lit ? "_lit" : "";
+            var name = optionalPrefix.orElse("default") + parent + litSuffix;
+            var texture = BLOCK_FOLDER + "/" + optionalPrefix.orElse("") + "vigil_candle" + litSuffix;
 
             var model = models().withExistingParent(name, Oreganized.modLoc(parent))
                     .texture("0", texture);
@@ -428,7 +430,7 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
             return ConfiguredModel.builder()
                     .modelFile(model)
                     .build();
-        }, BlockStateProperties.WATERLOGGED, AbstractCandleBlock.LIT);
+        }, BlockStateProperties.WATERLOGGED);
     }
 
     public void crate(Supplier<? extends Block> block) {

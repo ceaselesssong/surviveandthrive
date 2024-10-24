@@ -98,8 +98,10 @@ public class VigilCandleBlock extends LanternBlock implements TickingEntityBlock
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState previous = context.getLevel().getBlockState(context.getClickedPos());
         var candles = previous.is(this) ? Math.min(previous.getValue(CANDLES) + 1, MAX_CANDLES) : MIN_CANDLES;
+        var lit = previous.is(this) && previous.getValue(LIT);
         return Optional.ofNullable(super.getStateForPlacement(context))
                 .map(it -> it.setValue(CANDLES, candles))
+                .map(it -> it.setValue(LIT, lit))
                 .orElse(null);
     }
 

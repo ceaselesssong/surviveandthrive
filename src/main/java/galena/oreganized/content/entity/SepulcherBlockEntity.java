@@ -1,5 +1,6 @@
 package galena.oreganized.content.entity;
 
+import galena.oreganized.Oreganized;
 import galena.oreganized.OreganizedConfig;
 import galena.oreganized.content.block.SepulcherBlock;
 import galena.oreganized.index.OBlockEntities;
@@ -37,6 +38,7 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
     private final DeathListener listener;
     private LazyOptional<InvWrapper> itemHandler;
     private int progress = 0;
+    private boolean heated = false;
 
     public SepulcherBlockEntity(BlockPos pos, BlockState state) {
         super(OBlockEntities.SEPULCHER.get(), pos, state);
@@ -55,7 +57,14 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
         if (fillLevel < SepulcherBlock.MAX_LEVEL) return;
         if (fillLevel == SepulcherBlock.READY) return;
 
-        if (++progress < progressNeeded(fillLevel)) return;
+        if (level.getGameTime() % 20L == 0) {
+            checkHeatSource(level, pos);
+        }
+
+        var step = heated ? 3 : 1;
+        progress += step;
+
+        if (progress < progressNeeded(fillLevel)) return;
 
         level.setBlockAndUpdate(pos, state.setValue(SepulcherBlock.LEVEL, fillLevel + 1));
         progress = 0;
@@ -67,16 +76,24 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
         }
     }
 
+    private void checkHeatSource(Level level, BlockPos pos) {
+        var below = pos.below();
+        var belowState = level.getBlockState(below);
+        heated = belowState.is(OTags.Blocks.HEAT_SOURCE);
+    }
+
     @Override
     protected void saveAdditional(CompoundTag nbt) {
         super.saveAdditional(nbt);
         nbt.putInt("progress", progress);
+        nbt.putBoolean("heated", heated);
     }
 
     @Override
     public void load(CompoundTag nbt) {
         super.load(nbt);
         progress = nbt.getInt("progress");
+        heated = nbt.getBoolean("heated");
     }
 
     @Override
@@ -88,9 +105,11 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
         private final PositionSource listenerSource;
         private final int listenerRadius;
 
+        private static final String TAG_KEY = Oreganized.MOD_ID + ":sepulched";
+
         public DeathListener() {
             this.listenerSource = new BlockPositionSource(SepulcherBlockEntity.this.getBlockPos());
-            this.listenerRadius = GameEvent.ENTITY_DIE.getNotificationRadius();
+            this.listenerRadius = 3;
         }
 
         public PositionSource getListenerSource() {
@@ -105,6 +124,11 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
             if (event != GameEvent.ENTITY_DIE) return false;
 
             var entity = context.sourceEntity();
+            if (entity == null) return false;
+            if (entity.getPersistentData().getBoolean(TAG_KEY)) return false;
+
+            entity.getPersistentData().putBoolean(TAG_KEY, true);
+
             if (!entity.getType().is(OTags.Entities.FILLS_SEPULCHER)) return false;
 
             var state = getBlockState();
@@ -118,6 +142,8 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
                     PacketDistributor.NEAR.with(PacketDistributor.TargetPoint.p(vec.x, vec.y, vec.z, 16.0, entity.level().dimension())),
                     new SepulcherConsumesDeathPacket(vec)
             );
+
+            entity.setPos(Vec3.atCenterOf(getBlockPos()));
 
             return true;
         }
