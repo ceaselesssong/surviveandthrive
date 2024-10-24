@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "oreganized:block/sepulcher_rot_5"
+    "end": "oreganized:block/sepulcher_rot_5",
+    "side": "oreganized:block/bone_pile_side"
   }
 }

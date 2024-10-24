@@ -5,15 +5,19 @@ import galena.oreganized.OreganizedConfig;
 import galena.oreganized.content.block.SepulcherBlock;
 import galena.oreganized.index.OBlockEntities;
 import galena.oreganized.index.OBlocks;
+import galena.oreganized.index.OSoundEvents;
 import galena.oreganized.index.OTags;
 import galena.oreganized.network.OreganizedNetwork;
 import galena.oreganized.network.packet.SepulcherConsumesDeathPacket;
+import galena.oreganized.network.packet.SepulcherRotsPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -31,7 +35,7 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
+import java.util.function.Supplier;
 
 public class SepulcherBlockEntity extends BlockEntity implements Ticking, Container, GameEventListener.Holder<SepulcherBlockEntity.DeathListener> {
 
@@ -66,14 +70,27 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
 
         if (progress < progressNeeded(fillLevel)) return;
 
-        level.setBlockAndUpdate(pos, state.setValue(SepulcherBlock.LEVEL, fillLevel + 1));
+        int nextLevel = fillLevel + 1;
+        level.setBlockAndUpdate(pos, state.setValue(SepulcherBlock.LEVEL, nextLevel));
         progress = 0;
 
-        var effectColor = new Color(8889187);
-        for (int i = 0; i < 20; i++) {
-            var vec = Vec3.atBottomCenterOf(pos).add(level.random.nextDouble() - 0.5, 0.8, level.random.nextDouble() - 0.5);
-            level.addParticle(ParticleTypes.ENTITY_EFFECT, vec.x, vec.y, vec.z, effectColor.getRed() / 255D, effectColor.getGreen() / 255D, effectColor.getBlue() / 255D);
+        if (fillLevel == SepulcherBlock.MAX_LEVEL) {
+            sound(OSoundEvents.SEPULCHER_SEALING);
+        } else if (nextLevel == SepulcherBlock.READY) {
+            sound(OSoundEvents.SEPULCHER_UNSEALING);
+        } else {
+            sound(OSoundEvents.SEPULCHER_ROTTING);
         }
+
+        OreganizedNetwork.CHANNEL.send(
+                PacketDistributor.NEAR.with(PacketDistributor.TargetPoint.p(pos.getX(), pos.getY(), pos.getZ(), 16.0, level.dimension())),
+                new SepulcherRotsPacket(pos)
+        );
+    }
+
+    private void sound(Supplier<? extends SoundEvent> sound) {
+        if (!hasLevel()) return;
+        level.playSound(null, getBlockPos(), sound.get(), SoundSource.BLOCKS, 1F, 1F);
     }
 
     private void checkHeatSource(Level level, BlockPos pos) {
@@ -127,8 +144,6 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
             if (entity == null) return false;
             if (entity.getPersistentData().getBoolean(TAG_KEY)) return false;
 
-            entity.getPersistentData().putBoolean(TAG_KEY, true);
-
             if (!entity.getType().is(OTags.Entities.FILLS_SEPULCHER)) return false;
 
             var state = getBlockState();
@@ -136,7 +151,11 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
 
             if (fillLevel >= SepulcherBlock.MAX_LEVEL) return false;
 
+            entity.getPersistentData().putBoolean(TAG_KEY, true);
+
             SepulcherBlock.insert(null, state, level, getBlockPos(), level.random.nextIntBetweenInclusive(3, 4));
+
+            sound(OSoundEvents.SEPULCHER_CORPSE_STUFFED);
 
             OreganizedNetwork.CHANNEL.send(
                     PacketDistributor.NEAR.with(PacketDistributor.TargetPoint.p(vec.x, vec.y, vec.z, 16.0, entity.level().dimension())),
@@ -144,6 +163,7 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
             );
 
             entity.setPos(Vec3.atCenterOf(getBlockPos()));
+            if(entity.getPose() == Pose.DYING) entity.setPose(Pose.STANDING);
 
             return true;
         }

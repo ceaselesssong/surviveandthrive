@@ -3,9 +3,9 @@ package galena.oreganized.content.block;
 import galena.oreganized.content.entity.SepulcherBlockEntity;
 import galena.oreganized.index.OBlockEntities;
 import galena.oreganized.index.OBlocks;
+import galena.oreganized.index.OSoundEvents;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -92,11 +92,11 @@ public class SepulcherBlock extends Block implements TickingEntityBlock<Sepulche
     }
 
     public static void insert(@Nullable Entity user, BlockState state, LevelAccessor level, BlockPos pos, int by) {
-        var newState = state.setValue(LEVEL, Math.min(READY, state.getValue(LEVEL) + by));
+        var newState = state.setValue(LEVEL, Math.min(MAX_LEVEL, state.getValue(LEVEL) + by));
         level.setBlock(pos, newState, 3);
         level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(user, newState));
 
-        level.playSound(null, pos, SoundEvents.COMPOSTER_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+        level.playSound(null, pos, OSoundEvents.SEPULCHER_FILLED.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
     }
 
     public static void extract(@Nullable Entity user, BlockState state, Level level, BlockPos pos) {
@@ -115,7 +115,7 @@ public class SepulcherBlock extends Block implements TickingEntityBlock<Sepulche
         level.setBlockAndUpdate(pos, empty);
         level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(user, empty));
 
-        level.playSound(null, pos, SoundEvents.COMPOSTER_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+        level.playSound(null, pos, OSoundEvents.SEPULCHER_HARVEST.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
     }
 
     @Override

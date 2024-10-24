@@ -5,6 +5,7 @@ import galena.oreganized.network.packet.DoorPushingPacket;
 import galena.oreganized.network.packet.GargoyleParticlePacket;
 import galena.oreganized.network.packet.KineticHitPacket;
 import galena.oreganized.network.packet.SepulcherConsumesDeathPacket;
+import galena.oreganized.network.packet.SepulcherRotsPacket;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
@@ -24,5 +25,6 @@ public class OreganizedNetwork {
         CHANNEL.registerMessage(id++, DoorPushingPacket.class, DoorPushingPacket::write, DoorPushingPacket::from, DoorPushingPacket::handle);
         CHANNEL.registerMessage(id++, KineticHitPacket.class, KineticHitPacket::write, KineticHitPacket::from, KineticHitPacket::handle);
         CHANNEL.registerMessage(id++, SepulcherConsumesDeathPacket.class, SepulcherConsumesDeathPacket::write, SepulcherConsumesDeathPacket::from, SepulcherConsumesDeathPacket::handle);
+        CHANNEL.registerMessage(id++, SepulcherRotsPacket.class, SepulcherRotsPacket::write, SepulcherRotsPacket::from, SepulcherRotsPacket::handle);
     }
 }

@@ -15,6 +15,25 @@
         }
       ],
       "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "oreganized:sepulcher",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "level": "18"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "oreganized:bone_pile"
+        }
+      ],
+      "rolls": 1.0
     }
   ],
   "random_sequence": "oreganized:blocks/sepulcher"
