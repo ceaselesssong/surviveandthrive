@@ -1,0 +1,17 @@
+{
+  "type": "jeed:effect_provider",
+  "effect":{
+    "id": "oreganized:stunning"
+  },
+  "providers": [
+    {
+      "item": "oreganized:molten_lead_bucket"
+    },
+    {
+      "item": "oreganized:lead_ore"
+    },
+    {
+      "item": "oreganized:deepslate_lead_ore"
+    }
+  ]
+}

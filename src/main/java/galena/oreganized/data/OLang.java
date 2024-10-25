@@ -53,6 +53,7 @@ public class OLang extends OLangProvider {
 
         // JEED compat
         add("effect.oreganized.stunning.description", "Paralyzes the victim periodically with random intervals");
+        add("effect.oreganized.fog.description", "An eerie fog that accompanies the holler");
 
         addSubtitle("entity", "shrapnel_bomb.primed", "Shrapnel Bomb fizzes");
         addSubtitle("entity", "bolt_hit", "Bolt hits");

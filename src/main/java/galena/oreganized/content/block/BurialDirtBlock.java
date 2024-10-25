@@ -5,6 +5,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -41,10 +42,13 @@ public class BurialDirtBlock extends Block {
     }
 
     public void spawnMonster(Level level, BlockPos pos) {
+        if(!(level instanceof ServerLevel serverLevel)) return;
+
         var monster = randomMonster(level.random).create(level);
         if (monster != null) {
             monster.moveTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0, 0);
-            level.addFreshEntity(monster);
+            serverLevel.addFreshEntity(monster);
+            monster.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(pos), MobSpawnType.NATURAL, null, null);
             monster.spawnAnim();
         }
     }

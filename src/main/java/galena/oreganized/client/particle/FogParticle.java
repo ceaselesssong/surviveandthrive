@@ -26,14 +26,14 @@ public class FogParticle extends TextureSheetParticle {
         this.zd = 0.0;
         this.quadSize = 1F;
         this.alpha = 0F;
-        setLifetime(100);
+        setLifetime(200);
         setSpriteFromAge(sprites);
         setSize(2F, 3F);
     }
 
     @Override
     public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
     @Override
@@ -53,8 +53,6 @@ public class FogParticle extends TextureSheetParticle {
         } else {
             alpha = age / halfLife;
         }
-
-        alpha *= 0.5F;
 
         setSpriteFromAge(sprites);
 

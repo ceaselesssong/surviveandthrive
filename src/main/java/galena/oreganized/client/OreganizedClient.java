@@ -170,7 +170,7 @@ public class OreganizedClient {
         @SubscribeEvent
         public static void fogEffectColor(ViewportEvent.ComputeFogColor event) {
             if (fogEffect != null && fogEffect.getFactorData().isPresent()) {
-                var color = new Color(0x424955);
+                var color = new Color(0x697180);
                 LivingEntity entity = (LivingEntity) Minecraft.getInstance().gameRenderer.getMainCamera().getEntity();
                 float factor = (fogEffect.getFactorData().get()).getFactor(entity, (float) event.getPartialTick());
                 event.setRed(color.getRed() / 255F * factor);
