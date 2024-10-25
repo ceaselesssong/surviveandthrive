@@ -28,6 +28,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+import java.util.function.ToIntFunction;
 
 import static net.minecraft.world.level.block.CandleBlock.LIT;
 import static net.minecraft.world.level.block.CandleBlock.MAX_CANDLES;
@@ -64,6 +65,8 @@ public class VigilCandleBlock extends LanternBlock implements TickingEntityBlock
     private static final VoxelShape[] SHAPES = createShapes(false);
     private static final VoxelShape[] HANGING_SHAPES = createShapes(true);
 
+    public static final ToIntFunction<BlockState> LIGHT_EMISSION = state -> state.getValue(LIT) ? 6 * state.getValue(CANDLES) : 0;
+
     public VigilCandleBlock(Properties properties) {
         super(properties);
         registerDefaultState(defaultBlockState()
@@ -89,9 +92,10 @@ public class VigilCandleBlock extends LanternBlock implements TickingEntityBlock
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         var candles = state.getValue(CANDLES);
-        var handing = state.getValue(HANGING);
+        var hanging = state.getValue(HANGING);
         var index = candles - 1;
-        return (handing ? HANGING_SHAPES : SHAPES)[index];
+        return createShapes(hanging)[index];
+        //return (handing ? HANGING_SHAPES : SHAPES)[index];
     }
 
     @Override

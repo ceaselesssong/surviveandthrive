@@ -17,6 +17,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -75,11 +77,11 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
         progress = 0;
 
         if (fillLevel == SepulcherBlock.MAX_LEVEL) {
-            sound(OSoundEvents.SEPULCHER_SEALING);
+            sound(OSoundEvents.SEPULCHER_SEALING, 1F);
         } else if (nextLevel == SepulcherBlock.READY) {
-            sound(OSoundEvents.SEPULCHER_UNSEALING);
+            sound(OSoundEvents.SEPULCHER_UNSEALING, 1F);
         } else {
-            sound(OSoundEvents.SEPULCHER_ROTTING);
+            sound(OSoundEvents.SEPULCHER_ROTTING, 0.5F);
         }
 
         OreganizedNetwork.CHANNEL.send(
@@ -88,9 +90,9 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
         );
     }
 
-    private void sound(Supplier<? extends SoundEvent> sound) {
+    private void sound(Supplier<? extends SoundEvent> sound, float volume) {
         if (!hasLevel()) return;
-        level.playSound(null, getBlockPos(), sound.get(), SoundSource.BLOCKS, 1F, 1F);
+        level.playSound(null, getBlockPos(), sound.get(), SoundSource.BLOCKS, volume, 1F);
     }
 
     private void checkHeatSource(Level level, BlockPos pos) {
@@ -111,6 +113,10 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
         super.load(nbt);
         progress = nbt.getInt("progress");
         heated = nbt.getBoolean("heated");
+    }
+
+    public static boolean wasConsumerBySepulcher(Entity entity) {
+        return entity.getPersistentData().getBoolean(DeathListener.TAG_KEY);
     }
 
     @Override
@@ -142,7 +148,7 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
 
             var entity = context.sourceEntity();
             if (entity == null) return false;
-            if (entity.getPersistentData().getBoolean(TAG_KEY)) return false;
+            if (wasConsumerBySepulcher(entity)) return false;
 
             if (!entity.getType().is(OTags.Entities.FILLS_SEPULCHER)) return false;
 
@@ -153,9 +159,13 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
 
             entity.getPersistentData().putBoolean(TAG_KEY, true);
 
+            if (entity instanceof LivingEntity living && !(entity instanceof Player)) {
+                living.skipDropExperience();
+            }
+
             SepulcherBlock.insert(null, state, level, getBlockPos(), level.random.nextIntBetweenInclusive(3, 4));
 
-            sound(OSoundEvents.SEPULCHER_CORPSE_STUFFED);
+            sound(OSoundEvents.SEPULCHER_CORPSE_STUFFED, 1F);
 
             OreganizedNetwork.CHANNEL.send(
                     PacketDistributor.NEAR.with(PacketDistributor.TargetPoint.p(vec.x, vec.y, vec.z, 16.0, entity.level().dimension())),
@@ -163,7 +173,7 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
             );
 
             entity.setPos(Vec3.atCenterOf(getBlockPos()));
-            if(entity.getPose() == Pose.DYING) entity.setPose(Pose.STANDING);
+            if (entity.getPose() == Pose.DYING) entity.setPose(Pose.STANDING);
 
             return true;
         }

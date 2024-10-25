@@ -6,6 +6,8 @@ import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OSoundEvents;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -16,7 +18,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -91,12 +92,17 @@ public class SepulcherBlock extends Block implements TickingEntityBlock<Sepulche
         return false;
     }
 
-    public static void insert(@Nullable Entity user, BlockState state, LevelAccessor level, BlockPos pos, int by) {
+    public static void insert(@Nullable Entity user, BlockState state, Level level, BlockPos pos, int by) {
         var newState = state.setValue(LEVEL, Math.min(MAX_LEVEL, state.getValue(LEVEL) + by));
         level.setBlock(pos, newState, 3);
         level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(user, newState));
 
-        level.playSound(null, pos, OSoundEvents.SEPULCHER_FILLED.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+        if(level instanceof ServerLevel serverLevel) {
+            var vec = Vec3.atCenterOf(pos);
+            serverLevel.sendParticles(ParticleTypes.COMPOSTER, vec.x, vec.y, vec.z, 10, 0.3, 0.3, 0.3, 0.0);
+        }
+
+        level.playSound(null, pos, OSoundEvents.SEPULCHER_FILLED.get(), SoundSource.BLOCKS, 0.5F, 1.0F);
     }
 
     public static void extract(@Nullable Entity user, BlockState state, Level level, BlockPos pos) {

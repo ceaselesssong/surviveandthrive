@@ -1,6 +1,7 @@
 package galena.oreganized.index;
 
 import galena.oreganized.Oreganized;
+import galena.oreganized.client.particle.BoneFragmentParticle;
 import galena.oreganized.client.particle.CustomDrippingParticle;
 import galena.oreganized.client.particle.KineticHitParticle;
 import galena.oreganized.client.particle.LeadCloudParticleProvider;
@@ -9,7 +10,6 @@ import galena.oreganized.client.particle.VengeanceParticleProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ExplodeParticle;
 import net.minecraft.client.particle.ParticleEngine;
-import net.minecraft.client.particle.SplashParticle;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -49,6 +49,6 @@ public class OParticleTypes {
         engine.register(LEAD_CLOUD.get(), LeadCloudParticleProvider::new);
         engine.register(LEAD_BLOW.get(), ExplodeParticle.Provider::new);
         engine.register(LEAD_BLOW.get(), ExplodeParticle.Provider::new);
-        engine.register(BONE_FRAGMENT.get(), SplashParticle.Provider::new);
+        engine.register(BONE_FRAGMENT.get(), BoneFragmentParticle.Provider::new);
     }
 }

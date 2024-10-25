@@ -3,6 +3,7 @@ package galena.oreganized.world.event;
 import galena.oreganized.Oreganized;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
 import galena.oreganized.content.entity.GargoyleBlockEntity;
+import galena.oreganized.content.entity.SepulcherBlockEntity;
 import galena.oreganized.content.item.ScribeItem;
 import galena.oreganized.index.OAttributes;
 import galena.oreganized.index.OBlocks;
@@ -10,7 +11,6 @@ import galena.oreganized.index.OItems;
 import galena.oreganized.index.OTags;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -31,7 +31,7 @@ import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -144,6 +144,14 @@ public class PlayerEvents {
             event.addModifier(OAttributes.KINETIC_DAMAGE.get(), new AttributeModifier(
                     UUID.fromString("0191ff58-54d7-711d-8a94-692379277c23"), "Kinetic Damage", damage / 3, AttributeModifier.Operation.ADDITION)
             );
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingDrops(LivingDropsEvent event) {
+        if (event.getEntity() instanceof Player) return;
+        if (SepulcherBlockEntity.wasConsumerBySepulcher(event.getEntity())) {
+            event.setCanceled(true);
         }
     }
 
