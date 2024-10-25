@@ -253,7 +253,7 @@ public class ORecipes extends ORecipeProvider {
                 .save(consumer, Oreganized.modLoc("poisonous_potato_from_lead"));
 
         compact(OBlocks.LEAD_BOLT_CRATE.get().asItem(), OItems.LEAD_BOLT.get()).save(consumer);
-        unCompact(OItems.LEAD_BOLT.get(), OBlocks.LEAD_BOLT_CRATE.get().asItem()).save(consumer, Oreganized.modLoc( "lead_bolt_from_crate"));
+        unCompact(OItems.LEAD_BOLT.get(), OBlocks.LEAD_BOLT_CRATE.get().asItem()).save(consumer, Oreganized.modLoc("lead_bolt_from_crate"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OBlocks.LEAD_BULB.get(), 1)
                 .pattern(" I ")
@@ -310,5 +310,16 @@ public class ORecipes extends ORecipeProvider {
                     .group("vigil_candle")
                     .save(consumer, RecipeBuilder.getDefaultRecipeId(block.get()).withSuffix("_dyeing"));
         });
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, OBlocks.SEPULCHER.get())
+                .pattern("# #")
+                .pattern("# #")
+                .pattern("###")
+                .define('#', OTags.Items.INGOTS_SILVER)
+                .unlockedBy("has_silver", has(OTags.Items.INGOTS_SILVER))
+                .save(consumer);
+
+        compact(OBlocks.BONE_PILE.get().asItem(), Items.BONE).save(consumer);
+        unCompact(Items.BONE, OBlocks.BONE_PILE.get().asItem()).save(consumer);
     }
 }

@@ -79,6 +79,7 @@ public class OreganizedClient {
         render(OBlocks.LEAD_TRAPDOOR, cutout);
         render(OBlocks.LEAD_BARS, cutout);
         render(OBlocks.GARGOYLE, cutout);
+        render(OBlocks.SEPULCHER, cutout);
 
         OBlocks.vigilCandles().forEach(block -> render(block, cutout));
 

@@ -16,10 +16,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -35,7 +33,7 @@ import java.util.Map;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class GargoyleBlock extends HorizontalDirectionalBlock implements EntityBlock {
+public class GargoyleBlock extends HorizontalDirectionalBlock implements TickingEntityBlock<GargoyleBlockEntity> {
 
     public static final EnumProperty<AttachmentType> ATTACHMENT = EnumProperty.create("attachment", AttachmentType.class);
 
@@ -45,11 +43,11 @@ public class GargoyleBlock extends HorizontalDirectionalBlock implements EntityB
         var dispenser = source.getBlockState();
         var facing = dispenser.getValue(DispenserBlock.FACING);
         var targetPos = source.getPos().relative(facing);
-        var target = source.getLevel().getBlockEntity(targetPos);
+        var target = source.getLevel().getBlockEntity(targetPos, OBlockEntities.GARGOYLE.get());
 
-        if (target instanceof GargoyleBlockEntity gargoyle) {
+        target.ifPresent(gargoyle -> {
             gargoyle.interact(source.getLevel(), targetPos, null, stack, false);
-        }
+        });
 
         return stack;
     };
@@ -76,15 +74,6 @@ public class GargoyleBlock extends HorizontalDirectionalBlock implements EntityB
         } else {
             return base.setValue(HORIZONTAL_FACING, context.getHorizontalDirection()).setValue(ATTACHMENT, AttachmentType.FLOOR);
         }
-    }
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (type != OBlockEntities.GARGOYLE.get()) return null;
-        BlockEntityTicker<GargoyleBlockEntity> ticker = GargoyleBlockEntity::tick;
-        //noinspection unchecked
-        return (BlockEntityTicker<T>) ticker;
     }
 
     @Override
@@ -156,6 +145,11 @@ public class GargoyleBlock extends HorizontalDirectionalBlock implements EntityB
         public String getSerializedName() {
             return this.name;
         }
+    }
+
+    @Override
+    public BlockEntityType<GargoyleBlockEntity> getType() {
+        return OBlockEntities.GARGOYLE.get();
     }
 
     protected VoxelShape getShapeFor(BlockState state) {

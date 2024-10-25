@@ -37,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 
-public class GargoyleBlockEntity extends BlockEntity {
+public class GargoyleBlockEntity extends BlockEntity implements Ticking {
 
     private static final int COOLDOWN = 20 * 30;
     public static final String GROWL_COOLDOWN_TAG = Oreganized.MOD_ID + ":gargoyle_use_cooldown";
@@ -66,16 +66,16 @@ public class GargoyleBlockEntity extends BlockEntity {
         return level.getEntitiesOfClass(Mob.class, box, it -> it.getMobType() == MobType.UNDEAD);
     }
 
-    public static void tick(Level level, BlockPos pos, BlockState state, GargoyleBlockEntity be) {
-        be.growlCooldown--;
+    public void tick(BlockState state, Level level, BlockPos pos) {
+        growlCooldown--;
 
-        if (be.updateCooldown % 2 == 0 && be.drippingFluid != null) {
-            GargoyleBlock.dripParticles(state, level, pos, level.random, be.drippingFluid);
+        if (updateCooldown % 2 == 0 && drippingFluid != null) {
+            GargoyleBlock.dripParticles(state, level, pos, level.random, drippingFluid);
         }
 
-        if (--be.updateCooldown > 0) return;
+        if (--updateCooldown > 0) return;
 
-        be.updateDripParticles(level, pos, state);
+        updateDripParticles(level, pos, state);
 
         var targets = getTargets(level, pos);
         var vec = Vec3.atCenterOf(pos);
@@ -89,12 +89,12 @@ public class GargoyleBlockEntity extends BlockEntity {
 
         var newOutputSignal = Math.max(14 - (int) closestDistance, 0);
 
-        if (newOutputSignal != be.outputSignal) {
-            be.outputSignal = newOutputSignal;
-            level.updateNeighbourForOutputSignal(pos, be.getBlockState().getBlock());
+        if (newOutputSignal != outputSignal) {
+            outputSignal = newOutputSignal;
+            level.updateNeighbourForOutputSignal(pos, getBlockState().getBlock());
         }
 
-        be.updateCooldown = 10;
+        updateCooldown = 10;
     }
 
     private void updateDripParticles(Level level, BlockPos pos, BlockState state) {

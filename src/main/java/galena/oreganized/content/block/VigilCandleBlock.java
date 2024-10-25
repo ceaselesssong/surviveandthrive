@@ -14,10 +14,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.AbstractCandleBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.LanternBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -30,13 +28,14 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+import java.util.function.ToIntFunction;
 
 import static net.minecraft.world.level.block.CandleBlock.LIT;
 import static net.minecraft.world.level.block.CandleBlock.MAX_CANDLES;
 import static net.minecraft.world.level.block.CandleBlock.MIN_CANDLES;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.CANDLES;
 
-public class VigilCandleBlock extends LanternBlock implements EntityBlock {
+public class VigilCandleBlock extends LanternBlock implements TickingEntityBlock<VigilCandleBlockEntity> {
 
     private static VoxelShape shape(double x, double y, double z) {
         return Block.box(x, y, z, 6 + x, 10 + y, 6 + z);
@@ -66,6 +65,8 @@ public class VigilCandleBlock extends LanternBlock implements EntityBlock {
     private static final VoxelShape[] SHAPES = createShapes(false);
     private static final VoxelShape[] HANGING_SHAPES = createShapes(true);
 
+    public static final ToIntFunction<BlockState> LIGHT_EMISSION = state -> state.getValue(LIT) ? 6 * state.getValue(CANDLES) : 0;
+
     public VigilCandleBlock(Properties properties) {
         super(properties);
         registerDefaultState(defaultBlockState()
@@ -91,17 +92,20 @@ public class VigilCandleBlock extends LanternBlock implements EntityBlock {
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         var candles = state.getValue(CANDLES);
-        var handing = state.getValue(HANGING);
+        var hanging = state.getValue(HANGING);
         var index = candles - 1;
-        return (handing ? HANGING_SHAPES : SHAPES)[index];
+        return createShapes(hanging)[index];
+        //return (handing ? HANGING_SHAPES : SHAPES)[index];
     }
 
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState previous = context.getLevel().getBlockState(context.getClickedPos());
         var candles = previous.is(this) ? Math.min(previous.getValue(CANDLES) + 1, MAX_CANDLES) : MIN_CANDLES;
+        var lit = previous.is(this) && previous.getValue(LIT);
         return Optional.ofNullable(super.getStateForPlacement(context))
                 .map(it -> it.setValue(CANDLES, candles))
+                .map(it -> it.setValue(LIT, lit))
                 .orElse(null);
     }
 
@@ -142,15 +146,13 @@ public class VigilCandleBlock extends LanternBlock implements EntityBlock {
     }
 
     @Override
+    public BlockEntityType<VigilCandleBlockEntity> getType() {
+        return OBlockEntities.VIGIL_CANDLE.get();
+    }
+
+    @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new VigilCandleBlockEntity(pos, state);
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if(type != OBlockEntities.VIGIL_CANDLE.get()) return null;
-        BlockEntityTicker<VigilCandleBlockEntity> ticker = (l, p, s, be) -> be.tick(l, p, s);
-        return (BlockEntityTicker<T>) ticker;
-    }
 }

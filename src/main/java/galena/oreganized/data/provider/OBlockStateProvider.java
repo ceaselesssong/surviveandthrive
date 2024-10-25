@@ -8,6 +8,7 @@ import galena.oreganized.content.block.GargoyleBlock;
 import galena.oreganized.content.block.IMeltableBlock;
 import galena.oreganized.content.block.LeadDoorBlock;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
+import galena.oreganized.content.block.SepulcherBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -379,6 +380,22 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
         });
     }
 
+    private String sepulcherSuffix(int fillLevel) {
+        if (fillLevel == 0) return "";
+        if (fillLevel > SepulcherBlock.MAX_LEVEL) return "_sealed_" + (fillLevel - SepulcherBlock.MAX_LEVEL);
+        return "_being_filled_" + fillLevel;
+    }
+
+    public void sepulcherBlock(Supplier<? extends Block> block) {
+        getVariantBuilder(block.get()).forAllStates(state -> {
+            var fillLevel = state.getValue(SepulcherBlock.LEVEL);
+            var name = blockTexture(block.get()).withSuffix(sepulcherSuffix(fillLevel));
+            return ConfiguredModel.builder()
+                    .modelFile(models().getExistingFile(name))
+                    .build();
+        });
+    }
+
     private String candleSuffix(int amount) {
         switch (amount) {
             case 1:
@@ -397,13 +414,15 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
     public void vigilCandle(Supplier<? extends Block> block, @Nullable String prefix) {
         getVariantBuilder(block.get()).forAllStatesExcept(state -> {
             var candles = state.getValue(BlockStateProperties.CANDLES);
-            var hanging = state.getValue(BlockStateProperties.HANGING);
+            boolean hanging = state.getValue(BlockStateProperties.HANGING);
+            boolean lit = state.getValue(AbstractCandleBlock.LIT);
 
             var hangingSuffix = hanging ? "_ceiling" : "";
             var parent = "vigil_candle_" + candleSuffix(candles) + hangingSuffix;
             var optionalPrefix = Optional.ofNullable(prefix).map(it -> it + "_");
-            var name = optionalPrefix.orElse("default") + parent;
-            var texture = BLOCK_FOLDER + "/" + optionalPrefix.orElse("") + "vigil_candle";
+            var litSuffix = lit ? "_lit" : "";
+            var name = optionalPrefix.orElse("default") + parent + litSuffix;
+            var texture = BLOCK_FOLDER + "/" + optionalPrefix.orElse("") + "vigil_candle" + litSuffix;
 
             var model = models().withExistingParent(name, Oreganized.modLoc(parent))
                     .texture("0", texture);
@@ -411,7 +430,7 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
             return ConfiguredModel.builder()
                     .modelFile(model)
                     .build();
-        }, BlockStateProperties.WATERLOGGED, AbstractCandleBlock.LIT);
+        }, BlockStateProperties.WATERLOGGED);
     }
 
     public void crate(Supplier<? extends Block> block) {

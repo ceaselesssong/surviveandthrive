@@ -1,6 +1,7 @@
 package galena.oreganized.index;
 
 import galena.oreganized.Oreganized;
+import galena.oreganized.client.particle.BoneFragmentParticle;
 import galena.oreganized.client.particle.CustomDrippingParticle;
 import galena.oreganized.client.particle.KineticHitParticle;
 import galena.oreganized.client.particle.LeadCloudParticleProvider;
@@ -32,6 +33,7 @@ public class OParticleTypes {
     public static final RegistryObject<SimpleParticleType> KINETIC_HIT = PARTICLES.register( "kinetic_hit", () -> new SimpleParticleType(true));
     public static final RegistryObject<SimpleParticleType> LEAD_CLOUD = PARTICLES.register( "lead_cloud", () -> new SimpleParticleType(true));
     public static final RegistryObject<SimpleParticleType> LEAD_BLOW = PARTICLES.register( "lead_blow", () -> new SimpleParticleType(true));
+    public static final RegistryObject<SimpleParticleType> BONE_FRAGMENT = PARTICLES.register( "bone_fragment", () -> new SimpleParticleType(true));
 
 
     @SubscribeEvent
@@ -46,5 +48,7 @@ public class OParticleTypes {
         engine.register(KINETIC_HIT.get(), KineticHitParticle.Provider::new);
         engine.register(LEAD_CLOUD.get(), LeadCloudParticleProvider::new);
         engine.register(LEAD_BLOW.get(), ExplodeParticle.Provider::new);
+        engine.register(LEAD_BLOW.get(), ExplodeParticle.Provider::new);
+        engine.register(BONE_FRAGMENT.get(), BoneFragmentParticle.Provider::new);
     }
 }

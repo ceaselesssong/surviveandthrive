@@ -22,6 +22,7 @@ import static galena.oreganized.index.OTags.Blocks.BLOWS_LEAD_CLOUD;
 import static galena.oreganized.index.OTags.Blocks.CRYSTAL_GLASS;
 import static galena.oreganized.index.OTags.Blocks.CRYSTAL_GLASS_PANES;
 import static galena.oreganized.index.OTags.Blocks.FIRE_SOURCE;
+import static galena.oreganized.index.OTags.Blocks.HEAT_SOURCE;
 import static galena.oreganized.index.OTags.Blocks.MELTS_LEAD;
 import static galena.oreganized.index.OTags.Blocks.MINEABLE_WITH_SCRIBE;
 import static galena.oreganized.index.OTags.Blocks.ORES_LEAD;
@@ -139,7 +140,10 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
 
                 OBlocks.GROOVED_ICE.get(),
                 OBlocks.GROOVED_PACKED_ICE.get(),
-                OBlocks.GROOVED_BLUE_ICE.get()
+                OBlocks.GROOVED_BLUE_ICE.get(),
+
+                OBlocks.SEPULCHER.get(),
+                OBlocks.BONE_PILE.get()
         );
 
         var vigilCandles = tag(VIGIL_CANDLES);
@@ -148,6 +152,8 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
 
         tag(BlockTags.CANDLES).addTags(VIGIL_CANDLES);
         tag(BlockTags.MINEABLE_WITH_PICKAXE).addTags(VIGIL_CANDLES);
+
+        tag(HEAT_SOURCE).addTags(BlockTags.CAMPFIRES);
 
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
                 OBlocks.WAXED_WHITE_CONCRETE_POWDER.get(),

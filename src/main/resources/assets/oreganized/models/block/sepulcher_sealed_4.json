@@ -1,11 +1,12 @@
 {
 	"credit": "Made with Blockbench",
+	"parent": "block/block",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "Sepulcher",
-		"1": "sepulcher_04",
-		"2": "sepulcher_rot_4",
-		"particle": "Sepulcher"
+		"0": "oreganized:block/sepulcher",
+		"1": "oreganized:block/sepulcher_04",
+		"2": "oreganized:block/sepulcher_rot_4",
+		"particle": "oreganized:block/sepulcher"
 	},
 	"elements": [
 		{

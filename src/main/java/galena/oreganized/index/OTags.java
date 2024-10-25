@@ -96,6 +96,7 @@ public class OTags {
         public static final TagKey<Block> BLOWS_LEAD_CLOUD = tag("blows_lead_cloud");
 
         public static final TagKey<Block> VIGIL_CANDLES = tag("vigil_candles");
+        public static final TagKey<Block> HEAT_SOURCE = tag("heat_source");
 
         private static TagKey<Block> tag(String name) {
             return BlockTags.create(Oreganized.modLoc(name));
@@ -108,6 +109,7 @@ public class OTags {
     public static class Entities {
 
         public static final TagKey<EntityType<?>> LIGHTER_THAN_LEAD = tag("lighter_than_lead");
+        public static final TagKey<EntityType<?>> FILLS_SEPULCHER = tag("fills_sepulcher");
 
         private static TagKey<EntityType<?>> tag(String name) {
             return EntityTypeTags.create(Oreganized.modLoc(name).toString());
