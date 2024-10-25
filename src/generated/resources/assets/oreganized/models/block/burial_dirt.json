@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_top",
   "textures": {
-    "all": "oreganized:block/burial_dirt"
+    "side": "minecraft:block/dirt",
+    "top": "oreganized:block/burial_dirt"
   }
 }

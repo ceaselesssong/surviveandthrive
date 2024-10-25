@@ -134,6 +134,7 @@ public class OItemModels extends OItemModelProvider {
         block(OBlocks.SEPULCHER);
         block(OBlocks.BONE_PILE);
         OBlocks.vigilCandles().forEach(this::normalItem);
+        spawnEggItem(OItems.HOLLER_SPAWN_EGG);
 
         for (Supplier<? extends Block> blocks : OBlocks.WAXED_CONRETE_POWDER) {
             withExistingParent(blockName(blocks), "minecraft:block/" + blockName(blocks).replace("waxed_", ""));

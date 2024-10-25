@@ -12,6 +12,7 @@ import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEffects;
 import galena.oreganized.index.OEntityTypes;
 import galena.oreganized.index.OItems;
+import galena.oreganized.index.OParticleTypes;
 import galena.oreganized.world.IDoorProgressHolder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -21,6 +22,7 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -35,6 +37,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.ViewportEvent;
@@ -46,6 +49,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
+import java.awt.*;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -128,20 +132,35 @@ public class OreganizedClient {
     @Mod.EventBusSubscriber(modid = Oreganized.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
     public static class ForgeBusEvents {
 
-        public static MobEffectInstance fogEffect;
-        private static int timer = 0;
+        private static MobEffectInstance fogEffect;
 
         @SubscribeEvent
         public static void clientTick(TickEvent.ClientTickEvent event) {
             if (!(Minecraft.getInstance().gameRenderer.getMainCamera().getEntity() instanceof Player player)) return;
             fogEffect = player.getEffect(OEffects.FOG.get());
+
+            if (fogEffect == null) return;
+            if (Minecraft.getInstance().isPaused()) return;
+            var level = Minecraft.getInstance().level;
+            if (level == null) return;
+
+            var range = 24;
+            var at = player.position().add((level.random.nextDouble() - 0.5) * range, level.random.nextDouble() * 4 - 2, (level.random.nextDouble() - 0.5) * range);
+            var blockAt = BlockPos.containing(at.x, at.y, at.z);
+
+            if (!level.getBlockState(blockAt).canBeReplaced()) return;
+            if (level.getBlockState(blockAt.below(1)).canBeReplaced()) return;
+
+            if (level.random.nextInt(4) != 0) return;
+
+            level.addParticle(OParticleTypes.FOG.get(), at.x, at.y + 0.5 + level.random.nextDouble(), at.z, level.random.nextFloat() + 0.5F, 0.0, 0.0);
         }
 
         @SubscribeEvent
         public static void fogEffectFog(ViewportEvent.RenderFog event) {
             if (fogEffect != null && fogEffect.getFactorData().isPresent()) {
                 LivingEntity entity = (LivingEntity) Minecraft.getInstance().gameRenderer.getMainCamera().getEntity();
-                float f = Mth.lerp(fogEffect.getFactorData().get().getFactor(entity, (float) event.getPartialTick()), event.getFarPlaneDistance(), 25.0F);
+                float f = Mth.lerp(fogEffect.getFactorData().get().getFactor(entity, (float) event.getPartialTick()), event.getFarPlaneDistance(), 15F);
                 event.setNearPlaneDistance(event.getMode() == FogRenderer.FogMode.FOG_SKY ? -2F : f * -0.5F);
                 event.setFarPlaneDistance(f);
                 event.setCanceled(true);
@@ -150,12 +169,13 @@ public class OreganizedClient {
 
         @SubscribeEvent
         public static void fogEffectColor(ViewportEvent.ComputeFogColor event) {
-            if (fogEffect != null) {
+            if (fogEffect != null && fogEffect.getFactorData().isPresent()) {
+                var color = new Color(0x424955);
                 LivingEntity entity = (LivingEntity) Minecraft.getInstance().gameRenderer.getMainCamera().getEntity();
-                float color = fogEffect.getFactorData().isPresent() ? 1.2F - (fogEffect.getFactorData().get()).getFactor(entity, (float) event.getPartialTick()) : 0.0F;
-                event.setRed(event.getRed()*color);
-                event.setGreen(event.getGreen()*color);
-                event.setBlue(event.getBlue()*color);
+                float factor = (fogEffect.getFactorData().get()).getFactor(entity, (float) event.getPartialTick());
+                event.setRed(color.getRed() / 255F * factor);
+                event.setGreen(color.getGreen() / 255F * factor);
+                event.setBlue(color.getBlue() / 255F * factor);
             }
         }
 
@@ -203,26 +223,14 @@ public class OreganizedClient {
             event.setCanceled(true);
         }
 
-        /*@SubscribeEvent
-        public static void renderMoltenLeadFogColor(ViewportEvent.ComputeFogColor event) {
-            Camera camera = event.getCamera();
-            FluidState fluidState = camera.getBlockAtCamera().getFluidState();
-
-            if(fluidState.getType().isSame(OFluids.MOLTEN_LEAD.get())) {
-                event.setRed(57F / 255F);
-                event.setGreen(57F / 255F);
-                event.setBlue(95F / 255F);
-            }
-        }
         @SubscribeEvent
-        public static void renderMoltenLeadFogDensity(ViewportEvent.RenderFog event) {
-            Camera camera = event.getCamera();
-            FluidState fluidState = camera.getBlockAtCamera().getFluidState();
+        public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+            event.register((stack, i) -> switch (i) {
+                case 0 -> 0x84EED2;
+                case 1 -> 0x24352F;
+                default -> -1;
+            }, OItems.HOLLER_SPAWN_EGG.get());
+        }
 
-            if(fluidState.getType().isSame(OFluids.MOLTEN_LEAD.get())) {
-                event.setFarPlaneDistance(15.0F);
-                event.setCanceled(true);
-            }
-        }*/
     }
 }

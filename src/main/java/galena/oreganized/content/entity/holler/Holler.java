@@ -1,6 +1,5 @@
 package galena.oreganized.content.entity.holler;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEffects;
@@ -8,15 +7,18 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -37,17 +39,18 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
+import java.util.List;
 
 public class Holler extends PathfinderMob {
 
-    private static final ImmutableList<SensorType<? extends Sensor<? super Holler>>> SENSOR_TYPES = ImmutableList.of(
+    private static final List<SensorType<? extends Sensor<? super Holler>>> SENSOR_TYPES = List.of(
             SensorType.NEAREST_LIVING_ENTITIES,
             SensorType.NEAREST_PLAYERS,
             SensorType.HURT_BY
     );
 
 
-    private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
+    private static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
             MemoryModuleType.PATH,
             MemoryModuleType.LOOK_TARGET,
             MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
@@ -209,7 +212,7 @@ public class Holler extends PathfinderMob {
                 double z = getZ()+0.5+random.nextInt(-100, 100)*0.01;
                 level.sendParticles(ParticleTypes.SMOKE, x, y, z, 3, 0, 0, 0, 0);
             }
-            remove(RemovalReason.KILLED);
+            discard();
         }
     }
 

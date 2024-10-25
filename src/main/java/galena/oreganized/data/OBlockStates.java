@@ -4,6 +4,7 @@ import galena.oreganized.Oreganized;
 import galena.oreganized.data.provider.OBlockStateProvider;
 import galena.oreganized.index.OBlocks;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -112,7 +113,7 @@ public class OBlockStates extends OBlockStateProvider {
         simpleBlock(OBlocks.GROOVED_PACKED_ICE);
         simpleBlock(OBlocks.GROOVED_BLUE_ICE);
 
-        simpleBlock(OBlocks.BURIAL_DIRT);
+        simpleBlock(OBlocks.BURIAL_DIRT.get(), models().cubeTop(name(OBlocks.BURIAL_DIRT.get()), new ResourceLocation("block/dirt"), blockTexture(OBlocks.BURIAL_DIRT.get())));
 
         gargoyleBlock(OBlocks.GARGOYLE);
         sepulcherBlock(OBlocks.SEPULCHER);

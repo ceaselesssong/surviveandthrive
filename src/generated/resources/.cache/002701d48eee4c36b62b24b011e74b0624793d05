@@ -1,4 +1,4 @@
-// 1.20.1	2024-10-25T13:00:50.0568446	oreganized Block States
+// 1.20.1	2024-10-25T13:48:45.522871	oreganized Block States
 d85b0fb9e5cad1d9c4f22ed192b0fa621ee3373c assets/oreganized/blockstates/black_crystal_glass.json
 05bb006ff7f48557fe5c5333bc120f7206052717 assets/oreganized/blockstates/black_crystal_glass_pane.json
 5de0c522692198c3b8b01df17d8952035b80c8d9 assets/oreganized/blockstates/black_vigil_candle.json
@@ -229,7 +229,7 @@ d6bb8eb53138bc0091f9e73c3c8990e005b3926b assets/oreganized/models/block/brown_vi
 3a20c447376d131b2691256c961da470ce87a6f9 assets/oreganized/models/block/brown_vigil_candle_triple_ceiling.json
 d02f1462c0da981e9db0433370305d33fef769fa assets/oreganized/models/block/brown_vigil_candle_triple_ceiling_lit.json
 66d2fbfb6ffede8be2d217cb5e169a8e2a0f569d assets/oreganized/models/block/brown_vigil_candle_triple_lit.json
-6333e54a2b61b252d96e4c4f76cf85836e64bacc assets/oreganized/models/block/burial_dirt.json
+d6860977ddb0d657bc3464b8f22076d21dea2bfa assets/oreganized/models/block/burial_dirt.json
 4f188c17f6b739d6090b40856dee05dae6b32316 assets/oreganized/models/block/chiseled_glance.json
 a9aeea1dec59b5c1594205bb9bc7034f30f447f0 assets/oreganized/models/block/cut_lead.json
 65035089ce2758727d5b6cbc94c1a51c92ce613d assets/oreganized/models/block/cyan_concrete_powder.json

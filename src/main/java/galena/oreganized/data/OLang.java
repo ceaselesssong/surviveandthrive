@@ -41,6 +41,7 @@ public class OLang extends OLangProvider {
         addBlock(OBlocks.BONE_PILE, "Pile of Bones");
 
         addEffect(OEffects.STUNNING, "Brain Damage");
+        addEffect(OEffects.FOG, "Fog");
         addPotion(OPotions.STUNNING, "Brain Damage");
 
         add("trim_material.oreganized.lead", "Lead material");

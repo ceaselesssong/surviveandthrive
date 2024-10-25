@@ -449,6 +449,10 @@ public class Oreganized {
         if (ModList.get().isLoaded(NETHERS_DELIGHT_ID)) {
             putAfter(entries, NDItems.NETHERITE_MACHETE.get(), OItems.ELECTRUM_MACHETE);
         }
+
+        if(tab == CreativeModeTabs.SPAWN_EGGS) {
+            event.accept(new ItemStack(OItems.HOLLER_SPAWN_EGG.get()));
+        }
     }
 
     private static void putAfter(MutableHashedLinkedMap<ItemStack, CreativeModeTab.TabVisibility> entries, ItemLike after, Supplier<? extends ItemLike> supplier) {

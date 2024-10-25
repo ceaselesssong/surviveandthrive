@@ -1,4 +1,4 @@
-// 1.20.1	2024-10-25T13:00:50.0648453	oreganized Item Models
+// 1.20.1	2024-10-25T14:04:02.7686101	oreganized Item Models
 18fcb236eeab67fa16a0014d9af5ba7dd6f9e7c8 assets/oreganized/models/item/black_crystal_glass.json
 30bbb36792cb2d3f0a8a399f25238120cdf7e659 assets/oreganized/models/item/black_crystal_glass_pane.json
 e79054a9c107cbd9357eebf3aacbcd7c27955b9b assets/oreganized/models/item/black_vigil_candle.json
@@ -95,6 +95,7 @@ da3f4f274a50f655f5e80f10354a247a4930c644 assets/oreganized/models/item/green_vig
 980a1d284d8ad09fb8a3cd3f6de11a5150e48a60 assets/oreganized/models/item/grooved_blue_ice.json
 0a9bb963b90f719437cc2208e8a61ac1ea12d07d assets/oreganized/models/item/grooved_ice.json
 0253c31f06cd51dcace95b3f958e2fa2e98bc954 assets/oreganized/models/item/grooved_packed_ice.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/oreganized/models/item/holler_spawn_egg.json
 55b5268d1200536fb742606ae34dd2a149e6d5be assets/oreganized/models/item/lead_bars.json
 41e56017441ac21af8e8b9bb05b61e1cf4fbd035 assets/oreganized/models/item/lead_block.json
 ae57922ed2f7a86f2f2228c54fe277a743a93000 assets/oreganized/models/item/lead_bolt.json

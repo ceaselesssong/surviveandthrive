@@ -14,6 +14,7 @@ import galena.oreganized.content.item.ScribeItem;
 import galena.oreganized.content.item.SilverMirrorItem;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.*;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
@@ -88,6 +89,5 @@ public class OItems {
     public static final RegistryObject<Item> SHRAPNEL_BOMB_MINECART = HELPER.createItem("shrapnel_bomb_minecart", () -> new MinecartShrapnelBombItem(AbstractMinecart.Type.TNT, OEntityTypes.SHRAPNEL_BOMB_MINECART));
 
     // Misc
-//    public static final RegistryObject<SpawnEggItem> HOLLER_SPAWN_EGG = HELPER.createItem("holler_spawn_egg",
-//    () -> new SpawnEggItem(OEntityTypes.HOLLER.get(), 56063, 44543, new Item.Properties()));
+    public static final RegistryObject<SpawnEggItem> HOLLER_SPAWN_EGG = HELPER.createItem("holler_spawn_egg", () -> new ForgeSpawnEggItem(OEntityTypes.HOLLER, 56063, 44543, new Item.Properties()));
 }

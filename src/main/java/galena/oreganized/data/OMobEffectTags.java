@@ -7,7 +7,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
@@ -28,6 +27,6 @@ public class OMobEffectTags extends TagsProvider<MobEffect> {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(OTags.Effects.VIGIL_CANDLE_CLEARS).add(ResourceKey.create(Registries.MOB_EFFECT, new ResourceLocation("darkness")));
+        tag(OTags.Effects.VIGIL_CANDLE_CLEARS).add(ResourceKey.create(Registries.MOB_EFFECT, Oreganized.modLoc("fog")));
     }
 }
