@@ -3,9 +3,9 @@ package galena.oreganized.index;
 import com.google.common.collect.ImmutableBiMap;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import galena.oreganized.Oreganized;
-import galena.oreganized.content.block.*;
 import galena.oreganized.content.block.BonePileBlock;
 import galena.oreganized.content.block.BulbBlock;
+import galena.oreganized.content.block.BurialDirtBlock;
 import galena.oreganized.content.block.CrystalGlassBlock;
 import galena.oreganized.content.block.CrystalGlassPaneBlock;
 import galena.oreganized.content.block.GargoyleBlock;
@@ -219,7 +219,9 @@ public class OBlocks {
     public static Stream<RegistryObject<Block>> vigilCandles() {
         return Stream.of(
                 Stream.of(VIGIL_CANDLE),
-                COLORED_VIGIL_CANDLES.values().stream()
+                COLORED_VIGIL_CANDLES.entrySet().stream()
+                        .sorted(Map.Entry.comparingByKey())
+                        .map(Map.Entry::getValue)
         ).flatMap(Function.identity());
     }
 
