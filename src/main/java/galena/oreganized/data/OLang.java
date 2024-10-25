@@ -57,6 +57,12 @@ public class OLang extends OLangProvider {
         addSubtitle("entity", "shrapnel_bomb.primed", "Shrapnel Bomb fizzes");
         addSubtitle("entity", "bolt_hit", "Bolt hits");
         addSubtitle("block", "gargoyle.growl", "Gargoyle growls");
+        addSubtitle("block", "sepulcher.unsealing", "Sepulcher opened");
+        addSubtitle("block", "sepulcher.sealing", "Sepulcher sealed");
+        addSubtitle("block", "sepulcher.rotting", "Sepulcher rotting");
+        addSubtitle("block", "sepulcher.harvest", "Sepulcher emptied");
+        addSubtitle("block", "sepulcher.filled", "Sepulcher filled");
+        addSubtitle("block", "sepulcher.corpse_stuffed", "Sepulcher consumes corpse");
 
         add("tooltip.oreganized.wip.title", "Work In Progress");
         add("tooltip.oreganized.wip.description", "Usages for this item will be available in a future release");

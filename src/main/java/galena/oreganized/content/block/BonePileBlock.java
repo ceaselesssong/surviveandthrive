@@ -25,9 +25,9 @@ import java.util.function.Consumer;
 
 public class BonePileBlock extends FallingBlock {
 
-    protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 13.0, 16.0);
+    protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 12.0, 16.0);
 
-    private static StatePredicate ALWAYS = (s, l, p) -> true;
+    private static final StatePredicate ALWAYS = (s, l, p) -> true;
 
     public BonePileBlock(Properties properties) {
         super(properties.isRedstoneConductor(ALWAYS).isSuffocating(ALWAYS).isViewBlocking(ALWAYS).noParticlesOnBreak());
@@ -52,7 +52,7 @@ public class BonePileBlock extends FallingBlock {
         super.onLand(level, pos, state, other, entity);
         if (!entity.isSilent())
             level.playSound(null, pos, OSoundEvents.BONE_PILE_FALL.get(), SoundSource.BLOCKS, 1F, 1F);
-        particles(level, Vec3.atCenterOf(pos), 10);
+        particles(level, Vec3.atCenterOf(pos), 20);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class BonePileBlock extends FallingBlock {
 
         @Override
         public boolean addDestroyEffects(BlockState state, Level level, BlockPos pos, ParticleEngine manager) {
-            particles(level, Vec3.atCenterOf(pos), 10);
+            particles(level, Vec3.atCenterOf(pos), 20);
             return IClientBlockExtensions.super.addDestroyEffects(state, level, pos, manager);
         }
 
