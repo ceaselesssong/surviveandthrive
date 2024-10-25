@@ -113,6 +113,16 @@ public class OLootTables extends LootTableProvider {
                                     LootItem.lootTableItem(OBlocks.LEAD_BARS.get())
                             )))));
 
+            add(OBlocks.BURIAL_DIRT.get(), LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0F))
+                            .add(AlternativesEntry.alternatives(
+                                    LootItem.lootTableItem(OBlocks.BURIAL_DIRT.get())
+                                            .when(HAS_SILK_TOUCH),
+                                    LootItem.lootTableItem(Blocks.DIRT)
+                                            .when(HAS_NO_SILK_TOUCH)
+                            ))));
+
             //dropSelf(QCompatRegistry.GLANCE_PILLAR);
             //slab(QCompatRegistry.RAW_LEAD_BRICK_SLAB);
             //slab(QCompatRegistry.RAW_SILVER_BRICK_SLAB);
@@ -169,7 +179,7 @@ public class OLootTables extends LootTableProvider {
 
         @Override
         public void generate() {
-
+            add(OEntityTypes.HOLLER.get(), LootTable.lootTable());
         }
 
         @Override

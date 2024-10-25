@@ -112,6 +112,8 @@ public class OBlockStates extends OBlockStateProvider {
         simpleBlock(OBlocks.GROOVED_PACKED_ICE);
         simpleBlock(OBlocks.GROOVED_BLUE_ICE);
 
+        simpleBlock(OBlocks.BURIAL_DIRT);
+
         gargoyleBlock(OBlocks.GARGOYLE);
         sepulcherBlock(OBlocks.SEPULCHER);
         simpleBlock(OBlocks.BONE_PILE.get(), models().cubeColumn(blockTexture(OBlocks.BONE_PILE.get()).getPath(), Oreganized.modLoc("block/bone_pile_side"), Oreganized.modLoc("block/sepulcher_rot_5")));

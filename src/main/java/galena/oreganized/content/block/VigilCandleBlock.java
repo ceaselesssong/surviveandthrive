@@ -23,7 +23,6 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,21 +43,9 @@ public class VigilCandleBlock extends LanternBlock implements TickingEntityBlock
     private static VoxelShape[] createShapes(boolean hanging) {
         return new VoxelShape[]{
                 shape(5, hanging ? 2 : 0, 5),
-                Shapes.or(
-                        shape(6 + (hanging ? 0 : 1), hanging ? 2 : 0, 1),
-                        shape(3, 0, 9)
-                ),
-                Shapes.or(
-                        shape(1, 0, 2 + (hanging ? 2 : 0)),
-                        shape(9, hanging ? 2 : 0, 1),
-                        shape(7 + (hanging ? 2 : 0), hanging ? 4 : 0, 9)
-                ),
-                Shapes.or(
-                        shape(1, hanging ? 4 : 0, 1),
-                        shape(9, 0, 1),
-                        shape(1, 0, 9),
-                        shape(9, hanging ? 2 : 0, 9)
-                )
+                Block.box(3, 0, 1, hanging ? 12 : 13, hanging ? 12 : 10, 15),
+                Block.box(1, 0, 1, 15, hanging ? 14 : 10, 15),
+                Block.box(1, 0, 1, 15, hanging ? 14 : 10, 15)
         };
     }
 
@@ -94,8 +81,7 @@ public class VigilCandleBlock extends LanternBlock implements TickingEntityBlock
         var candles = state.getValue(CANDLES);
         var hanging = state.getValue(HANGING);
         var index = candles - 1;
-        return createShapes(hanging)[index];
-        //return (handing ? HANGING_SHAPES : SHAPES)[index];
+        return (hanging ? HANGING_SHAPES : SHAPES)[index];
     }
 
     @Override

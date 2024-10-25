@@ -130,6 +130,7 @@ public class OItemModels extends OItemModelProvider {
         block(OBlocks.GROOVED_PACKED_ICE);
         block(OBlocks.GROOVED_BLUE_ICE);
 
+        block(OBlocks.BURIAL_DIRT);
         block(OBlocks.SEPULCHER);
         block(OBlocks.BONE_PILE);
         OBlocks.vigilCandles().forEach(this::normalItem);

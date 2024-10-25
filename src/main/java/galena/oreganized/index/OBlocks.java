@@ -3,6 +3,7 @@ package galena.oreganized.index;
 import com.google.common.collect.ImmutableBiMap;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import galena.oreganized.Oreganized;
+import galena.oreganized.content.block.*;
 import galena.oreganized.content.block.BonePileBlock;
 import galena.oreganized.content.block.BulbBlock;
 import galena.oreganized.content.block.CrystalGlassBlock;
@@ -144,6 +145,8 @@ public class OBlocks {
     public static final RegistryObject<Block> GROOVED_ICE = register("grooved_ice", () -> new IceBlock(BlockBehaviour.Properties.copy(Blocks.ICE).friction(0.6F)));
     public static final RegistryObject<Block> GROOVED_PACKED_ICE = register("grooved_packed_ice", () -> new Block(BlockBehaviour.Properties.copy(Blocks.PACKED_ICE).friction(0.6F)));
     public static final RegistryObject<Block> GROOVED_BLUE_ICE = register("grooved_blue_ice", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BLUE_ICE).friction(0.6F)));
+
+    public static final RegistryObject<Block> BURIAL_DIRT = register("burial_dirt", () -> new BurialDirtBlock(BlockBehaviour.Properties.copy(Blocks.DIRT)));
 
     public static final List<RegistryObject<Block>> CRYSTAL_GLASS = List.of(
             WHITE_CRYSTAL_GLASS, ORANGE_CRYSTAL_GLASS, MAGENTA_CRYSTAL_GLASS, LIGHT_BLUE_CRYSTAL_GLASS,

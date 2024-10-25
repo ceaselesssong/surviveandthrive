@@ -1,4 +1,4 @@
-// 1.20.1	2024-10-22T21:24:48.3830539	oreganized Item Models
+// 1.20.1	2024-10-25T13:00:50.0648453	oreganized Item Models
 18fcb236eeab67fa16a0014d9af5ba7dd6f9e7c8 assets/oreganized/models/item/black_crystal_glass.json
 30bbb36792cb2d3f0a8a399f25238120cdf7e659 assets/oreganized/models/item/black_crystal_glass_pane.json
 e79054a9c107cbd9357eebf3aacbcd7c27955b9b assets/oreganized/models/item/black_vigil_candle.json
@@ -9,6 +9,7 @@ b7158c4246d64e83d23470e470f46e2afc0999b1 assets/oreganized/models/item/bone_pile
 ca77522dcfcf982429256fd99ca0e9f2c195bd73 assets/oreganized/models/item/brown_crystal_glass.json
 cc365240dd7450add26aeaf5e0e689e985a4e5ad assets/oreganized/models/item/brown_crystal_glass_pane.json
 5ad09a7c21c27fa1710fd42e043558b61c872912 assets/oreganized/models/item/brown_vigil_candle.json
+daf453ebc13e1d60597b108b0912322efa406712 assets/oreganized/models/item/burial_dirt.json
 87ae9e55b9b93036e2004b186696da47cbc5ca81 assets/oreganized/models/item/bush_hammer.json
 9cb46711c71fcec37eae98916aa50acbe76cf96d assets/oreganized/models/item/chiseled_glance.json
 0873e5720c3f7d81c4ef7e3f3d333e14a87e6757 assets/oreganized/models/item/crossbow_lead_bolt.json
