@@ -4,6 +4,24 @@ import com.google.common.collect.ImmutableBiMap;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import galena.oreganized.Oreganized;
 import galena.oreganized.content.block.*;
+import galena.oreganized.content.block.BonePileBlock;
+import galena.oreganized.content.block.BulbBlock;
+import galena.oreganized.content.block.CrystalGlassBlock;
+import galena.oreganized.content.block.CrystalGlassPaneBlock;
+import galena.oreganized.content.block.GargoyleBlock;
+import galena.oreganized.content.block.IMeltableBlock;
+import galena.oreganized.content.block.LeadBarsBlock;
+import galena.oreganized.content.block.LeadDoorBlock;
+import galena.oreganized.content.block.LeadOreBlock;
+import galena.oreganized.content.block.LeadTrapdoorBlock;
+import galena.oreganized.content.block.MeltableBlock;
+import galena.oreganized.content.block.MeltablePillarBlock;
+import galena.oreganized.content.block.MoltenLeadBlock;
+import galena.oreganized.content.block.MoltenLeadCauldronBlock;
+import galena.oreganized.content.block.SepulcherBlock;
+import galena.oreganized.content.block.ShrapnelBombBlock;
+import galena.oreganized.content.block.SpottedGlanceBlock;
+import galena.oreganized.content.block.VigilCandleBlock;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
@@ -21,13 +39,18 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Mod.EventBusSubscriber(modid = Oreganized.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class OBlocks {
@@ -184,6 +207,28 @@ public class OBlocks {
     public static final RegistryObject<LiquidBlock> MOLTEN_LEAD = HELPER.createBlock("molten_lead", () ->
             new MoltenLeadBlock(OFluids.MOLTEN_LEAD, BlockBehaviour.Properties.copy(Blocks.LAVA).mapColor(MapColor.COLOR_PURPLE)));
     public static final RegistryObject<Block> MOLTEN_LEAD_CAULDRON = HELPER.createBlock("molten_lead_cauldron", () -> new MoltenLeadCauldronBlock(BlockBehaviour.Properties.copy(Blocks.LAVA_CAULDRON).randomTicks()));
+
+    public static final RegistryObject<Block> SEPULCHER =  register("sepulcher", () -> new SepulcherBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).sound(OSoundTypes.SEPULCHER)));
+    public static final RegistryObject<Block> BONE_PILE =  register("bone_pile", () -> new BonePileBlock(BlockBehaviour.Properties.copy(Blocks.BONE_BLOCK).sound(OSoundTypes.BONE_PILE).strength(1F)));
+    public static final RegistryObject<Block> ROTTING_FLESH =  HELPER.createBlock("rotting_flesh", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT)));
+
+    private static final Supplier<BlockBehaviour.Properties> VIGIL_CANDLE_PROPERTIES = () -> BlockBehaviour.Properties.of().lightLevel(VigilCandleBlock.LIGHT_EMISSION).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY);
+    public static final RegistryObject<Block> VIGIL_CANDLE = register("vigil_candle", () -> new VigilCandleBlock(VIGIL_CANDLE_PROPERTIES.get()));
+    public static final Map<DyeColor, RegistryObject<Block>> COLORED_VIGIL_CANDLES = registerColored("vigil_candle", color -> new VigilCandleBlock(VIGIL_CANDLE_PROPERTIES.get().mapColor(color)));
+
+    public static Stream<RegistryObject<Block>> vigilCandles() {
+        return Stream.of(
+                Stream.of(VIGIL_CANDLE),
+                COLORED_VIGIL_CANDLES.values().stream()
+        ).flatMap(Function.identity());
+    }
+
+    public static <T extends Block> Map<DyeColor, RegistryObject<T>> registerColored(String baseName, Function<DyeColor, ? extends T> factory) {
+        return Arrays.stream(DyeColor.values()).collect(Collectors.toMap(
+                it -> it,
+                color -> register(color.getSerializedName() + "_" + baseName, () -> factory.apply(color))
+        ));
+    }
 
     public static <T extends Block> RegistryObject<T> baseRegister(String name, Supplier<? extends T> block, Function<RegistryObject<T>, Supplier<? extends Item>> item) {
         RegistryObject<T> register = HELPER.createBlockNoItem(name, block);

@@ -2,6 +2,7 @@ package galena.oreganized.data;
 
 import galena.oreganized.Oreganized;
 import galena.oreganized.content.block.IMeltableBlock;
+import galena.oreganized.content.block.SepulcherBlock;
 import galena.oreganized.data.provider.OBlockLootProvider;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEntityTypes;
@@ -137,6 +138,17 @@ public class OLootTables extends LootTableProvider {
             for (Supplier<? extends Block> blocks : OBlocks.WAXED_CONRETE_POWDER) {
                 dropSelf(blocks);
             }
+
+            add(OBlocks.SEPULCHER.get(), it -> createSingleItemTable(it)
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0F))
+                            .add(LootItem.lootTableItem(OBlocks.BONE_PILE.get()))
+                            .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(it).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SepulcherBlock.LEVEL, SepulcherBlock.READY)))
+                    )
+            );
+            dropSelf(OBlocks.BONE_PILE);
+            dropNothing(OBlocks.ROTTING_FLESH);
+            OBlocks.vigilCandles().forEach(this::vigilCandle);
         }
 
         private void grooved(Supplier<Block> block, Block other) {

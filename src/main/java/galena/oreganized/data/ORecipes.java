@@ -6,12 +6,16 @@ import galena.oreganized.data.provider.ORecipeProvider;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OItems;
 import galena.oreganized.index.OTags;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -249,7 +253,7 @@ public class ORecipes extends ORecipeProvider {
                 .save(consumer, Oreganized.modLoc("poisonous_potato_from_lead"));
 
         compact(OBlocks.LEAD_BOLT_CRATE.get().asItem(), OItems.LEAD_BOLT.get()).save(consumer);
-        unCompact(OItems.LEAD_BOLT.get(), OBlocks.LEAD_BOLT_CRATE.get().asItem()).save(consumer, Oreganized.modLoc( "lead_bolt_from_crate"));
+        unCompact(OItems.LEAD_BOLT.get(), OBlocks.LEAD_BOLT_CRATE.get().asItem()).save(consumer, Oreganized.modLoc("lead_bolt_from_crate"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OBlocks.LEAD_BULB.get(), 1)
                 .pattern(" I ")
@@ -292,5 +296,30 @@ public class ORecipes extends ORecipeProvider {
                 .unlockedBy("has_silver", has(OTags.Items.INGOTS_SILVER))
                 .unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
                 .save(consumer);
+
+        vigilCandle(OBlocks.VIGIL_CANDLE, Blocks.CANDLE).save(consumer);
+
+        OBlocks.COLORED_VIGIL_CANDLES.forEach((color, block) -> {
+            var candle = BuiltInRegistries.BLOCK.get(new ResourceLocation(color.getSerializedName() + "_candle"));
+            vigilCandle(block, candle).save(consumer);
+
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, block.get())
+                    .requires(OBlocks.VIGIL_CANDLE.get())
+                    .requires(DyeItem.byColor(color))
+                    .unlockedBy("has_vigil_candle", has(OBlocks.VIGIL_CANDLE.get()))
+                    .group("vigil_candle")
+                    .save(consumer, RecipeBuilder.getDefaultRecipeId(block.get()).withSuffix("_dyeing"));
+        });
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, OBlocks.SEPULCHER.get())
+                .pattern("# #")
+                .pattern("# #")
+                .pattern("###")
+                .define('#', OTags.Items.INGOTS_SILVER)
+                .unlockedBy("has_silver", has(OTags.Items.INGOTS_SILVER))
+                .save(consumer);
+
+        compact(OBlocks.BONE_PILE.get().asItem(), Items.BONE).save(consumer);
+        unCompact(Items.BONE, OBlocks.BONE_PILE.get().asItem()).save(consumer);
     }
 }

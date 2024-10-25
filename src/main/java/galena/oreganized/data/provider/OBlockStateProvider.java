@@ -8,9 +8,11 @@ import galena.oreganized.content.block.GargoyleBlock;
 import galena.oreganized.content.block.IMeltableBlock;
 import galena.oreganized.content.block.LeadDoorBlock;
 import galena.oreganized.content.block.MoltenLeadCauldronBlock;
+import galena.oreganized.content.block.SepulcherBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.AbstractCandleBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CrossCollisionBlock;
 import net.minecraft.world.level.block.DoorBlock;
@@ -33,9 +35,11 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -374,6 +378,59 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
                     .modelFile(attachment == GargoyleBlock.AttachmentType.WALL ? wallModel : floorModel)
                     .build();
         });
+    }
+
+    private String sepulcherSuffix(int fillLevel) {
+        if (fillLevel == 0) return "";
+        if (fillLevel > SepulcherBlock.MAX_LEVEL) return "_sealed_" + (fillLevel - SepulcherBlock.MAX_LEVEL);
+        return "_being_filled_" + fillLevel;
+    }
+
+    public void sepulcherBlock(Supplier<? extends Block> block) {
+        getVariantBuilder(block.get()).forAllStates(state -> {
+            var fillLevel = state.getValue(SepulcherBlock.LEVEL);
+            var name = blockTexture(block.get()).withSuffix(sepulcherSuffix(fillLevel));
+            return ConfiguredModel.builder()
+                    .modelFile(models().getExistingFile(name))
+                    .build();
+        });
+    }
+
+    private String candleSuffix(int amount) {
+        switch (amount) {
+            case 1:
+                return "single";
+            case 2:
+                return "double";
+            case 3:
+                return "triple";
+            case 4:
+                return "quadruple";
+            default:
+                throw new IllegalArgumentException("Illegal candle amount: " + amount);
+        }
+    }
+
+    public void vigilCandle(Supplier<? extends Block> block, @Nullable String prefix) {
+        getVariantBuilder(block.get()).forAllStatesExcept(state -> {
+            var candles = state.getValue(BlockStateProperties.CANDLES);
+            boolean hanging = state.getValue(BlockStateProperties.HANGING);
+            boolean lit = state.getValue(AbstractCandleBlock.LIT);
+
+            var hangingSuffix = hanging ? "_ceiling" : "";
+            var parent = "vigil_candle_" + candleSuffix(candles) + hangingSuffix;
+            var optionalPrefix = Optional.ofNullable(prefix).map(it -> it + "_");
+            var litSuffix = lit ? "_lit" : "";
+            var name = optionalPrefix.orElse("default") + parent + litSuffix;
+            var texture = BLOCK_FOLDER + "/" + optionalPrefix.orElse("") + "vigil_candle" + litSuffix;
+
+            var model = models().withExistingParent(name, Oreganized.modLoc(parent))
+                    .texture("0", texture);
+
+            return ConfiguredModel.builder()
+                    .modelFile(model)
+                    .build();
+        }, BlockStateProperties.WATERLOGGED);
     }
 
     public void crate(Supplier<? extends Block> block) {

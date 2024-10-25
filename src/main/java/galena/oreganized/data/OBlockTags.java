@@ -22,6 +22,7 @@ import static galena.oreganized.index.OTags.Blocks.BLOWS_LEAD_CLOUD;
 import static galena.oreganized.index.OTags.Blocks.CRYSTAL_GLASS;
 import static galena.oreganized.index.OTags.Blocks.CRYSTAL_GLASS_PANES;
 import static galena.oreganized.index.OTags.Blocks.FIRE_SOURCE;
+import static galena.oreganized.index.OTags.Blocks.HEAT_SOURCE;
 import static galena.oreganized.index.OTags.Blocks.MELTS_LEAD;
 import static galena.oreganized.index.OTags.Blocks.MINEABLE_WITH_SCRIBE;
 import static galena.oreganized.index.OTags.Blocks.ORES_LEAD;
@@ -35,6 +36,7 @@ import static galena.oreganized.index.OTags.Blocks.STORAGE_BLOCKS_LEAD;
 import static galena.oreganized.index.OTags.Blocks.STORAGE_BLOCKS_RAW_LEAD;
 import static galena.oreganized.index.OTags.Blocks.STORAGE_BLOCKS_RAW_SILVER;
 import static galena.oreganized.index.OTags.Blocks.STORAGE_BLOCKS_SILVER;
+import static galena.oreganized.index.OTags.Blocks.VIGIL_CANDLES;
 
 public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
 
@@ -95,6 +97,7 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
         /*tag(MINEABLE_WITH_BUSH_HAMMER).add(
 
         );*/
+
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 OBlocks.LEAD_ORE.get(),
                 OBlocks.DEEPSLATE_LEAD_ORE.get(),
@@ -137,8 +140,21 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
 
                 OBlocks.GROOVED_ICE.get(),
                 OBlocks.GROOVED_PACKED_ICE.get(),
-                OBlocks.GROOVED_BLUE_ICE.get()
+                OBlocks.GROOVED_BLUE_ICE.get(),
+
+                OBlocks.SEPULCHER.get(),
+                OBlocks.BONE_PILE.get()
         );
+
+        var vigilCandles = tag(VIGIL_CANDLES);
+
+        OBlocks.vigilCandles().forEach(block -> vigilCandles.add(block.get()));
+
+        tag(BlockTags.CANDLES).addTags(VIGIL_CANDLES);
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).addTags(VIGIL_CANDLES);
+
+        tag(HEAT_SOURCE).addTags(BlockTags.CAMPFIRES);
+
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
                 OBlocks.WAXED_WHITE_CONCRETE_POWDER.get(),
                 OBlocks.WAXED_ORANGE_CONCRETE_POWDER.get(),

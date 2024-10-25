@@ -3,7 +3,6 @@ package galena.oreganized.data;
 import galena.oreganized.Oreganized;
 import galena.oreganized.index.OTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.world.entity.EntityType;
@@ -27,6 +26,12 @@ public class OEntityTags extends EntityTypeTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         // Oreganized
         tag(OTags.Entities.LIGHTER_THAN_LEAD).add(EntityType.IRON_GOLEM);
+
+        tag(OTags.Entities.FILLS_SEPULCHER)
+                .add(EntityType.PLAYER)
+                .add(EntityType.ZOMBIE)
+                .add(EntityType.ZOMBIE_VILLAGER)
+                .add(EntityType.VILLAGER);
 
         // Vanilla
         //tag(EntityTypeTags.IMPACT_PROJECTILES).add(OEntityTypes.LEAD_BOLT.get());

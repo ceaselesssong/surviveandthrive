@@ -2,10 +2,10 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "Sepulcher",
-		"1": "sepulcher_01",
-		"2": "sepulcher_rot_1",
-		"particle": "Sepulcher"
+		"0": "oreganized:block/sepulcher",
+		"1": "oreganized:block/sepulcher_01",
+		"2": "oreganized:block/sepulcher_rot_1",
+		"particle": "oreganized:block/sepulcher"
 	},
 	"elements": [
 		{

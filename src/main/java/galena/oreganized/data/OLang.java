@@ -38,6 +38,7 @@ public class OLang extends OLangProvider {
         addBlock(OBlocks.CUT_LEAD, "Cut Lead");
         addBlock(OBlocks.ELECTRUM_BLOCK, "Block of Electrum");
         addBlock(OBlocks.LEAD_BOLT_CRATE, "Crate of Lead Bolts");
+        addBlock(OBlocks.BONE_PILE, "Pile of Bones");
 
         addEffect(OEffects.STUNNING, "Brain Damage");
         addPotion(OPotions.STUNNING, "Brain Damage");

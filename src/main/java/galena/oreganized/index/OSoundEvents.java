@@ -18,4 +18,22 @@ public class OSoundEvents {
 
     public static final RegistryObject<SoundEvent> BOLT_HIT = HELPER.createSoundEvent("entity.bolt_hit");
     public static final RegistryObject<SoundEvent> BOLT_HIT_ARMOR = HELPER.createSoundEvent("entity.bolt_hit_armor");
+
+    public static final RegistryObject<SoundEvent> BONE_PILE_BREAK = HELPER.createSoundEvent("block.bone_pile.break");
+    public static final RegistryObject<SoundEvent> BONE_PILE_STEP = HELPER.createSoundEvent("block.bone_pile.step");
+    public static final RegistryObject<SoundEvent> BONE_PILE_FALL = HELPER.createSoundEvent("block.bone_pile.fall");
+    public static final RegistryObject<SoundEvent> BONE_PILE_HIT = HELPER.createSoundEvent("block.bone_pile.hit");
+    public static final RegistryObject<SoundEvent> BONE_PILE_PLACE = HELPER.createSoundEvent("block.bone_pile.place");
+
+    public static final RegistryObject<SoundEvent> SEPULCHER_BREAK = HELPER.createSoundEvent("block.sepulcher.break");
+    public static final RegistryObject<SoundEvent> SEPULCHER_STEP = HELPER.createSoundEvent("block.sepulcher.step");
+    public static final RegistryObject<SoundEvent> SEPULCHER_FALL = HELPER.createSoundEvent("block.sepulcher.fall");
+    public static final RegistryObject<SoundEvent> SEPULCHER_HIT = HELPER.createSoundEvent("block.sepulcher.hit");
+    public static final RegistryObject<SoundEvent> SEPULCHER_PLACE = HELPER.createSoundEvent("block.sepulcher.place");
+    public static final RegistryObject<SoundEvent> SEPULCHER_CORPSE_STUFFED = HELPER.createSoundEvent("block.sepulcher.corpse_stuffed");
+    public static final RegistryObject<SoundEvent> SEPULCHER_FILLED = HELPER.createSoundEvent("block.sepulcher.filled");
+    public static final RegistryObject<SoundEvent> SEPULCHER_ROTTING = HELPER.createSoundEvent("block.sepulcher.rotting");
+    public static final RegistryObject<SoundEvent> SEPULCHER_SEALING = HELPER.createSoundEvent("block.sepulcher.sealing");
+    public static final RegistryObject<SoundEvent> SEPULCHER_UNSEALING = HELPER.createSoundEvent("block.sepulcher.unsealing");
+    public static final RegistryObject<SoundEvent> SEPULCHER_HARVEST = HELPER.createSoundEvent("block.sepulcher.harvest");
 }

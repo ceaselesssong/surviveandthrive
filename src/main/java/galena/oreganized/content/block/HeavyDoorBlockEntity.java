@@ -1,5 +1,6 @@
 package galena.oreganized.content.block;
 
+import galena.oreganized.content.entity.Ticking;
 import galena.oreganized.index.OBlockEntities;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.ODamageSources;
@@ -11,8 +12,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -23,7 +22,7 @@ import java.util.Optional;
 import static galena.oreganized.content.block.LeadDoorBlock.ANIMATED;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.OPEN;
 
-public class HeavyDoorBlockEntity extends BlockEntity {
+public class HeavyDoorBlockEntity extends BlockEntity implements Ticking {
 
     private int pressure = 0;
 
@@ -41,16 +40,7 @@ public class HeavyDoorBlockEntity extends BlockEntity {
         return Optional.empty();
     }
 
-    @SuppressWarnings("unchecked")
-    public static @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (type == OBlockEntities.HEAVY_DOOR.get()) {
-            BlockEntityTicker<HeavyDoorBlockEntity> ticker = (l, p, s, be) -> be.tick(s, l, p);
-            return (BlockEntityTicker<T>) ticker;
-        }
-
-        return null;
-    }
-
+    @Override
     public void tick(BlockState state, Level level, BlockPos pos) {
         if (pressure <= 0) return;
 
