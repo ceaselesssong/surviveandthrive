@@ -18,7 +18,7 @@ import java.util.function.Function;
 
 // once again copied from sign text. Just needed for the amount of lines
 public class StoneTabletText {
-    public static final int LINES = 14;
+    public static final int LINES = 13;
 
     private static final Codec<Component[]> LINES_CODEC = ExtraCodecs.FLAT_COMPONENT
             .listOf()

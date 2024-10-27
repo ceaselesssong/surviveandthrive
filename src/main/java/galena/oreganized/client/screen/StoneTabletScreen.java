@@ -155,9 +155,10 @@ public class StoneTabletScreen extends Screen {
 
         int imageWidth = 192;
         int imageHeight = 192;
-        guiGraphics.pose().translate((float) this.width / 2.0F, 90.0F, 50.0F);
+        guiGraphics.pose().translate((float) this.width / 2.0F, 100.0F, 50.0F);
 
-        guiGraphics.blit(BACKGROUND, -imageWidth / 2, -imageHeight / 2, 0, 0, imageWidth, imageHeight);
+        guiGraphics.blit(BACKGROUND, -imageWidth / 2, -imageHeight / 2,
+                0, 0, imageWidth, imageHeight);
 
 
         this.renderSignText(guiGraphics);
@@ -165,7 +166,7 @@ public class StoneTabletScreen extends Screen {
     }
 
     private void renderSignText(GuiGraphics guiGraphics) {
-        guiGraphics.pose().translate(0.0F, 0.0F, 4.0F);
+        guiGraphics.pose().translate(0.0F, -5.0F, 4.0F);
         float scale = 1;
         guiGraphics.pose().scale(scale, scale, scale);
         int color = OReloadListener.getColor();
@@ -226,11 +227,20 @@ public class StoneTabletScreen extends Screen {
         pose.pushPose();
         guiGraphics.drawString(this.font, string, pX, pY, normal, false);
         pose.translate(0, 0, -1);
-        guiGraphics.drawString(this.font, string, pX+1, pY+1, light, false);
-        guiGraphics.drawString(this.font, string, pX+1, pY+2, light, false);
+
+        guiGraphics.drawString(this.font, string, pX - 1, pY - 1, dark, false);
+        guiGraphics.drawString(this.font, string, pX, pY - 1, dark, false);
+        guiGraphics.drawString(this.font, string, pX - 1, pY, dark, false);
 
         pose.translate(0, 0, -1);
 
+        guiGraphics.drawString(this.font, string, pX + 1, pY + 1, light, false);
+        guiGraphics.drawString(this.font, string, pX + 1, pY, light, false);
+        guiGraphics.drawString(this.font, string, pX, pY + 1, light, false);
+        guiGraphics.drawString(this.font, string, pX + 2, pY + 1, light, false);
+        guiGraphics.drawString(this.font, string, pX - 1, pY + 1, light, false);
+        guiGraphics.drawString(this.font, string, pX - 1, pY, light, false);
+        guiGraphics.drawString(this.font, string, pX - 1, pY - 1, light, false);
         pose.popPose();
     }
 

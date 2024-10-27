@@ -30,7 +30,7 @@ import java.util.function.UnaryOperator;
 // shamelessly copied from vanilla sign block entity.
 // Reason: vanilla has the number of lines hardcoded as shit
 public class StoneTabletBlockEntity extends BlockEntity implements Ticking {
-    private static final int MAX_TEXT_LINE_WIDTH = 90;
+    private static final int MAX_TEXT_LINE_WIDTH = 120;
     private static final int TEXT_LINE_HEIGHT = 10;
     @Nullable
     private UUID playerWhoMayEdit;
