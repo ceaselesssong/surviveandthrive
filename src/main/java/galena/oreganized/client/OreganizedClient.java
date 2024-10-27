@@ -37,6 +37,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.event.RenderHandEvent;
+import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
@@ -44,11 +48,9 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import java.awt.*;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = Oreganized.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -224,15 +226,6 @@ public class OreganizedClient {
             poseStack.popPose();
 
             event.setCanceled(true);
-        }
-
-        @SubscribeEvent
-        public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
-            event.register((stack, i) -> switch (i) {
-                case 0 -> 0x84EED2;
-                case 1 -> 0x24352F;
-                default -> -1;
-            }, OItems.HOLLER_SPAWN_EGG.get());
         }
 
     }

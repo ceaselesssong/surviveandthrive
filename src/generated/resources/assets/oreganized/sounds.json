@@ -1,4 +1,12 @@
 {
+  "ambient.fog": {
+    "sounds": [
+      {
+        "name": "oreganized:ambient/fog_ambience",
+        "stream": true
+      }
+    ]
+  },
   "block.bone_pile.break": {
     "sounds": [
       "oreganized:block/bone_pile_break_0",
@@ -157,11 +165,50 @@
     ],
     "subtitle": "subtitles.entity.bolt_hit_armor"
   },
+  "entity.holler_death": {
+    "sounds": [
+      "oreganized:entity/holler_dies_0",
+      "oreganized:entity/holler_dies_1"
+    ],
+    "subtitle": "subtitles.entity.holler_death"
+  },
+  "entity.holler_hollers": {
+    "sounds": [
+      "oreganized:entity/holler_hollers_0",
+      "oreganized:entity/holler_hollers_1",
+      "oreganized:entity/holler_hollers_2",
+      "oreganized:entity/holler_hollers_3"
+    ],
+    "subtitle": "subtitles.entity.holler_hollers"
+  },
+  "entity.holler_hurts": {
+    "sounds": [
+      "oreganized:entity/holler_hurts_0",
+      "oreganized:entity/holler_hurts_1"
+    ],
+    "subtitle": "subtitles.entity.holler_hurt"
+  },
+  "entity.holler_shrieks": {
+    "sounds": [
+      "oreganized:entity/holler_shrieks_0",
+      "oreganized:entity/holler_shrieks_1",
+      "oreganized:entity/holler_shrieks_2"
+    ],
+    "subtitle": "subtitles.entity.holler_shrieks"
+  },
   "entity.shrapnel_bomb.primed": {
     "sounds": [
       "random/fuse"
     ],
     "subtitle": "subtitles.entity.shrapnel_bomb.primed"
+  },
+  "music.disc.afterlife": {
+    "sounds": [
+      {
+        "name": "oreganized:music/disc/afterlife",
+        "stream": true
+      }
+    ]
   },
   "music.disc.structure": {
     "sounds": [

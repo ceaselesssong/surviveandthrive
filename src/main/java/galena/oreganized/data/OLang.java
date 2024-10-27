@@ -25,6 +25,7 @@ public class OLang extends OLangProvider {
     @Override
     protected void addTranslations() {
         addDisc(OItems.MUSIC_DISC_STRUCTURE, "Firch", "structure");
+        addDisc(OItems.MUSIC_DISC_AFTERLIFE, "Firch", "afterlife");
 
         addItem(OItems.SHRAPNEL_BOMB_MINECART, "Minecart with Shrapnel Bomb");
 
@@ -64,6 +65,11 @@ public class OLang extends OLangProvider {
         addSubtitle("block", "sepulcher.harvest", "Sepulcher emptied");
         addSubtitle("block", "sepulcher.filled", "Sepulcher filled");
         addSubtitle("block", "sepulcher.corpse_stuffed", "Sepulcher consumes corpse");
+
+        addSubtitle("entity", "holler_death", "Holler dies");
+        addSubtitle("entity", "holler_hurt", "Holler hurts");
+        addSubtitle("entity", "holler_shrieks", "Holler shrieks");
+        addSubtitle("entity", "holler_hollers", "Holler hollers");
 
         add("tooltip.oreganized.wip.title", "Work In Progress");
         add("tooltip.oreganized.wip.description", "Usages for this item will be available in a future release");

@@ -36,6 +36,7 @@ public class OItems {
 
     // Discs
     public static final RegistryObject<RecordItem> MUSIC_DISC_STRUCTURE = HELPER.createItem("music_disc_structure", () -> new BlueprintRecordItem(13, OSoundEvents.MUSIC_DISC_STRUCTURE, (new Item.Properties().stacksTo(1).rarity(Rarity.RARE)), 2980 / 20));
+    public static final RegistryObject<RecordItem> MUSIC_DISC_AFTERLIFE = HELPER.createItem("music_disc_afterlife", () -> new BlueprintRecordItem(13, OSoundEvents.MUSIC_DISC_AFTERLIFE, (new Item.Properties().stacksTo(1).rarity(Rarity.RARE)), 155));
 
     // Crafting Materials
     public static final RegistryObject<Item> RAW_SILVER = HELPER.createItem("raw_silver", () -> new Item(new Item.Properties()));
@@ -89,5 +90,5 @@ public class OItems {
     public static final RegistryObject<Item> SHRAPNEL_BOMB_MINECART = HELPER.createItem("shrapnel_bomb_minecart", () -> new MinecartShrapnelBombItem(AbstractMinecart.Type.TNT, OEntityTypes.SHRAPNEL_BOMB_MINECART));
 
     // Misc
-    public static final RegistryObject<SpawnEggItem> HOLLER_SPAWN_EGG = HELPER.createItem("holler_spawn_egg", () -> new ForgeSpawnEggItem(OEntityTypes.HOLLER, 56063, 44543, new Item.Properties()));
+    public static final RegistryObject<SpawnEggItem> HOLLER_SPAWN_EGG = HELPER.createItem("holler_spawn_egg", () -> new ForgeSpawnEggItem(OEntityTypes.HOLLER, 0x84EED2, 0x24352F, new Item.Properties()));
 }
