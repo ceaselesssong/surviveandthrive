@@ -19,6 +19,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 import static galena.oreganized.index.OTags.Blocks.BLOWS_LEAD_CLOUD;
+import static galena.oreganized.index.OTags.Blocks.CAN_TURN_INTO_BURIAL_DIRT;
 import static galena.oreganized.index.OTags.Blocks.CRYSTAL_GLASS;
 import static galena.oreganized.index.OTags.Blocks.CRYSTAL_GLASS_PANES;
 import static galena.oreganized.index.OTags.Blocks.FIRE_SOURCE;
@@ -154,6 +155,14 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
         tag(BlockTags.MINEABLE_WITH_PICKAXE).addTags(VIGIL_CANDLES);
 
         tag(HEAT_SOURCE).addTags(BlockTags.CAMPFIRES);
+        tag(CAN_TURN_INTO_BURIAL_DIRT).add(
+                Blocks.DIRT,
+                Blocks.GRASS_BLOCK,
+                Blocks.PODZOL,
+                Blocks.MYCELIUM,
+                Blocks.COARSE_DIRT,
+                Blocks.ROOTED_DIRT
+        );
 
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
                 OBlocks.WAXED_WHITE_CONCRETE_POWDER.get(),

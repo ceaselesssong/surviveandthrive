@@ -11,6 +11,7 @@ public class OSoundEvents {
     public static SoundSubRegistryHelper HELPER = Oreganized.REGISTRY_HELPER.getSoundSubHelper();
 
     public static final RegistryObject<SoundEvent> MUSIC_DISC_STRUCTURE = HELPER.createSoundEvent("music.disc.structure");
+    public static final RegistryObject<SoundEvent> MUSIC_DISC_AFTERLIFE = HELPER.createSoundEvent("music.disc.afterlife");
 
     public static final RegistryObject<SoundEvent> SHRAPNEL_BOMB_PRIMED = HELPER.createSoundEvent("entity.shrapnel_bomb.primed");
 
@@ -36,5 +37,13 @@ public class OSoundEvents {
     public static final RegistryObject<SoundEvent> SEPULCHER_SEALING = HELPER.createSoundEvent("block.sepulcher.sealing");
     public static final RegistryObject<SoundEvent> SEPULCHER_UNSEALING = HELPER.createSoundEvent("block.sepulcher.unsealing");
     public static final RegistryObject<SoundEvent> SEPULCHER_HARVEST = HELPER.createSoundEvent("block.sepulcher.harvest");
+
     public static final RegistryObject<SoundEvent> GRAVETENDER_WORK = HELPER.createSoundEvent("entity.villager.work_carpenter");
+
+    public static final RegistryObject<SoundEvent> HOLLER_DEATH = HELPER.createSoundEvent("entity.holler_death");
+    public static final RegistryObject<SoundEvent> HOLLER_HURTS = HELPER.createSoundEvent("entity.holler_hurts");
+    public static final RegistryObject<SoundEvent> HOLLER_HOLLERS = HELPER.createSoundEvent("entity.holler_hollers");
+    public static final RegistryObject<SoundEvent> HOLLER_SHRIEKS = HELPER.createSoundEvent("entity.holler_shrieks");
+
+    public static final RegistryObject<SoundEvent> FOG_AMBIENCE = HELPER.createSoundEvent("ambient.fog");
 }

@@ -3,12 +3,14 @@ package galena.oreganized.content.entity.holler;
 import com.mojang.serialization.Dynamic;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEffects;
+import galena.oreganized.index.OItems;
+import galena.oreganized.index.OSoundEvents;
+import galena.oreganized.index.OTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -28,11 +30,13 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SnowyDirtBlock;
+import net.minecraft.world.level.block.JukeboxBlock;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
@@ -48,7 +52,6 @@ public class Holler extends PathfinderMob {
             SensorType.NEAREST_PLAYERS,
             SensorType.HURT_BY
     );
-
 
     private static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
             MemoryModuleType.PATH,
@@ -74,20 +77,21 @@ public class Holler extends PathfinderMob {
         return HollerAi.makeBrain(brainProvider().makeBrain(p_218344_));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Brain<Holler> getBrain() {
         return (Brain<Holler>) super.getBrain();
     }
 
     @Override
-    public boolean removeWhenFarAway(double p_21542_) {
+    public boolean removeWhenFarAway(double distance) {
         return false;
     }
 
     @Override
     protected void customServerAiStep() {
         level().getProfiler().push("hollerBrain");
-        getBrain().tick((ServerLevel)level(), this);
+        getBrain().tick((ServerLevel) level(), this);
         level().getProfiler().pop();
         level().getProfiler().push("hollerActivityUpdate");
         HollerAi.updateActivity(this);
@@ -100,7 +104,10 @@ public class Holler extends PathfinderMob {
 
     public static void applyFogAround(ServerLevel level, Vec3 pos, @Nullable Entity source, int radius) {
         MobEffectInstance mobeffectinstance = new MobEffectInstance(OEffects.FOG.get(), 260, 0, false, false);
-        MobEffectUtil.addEffectToPlayersAround(level, source, pos, radius, mobeffectinstance, 200);
+        var applied = MobEffectUtil.addEffectToPlayersAround(level, source, pos, radius, mobeffectinstance, 200);
+        applied.forEach(it -> {
+            it.playSound(OSoundEvents.HOLLER_SHRIEKS.get(), 1F, 1F);
+        });
     }
 
     @Override
@@ -175,17 +182,17 @@ public class Holler extends PathfinderMob {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ALLAY_AMBIENT_WITHOUT_ITEM;
+        return OSoundEvents.HOLLER_HOLLERS.get();
     }
 
     @Override
     public SoundEvent getHurtSound(DamageSource damageSource) {
-        return SoundEvents.ALLAY_HURT;
+        return OSoundEvents.HOLLER_HURTS.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.VEX_DEATH;
+        return OSoundEvents.HOLLER_DEATH.get();
     }
 
     @Override
@@ -193,26 +200,41 @@ public class Holler extends PathfinderMob {
         return 0.4F;
     }
 
-    @Override
-    protected void onInsideBlock(BlockState state) {
-        if ((state.getBlock() instanceof SnowyDirtBlock || state.is(Blocks.DIRT)) && isPanicking()) {
-            BlockPos.withinManhattan(blockPosition(), 3, 1, 3).forEach(pos -> {
-                if (level().getBlockState(pos).getBlock() instanceof SnowyDirtBlock && level().random.nextFloat() < 0.25)
-                    level().setBlockAndUpdate(pos, OBlocks.BURIAL_DIRT.get().withPropertiesOf(state));
-                double x = getX()+0.5+random.nextInt(-100, 100)*0.01;
-                double y = getY()+1+random.nextInt(-100, 100)*0.01;
-                double z = getZ()+0.5+random.nextInt(-100, 100)*0.01;
-                if (!level().isClientSide) ((ServerLevel) level()).sendParticles(ParticleTypes.SMOKE, x, y, z, 3, 0, 0, 0, 0);
-            });
+    private void disappear(ServerLevel level) {
+        double x = getX() + 0.5 + random.nextInt(-100, 100) * 0.01;
+        double y = getY() + 1 + random.nextInt(-100, 100) * 0.01;
+        double z = getZ() + 0.5 + random.nextInt(-100, 100) * 0.01;
+        level.sendParticles(ParticleTypes.SMOKE, x, y, z, 3, 0, 0, 0, 0);
 
-            if (!level().isClientSide) {
-                ServerLevel level = (ServerLevel) level();
-                double x = getX()+0.5+random.nextInt(-100, 100)*0.01;
-                double y = getY()+random.nextInt(-100, 100)*0.01;
-                double z = getZ()+0.5+random.nextInt(-100, 100)*0.01;
-                level.sendParticles(ParticleTypes.SMOKE, x, y, z, 3, 0, 0, 0, 0);
-            }
-            discard();
+        playSound(OSoundEvents.HOLLER_SHRIEKS.get(), 1F, 1F);
+
+        discard();
+    }
+
+    @Override
+    protected void onInsideBlock(BlockState unused) {
+        if (!isPanicking()) return;
+        if (!(level() instanceof ServerLevel level)) return;
+
+        var state = level.getBlockState(blockPosition());
+
+        if (state.is(OTags.Blocks.CAN_TURN_INTO_BURIAL_DIRT)) {
+            if (level.random.nextFloat() < 0.25) return;
+
+            level.setBlockAndUpdate(blockPosition(), OBlocks.BURIAL_DIRT.get().defaultBlockState());
+
+            disappear(level);
+        }
+
+        if(state.is(Blocks.JUKEBOX)) {
+            disappear(level);
+
+            if(state.getValue(JukeboxBlock.HAS_RECORD)) return;
+
+            level.getBlockEntity(blockPosition(), BlockEntityType.JUKEBOX).ifPresent(jukebox -> {
+                var stack = new ItemStack(OItems.MUSIC_DISC_AFTERLIFE.get());
+                jukebox.setFirstItem(stack);
+            });
         }
     }
 
