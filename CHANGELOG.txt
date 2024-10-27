@@ -17,3 +17,4 @@ Build: Oreganized 1.19-1.0.3
         - Electrum Armour will display its own coloured points on the GUI when Detail Armor Bar is installed.
         - Several recipes for the Create mod, including crushing recipes for Lead and Silver, and the ability to make Molten Lead with a mixer and basin.
         - Electrum Knife for Farmer's Delight.
+             
