@@ -19,7 +19,7 @@ public class LocalPlayerMixin {
             method = "<init>",
             at = @At("TAIL")
     )
-    private void addFogSoundHandler(Minecraft minecraft, ClientLevel level, ClientPacketListener listener, StatsCounter state, ClientRecipeBook recipeBook, boolean p_108626_, boolean p_108627_, CallbackInfo ci) {
+    private void addFogSoundHandler(Minecraft minecraft, ClientLevel level, ClientPacketListener listener, StatsCounter state, ClientRecipeBook recipeBook, boolean pWasShiftKeyDown, boolean pWasSprinting, CallbackInfo ci) {
         var accessor = (LocalPlayerAccessor) this;
         var self = (LocalPlayer) (Object) this;
         accessor.getAmbientSoundHandlers().add(new FogAmbientSoundHandler(self, minecraft.getSoundManager()));

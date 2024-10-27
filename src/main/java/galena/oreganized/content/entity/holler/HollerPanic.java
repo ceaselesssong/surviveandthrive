@@ -18,19 +18,24 @@ import java.util.Optional;
 public class HollerPanic extends AnimalPanic {
     private final float speedMultiplier;
 
-    public HollerPanic(float p_147385_) {
-        super(p_147385_);
-        this.speedMultiplier = p_147385_;
+    public HollerPanic(float speedMultiplier) {
+        super(speedMultiplier);
+        this.speedMultiplier = speedMultiplier;
     }
 
     @Override
-    protected void tick(ServerLevel level, PathfinderMob mob, long p_147405_) {
+    protected void tick(ServerLevel level, PathfinderMob mob, long gameTime) {
         if (mob.getNavigation().isDone()) {
             Vec3 panicPosition = this.getPanicPos(level, (Holler) mob);
             if (panicPosition != null) {
                 mob.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(panicPosition, speedMultiplier, 0));
             }
         }
+    }
+
+    @Override
+    protected void stop(ServerLevel level, PathfinderMob holler, long gameTime) {
+        super.stop(level, holler, gameTime);
     }
 
     private Vec3 getPanicPos(ServerLevel level, Holler holler) {

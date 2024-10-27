@@ -11,6 +11,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -106,8 +107,13 @@ public class Holler extends PathfinderMob {
         MobEffectInstance mobeffectinstance = new MobEffectInstance(OEffects.FOG.get(), 260, 0, false, false);
         var applied = MobEffectUtil.addEffectToPlayersAround(level, source, pos, radius, mobeffectinstance, 200);
         applied.forEach(it -> {
-            it.playSound(OSoundEvents.HOLLER_SHRIEKS.get(), 1F, 1F);
+            level.playSound(it, source, OSoundEvents.HOLLER_SHRIEKS.get(), source.getSoundSource(), 1F, 1F);
         });
+    }
+
+    @Override
+    public SoundSource getSoundSource() {
+        return SoundSource.HOSTILE;
     }
 
     @Override
@@ -213,8 +219,10 @@ public class Holler extends PathfinderMob {
 
     @Override
     protected void onInsideBlock(BlockState unused) {
-        if (!isPanicking()) return;
         if (!(level() instanceof ServerLevel level)) return;
+        if (!isPanicking()) return;
+        var target = getBrain().getMemory(MemoryModuleType.WALK_TARGET).map(it -> it.getTarget().currentPosition());
+        if (target.isEmpty() || target.get().distanceToSqr(position()) > 0.5) return;
 
         var state = level.getBlockState(blockPosition());
 
