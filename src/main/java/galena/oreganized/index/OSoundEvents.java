@@ -36,4 +36,5 @@ public class OSoundEvents {
     public static final RegistryObject<SoundEvent> SEPULCHER_SEALING = HELPER.createSoundEvent("block.sepulcher.sealing");
     public static final RegistryObject<SoundEvent> SEPULCHER_UNSEALING = HELPER.createSoundEvent("block.sepulcher.unsealing");
     public static final RegistryObject<SoundEvent> SEPULCHER_HARVEST = HELPER.createSoundEvent("block.sepulcher.harvest");
+    public static final RegistryObject<SoundEvent> GRAVETENDER_WORK = HELPER.createSoundEvent("entity.villager.work_carpenter");
 }

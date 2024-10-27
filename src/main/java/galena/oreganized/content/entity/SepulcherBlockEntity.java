@@ -179,11 +179,13 @@ public class SepulcherBlockEntity extends BlockEntity implements Ticking, Contai
         }
     }
 
+    @Override
     public void invalidateCaps() {
         super.invalidateCaps();
         itemHandler.invalidate();
     }
 
+    @Override
     public void reviveCaps() {
         super.reviveCaps();
         itemHandler = createItemHandler();

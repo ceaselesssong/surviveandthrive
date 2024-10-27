@@ -3,25 +3,7 @@ package galena.oreganized.index;
 import com.google.common.collect.ImmutableBiMap;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import galena.oreganized.Oreganized;
-import galena.oreganized.content.block.BonePileBlock;
-import galena.oreganized.content.block.BulbBlock;
-import galena.oreganized.content.block.BurialDirtBlock;
-import galena.oreganized.content.block.CrystalGlassBlock;
-import galena.oreganized.content.block.CrystalGlassPaneBlock;
-import galena.oreganized.content.block.GargoyleBlock;
-import galena.oreganized.content.block.IMeltableBlock;
-import galena.oreganized.content.block.LeadBarsBlock;
-import galena.oreganized.content.block.LeadDoorBlock;
-import galena.oreganized.content.block.LeadOreBlock;
-import galena.oreganized.content.block.LeadTrapdoorBlock;
-import galena.oreganized.content.block.MeltableBlock;
-import galena.oreganized.content.block.MeltablePillarBlock;
-import galena.oreganized.content.block.MoltenLeadBlock;
-import galena.oreganized.content.block.MoltenLeadCauldronBlock;
-import galena.oreganized.content.block.SepulcherBlock;
-import galena.oreganized.content.block.ShrapnelBombBlock;
-import galena.oreganized.content.block.SpottedGlanceBlock;
-import galena.oreganized.content.block.VigilCandleBlock;
+import galena.oreganized.content.block.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
@@ -211,6 +193,7 @@ public class OBlocks {
     public static final RegistryObject<Block> SEPULCHER =  register("sepulcher", () -> new SepulcherBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).sound(OSoundTypes.SEPULCHER)));
     public static final RegistryObject<Block> BONE_PILE =  register("bone_pile", () -> new BonePileBlock(BlockBehaviour.Properties.copy(Blocks.BONE_BLOCK).sound(OSoundTypes.BONE_PILE).strength(1F)));
     public static final RegistryObject<Block> ROTTING_FLESH =  HELPER.createBlock("rotting_flesh", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT)));
+    public static final RegistryObject<Block> STONE_TABLET = register("stone_tablet", () -> new StoneTabletBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
 
     private static final Supplier<BlockBehaviour.Properties> VIGIL_CANDLE_PROPERTIES = () -> BlockBehaviour.Properties.of().lightLevel(VigilCandleBlock.LIGHT_EMISSION).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY);
     public static final RegistryObject<Block> VIGIL_CANDLE = register("vigil_candle", () -> new VigilCandleBlock(VIGIL_CANDLE_PROPERTIES.get()));
@@ -243,8 +226,6 @@ public class OBlocks {
     }
 
     private static <T extends Block> Supplier<BlockItem> registerBlockItem(final RegistryObject<T> block) {
-        return () -> {
-            return new BlockItem(Objects.requireNonNull(block.get()), new Item.Properties());
-        };
+        return () -> new BlockItem(Objects.requireNonNull(block.get()), new Item.Properties());
     }
 }

@@ -47,6 +47,8 @@ public class OreganizedConfig {
 
             renderStunningOverlay = builder.comment("Should the custom overlay for the brain damage effect be rendered?").define("renderBrainDamageOverlay", true);
 
+
+
             builder.pop();
         }
     }

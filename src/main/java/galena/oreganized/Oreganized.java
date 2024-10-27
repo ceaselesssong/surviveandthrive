@@ -27,19 +27,10 @@ import galena.oreganized.data.ORecipes;
 import galena.oreganized.data.ORegistries;
 import galena.oreganized.data.OSoundDefinitions;
 import galena.oreganized.data.OSpriteSourceProvider;
-import galena.oreganized.index.OAttributes;
-import galena.oreganized.index.OBlocks;
-import galena.oreganized.index.OEffects;
-import galena.oreganized.index.OEntityTypes;
-import galena.oreganized.index.OFeatures;
-import galena.oreganized.index.OFluids;
-import galena.oreganized.index.OItems;
-import galena.oreganized.index.OPaintingVariants;
-import galena.oreganized.index.OParticleTypes;
-import galena.oreganized.index.OPotions;
-import galena.oreganized.index.OStructures;
+import galena.oreganized.index.*;
 import galena.oreganized.network.OreganizedNetwork;
 import galena.oreganized.world.AddItemLootModifier;
+import galena.oreganized.world.gen.VillageStructureModifier;
 import net.minecraft.DetectedVersion;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Position;
@@ -84,6 +75,7 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
+import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -138,7 +130,6 @@ public class Oreganized {
         modBus.addListener(this::buildCreativeModeTabContents);
         modBus.addListener(this::registerAttributes);
         modBus.addListener(this::registerSpawnPlacements);
-        forgeBus.addListener(this::injectVillagerTrades);
 
         LOOT_MODIFIERS.register("add_item", () -> AddItemLootModifier.CODEC);
 
@@ -153,6 +144,8 @@ public class Oreganized {
                 OFeatures.FEATURES,
                 OPaintingVariants.PAINTING_VARIANTS,
                 OAttributes.ATTRIBUTES,
+                OPoi.POI_TYPES,
+                OVillagerTypes.VILLAGER_PROFESSIONS,
                 LOOT_MODIFIERS,
         };
 
@@ -184,13 +177,6 @@ public class Oreganized {
 
     private void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
         event.register(OEntityTypes.HOLLER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Holler::checkHollerSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
-    }
-
-
-    private void injectVillagerTrades(VillagerTradesEvent event) {
-        if (event.getType() == VillagerProfession.MASON) {
-            event.getTrades().get(5).add(new BasicItemListing(14, new ItemStack(OBlocks.GARGOYLE.get()), 5, 30, 0.05F));
-        }
     }
 
     private void setup(FMLCommonSetupEvent event) {
@@ -317,6 +303,12 @@ public class Oreganized {
                 DetectedVersion.BUILT_IN.getPackVersion(PackType.CLIENT_RESOURCES),
                 Arrays.stream(PackType.values()).collect(Collectors.toMap(Function.identity(), DetectedVersion.BUILT_IN::getPackVersion))
         )));
+    }
+
+
+    @SubscribeEvent
+    public void onServerStart(ServerAboutToStartEvent event) {
+        VillageStructureModifier.setup(event.getServer().registryAccess());
     }
 
     @SubscribeEvent
