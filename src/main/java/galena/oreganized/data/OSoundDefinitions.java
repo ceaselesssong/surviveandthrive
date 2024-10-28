@@ -7,8 +7,6 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinition;
 import net.minecraftforge.common.data.SoundDefinitionsProvider;
 
-import java.util.stream.Stream;
-
 public class OSoundDefinitions extends SoundDefinitionsProvider {
 
     public OSoundDefinitions(PackOutput output, ExistingFileHelper helper) {
@@ -19,6 +17,10 @@ public class OSoundDefinitions extends SoundDefinitionsProvider {
     public void registerSounds() {
         add(OSoundEvents.MUSIC_DISC_STRUCTURE, definition().with(
                 sound(Oreganized.MOD_ID + ":music/disc/structure").stream()
+        ));
+
+        add(OSoundEvents.MUSIC_DISC_AFTERLIFE, definition().with(
+                sound(Oreganized.MOD_ID + ":music/disc/afterlife").stream()
         ));
 
         add(OSoundEvents.SHRAPNEL_BOMB_PRIMED, definition().with(
@@ -113,6 +115,33 @@ public class OSoundDefinitions extends SoundDefinitionsProvider {
         add(OSoundEvents.SEPULCHER_UNSEALING, definition()
                 .with(sound(Oreganized.MOD_ID + ":block/sepulcher_unsealing"))
                 .subtitle("subtitles.block.sepulcher.unsealing"));
+
+        add(OSoundEvents.FOG_AMBIENCE, definition().with(
+                sound(Oreganized.MOD_ID + ":ambient/fog_ambience").stream()
+        ));
+
+        add(OSoundEvents.HOLLER_DEATH, definition().with(
+                sound(Oreganized.MOD_ID + ":entity/holler_dies_0"),
+                sound(Oreganized.MOD_ID + ":entity/holler_dies_1")
+        ).subtitle("subtitles.entity.holler_death"));
+
+        add(OSoundEvents.HOLLER_HURTS, definition().with(
+                sound(Oreganized.MOD_ID + ":entity/holler_hurts_0"),
+                sound(Oreganized.MOD_ID + ":entity/holler_hurts_1")
+        ).subtitle("subtitles.entity.holler_hurt"));
+
+        add(OSoundEvents.HOLLER_SHRIEKS, definition().with(
+                sound(Oreganized.MOD_ID + ":entity/holler_shrieks_0"),
+                sound(Oreganized.MOD_ID + ":entity/holler_shrieks_1"),
+                sound(Oreganized.MOD_ID + ":entity/holler_shrieks_2")
+        ).subtitle("subtitles.entity.holler_shrieks"));
+
+        add(OSoundEvents.HOLLER_HOLLERS, definition().with(
+                sound(Oreganized.MOD_ID + ":entity/holler_hollers_0"),
+                sound(Oreganized.MOD_ID + ":entity/holler_hollers_1"),
+                sound(Oreganized.MOD_ID + ":entity/holler_hollers_2"),
+                sound(Oreganized.MOD_ID + ":entity/holler_hollers_3")
+        ).subtitle("subtitles.entity.holler_hollers"));
     }
 
 }

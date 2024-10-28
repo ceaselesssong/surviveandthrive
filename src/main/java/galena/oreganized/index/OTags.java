@@ -97,6 +97,7 @@ public class OTags {
 
         public static final TagKey<Block> VIGIL_CANDLES = tag("vigil_candles");
         public static final TagKey<Block> HEAT_SOURCE = tag("heat_source");
+        public static final TagKey<Block> CAN_TURN_INTO_BURIAL_DIRT = tag("burial_dirt_convertible");
 
         private static TagKey<Block> tag(String name) {
             return BlockTags.create(Oreganized.modLoc(name));

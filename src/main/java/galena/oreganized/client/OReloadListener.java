@@ -21,11 +21,11 @@ public class OReloadListener extends SimplePreparableReloadListener<List<Integer
     }
 
     public static int getDarkColor() {
-        return STONE_TABLET_TEXT_COLORS.get(2);
+        return STONE_TABLET_TEXT_COLORS.get(1);
     }
 
     public static int getLightColor() {
-        return STONE_TABLET_TEXT_COLORS.get(1);
+        return STONE_TABLET_TEXT_COLORS.get(2);
     }
 
     @Override

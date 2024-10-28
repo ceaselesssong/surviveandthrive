@@ -3,7 +3,6 @@ package galena.oreganized.content.block;
 import galena.oreganized.index.OBlockEntities;
 import galena.oreganized.network.OreganizedNetwork;
 import galena.oreganized.network.packet.EngraveStoneTabletPacket;
-import net.mehvahdjukaar.moonlight.api.platform.network.forge.ChannelHandlerImpl;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.CommonComponents;
@@ -12,6 +11,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -30,6 +30,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.PacketDistributor;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.UUID;
@@ -57,6 +58,21 @@ public class StoneTabletBlock extends Block implements SimpleWaterloggedBlock, T
                 .setValue(WATERLOGGED, false)
                 .setValue(FACING, Direction.NORTH).setValue(ATTACHED_TO_WALL, false)
                 .setValue(ENGRAVED, false));
+    }
+
+    @Override
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        boolean water = pContext.getLevel().getFluidState(pContext.getClickedPos()).getType() == Fluids.WATER;
+
+        if (pContext.getClickedFace().getAxis() == Direction.Axis.Y) {
+            return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite())
+                    .setValue(ATTACHED_TO_WALL, false)
+                    .setValue(WATERLOGGED, water);
+        } else {
+            return this.defaultBlockState().setValue(FACING, pContext.getClickedFace().getOpposite())
+                    .setValue(ATTACHED_TO_WALL, true)
+                    .setValue(WATERLOGGED, water);
+        }
     }
 
     @Override

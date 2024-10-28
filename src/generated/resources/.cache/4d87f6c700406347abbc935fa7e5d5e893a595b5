@@ -1,4 +1,4 @@
-// 1.20.1	2024-10-25T14:04:02.7686101	oreganized Item Models
+// 1.20.1	2024-10-27T19:09:30.0493574	oreganized Item Models
 18fcb236eeab67fa16a0014d9af5ba7dd6f9e7c8 assets/oreganized/models/item/black_crystal_glass.json
 30bbb36792cb2d3f0a8a399f25238120cdf7e659 assets/oreganized/models/item/black_crystal_glass_pane.json
 e79054a9c107cbd9357eebf3aacbcd7c27955b9b assets/oreganized/models/item/black_vigil_candle.json
@@ -121,6 +121,7 @@ e5cb92ebff46639ff0dafa4ddf23cf47c7477ad3 assets/oreganized/models/item/light_gra
 4cbb48e036379c1a25aff26c097e960db03958b7 assets/oreganized/models/item/magenta_crystal_glass_pane.json
 7d968bf521ceede2d759246c248cb63dd81476ca assets/oreganized/models/item/magenta_vigil_candle.json
 ab4ff89f9d171d8a8310df55e33939984a25bef1 assets/oreganized/models/item/molten_lead_bucket.json
+b992bbbeea8db9839befd80cd235836f426297fc assets/oreganized/models/item/music_disc_afterlife.json
 2e85dce7d3ffc063559a1bb1eed2f47162c85435 assets/oreganized/models/item/music_disc_structure.json
 9ed1cb50f0ab91d42a700c9868717154a383c774 assets/oreganized/models/item/netherite_nugget.json
 e21f2c763df6c26d8cf26b0a8dc11ddc0ea7d271 assets/oreganized/models/item/orange_crystal_glass.json

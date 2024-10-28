@@ -72,7 +72,10 @@ public class OItemTags extends ItemTagsProvider {
         copy(BlockTags.STAIRS, ItemTags.STAIRS);
         copy(BlockTags.SLABS, ItemTags.SLABS);
         tag(ItemTags.BEACON_PAYMENT_ITEMS).add(OItems.ELECTRUM_INGOT.get());
-        tag(ItemTags.MUSIC_DISCS).add(OItems.MUSIC_DISC_STRUCTURE.get());
+        tag(ItemTags.MUSIC_DISCS).add(
+                OItems.MUSIC_DISC_STRUCTURE.get(),
+                OItems.MUSIC_DISC_AFTERLIFE.get()
+        );
         tag(ItemTags.TRIMMABLE_ARMOR).add(OItems.ELECTRUM_HELMET.get(), OItems.ELECTRUM_CHESTPLATE.get(), OItems.ELECTRUM_LEGGINGS.get(), OItems.ELECTRUM_BOOTS.get());
         tag(ItemTags.TRIM_MATERIALS).add(OItems.LEAD_INGOT.get(), OItems.SILVER_INGOT.get(), OItems.ELECTRUM_INGOT.get());
 

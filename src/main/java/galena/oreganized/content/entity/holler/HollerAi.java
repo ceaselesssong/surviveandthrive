@@ -8,6 +8,8 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.schedule.Activity;
 
+import java.util.List;
+
 public class HollerAi {
 
     public HollerAi() {
@@ -38,6 +40,6 @@ public class HollerAi {
     }
 
     public static void updateActivity(Holler holler) {
-        holler.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.IDLE));
+        holler.getBrain().setActiveActivityToFirstValid(List.of(Activity.IDLE));
     }
 }

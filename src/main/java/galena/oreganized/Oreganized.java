@@ -409,6 +409,7 @@ public class Oreganized {
             putBefore(entries, Items.SPYGLASS, OItems.SILVER_MIRROR);
             putAfter(entries, Items.TNT_MINECART, OItems.SHRAPNEL_BOMB_MINECART);
             putBefore(entries, Items.MUSIC_DISC_5, OItems.MUSIC_DISC_STRUCTURE);
+            putBefore(entries, Items.MUSIC_DISC_5, OItems.MUSIC_DISC_AFTERLIFE);
             putAfter(entries, Items.SHEARS, OItems.SCRIBE);
             putAfter(entries, Items.FLINT_AND_STEEL, OItems.FLINT_AND_PEWTER);
         }
