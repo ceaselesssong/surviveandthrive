@@ -257,10 +257,13 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
                 .addTags(BlockTags.MINEABLE_WITH_PICKAXE);
 
         tag(PREVENTS_LEAD_CLOUD)
-                .add(Blocks.WATER);
+                .add(Blocks.WATER)
+                .addOptional(new ResourceLocation("spelunkery", "spring_water"));
 
         tag(BLOWS_LEAD_CLOUD)
                 .addTags(ORES_LEAD)
                 .addTags(STORAGE_BLOCKS_RAW_LEAD);
+
+        tag(BlockTags.DIRT).add(OBlocks.BURIAL_DIRT.get());
     }
 }
