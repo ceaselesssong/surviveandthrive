@@ -180,21 +180,21 @@ public class Oreganized {
     }
 
     private void setup(FMLCommonSetupEvent event) {
-        FluidInteractionRegistry.addInteraction(OFluids.MOLTEN_LEAD_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
-                (level, pos, relativePos, fluidState) -> level.getFluidState(relativePos).is(FluidTags.WATER) && fluidState.isSource(),
-                fluidState -> OBlocks.LEAD_BLOCK.get().defaultBlockState()
-        ));
-
-        FluidInteractionRegistry.addInteraction(OFluids.MOLTEN_LEAD_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
-                (level, blockPos, relativePos, fluidState) -> level.getFluidState(relativePos).is(FluidTags.LAVA) && fluidState.isSource(),
-                (level, pos, relativePos, fluidState) -> {
-                    LeadOreBlock.spawnCloud(level, pos, 2F);
-                    level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-                    level.levelEvent(1501, pos, 0);
-                }
-        ));
 
         event.enqueueWork(() -> {
+            FluidInteractionRegistry.addInteraction(OFluids.MOLTEN_LEAD_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
+                    (level, pos, relativePos, fluidState) -> level.getFluidState(relativePos).is(FluidTags.WATER) && fluidState.isSource(),
+                    fluidState -> OBlocks.LEAD_BLOCK.get().defaultBlockState()
+            ));
+
+            FluidInteractionRegistry.addInteraction(OFluids.MOLTEN_LEAD_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
+                    (level, blockPos, relativePos, fluidState) -> level.getFluidState(relativePos).is(FluidTags.LAVA) && fluidState.isSource(),
+                    (level, pos, relativePos, fluidState) -> {
+                        LeadOreBlock.spawnCloud(level, pos, 2F);
+                        level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                        level.levelEvent(1501, pos, 0);
+                    }
+            ));
 
             Map<Item, CauldronInteraction> EMPTY = CauldronInteraction.EMPTY;
             Map<Item, CauldronInteraction> WATER = CauldronInteraction.WATER;

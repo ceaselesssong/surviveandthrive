@@ -133,7 +133,7 @@ public class LeadBoltEntity extends AbstractArrow {
     }
 
     private ItemStack knockOff(LivingEntity entity) {
-        if (!entity.shouldDropLoot()) return null;
+        //if (!entity.shouldDropLoot()) return null;
 
         var slot = randomSlot(entity);
         if (slot == null) return null;

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.profiling.ProfilerFiller;
 
 import java.io.IOException;
@@ -56,7 +57,7 @@ public class OReloadListener extends SimplePreparableReloadListener<List<Integer
             forEachPixel(image, (x, y) -> {
                 int i = image.getPixelRGBA(x, y);
                 if (i == 0 || list.size() >= expectColors) return;
-                list.add(i);
+                list.add(swapFormat(i));
             });
             if (list.size() < expectColors) {
                 throw new RuntimeException("Image at " + fullTexturePath + " has too few colors! Expected at least " + expectColors + " and got " + list.size());
@@ -66,6 +67,13 @@ public class OReloadListener extends SimplePreparableReloadListener<List<Integer
             throw new RuntimeException("Failed to find image at location " + fullTexturePath, e);
         }
     }
+
+    public static int swapFormat(int argb) {
+        return (argb & 0xFF00FF00)
+                | ((argb >> 16) & 0x000000FF)
+                | ((argb << 16) & 0x00FF0000);
+    }
+
 
 
     /**

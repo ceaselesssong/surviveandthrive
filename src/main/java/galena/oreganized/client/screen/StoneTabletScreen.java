@@ -153,8 +153,8 @@ public class StoneTabletScreen extends Screen {
 
         guiGraphics.pose().pushPose();
 
-        int imageWidth = 192;
-        int imageHeight = 192;
+        int imageWidth = 152;
+        int imageHeight = 184;
         guiGraphics.pose().translate((float) this.width / 2.0F, 100.0F, 50.0F);
 
         guiGraphics.blit(BACKGROUND, -imageWidth / 2, -imageHeight / 2,
@@ -167,10 +167,9 @@ public class StoneTabletScreen extends Screen {
 
     private void renderSignText(GuiGraphics guiGraphics) {
         guiGraphics.pose().translate(0.0F, -5.0F, 4.0F);
-        float scale = 1;
-        guiGraphics.pose().scale(scale, scale, scale);
+
         int color = OReloadListener.getColor();
-        int lightColor = OReloadListener.getLightColor();
+        int darkColor2 = OReloadListener.getLightColor();
         int darkColor = OReloadListener.getDarkColor();
         boolean showCursor = this.frame / 6 % 2 == 0 && canEdit;
         int j = this.signField.getCursorPos();
@@ -185,16 +184,16 @@ public class StoneTabletScreen extends Screen {
                     string = this.font.bidirectionalShaping(string);
                 }
 
-                int pX = -this.font.width(string) / 2;
+                int pX = -this.font.width(string) / 2 -1;
                 int pY = n * this.sign.getTextLineHeight() - l;
-                drawEngravedString(guiGraphics, string, pX, pY, color, lightColor, darkColor);
+                drawEngravedString(guiGraphics, string, pX, pY, color, darkColor2, darkColor);
 
 
                 if (n == this.line && j >= 0 && showCursor) {
                     int p = this.font.width(string.substring(0, Math.max(Math.min(j, string.length()), 0)));
                     int q = p - this.font.width(string) / 2;
                     if (j >= string.length()) {
-                        guiGraphics.drawString(this.font, "_", q, m, color, false);
+                        guiGraphics.drawString(this.font, "_", q, m, darkColor, false);
                     }
                 }
             }
