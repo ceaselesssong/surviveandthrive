@@ -3,6 +3,7 @@ package galena.oreganized.content.entity.holler;
 import galena.oreganized.index.OTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.JukeboxBlock;
@@ -25,6 +26,11 @@ public class HollerPanicGoal extends PanicGoal {
         var target = new Vec3(posX, posY, posZ);
         holler.panicFinish(target);
         super.stop();
+    }
+
+    @Override
+    protected boolean shouldPanic() {
+        return super.shouldPanic() || mob.getBrain().getMemory(MemoryModuleType.IS_PANICKING).orElse(false);
     }
 
     @Override

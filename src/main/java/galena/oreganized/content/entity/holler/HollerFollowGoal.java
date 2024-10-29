@@ -4,13 +4,13 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.behavior.EntityTracker;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.memory.WalkTarget;
 
 public class HollerFollowGoal extends Goal {
 
     private final PathfinderMob mob;
     private final double maxDistanceSquared;
     private final double panicDistanceSquared;
+    private int timeToRecalcPath;
 
     public HollerFollowGoal(PathfinderMob mob, double maxDistance, double panicDistance) {
         this.mob = mob;
@@ -20,14 +20,28 @@ public class HollerFollowGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return mob.getTarget() != null && !mob.getBrain().hasMemoryValue(MemoryModuleType.IS_PANICKING);
+        var target = mob.getTarget();
+        if(target == null) return false;
+        if(mob.getBrain().hasMemoryValue(MemoryModuleType.IS_PANICKING)) return false;
+        var distanceSquared = mob.distanceToSqr(target);
+        return distanceSquared > maxDistanceSquared;
+    }
+
+    @Override
+    public boolean canContinueToUse() {
+        return super.canContinueToUse() && !tooClose();
+    }
+
+    private boolean tooClose() {
+        var target = mob.getTarget();
+        if(target == null) return false;
+        var distanceSquared = mob.distanceToSqr(target);
+        return distanceSquared < panicDistanceSquared;
     }
 
     @Override
     public void start() {
-        var target = mob.getTarget();
-        var path = mob.getNavigation().createPath(target, 0);
-        mob.getNavigation().moveTo(path, 1F);
+        timeToRecalcPath = 0;
     }
 
     @Override
@@ -36,19 +50,15 @@ public class HollerFollowGoal extends Goal {
         var brain = mob.getBrain();
         brain.setMemory(MemoryModuleType.LOOK_TARGET, new EntityTracker(target, true));
 
-        var distanceSquared = mob.distanceToSqr(target);
-
-        if (distanceSquared < panicDistanceSquared) {
-            brain.setMemory(MemoryModuleType.IS_PANICKING, true);
+        if (--this.timeToRecalcPath <= 0) {
+            timeToRecalcPath = adjustedTickDelay(10);
+            mob.getNavigation().moveTo(target, 1F);
         }
-
-        if (distanceSquared < maxDistanceSquared) {
-            brain.eraseMemory(MemoryModuleType.WALK_TARGET);
-            mob.setTarget(null);
-        } else {
-            brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityTracker(target, false), 1F, 2));
-        }
-
     }
 
+    @Override
+    public void stop() {
+        super.stop();
+        mob.getNavigation().stop();
+    }
 }

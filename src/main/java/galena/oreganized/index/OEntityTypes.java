@@ -1,6 +1,7 @@
 package galena.oreganized.index;
 
 import galena.oreganized.Oreganized;
+import galena.oreganized.content.entity.DirtMound;
 import galena.oreganized.content.entity.holler.Holler;
 import galena.oreganized.content.entity.LeadBoltEntity;
 import galena.oreganized.content.entity.MinecartShrapnelBomb;
@@ -20,5 +21,6 @@ public class OEntityTypes {
 
     public static final RegistryObject<EntityType<LeadBoltEntity>> LEAD_BOLT = ENTITIES.register("lead_bolt", () -> EntityType.Builder.<LeadBoltEntity>of(LeadBoltEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).build("lead_bolt"));
     public static final RegistryObject<EntityType<Holler>> HOLLER = ENTITIES.register("holler", () -> EntityType.Builder.of(Holler::new, MobCategory.CREATURE).sized(0.35F, 0.6F).clientTrackingRange(8).updateInterval(2).build("holler"));
+    public static final RegistryObject<EntityType<DirtMound>> DIRT_MOUND = ENTITIES.register("dirt_mound", () -> EntityType.Builder.of(DirtMound::new, MobCategory.MISC).sized(0.8F, 0.25F).build("dirt_mound"));
 
 }

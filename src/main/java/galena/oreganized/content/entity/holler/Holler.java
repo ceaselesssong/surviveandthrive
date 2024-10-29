@@ -1,7 +1,7 @@
 package galena.oreganized.content.entity.holler;
 
-import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEffects;
+import galena.oreganized.index.OEntityTypes;
 import galena.oreganized.index.OItems;
 import galena.oreganized.index.OParticleTypes;
 import galena.oreganized.index.OSoundEvents;
@@ -25,10 +25,8 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
@@ -84,11 +82,10 @@ public class Holler extends PathfinderMob {
     protected void registerGoals() {
         goalSelector.addGoal(1, new FloatGoal(this));
         goalSelector.addGoal(2, new HollerPanicGoal(this, 3F));
-        goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.5, 2));
-        goalSelector.addGoal(4, new HollerFollowGoal(this, 8F, 3F));
-        goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 16.0F));
-        goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        goalSelector.addGoal(10, new HollerStrollGoal(this, 1F));
+        goalSelector.addGoal(3, new HollerAvoidGoal(this, 5F, 3F));
+        goalSelector.addGoal(4, new HollerFollowGoal(this, 10F, 5F));
+        goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 16.0F));
+        goalSelector.addGoal(9, new HollerStrollGoal(this, 1F));
 
         targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, false));
     }
@@ -239,6 +236,17 @@ public class Holler extends PathfinderMob {
         }
     }
 
+    private void curseBlock(ServerLevel level, BlockPos pos) {
+        var dirtMound = OEntityTypes.DIRT_MOUND.get().create(level);
+        if (dirtMound == null) return;
+
+        dirtMound.setPos(Vec3.upFromBottomCenterOf(pos, 1));
+        level.addFreshEntity(dirtMound);
+
+        var vec = Vec3.atCenterOf(blockPosition()).add(Math.random() * 0.5 - 0.25, 1 + Math.random() * 0.2, Math.random() * 0.5 - 0.25);
+        level.sendParticles(OParticleTypes.HOLLERING_SOUL.get(), vec.x, vec.y, vec.z, 1, 0, 0, 0, 0);
+    }
+
     private void curseGround(ServerLevel level, BlockPos center) {
         var aabb = new AABB(center).inflate(2, 1, 2);
         BlockPos.betweenClosedStream(aabb).forEach(pos -> {
@@ -247,10 +255,7 @@ public class Holler extends PathfinderMob {
 
             var state = level.getBlockState(pos);
             if (state.is(OTags.Blocks.CAN_TURN_INTO_BURIAL_DIRT)) {
-                level.setBlockAndUpdate(pos, OBlocks.BURIAL_DIRT.get().defaultBlockState());
-
-                var vec = Vec3.atCenterOf(blockPosition()).add(Math.random() * 0.5 - 0.25, 1 + Math.random() * 0.2, Math.random() * 0.5 - 0.25);
-                level.sendParticles(OParticleTypes.HOLLERING_SOUL.get(), vec.x, vec.y, vec.z, 1, 0, 0, 0, 0);
+                curseBlock(level, pos);
             }
         });
     }

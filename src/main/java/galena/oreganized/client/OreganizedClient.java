@@ -2,7 +2,9 @@ package galena.oreganized.client;
 
 import com.mojang.math.Axis;
 import galena.oreganized.Oreganized;
+import galena.oreganized.client.model.DirtMoundModel;
 import galena.oreganized.client.model.HollerModel;
+import galena.oreganized.client.render.entity.DirtMoundRenderer;
 import galena.oreganized.client.render.entity.HollerRender;
 import galena.oreganized.client.render.entity.LeadBoltRender;
 import galena.oreganized.client.render.entity.ShrapnelBombMinecartRender;
@@ -122,11 +124,13 @@ public class OreganizedClient {
         event.registerEntityRenderer(OEntityTypes.SHRAPNEL_BOMB_MINECART.get(), ShrapnelBombMinecartRender::new);
         event.registerEntityRenderer(OEntityTypes.LEAD_BOLT.get(), LeadBoltRender::new);
         event.registerEntityRenderer(OEntityTypes.HOLLER.get(), HollerRender::new);
+        event.registerEntityRenderer(OEntityTypes.DIRT_MOUND.get(), DirtMoundRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerModelLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(OModelLayers.HOLLER, HollerModel::createBodyLayer);
+        event.registerLayerDefinition(OModelLayers.DIRT_MOUND, DirtMoundModel::createBodyLayer);
     }
 
     @SubscribeEvent

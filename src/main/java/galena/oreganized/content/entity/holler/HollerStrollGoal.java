@@ -14,7 +14,11 @@ public class HollerStrollGoal extends RandomStrollGoal {
 
     @Override
     protected @Nullable Vec3 getPosition() {
-        return AirRandomPos.getPosTowards(mob, 10, 4, 0, mob.position(), 1.0);
+        return AirRandomPos.getPosTowards(mob, 10, 2, 0, mob.position(), 1.0);
     }
 
+    @Override
+    public boolean canUse() {
+        return super.canUse() && mob.getTarget() == null;
+    }
 }
