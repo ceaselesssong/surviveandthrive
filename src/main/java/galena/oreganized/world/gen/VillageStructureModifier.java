@@ -51,38 +51,33 @@ public class VillageStructureModifier {
         Registry<StructureTemplatePool> templatePoolRegistry = registryAccess.registry(Registries.TEMPLATE_POOL).orElseThrow();
         Registry<StructureProcessorList> processorListRegistry = registryAccess.registry(Registries.PROCESSOR_LIST).orElseThrow();
 
-        addVillageHouse(templatePoolRegistry, processorListRegistry,
-                "plains", "oreganized:village/plains_small", true, 2);
+        addStandardHouses(templatePoolRegistry, processorListRegistry,
+                "taiga", true, 1, 2, 1);
 
-        addVillageHouse(templatePoolRegistry, processorListRegistry,
-                "plains", "oreganized:village/plains_medium", true, 2);
+        addStandardHouses(templatePoolRegistry, processorListRegistry,
+                "plains", false, 1, 2, 1);
 
-        addVillageHouse(templatePoolRegistry, processorListRegistry,
-                "snowy", "oreganized:village/snowy_small", false, 2);
+        addStandardHouses(templatePoolRegistry, processorListRegistry,
+                "savanna", false, 1, 2, 1);
 
-        addVillageHouse(templatePoolRegistry, processorListRegistry,
-                "snowy", "oreganized:village/snowy_medium", false, 2);
+        addStandardHouses(templatePoolRegistry, processorListRegistry,
+                "snowy", false, 1, 2, 1);
 
-        addVillageHouse(templatePoolRegistry, processorListRegistry,
-                "savanna", "oreganized:village/savanna_small", false, 2);
+        addStandardHouses(templatePoolRegistry, processorListRegistry,
+                "desert", false, 1, 2, 1);
 
-        addVillageHouse(templatePoolRegistry, processorListRegistry,
-                "savanna", "oreganized:village/savanna_big", false, 2);
+    }
 
-        addVillageHouse(templatePoolRegistry, processorListRegistry,
-                "taiga", "oreganized:village/taiga_small", true, 1);
-
-        addVillageHouse(templatePoolRegistry, processorListRegistry,
-                "taiga", "oreganized:village/taiga_big", true, 2);
-
-        addVillageHouse(templatePoolRegistry, processorListRegistry,
-                "taiga", "oreganized:village/taiga_medium", true, 2);
-
-        addVillageHouse(templatePoolRegistry, processorListRegistry,
-                "desert", "oreganized:village/desert_big", false, 2);
-
-        addVillageHouse(templatePoolRegistry, processorListRegistry,
-                "desert", "oreganized:village/desert_small", false, 2);
+    private static void addStandardHouses(Registry<StructureTemplatePool> reg,
+                                          Registry<StructureProcessorList> list,
+                                          String villageType, boolean mossy,
+                                          int weightSmall, int weightNormal, int weightBig) {
+        addVillageHouse(reg, list,
+                villageType, "oreganized:village/graveyard/" + villageType + "_small", mossy, weightSmall);
+        addVillageHouse(reg, list,
+                villageType, "oreganized:village/graveyard/" + villageType + "_medium", mossy, weightNormal);
+        addVillageHouse(reg, list,
+                villageType, "oreganized:village/graveyard/" + villageType + "_big", mossy, weightBig);
     }
 
     private static void addVillageHouse(Registry<StructureTemplatePool> templatePoolRegistry,

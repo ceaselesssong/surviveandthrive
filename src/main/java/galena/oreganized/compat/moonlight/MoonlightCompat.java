@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import galena.oreganized.Oreganized;
 import galena.oreganized.index.OVillagerTrades;
 import galena.oreganized.index.OVillagerTypes;
+import net.mehvahdjukaar.moonlight.api.entity.VillagerAIHooks;
 import net.mehvahdjukaar.moonlight.api.events.IVillagerBrainEvent;
 import net.mehvahdjukaar.moonlight.api.events.MoonlightEventsHelper;
 import net.mehvahdjukaar.moonlight.api.platform.RegHelper;
@@ -33,7 +34,9 @@ public class MoonlightCompat {
                     new SensorType<>(CandlePoiSensor::new));
 
     public static void init() {
-        MoonlightEventsHelper.addListener(MoonlightCompat::onVillagerBrainInitialize, IVillagerBrainEvent.class);
+        VillagerAIHooks.addBrainModification(MoonlightCompat::onVillagerBrainInitialize);
+        VillagerAIHooks.registerMemory(PUMPKIN_POS.get());
+        VillagerAIHooks.registerMemory(NEAREST_PUMPKIN.get());
     }
 
     public static void onVillagerBrainInitialize(IVillagerBrainEvent event) {
