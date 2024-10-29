@@ -11,6 +11,7 @@ import galena.oreganized.client.particle.VengeanceParticleProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ExplodeParticle;
 import net.minecraft.client.particle.ParticleEngine;
+import net.minecraft.client.particle.SoulParticle;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -36,6 +37,8 @@ public class OParticleTypes {
     public static final RegistryObject<SimpleParticleType> LEAD_BLOW = PARTICLES.register( "lead_blow", () -> new SimpleParticleType(true));
     public static final RegistryObject<SimpleParticleType> BONE_FRAGMENT = PARTICLES.register( "bone_fragment", () -> new SimpleParticleType(true));
     public static final RegistryObject<SimpleParticleType> FOG = PARTICLES.register( "fog", () -> new SimpleParticleType(true));
+    public static final RegistryObject<SimpleParticleType> FOG_WATER = PARTICLES.register( "fog_water", () -> new SimpleParticleType(true));
+    public static final RegistryObject<SimpleParticleType> HOLLERING_SOUL = PARTICLES.register( "hollering_soul", () -> new SimpleParticleType(true));
 
 
     @SubscribeEvent
@@ -52,6 +55,8 @@ public class OParticleTypes {
         engine.register(LEAD_BLOW.get(), ExplodeParticle.Provider::new);
         engine.register(LEAD_BLOW.get(), ExplodeParticle.Provider::new);
         engine.register(BONE_FRAGMENT.get(), BoneFragmentParticle.Provider::new);
-        engine.register(FOG.get(), FogParticle.Provider::new);
+        engine.register(FOG.get(), FogParticle.provider(200));
+        engine.register(FOG_WATER.get(), FogParticle.provider(100));
+        engine.register(HOLLERING_SOUL.get(), SoulParticle.Provider::new);
     }
 }

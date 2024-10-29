@@ -2,6 +2,7 @@ package galena.oreganized.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
@@ -16,6 +17,7 @@ public class FogParticle extends TextureSheetParticle {
 
     private final SpriteSet sprites;
     private final double initialXd;
+    private int delay;
 
     protected FogParticle(SpriteSet sprites, ClientLevel level, double x, double y, double z, double xd) {
         super(level, x, y, z);
@@ -26,7 +28,7 @@ public class FogParticle extends TextureSheetParticle {
         this.zd = 0.0;
         this.quadSize = 1F;
         this.alpha = 0F;
-        setLifetime(200);
+        this.delay = level.random.nextInt(20);
         setSpriteFromAge(sprites);
         setSize(2F, 3F);
     }
@@ -42,7 +44,7 @@ public class FogParticle extends TextureSheetParticle {
         this.yo = this.y;
         this.zo = this.z;
 
-        if (age++ >= lifetime) {
+        if (delay-- <= 0 && age++ >= lifetime) {
             remove();
             return;
         }
@@ -69,16 +71,24 @@ public class FogParticle extends TextureSheetParticle {
         }
     }
 
+    public static ParticleEngine.SpriteParticleRegistration<SimpleParticleType> provider(int lifetime) {
+        return sprites -> new Provider(sprites, lifetime);
+    }
+
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprites;
+        private final int lifetime;
 
-        public Provider(SpriteSet sprites) {
+        private Provider(SpriteSet sprites, int lifetime) {
             this.sprites = sprites;
+            this.lifetime = lifetime;
         }
 
         @Override
         public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new FogParticle(sprites, level, x, y, z, xSpeed);
+            var particle = new FogParticle(sprites, level, x, y, z, xSpeed);
+            particle.setLifetime(lifetime);
+            return particle;
         }
     }
 

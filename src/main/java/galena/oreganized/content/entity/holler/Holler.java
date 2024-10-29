@@ -3,10 +3,10 @@ package galena.oreganized.content.entity.holler;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEffects;
 import galena.oreganized.index.OItems;
+import galena.oreganized.index.OParticleTypes;
 import galena.oreganized.index.OSoundEvents;
 import galena.oreganized.index.OTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -101,7 +101,7 @@ public class Holler extends PathfinderMob {
     @Override
     protected void customServerAiStep() {
         super.customServerAiStep();
-        if ((tickCount + getId()) % 120 == 0) {
+        if (tickCount % 20 == 0) {
             applyFogAround((ServerLevel) level(), position(), this, 20);
         }
     }
@@ -209,13 +209,7 @@ public class Holler extends PathfinderMob {
     }
 
     private void disappear(ServerLevel level) {
-        double x = getX() + 0.5 + random.nextInt(-100, 100) * 0.01;
-        double y = getY() + 1 + random.nextInt(-100, 100) * 0.01;
-        double z = getZ() + 0.5 + random.nextInt(-100, 100) * 0.01;
-        level.sendParticles(ParticleTypes.SMOKE, x, y, z, 3, 0, 0, 0, 0);
-
         playSound(OSoundEvents.HOLLER_SHRIEKS.get(), 1F, 1F);
-
         discard();
     }
 
@@ -229,6 +223,11 @@ public class Holler extends PathfinderMob {
             disappear(level);
 
             if (state.getValue(JukeboxBlock.HAS_RECORD)) return;
+
+            for (int i = 0; i < 6; i++) {
+                var vec = Vec3.atCenterOf(blockPosition()).add(Math.random() * 1 - 0.5, Math.random() * 1 - 0.5, Math.random() * 1 - 0.5);
+                level.sendParticles(OParticleTypes.HOLLERING_SOUL.get(), vec.x, vec.y, vec.z, 1, 0, 0, 0, 0);
+            }
 
             level.getBlockEntity(blockPosition(), BlockEntityType.JUKEBOX).ifPresent(jukebox -> {
                 var stack = new ItemStack(OItems.MUSIC_DISC_AFTERLIFE.get());
@@ -249,6 +248,9 @@ public class Holler extends PathfinderMob {
             var state = level.getBlockState(pos);
             if (state.is(OTags.Blocks.CAN_TURN_INTO_BURIAL_DIRT)) {
                 level.setBlockAndUpdate(pos, OBlocks.BURIAL_DIRT.get().defaultBlockState());
+
+                var vec = Vec3.atCenterOf(blockPosition()).add(Math.random() * 0.5 - 0.25, 1 + Math.random() * 0.2, Math.random() * 0.5 - 0.25);
+                level.sendParticles(OParticleTypes.HOLLERING_SOUL.get(), vec.x, vec.y, vec.z, 1, 0, 0, 0, 0);
             }
         });
     }

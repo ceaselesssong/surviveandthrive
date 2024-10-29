@@ -23,9 +23,11 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -34,10 +36,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.ViewportEvent;
@@ -156,11 +160,27 @@ public class OreganizedClient {
             var blockAt = BlockPos.containing(at.x, at.y, at.z);
 
             if (!level.getBlockState(blockAt).canBeReplaced()) return;
-            if (level.getBlockState(blockAt.below(1)).canBeReplaced()) return;
 
-            if (level.random.nextInt(4) != 0) return;
+            var below = level.getBlockState(blockAt.below());
 
-            level.addParticle(OParticleTypes.FOG.get(), at.x, at.y + 0.5 + level.random.nextDouble(), at.z, level.random.nextFloat() + 0.5F, 0.0, 0.0);
+            if (below.getFluidState().is(FluidTags.WATER)) {
+                addFogGroup(level, OParticleTypes.FOG_WATER.get(), at, 3);
+            } else if (!below.canBeReplaced()) {
+                addFogGroup(level, OParticleTypes.FOG.get(), at, 5);
+            }
+        }
+
+        private static void addFogGroup(Level level, ParticleOptions type, Vec3 at, int amount) {
+            if(level.random.nextInt(amount * 2) != 0) return;
+
+            var realAmount = amount - level.random.nextInt(2);
+
+            for (int i = 0; i < realAmount; i++) {
+                level.addParticle(type,
+                        at.x + level.random.nextDouble() * 2 - 1, at.y + 0.5 + level.random.nextDouble(), at.z + level.random.nextDouble() * 2 - 1,
+                        level.random.nextFloat() + 0.5F, 0.0, 0.0
+                );
+            }
         }
 
         @SubscribeEvent
@@ -180,9 +200,10 @@ public class OreganizedClient {
                 var color = new Color(0x697180);
                 LivingEntity entity = (LivingEntity) Minecraft.getInstance().gameRenderer.getMainCamera().getEntity();
                 float factor = (fogEffect.getFactorData().get()).getFactor(entity, (float) event.getPartialTick());
-                event.setRed(color.getRed() / 255F * factor);
-                event.setGreen(color.getGreen() / 255F * factor);
-                event.setBlue(color.getBlue() / 255F * factor);
+                float inverseFactor = 1 - factor;
+                event.setRed(color.getRed() / 255F * factor + event.getRed() * inverseFactor);
+                event.setGreen(color.getGreen() / 255F * factor + event.getGreen() * inverseFactor);
+                event.setBlue(color.getBlue() / 255F * factor + event.getBlue() * inverseFactor);
             }
         }
 

@@ -6,9 +6,11 @@ import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.JukeboxBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class HollerPanicGoal extends PanicGoal {
     private final Holler holler;
@@ -41,14 +43,15 @@ public class HollerPanicGoal extends PanicGoal {
         return dirtPosition.orElseGet(() -> LandRandomPos.getPos(mob, 5, 5));
     }
 
+    private Optional<BlockPos> findPos(Predicate<BlockState> filter) {
+        return BlockPos.findClosestMatch(mob.blockPosition(), 10, 10, pos -> {
+            var state = mob.level().getBlockState(pos);
+            return filter.test(state);
+        });
+    }
+
     private Optional<BlockPos> findTargetPos() {
-        BlockPos hollerPos = mob.blockPosition();
-        return BlockPos.findClosestMatch(hollerPos, 10, 10, pos -> {
-            var state = mob.level().getBlockState(pos);
-            return state.is(Blocks.JUKEBOX) && !state.getValue(JukeboxBlock.HAS_RECORD);
-        }).or(() -> BlockPos.findClosestMatch(hollerPos, 10, 10, pos -> {
-            var state = mob.level().getBlockState(pos);
-            return state.is(OTags.Blocks.CAN_TURN_INTO_BURIAL_DIRT);
-        }));
+        return findPos(state -> state.is(Blocks.JUKEBOX) && !state.getValue(JukeboxBlock.HAS_RECORD))
+                .or(() -> findPos(state -> state.is(OTags.Blocks.CAN_TURN_INTO_BURIAL_DIRT)));
     }
 }
