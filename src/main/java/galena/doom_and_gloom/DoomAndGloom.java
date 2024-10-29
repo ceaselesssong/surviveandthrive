@@ -42,6 +42,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.util.MutableHashedLinkedMap;
@@ -81,6 +82,7 @@ public class DoomAndGloom {
 
     public DoomAndGloom() {
         final IEventBus modBus = Bus.MOD.bus().get();
+        final IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 
         DGConfig.register();
 
@@ -88,6 +90,7 @@ public class DoomAndGloom {
         modBus.addListener(this::buildCreativeModeTabContents);
         modBus.addListener(this::registerAttributes);
         modBus.addListener(this::registerSpawnPlacements);
+        forgeBus.addListener(this::onServerStart);
 
         LOOT_MODIFIERS.register("add_item", () -> AddItemLootModifier.CODEC);
 
@@ -154,12 +157,10 @@ public class DoomAndGloom {
     }
 
 
-    @SubscribeEvent
     public void onServerStart(ServerAboutToStartEvent event) {
         VillageStructureModifier.setup(event.getServer().registryAccess());
     }
 
-    @SubscribeEvent
     public void buildCreativeModeTabContents(BuildCreativeModeTabContentsEvent event) {
         ResourceKey<CreativeModeTab> tab = event.getTabKey();
         MutableHashedLinkedMap<ItemStack, CreativeModeTab.TabVisibility> entries = event.getEntries();
