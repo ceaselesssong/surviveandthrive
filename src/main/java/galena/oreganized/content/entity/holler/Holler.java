@@ -1,6 +1,5 @@
 package galena.oreganized.content.entity.holler;
 
-import com.mojang.serialization.Dynamic;
 import galena.oreganized.index.OBlocks;
 import galena.oreganized.index.OEffects;
 import galena.oreganized.index.OItems;
@@ -26,11 +25,17 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -39,6 +44,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -67,36 +74,32 @@ public class Holler extends PathfinderMob {
 
     public Holler(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
+        setPathfindingMalus(BlockPathTypes.WATER, -1);
+        setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1);
+        setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1);
         moveControl = new FlyingMoveControl(this, 20, true);
     }
 
-    protected Brain.Provider<Holler> brainProvider() {
+    @Override
+    protected void registerGoals() {
+        goalSelector.addGoal(1, new FloatGoal(this));
+        goalSelector.addGoal(2, new HollerPanicGoal(this, 3F));
+        goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.5, 2));
+        goalSelector.addGoal(4, new HollerFollowGoal(this, 8F, 3F));
+        goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 16.0F));
+        goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        goalSelector.addGoal(10, new HollerStrollGoal(this, 1F));
+
+        targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, false));
+    }
+
+    @Override
+    protected Brain.Provider<?> brainProvider() {
         return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
-    }
-
-    protected Brain<?> makeBrain(Dynamic<?> p_218344_) {
-        return HollerAi.makeBrain(brainProvider().makeBrain(p_218344_));
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public Brain<Holler> getBrain() {
-        return (Brain<Holler>) super.getBrain();
-    }
-
-    @Override
-    public boolean removeWhenFarAway(double distance) {
-        return false;
     }
 
     @Override
     protected void customServerAiStep() {
-        level().getProfiler().push("hollerBrain");
-        getBrain().tick((ServerLevel) level(), this);
-        level().getProfiler().pop();
-        level().getProfiler().push("hollerActivityUpdate");
-        HollerAi.updateActivity(this);
-        level().getProfiler().pop();
         super.customServerAiStep();
         if ((tickCount + getId()) % 120 == 0) {
             applyFogAround((ServerLevel) level(), position(), this, 20);
@@ -105,7 +108,7 @@ public class Holler extends PathfinderMob {
 
     public static void applyFogAround(ServerLevel level, Vec3 pos, @Nullable Entity source, int radius) {
         MobEffectInstance mobeffectinstance = new MobEffectInstance(OEffects.FOG.get(), 260, 0, false, false);
-        var applied = MobEffectUtil.addEffectToPlayersAround(level, source, pos, radius, mobeffectinstance, 200);
+        var applied = MobEffectUtil.addEffectToPlayersAround(level, source, pos, radius, mobeffectinstance, 20 * 60 * 4);
         applied.forEach(it -> {
             level.playSound(it, source, OSoundEvents.HOLLER_SHRIEKS.get(), source.getSoundSource(), 1F, 1F);
         });
@@ -175,7 +178,6 @@ public class Holler extends PathfinderMob {
         }
 
         calculateEntityAnimation(false);
-        tryCheckInsideBlocks();
     }
 
     @Override
@@ -217,33 +219,38 @@ public class Holler extends PathfinderMob {
         discard();
     }
 
-    @Override
-    protected void onInsideBlock(BlockState unused) {
+    public void panicFinish(Vec3 target) {
         if (!(level() instanceof ServerLevel level)) return;
-        if (!isPanicking()) return;
-        var target = getBrain().getMemory(MemoryModuleType.WALK_TARGET).map(it -> it.getTarget().currentPosition());
-        if (target.isEmpty() || target.get().distanceToSqr(position()) > 0.5) return;
+        if (target.distanceToSqr(position()) > 0.5) return;
 
         var state = level.getBlockState(blockPosition());
 
-        if (state.is(OTags.Blocks.CAN_TURN_INTO_BURIAL_DIRT)) {
-            if (level.random.nextFloat() < 0.25) return;
-
-            level.setBlockAndUpdate(blockPosition(), OBlocks.BURIAL_DIRT.get().defaultBlockState());
-
-            disappear(level);
-        }
-
-        if(state.is(Blocks.JUKEBOX)) {
+        if (state.is(Blocks.JUKEBOX)) {
             disappear(level);
 
-            if(state.getValue(JukeboxBlock.HAS_RECORD)) return;
+            if (state.getValue(JukeboxBlock.HAS_RECORD)) return;
 
             level.getBlockEntity(blockPosition(), BlockEntityType.JUKEBOX).ifPresent(jukebox -> {
                 var stack = new ItemStack(OItems.MUSIC_DISC_AFTERLIFE.get());
                 jukebox.setFirstItem(stack);
             });
+        } else {
+            curseGround(level, blockPosition());
+            disappear(level);
         }
+    }
+
+    private void curseGround(ServerLevel level, BlockPos center) {
+        var aabb = new AABB(center).inflate(2, 1, 2);
+        BlockPos.betweenClosedStream(aabb).forEach(pos -> {
+            if (level.random.nextDouble() > 0.2) return;
+            if (!level.getBlockState(pos.above()).canBeReplaced()) return;
+
+            var state = level.getBlockState(pos);
+            if (state.is(OTags.Blocks.CAN_TURN_INTO_BURIAL_DIRT)) {
+                level.setBlockAndUpdate(pos, OBlocks.BURIAL_DIRT.get().defaultBlockState());
+            }
+        });
     }
 
     public static boolean checkHollerSpawnRules(EntityType<Holler> entityType, LevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
