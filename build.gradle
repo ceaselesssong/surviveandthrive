@@ -45,7 +45,7 @@ minecraft {
         }
 
         data {
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/'), "--existing-mod", "blueprint", "--existing-mod", "shieldexp"
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/'), "--existing-mod", "blueprint"
             taskName 'Data'
         }
 
@@ -106,19 +106,13 @@ dependencies {
     }
 
     // Compatibilities
-    //runtimeOnly(fg.deobf("maven.modrinth:create:${create_version}"))
-    implementation(fg.deobf("maven.modrinth:farmers-delight:${farmersdelight_version}"))
-    implementation(fg.deobf("maven.modrinth:nethers-delight:${nethersdelight_version}"))
-    implementation(fg.deobf("maven.modrinth:shield-expansion:${shieldexpansion_version}"))
-    implementation(fg.deobf("maven.modrinth:create:${create_version}"))
     implementation(fg.deobf("maven.modrinth:supplementaries:${supplementaries_version}"))
-    implementation(fg.deobf("maven.modrinth:amendments:${amendments_version}"))
     implementation(fg.deobf("maven.modrinth:amendments:${amendments_version}"))
     implementation(fg.deobf("maven.modrinth:moonlight:${moonlight_lib_version}"))
 
     // For dev testing
-    runtimeOnly(fg.deobf("maven.modrinth:scannable:${scannable_version}"))
-    runtimeOnly(fg.deobf("maven.modrinth:architectury-api:${architectury_version}"))
+    runtimeOnly(fg.deobf("maven.modrinth:oreganized:${oreganized_version}"))
+    runtimeOnly(fg.deobf("maven.modrinth:dye-depot:${dye_depot_version}"))
 
     /// Utilities for the development environment
     //runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_version}")
@@ -127,10 +121,6 @@ dependencies {
     compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
     // at runtime, use the full JEI jar for Forge
     runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
-
-    runtimeOnly(fg.deobf("maven.modrinth:scannable:${scannable_version}"))
-    runtimeOnly(fg.deobf("maven.modrinth:architectury-api:${architectury_version}"))
-    ///
 }
 
 jar {

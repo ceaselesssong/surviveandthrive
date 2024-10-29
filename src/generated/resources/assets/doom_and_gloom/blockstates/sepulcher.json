@@ -1,0 +1,61 @@
+{
+  "variants": {
+    "level=0": {
+      "model": "doom_and_gloom:block/sepulcher"
+    },
+    "level=1": {
+      "model": "doom_and_gloom:block/sepulcher_being_filled_1"
+    },
+    "level=10": {
+      "model": "doom_and_gloom:block/sepulcher_being_filled_10"
+    },
+    "level=11": {
+      "model": "doom_and_gloom:block/sepulcher_being_filled_11"
+    },
+    "level=12": {
+      "model": "doom_and_gloom:block/sepulcher_being_filled_12"
+    },
+    "level=13": {
+      "model": "doom_and_gloom:block/sepulcher_being_filled_13"
+    },
+    "level=14": {
+      "model": "doom_and_gloom:block/sepulcher_sealed_1"
+    },
+    "level=15": {
+      "model": "doom_and_gloom:block/sepulcher_sealed_2"
+    },
+    "level=16": {
+      "model": "doom_and_gloom:block/sepulcher_sealed_3"
+    },
+    "level=17": {
+      "model": "doom_and_gloom:block/sepulcher_sealed_4"
+    },
+    "level=18": {
+      "model": "doom_and_gloom:block/sepulcher_sealed_5"
+    },
+    "level=2": {
+      "model": "doom_and_gloom:block/sepulcher_being_filled_2"
+    },
+    "level=3": {
+      "model": "doom_and_gloom:block/sepulcher_being_filled_3"
+    },
+    "level=4": {
+      "model": "doom_and_gloom:block/sepulcher_being_filled_4"
+    },
+    "level=5": {
+      "model": "doom_and_gloom:block/sepulcher_being_filled_5"
+    },
+    "level=6": {
+      "model": "doom_and_gloom:block/sepulcher_being_filled_6"
+    },
+    "level=7": {
+      "model": "doom_and_gloom:block/sepulcher_being_filled_7"
+    },
+    "level=8": {
+      "model": "doom_and_gloom:block/sepulcher_being_filled_8"
+    },
+    "level=9": {
+      "model": "doom_and_gloom:block/sepulcher_being_filled_9"
+    }
+  }
+}

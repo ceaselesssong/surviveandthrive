@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "doom_and_gloom:item/bush_hammer"
+  }
+}

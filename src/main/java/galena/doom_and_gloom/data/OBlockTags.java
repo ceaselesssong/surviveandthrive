@@ -1,0 +1,59 @@
+package galena.doom_and_gloom.data;
+
+import galena.doom_and_gloom.DoomAndGloom;
+import galena.doom_and_gloom.index.OBlocks;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nullable;
+import java.util.concurrent.CompletableFuture;
+
+import static galena.doom_and_gloom.index.OTags.Blocks.CAN_TURN_INTO_BURIAL_DIRT;
+import static galena.doom_and_gloom.index.OTags.Blocks.HEAT_SOURCE;
+import static galena.doom_and_gloom.index.OTags.Blocks.VIGIL_CANDLES;
+
+public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
+
+    public OBlockTags(PackOutput output, CompletableFuture<HolderLookup.Provider> future, @Nullable ExistingFileHelper helper) {
+        super(output, Registries.BLOCK, future, block -> block.builtInRegistryHolder().key(), DoomAndGloom.MOD_ID, helper);
+    }
+
+    @Override
+    public @NotNull String getName() {
+        return "Oreganized Block Tags";
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected void addTags(HolderLookup.Provider provider) {
+        tag(HEAT_SOURCE).addTag(BlockTags.FIRE).addTag(BlockTags.CAMPFIRES);
+
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
+                OBlocks.SEPULCHER.get(),
+                OBlocks.BONE_PILE.get()
+        );
+
+        var vigilCandles = tag(VIGIL_CANDLES);
+
+        OBlocks.vigilCandles().forEach(block -> vigilCandles.add(block.get()));
+
+        tag(BlockTags.CANDLES).addTags(VIGIL_CANDLES);
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).addTags(VIGIL_CANDLES);
+
+        tag(CAN_TURN_INTO_BURIAL_DIRT).add(
+                Blocks.DIRT,
+                Blocks.GRASS_BLOCK,
+                Blocks.PODZOL,
+                Blocks.MYCELIUM,
+                Blocks.COARSE_DIRT,
+                Blocks.ROOTED_DIRT
+        );
+    }
+}

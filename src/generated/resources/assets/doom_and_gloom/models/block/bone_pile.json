@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "doom_and_gloom:block/sepulcher_rot_5",
+    "side": "doom_and_gloom:block/bone_pile_side"
+  }
+}

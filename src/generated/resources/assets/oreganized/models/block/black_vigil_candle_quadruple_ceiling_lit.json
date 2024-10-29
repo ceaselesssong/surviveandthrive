@@ -1,6 +1,0 @@
-{
-  "parent": "oreganized:block/vigil_candle_quadruple_ceiling",
-  "textures": {
-    "0": "oreganized:block/black_vigil_candle_lit"
-  }
-}

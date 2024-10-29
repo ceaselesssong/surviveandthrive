@@ -1,0 +1,187 @@
+{
+  "ambient.fog": {
+    "sounds": [
+      {
+        "name": "doom_and_gloom:ambient/fog_ambience",
+        "stream": true
+      }
+    ]
+  },
+  "block.bone_pile.break": {
+    "sounds": [
+      "doom_and_gloom:block/bone_pile_break_0",
+      "doom_and_gloom:block/bone_pile_break_1",
+      "doom_and_gloom:block/bone_pile_break_2",
+      "doom_and_gloom:block/bone_pile_break_3",
+      "doom_and_gloom:block/bone_pile_break_4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.bone_pile.fall": {
+    "sounds": [
+      "doom_and_gloom:block/bone_pile_step_0",
+      "doom_and_gloom:block/bone_pile_step_1",
+      "doom_and_gloom:block/bone_pile_step_2",
+      "doom_and_gloom:block/bone_pile_step_3"
+    ]
+  },
+  "block.bone_pile.hit": {
+    "sounds": [
+      "doom_and_gloom:block/bone_pile_step_0",
+      "doom_and_gloom:block/bone_pile_step_1",
+      "doom_and_gloom:block/bone_pile_step_2",
+      "doom_and_gloom:block/bone_pile_step_3"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.bone_pile.place": {
+    "sounds": [
+      "doom_and_gloom:block/bone_pile_break_0",
+      "doom_and_gloom:block/bone_pile_break_1",
+      "doom_and_gloom:block/bone_pile_break_2",
+      "doom_and_gloom:block/bone_pile_break_3",
+      "doom_and_gloom:block/bone_pile_break_4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.bone_pile.step": {
+    "sounds": [
+      "doom_and_gloom:block/bone_pile_step_0",
+      "doom_and_gloom:block/bone_pile_step_1",
+      "doom_and_gloom:block/bone_pile_step_2",
+      "doom_and_gloom:block/bone_pile_step_3"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.sepulcher.break": {
+    "sounds": [
+      "doom_and_gloom:block/sepulcher_break_0",
+      "doom_and_gloom:block/sepulcher_break_1",
+      "doom_and_gloom:block/sepulcher_break_2",
+      "doom_and_gloom:block/sepulcher_break_3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.sepulcher.corpse_stuffed": {
+    "sounds": [
+      "doom_and_gloom:block/sepulcher_corpse_stuffed_0",
+      "doom_and_gloom:block/sepulcher_corpse_stuffed_1"
+    ],
+    "subtitle": "subtitles.block.sepulcher.corpse_stuffed"
+  },
+  "block.sepulcher.fall": {
+    "sounds": [
+      "doom_and_gloom:block/sepulcher_step_0",
+      "doom_and_gloom:block/sepulcher_step_1",
+      "doom_and_gloom:block/sepulcher_step_2",
+      "doom_and_gloom:block/sepulcher_step_3",
+      "doom_and_gloom:block/sepulcher_step_4"
+    ]
+  },
+  "block.sepulcher.filled": {
+    "sounds": [
+      "doom_and_gloom:block/sepulcher_filled_0",
+      "doom_and_gloom:block/sepulcher_filled_1",
+      "doom_and_gloom:block/sepulcher_filled_2",
+      "doom_and_gloom:block/sepulcher_filled_3"
+    ],
+    "subtitle": "subtitles.block.sepulcher.filled"
+  },
+  "block.sepulcher.harvest": {
+    "sounds": [
+      "doom_and_gloom:block/sepulcher_harvest_0",
+      "doom_and_gloom:block/sepulcher_harvest_1",
+      "doom_and_gloom:block/sepulcher_harvest_2"
+    ],
+    "subtitle": "subtitles.block.sepulcher.harvest"
+  },
+  "block.sepulcher.hit": {
+    "sounds": [
+      "doom_and_gloom:block/sepulcher_step_0",
+      "doom_and_gloom:block/sepulcher_step_1",
+      "doom_and_gloom:block/sepulcher_step_2",
+      "doom_and_gloom:block/sepulcher_step_3",
+      "doom_and_gloom:block/sepulcher_step_4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.sepulcher.place": {
+    "sounds": [
+      "doom_and_gloom:block/sepulcher_break_0",
+      "doom_and_gloom:block/sepulcher_break_1",
+      "doom_and_gloom:block/sepulcher_break_2",
+      "doom_and_gloom:block/sepulcher_break_3"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.sepulcher.rotting": {
+    "sounds": [
+      "doom_and_gloom:block/sepulcher_rotting_0",
+      "doom_and_gloom:block/sepulcher_rotting_1",
+      "doom_and_gloom:block/sepulcher_rotting_2",
+      "doom_and_gloom:block/sepulcher_rotting_3"
+    ],
+    "subtitle": "subtitles.block.sepulcher.rotting"
+  },
+  "block.sepulcher.sealing": {
+    "sounds": [
+      "doom_and_gloom:block/sepulcher_sealing"
+    ],
+    "subtitle": "subtitles.block.sepulcher.sealing"
+  },
+  "block.sepulcher.step": {
+    "sounds": [
+      "doom_and_gloom:block/sepulcher_step_0",
+      "doom_and_gloom:block/sepulcher_step_1",
+      "doom_and_gloom:block/sepulcher_step_2",
+      "doom_and_gloom:block/sepulcher_step_3",
+      "doom_and_gloom:block/sepulcher_step_4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.sepulcher.unsealing": {
+    "sounds": [
+      "doom_and_gloom:block/sepulcher_unsealing"
+    ],
+    "subtitle": "subtitles.block.sepulcher.unsealing"
+  },
+  "entity.holler_death": {
+    "sounds": [
+      "doom_and_gloom:entity/holler_dies_0",
+      "doom_and_gloom:entity/holler_dies_1"
+    ],
+    "subtitle": "subtitles.entity.holler_death"
+  },
+  "entity.holler_hollers": {
+    "sounds": [
+      "doom_and_gloom:entity/holler_hollers_0",
+      "doom_and_gloom:entity/holler_hollers_1",
+      "doom_and_gloom:entity/holler_hollers_2",
+      "doom_and_gloom:entity/holler_hollers_3"
+    ],
+    "subtitle": "subtitles.entity.holler_hollers"
+  },
+  "entity.holler_hurts": {
+    "sounds": [
+      "doom_and_gloom:entity/holler_hurts_0",
+      "doom_and_gloom:entity/holler_hurts_1"
+    ],
+    "subtitle": "subtitles.entity.holler_hurt"
+  },
+  "entity.holler_shrieks": {
+    "sounds": [
+      "doom_and_gloom:entity/holler_shrieks_0",
+      "doom_and_gloom:entity/holler_shrieks_1",
+      "doom_and_gloom:entity/holler_shrieks_2"
+    ],
+    "subtitle": "subtitles.entity.holler_shrieks"
+  },
+  "music.disc.afterlife": {
+    "sounds": [
+      {
+        "name": "doom_and_gloom:music/disc/afterlife",
+        "stream": true
+      }
+    ]
+  }
+}

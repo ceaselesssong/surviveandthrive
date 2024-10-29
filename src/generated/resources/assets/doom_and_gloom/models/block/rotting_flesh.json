@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "doom_and_gloom:block/sepulcher_rot_1"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "jeed:effect_provider",
+  "effect":{
+    "id": "doom_and_gloom:fog"
+  },
+  "providers": [
+    {
+      "item": "doom_and_gloom:holler_spawn_egg"
+    }
+  ]
+}
