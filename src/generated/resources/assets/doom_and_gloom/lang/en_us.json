@@ -38,6 +38,8 @@
   "block.doom_and_gloom.yellow_vigil_candle": "Yellow Vigil Candle",
   "effect.doom_and_gloom.fog": "Fog",
   "effect.doom_and_gloom.fog.description": "An eerie fog that accompanies the holler",
+  "effect.doom_and_gloom.warding": "Warding",
+  "effect.doom_and_gloom.warding.description": "Wards against evil spirits",
   "entity.doom_and_gloom.dirt_mound": "Dirt Mound",
   "entity.doom_and_gloom.holler": "Holler",
   "item.doom_and_gloom.bush_hammer": "Bush Hammer",

@@ -43,7 +43,7 @@ public class SepulcherBlock extends Block implements TickingEntityBlock<Sepulche
     private static final VoxelShape OUTER_SHAPE = Shapes.block();
     private static final VoxelShape[] SHAPES = Util.make(new VoxelShape[MAX_LEVEL + 1], shapes -> {
         for (int level = 0; level < shapes.length; level++) {
-            shapes[level] = Shapes.join(OUTER_SHAPE, Block.box(3.0, Math.max(2, 1 + level), 3.0, 13.0, 16.0, 13.0), BooleanOp.ONLY_FIRST);
+            shapes[level] = Shapes.join(OUTER_SHAPE, Block.box(2.0, Math.max(2, 1 + level), 2.0, 14.0, 16.0, 14.0), BooleanOp.ONLY_FIRST);
         }
     });
 

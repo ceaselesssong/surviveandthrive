@@ -1,0 +1,60 @@
+{
+  "elements": [
+    {
+      "faces": {
+        "east": {
+          "texture": "#texture",
+          "uv": [
+            2.0,
+            2.0,
+            14.0,
+            3.692308
+          ]
+        },
+        "north": {
+          "texture": "#texture",
+          "uv": [
+            2.0,
+            2.0,
+            14.0,
+            3.692308
+          ]
+        },
+        "south": {
+          "texture": "#texture",
+          "uv": [
+            2.0,
+            2.0,
+            14.0,
+            3.692308
+          ]
+        },
+        "up": {
+          "texture": "#texture"
+        },
+        "west": {
+          "texture": "#texture",
+          "uv": [
+            2.0,
+            2.0,
+            14.0,
+            3.692308
+          ]
+        }
+      },
+      "from": [
+        2,
+        3,
+        2
+      ],
+      "to": [
+        14,
+        7.3846154,
+        14
+      ]
+    }
+  ],
+  "textures": {
+    "texture": "doom_and_gloom:block/sepulcher_rot_1"
+  }
+}
