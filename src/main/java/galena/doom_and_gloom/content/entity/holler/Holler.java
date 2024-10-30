@@ -14,7 +14,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -46,7 +45,6 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.util.List;
@@ -87,7 +85,7 @@ public class Holler extends PathfinderMob {
         goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 16.0F));
         goalSelector.addGoal(9, new HollerStrollGoal(this, 1F));
 
-        targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, false));
+        targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, false, it -> !it.hasEffect(OEffects.WARDING.get())));
     }
 
     @Override
@@ -103,10 +101,18 @@ public class Holler extends PathfinderMob {
         }
     }
 
-    public static void applyFogAround(ServerLevel level, Vec3 pos, @Nullable Entity source, int radius) {
-        MobEffectInstance mobeffectinstance = new MobEffectInstance(OEffects.FOG.get(), 260, 0, false, false);
-        var applied = MobEffectUtil.addEffectToPlayersAround(level, source, pos, radius, mobeffectinstance, 20 * 60 * 4);
+    public static void applyFogAround(ServerLevel level, Vec3 pos, Entity source, int radius) {
+        var duration = 20 * 60 * 4;
+
+        var applied = level.getPlayers(player ->
+                player.gameMode.isSurvival()
+                        && pos.closerThan(player.position(), radius)
+                        && (!player.hasEffect(OEffects.FOG.get()) || player.getEffect(OEffects.FOG.get()).endsWithin(duration - 1))
+                        && !player.hasEffect(OEffects.WARDING.get())
+        );
+
         applied.forEach(it -> {
+            it.addEffect(new MobEffectInstance(OEffects.FOG.get(), 260, 0, false, false), source);
             level.playSound(it, source, OSoundEvents.HOLLER_SHRIEKS.get(), source.getSoundSource(), 1F, 1F);
         });
     }

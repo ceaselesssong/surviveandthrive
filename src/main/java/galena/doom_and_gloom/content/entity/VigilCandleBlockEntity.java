@@ -1,9 +1,11 @@
 package galena.doom_and_gloom.content.entity;
 
 import galena.doom_and_gloom.index.OBlockEntities;
+import galena.doom_and_gloom.index.OEffects;
 import galena.doom_and_gloom.index.OTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CandleBlock;
@@ -32,6 +34,11 @@ public class VigilCandleBlockEntity extends BlockEntity implements Ticking {
             shouldClear.forEach(effect -> {
                 entity.removeEffect(effect.get());
             });
+
+            var duration = 20 * 5;
+            if (!entity.hasEffect(OEffects.WARDING.get()) || entity.getEffect(OEffects.WARDING.get()).endsWithin(duration - 1)) {
+                entity.addEffect(new MobEffectInstance(OEffects.WARDING.get(), duration, 0, false, false, false));
+            }
         });
     }
 

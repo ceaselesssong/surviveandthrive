@@ -44,6 +44,7 @@ public class DirtMound extends Entity {
         if(tickCount % 10 != 0) return;
 
         if (!level.getBlockState(pos).isAir() || !level.getBlockState(pos.below()).is(OTags.Blocks.CAN_TURN_INTO_BURIAL_DIRT)) {
+            spawnMonster(level, pos);
             discard();
             return;
         }

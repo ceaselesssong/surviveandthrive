@@ -26,9 +26,11 @@ public class OLang extends OLangProvider {
         addBlock(OBlocks.BONE_PILE, "Pile of Bones");
 
         addEffect(OEffects.FOG, "Fog");
+        addEffect(OEffects.WARDING, "Warding");
 
         // JEED compat
         add("effect.doom_and_gloom.fog.description", "An eerie fog that accompanies the holler");
+        add("effect.doom_and_gloom.warding.description", "Wards against evil spirits");
 
         addSubtitle("block", "sepulcher.unsealing", "Sepulcher opened");
         addSubtitle("block", "sepulcher.sealing", "Sepulcher sealed");

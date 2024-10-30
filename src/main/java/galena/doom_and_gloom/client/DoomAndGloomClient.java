@@ -95,20 +95,20 @@ public class DoomAndGloomClient {
             var below = level.getBlockState(blockAt.below());
 
             if (below.getFluidState().is(FluidTags.WATER)) {
-                addFogGroup(level, OParticleTypes.FOG_WATER.get(), at, 3, 0);
+                addFogGroup(level, OParticleTypes.FOG_WATER.get(), blockAt, 3, 0);
             } else if (!below.canBeReplaced()) {
-                addFogGroup(level, OParticleTypes.FOG.get(), at, 5, 1);
+                addFogGroup(level, OParticleTypes.FOG.get(), blockAt, 5, 1);
             }
         }
 
-        private static void addFogGroup(Level level, ParticleOptions type, Vec3 at, int amount, double yRange) {
+        private static void addFogGroup(Level level, ParticleOptions type, BlockPos at, int amount, double yRange) {
             if(level.random.nextInt(amount * 2) != 0) return;
 
             var realAmount = amount - level.random.nextInt(2);
 
             for (int i = 0; i < realAmount; i++) {
                 level.addParticle(type,
-                        at.x + level.random.nextDouble() * 2 - 1, at.y + 0.5 + level.random.nextDouble() * yRange, at.z + level.random.nextDouble() * 2 - 1,
+                        at.getX() + level.random.nextDouble() * 2 - 1, at.getY() + 0.5 + level.random.nextDouble() * yRange, at.getZ() + level.random.nextDouble() * 2 - 1,
                         level.random.nextFloat() + 0.5F, 0.0, 0.0
                 );
             }

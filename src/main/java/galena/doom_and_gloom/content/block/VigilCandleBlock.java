@@ -52,7 +52,7 @@ public class VigilCandleBlock extends LanternBlock implements TickingEntityBlock
     private static final VoxelShape[] SHAPES = createShapes(false);
     private static final VoxelShape[] HANGING_SHAPES = createShapes(true);
 
-    public static final ToIntFunction<BlockState> LIGHT_EMISSION = state -> state.getValue(LIT) ? 6 * state.getValue(CANDLES) : 0;
+    public static final ToIntFunction<BlockState> LIGHT_EMISSION = state -> state.getValue(LIT) ? 4 * state.getValue(CANDLES) : 0;
 
     public VigilCandleBlock(Properties properties) {
         super(properties);

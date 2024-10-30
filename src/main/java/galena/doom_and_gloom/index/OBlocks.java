@@ -34,7 +34,7 @@ public class OBlocks {
     public static final RegistryObject<Block> ROTTING_FLESH =  HELPER.createBlock("rotting_flesh", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT)));
     public static final RegistryObject<Block> STONE_TABLET = register("stone_tablet", () -> new StoneTabletBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
 
-    private static final Supplier<BlockBehaviour.Properties> VIGIL_CANDLE_PROPERTIES = () -> BlockBehaviour.Properties.of().lightLevel(VigilCandleBlock.LIGHT_EMISSION).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY);
+    private static final Supplier<BlockBehaviour.Properties> VIGIL_CANDLE_PROPERTIES = () -> BlockBehaviour.Properties.of().noOcclusion().lightLevel(VigilCandleBlock.LIGHT_EMISSION).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY);
     public static final RegistryObject<Block> VIGIL_CANDLE = register("vigil_candle", () -> new VigilCandleBlock(VIGIL_CANDLE_PROPERTIES.get()));
     public static final Map<DyeColor, RegistryObject<Block>> COLORED_VIGIL_CANDLES = registerColored("vigil_candle", color -> new VigilCandleBlock(VIGIL_CANDLE_PROPERTIES.get().mapColor(color)));
 
