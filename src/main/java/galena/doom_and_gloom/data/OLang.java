@@ -42,7 +42,10 @@ public class OLang extends OLangProvider {
         addSubtitle("entity", "holler_death", "Holler dies");
         addSubtitle("entity", "holler_hurt", "Holler hurts");
         addSubtitle("entity", "holler_shrieks", "Holler shrieks");
-        addSubtitle("entity", "holler_hollers", "Holler hollers");
+        addSubtitle("entity", "holler_hollers", "Holler wails"); //howls? howls? whispers?
+
+        addSubtitle("gui", "stone_tablet.engrave", "Engrave");
+        addSubtitle("gui", "stone_tablet.cancel", "Cancel");
 
         /*
             Automatically create translations for blocks and items based on their registry name.

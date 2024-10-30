@@ -1,0 +1,95 @@
+{
+  "variants": {
+    "attached=true,facing=north,type=default": {
+      "model": "doom_and_gloom:block/stone_tablet_wall"
+    },
+    "attached=true,facing=east,type=default": {
+      "model": "doom_and_gloom:block/stone_tablet_wall",
+      "y": 90
+    },
+    "attached=true,facing=south,type=default": {
+      "model": "doom_and_gloom:block/stone_tablet_wall",
+      "y": 180
+    },
+    "attached=true,facing=west,type=default": {
+      "model": "doom_and_gloom:block/stone_tablet_wall",
+      "y": 270
+    },
+    "attached=false,facing=north,type=default": {
+      "model": "doom_and_gloom:block/stone_tablet"
+    },
+    "attached=false,facing=east,type=default": {
+      "model": "doom_and_gloom:block/stone_tablet",
+      "y": 90
+    },
+    "attached=false,facing=south,type=default": {
+      "model": "doom_and_gloom:block/stone_tablet",
+      "y": 180
+    },
+    "attached=false,facing=west,type=default": {
+      "model": "doom_and_gloom:block/stone_tablet",
+      "y": 270
+    },
+    "attached=true,facing=north,type=engraved": {
+      "model": "doom_and_gloom:block/stone_tablet_wall_engraved"
+    },
+    "attached=true,facing=east,type=engraved": {
+      "model": "doom_and_gloom:block/stone_tablet_wall_engraved",
+      "y": 90
+    },
+    "attached=true,facing=south,type=engraved": {
+      "model": "doom_and_gloom:block/stone_tablet_wall_engraved",
+      "y": 180
+    },
+    "attached=true,facing=west,type=engraved": {
+      "model": "doom_and_gloom:block/stone_tablet_wall_engraved",
+      "y": 270
+    },
+    "attached=false,facing=north,type=engraved": {
+      "model": "doom_and_gloom:block/stone_tablet_engraved"
+    },
+    "attached=false,facing=east,type=engraved": {
+      "model": "doom_and_gloom:block/stone_tablet_engraved",
+      "y": 90
+    },
+    "attached=false,facing=south,type=engraved": {
+      "model": "doom_and_gloom:block/stone_tablet_engraved",
+      "y": 180
+    },
+    "attached=false,facing=west,type=engraved": {
+      "model": "doom_and_gloom:block/stone_tablet_engraved",
+      "y": 270
+    },
+
+    "attached=true,facing=north,type=cracked": {
+      "model": "doom_and_gloom:block/stone_tablet_wall_cracked"
+    },
+    "attached=true,facing=east,type=cracked": {
+      "model": "doom_and_gloom:block/stone_tablet_wall_cracked",
+      "y": 90
+    },
+    "attached=true,facing=south,type=cracked": {
+      "model": "doom_and_gloom:block/stone_tablet_wall_cracked",
+      "y": 180
+    },
+    "attached=true,facing=west,type=cracked": {
+      "model": "doom_and_gloom:block/stone_tablet_wall_cracked",
+      "y": 270
+    },
+    "attached=false,facing=north,type=cracked": {
+      "model": "doom_and_gloom:block/stone_tablet_cracked"
+    },
+    "attached=false,facing=east,type=cracked": {
+      "model": "doom_and_gloom:block/stone_tablet_cracked",
+      "y": 90
+    },
+    "attached=false,facing=south,type=cracked": {
+      "model": "doom_and_gloom:block/stone_tablet_cracked",
+      "y": 180
+    },
+    "attached=false,facing=west,type=cracked": {
+      "model": "doom_and_gloom:block/stone_tablet_cracked",
+      "y": 270
+    }
+  }
+}

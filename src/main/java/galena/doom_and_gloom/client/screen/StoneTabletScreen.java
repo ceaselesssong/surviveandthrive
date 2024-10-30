@@ -58,7 +58,7 @@ public class StoneTabletScreen extends Screen {
         this.messages = IntStream.range(0, maxLines)
                 .mapToObj(i -> this.text.getMessage(i, isFiltered))
                 .map(Component::getString).toArray(String[]::new);
-        this.canEdit = !sign.getBlockState().getValue(StoneTabletBlock.ENGRAVED);
+        this.canEdit = sign.getBlockState().getValue(StoneTabletBlock.TYPE).canEdit();
     }
 
     @Override
@@ -72,7 +72,7 @@ public class StoneTabletScreen extends Screen {
             this.addRenderableWidget(Button.builder(Component.translatable("gui.doom_and_gloom.stone_tablet.engrave"), (p_98177_) -> {
                 this.onEngrave();
             }).bounds(this.width / 2 - 100, 196, 98, 20).build());
-            this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (p_280851_) -> {
+            this.addRenderableWidget(Button.builder(Component.translatable("gui.doom_and_gloom.stone_tablet.cancel"), (p_280851_) -> {
                 this.onDone();
             }).bounds(this.width / 2 + 2, 196, 98, 20).build());
         }
@@ -246,7 +246,6 @@ public class StoneTabletScreen extends Screen {
     private void setMessage(String message) {
         this.messages[this.line] = message;
         this.text = this.text.withMessage(this.line, Component.literal(message));
-        this.sign.setText(this.text);
     }
 
     private void onDone() {
@@ -254,6 +253,8 @@ public class StoneTabletScreen extends Screen {
     }
 
     private void onEngrave() {
+        //TODO: Engrave sound
+        this.sign.setText(this.text);
         this.engraveOnClose = true;
         this.minecraft.setScreen(null);
     }

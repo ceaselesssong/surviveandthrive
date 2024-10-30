@@ -19,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -62,6 +63,7 @@ public class StoneTabletBlockEntity extends BlockEntity implements Ticking {
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
+
         if (tag.contains("text")) {
             StoneTabletText.DIRECT_CODEC
                     .parse(NbtOps.INSTANCE, tag.getCompound("text"))

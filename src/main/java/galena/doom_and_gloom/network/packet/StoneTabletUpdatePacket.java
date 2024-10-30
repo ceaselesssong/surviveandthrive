@@ -2,12 +2,15 @@ package galena.doom_and_gloom.network.packet;
 
 import galena.doom_and_gloom.content.block.StoneTabletBlock;
 import galena.doom_and_gloom.content.block.StoneTabletBlockEntity;
+import galena.doom_and_gloom.index.OSoundEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.FilteredText;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.List;
@@ -53,7 +56,11 @@ buffer.writeBoolean(engrave);
         if (level.hasChunkAt(pos) && level.getBlockEntity(pos) instanceof StoneTabletBlockEntity te) {
             te.updateStoneTabletText(player, filteredText);
             if(engrave){
-                level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(StoneTabletBlock.ENGRAVED, true));
+                level.setBlockAndUpdate(pos, level.getBlockState(pos)
+                        .setValue(StoneTabletBlock.TYPE, StoneTabletBlock.Type.ENGRAVED));
+                level.playSound(null, pos, OSoundEvents.STONE_TABLET_ENGRAVE.get(),
+                        SoundSource.BLOCKS, 1.0f, 1.0f);
+                level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
             }
         }
     }

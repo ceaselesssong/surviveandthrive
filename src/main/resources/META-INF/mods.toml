@@ -39,3 +39,10 @@ TODO
     versionRange="[7.1.0,)"
     ordering="AFTER"
     side="BOTH"
+
+[[dependencies.doom_and_gloom]]
+    modId="oreganized"
+    mandatory=true
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
