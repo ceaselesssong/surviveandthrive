@@ -52,19 +52,19 @@ public class VillageStructureModifier {
         Registry<StructureProcessorList> processorListRegistry = registryAccess.registry(Registries.PROCESSOR_LIST).orElseThrow();
 
         addStandardHouses(templatePoolRegistry, processorListRegistry,
-                "taiga", true, 2, 3, 1);
+                "taiga", true, 1, 2, 1);
 
         addStandardHouses(templatePoolRegistry, processorListRegistry,
-                "plains", false, 2, 3, 1);
+                "plains", false, 1, 2, 1);
 
         addStandardHouses(templatePoolRegistry, processorListRegistry,
-                "savanna", false, 2, 3, 1);
+                "savanna", false, 1, 2, 1);
 
         addStandardHouses(templatePoolRegistry, processorListRegistry,
-                "snowy", false, 2, 3, 1);
+                "snowy", false, 1, 2, 1);
 
         addStandardHouses(templatePoolRegistry, processorListRegistry,
-                "desert", false, 2, 3, 1);
+                "desert", false, 1, 2, 1);
 
     }
 
