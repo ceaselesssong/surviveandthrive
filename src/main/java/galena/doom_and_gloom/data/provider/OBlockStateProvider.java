@@ -2,6 +2,7 @@ package galena.doom_and_gloom.data.provider;
 
 import galena.doom_and_gloom.DoomAndGloom;
 import galena.doom_and_gloom.content.block.SepulcherBlock;
+import galena.doom_and_gloom.content.block.StoneTabletBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -117,18 +118,13 @@ public abstract class OBlockStateProvider extends BlockStateProvider {
     }
 
     private String candleSuffix(int amount) {
-        switch (amount) {
-            case 1:
-                return "single";
-            case 2:
-                return "double";
-            case 3:
-                return "triple";
-            case 4:
-                return "quadruple";
-            default:
-                throw new IllegalArgumentException("Illegal candle amount: " + amount);
-        }
+        return switch (amount) {
+            case 1 -> "single";
+            case 2 -> "double";
+            case 3 -> "triple";
+            case 4 -> "quadruple";
+            default -> throw new IllegalArgumentException("Illegal candle amount: " + amount);
+        };
     }
 
     public void vigilCandle(Supplier<? extends Block> block, @Nullable String prefix) {
