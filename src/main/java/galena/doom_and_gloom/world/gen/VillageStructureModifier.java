@@ -52,19 +52,19 @@ public class VillageStructureModifier {
         Registry<StructureProcessorList> processorListRegistry = registryAccess.registry(Registries.PROCESSOR_LIST).orElseThrow();
 
         addStandardHouses(templatePoolRegistry, processorListRegistry,
-                "taiga", true, 1, 2, 1);
+                "taiga", true, 1, 1, 1);
 
         addStandardHouses(templatePoolRegistry, processorListRegistry,
-                "plains", false, 1, 2, 1);
+                "plains", false, 1, 1, 1);
 
         addStandardHouses(templatePoolRegistry, processorListRegistry,
-                "savanna", false, 1, 2, 1);
+                "savanna", false, 1, 1, 1);
 
         addStandardHouses(templatePoolRegistry, processorListRegistry,
-                "snowy", false, 1, 2, 1);
+                "snowy", false, 1, 1, 1);
 
         addStandardHouses(templatePoolRegistry, processorListRegistry,
-                "desert", false, 1, 2, 1);
+                "desert", false, 10, 10, 10);
 
     }
 
@@ -77,7 +77,7 @@ public class VillageStructureModifier {
         addVillageHouse(reg, list,
                 villageType, "doom_and_gloom:village/graveyard/" + villageType + "_medium", mossy, weightNormal);
         addVillageHouse(reg, list,
-                villageType, "doom_and_gloom:village/graveyard/" + villageType + "_big", mossy, weightBig);
+                villageType, "doom_and_gloom:village/graveyard/" + villageType + "_large", mossy, weightBig);
     }
 
     private static void addVillageHouse(Registry<StructureTemplatePool> templatePoolRegistry,

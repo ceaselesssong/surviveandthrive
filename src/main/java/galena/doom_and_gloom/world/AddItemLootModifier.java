@@ -11,6 +11,7 @@ import net.minecraftforge.common.loot.LootModifier;
 import org.jetbrains.annotations.NotNull;
 
 // TODO convert to bone pile only modifier?
+// in 1.21 forge has a builtin add item one
 public class AddItemLootModifier extends LootModifier {
 
     public static final Codec<AddItemLootModifier> CODEC = RecordCodecBuilder.create(builder ->

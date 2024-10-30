@@ -59,8 +59,8 @@ public class StoneTabletBlock extends Block implements SimpleWaterloggedBlock, T
     protected static final VoxelShape SHAPE_FLOOR_Z = Block.box(2.0, 0.0, 0.0, 14.0, 4.0, 16.0);
     protected static final VoxelShape SHAPE_FLOOR_X = Block.box(0.0, 0.0, 2.0, 16.0, 4.0, 14.0);
 
-    protected static final VoxelShape SHAPE_CEILING_Z = Block.box(2.0, 0.0, 12.0, 14.0, 16.0, 16.0);
-    protected static final VoxelShape SHAPE_CEILING_X = Block.box(0.0, 0.0, 12.0, 16.0, 16.0, 14.0);
+    protected static final VoxelShape SHAPE_CEILING_Z =Block.box(2.0, 12.0, 0.0, 14.0, 16.0, 16.0);
+    protected static final VoxelShape SHAPE_CEILING_X =Block.box(0.0, 12.0, 2.0, 16.0, 16.0, 14.0);
 
     public StoneTabletBlock(Properties pProperties) {
         super(pProperties);
@@ -89,7 +89,7 @@ public class StoneTabletBlock extends Block implements SimpleWaterloggedBlock, T
             Player p = pContext.getPlayer();
             if (p != null && p.isShiftKeyDown()) {
                 return state.setValue(FACING, pContext.getHorizontalDirection().getOpposite())
-                        .setValue(ATTACHMENT, clickFace == Direction.UP ? Attachment.CEILING : Attachment.FLOOR);
+                        .setValue(ATTACHMENT, clickFace == Direction.UP ? Attachment.FLOOR : Attachment.CEILING);
             }
 
             return state.setValue(FACING, pContext.getHorizontalDirection().getOpposite())
