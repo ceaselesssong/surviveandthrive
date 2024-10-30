@@ -4,11 +4,8 @@
     {
       "conditions": [
         {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/lead"
-          }
+          "type": "forge:tag_empty",
+          "tag": "forge:ingots/lead"
         }
       ],
       "recipe": {
@@ -16,7 +13,7 @@
         "category": "equipment",
         "key": {
           "A": {
-            "tag": "forge:ingots/lead"
+            "tag": "forge:ingots/copper"
           },
           "B": {
             "tag": "forge:rods/wooden"

@@ -4,11 +4,8 @@
     {
       "conditions": [
         {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/silver"
-          }
+          "type": "forge:tag_empty",
+          "tag": "forge:ingots/silver"
         }
       ],
       "recipe": {
@@ -16,7 +13,7 @@
         "category": "misc",
         "key": {
           "#": {
-            "tag": "forge:ingots/silver"
+            "tag": "forge:ingots/iron"
           }
         },
         "pattern": [
