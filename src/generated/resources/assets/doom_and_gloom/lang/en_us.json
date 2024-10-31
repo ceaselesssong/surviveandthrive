@@ -53,7 +53,9 @@
   "subtitles.block.sepulcher.sealing": "Sepulcher sealed",
   "subtitles.block.sepulcher.unsealing": "Sepulcher opened",
   "subtitles.entity.holler_death": "Holler dies",
-  "subtitles.entity.holler_hollers": "Holler hollers",
+  "subtitles.entity.holler_hollers": "Holler wails",
   "subtitles.entity.holler_hurt": "Holler hurts",
-  "subtitles.entity.holler_shrieks": "Holler shrieks"
+  "subtitles.entity.holler_shrieks": "Holler shrieks",
+  "subtitles.gui.stone_tablet.cancel": "Cancel",
+  "subtitles.gui.stone_tablet.engrave": "Engrave"
 }
