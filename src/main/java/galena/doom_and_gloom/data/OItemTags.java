@@ -2,6 +2,7 @@ package galena.doom_and_gloom.data;
 
 import galena.doom_and_gloom.DoomAndGloom;
 import galena.doom_and_gloom.index.OItems;
+import galena.doom_and_gloom.index.OTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -30,5 +31,7 @@ public class OItemTags extends ItemTagsProvider {
         tag(TOOLS_BUSH_HAMMER).add(OItems.BUSH_HAMMER.get());
 
         tag(ItemTags.MUSIC_DISCS).add(OItems.MUSIC_DISC_AFTERLIFE.get());
+
+        copy(OTags.Blocks.VIGIL_CANDLES, OTags.Items.VIGIL_CANDLES);
     }
 }

@@ -43,6 +43,7 @@
   "effect.doom_and_gloom.warding.description": "Wards against evil spirits",
   "entity.doom_and_gloom.dirt_mound": "Dirt Mound",
   "entity.doom_and_gloom.holler": "Holler",
+  "entity.minecraft.villager.doom_and_gloom.gravetender": "Gravetender",
   "gui.doom_and_gloom.stone_tablet.cancel": "Cancel",
   "gui.doom_and_gloom.stone_tablet.engrave": "Engrave",
   "item.doom_and_gloom.bush_hammer": "Bush Hammer",
@@ -58,7 +59,5 @@
   "subtitles.entity.holler_death": "Holler dies",
   "subtitles.entity.holler_hollers": "Holler wails",
   "subtitles.entity.holler_hurt": "Holler hurts",
-  "subtitles.entity.holler_shrieks": "Holler shrieks",
-  "subtitles.gui.stone_tablet.cancel": "Cancel",
-  "subtitles.gui.stone_tablet.engrave": "Engrave"
+  "subtitles.entity.holler_shrieks": "Holler shrieks"
 }
