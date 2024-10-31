@@ -1,9 +1,13 @@
 package galena.doom_and_gloom.index;
 
 import galena.doom_and_gloom.DoomAndGloom;
+import net.mehvahdjukaar.moonlight.api.trades.SimpleItemListing;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.BasicItemListing;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -24,7 +28,7 @@ public class OVillagerTrades {
     }
 
     private static void addGravetenderTrades(VillagerTradesEvent event) {
-     //   event.getTrades().put(1, List.of(VillagerTrades.ItemListing))
+      //  event.getTrades().put(1, List.of(BasicItemListing(Items.BONE)))
     }
 
 }

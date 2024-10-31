@@ -3,7 +3,11 @@ package galena.doom_and_gloom.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import galena.doom_and_gloom.DoomAndGloom;
+import galena.doom_and_gloom.client.ORenderTypes;
+import galena.doom_and_gloom.client.render.entity.HollerRender;
 import galena.doom_and_gloom.content.entity.holler.Holler;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -28,7 +32,7 @@ public class HollerModel<T extends Holler> extends EntityModel<T> implements Hea
     public HollerModel(ModelPart root) {
         // faucy render type. Needst more experimentation. Try me out
         //super(ORenderTypes.ADDITIVE_TRANSLUCENCY);
-        super(RenderType::entityTranslucent);
+        super(ORenderTypes.ENTITY_TRANSLUCENT_NO_ALPHA_CUTOFF);
         this.head = root.getChild("head");
         this.body = root.getChild("body");
         this.right_arm = root.getChild("right_arm");
@@ -90,6 +94,7 @@ public class HollerModel<T extends Holler> extends EntityModel<T> implements Hea
 
         body.xRot = (Mth.cos(ageInTicks * 0.09f) + 1) * 0.08f + 0.1f;
 
+        alphaMult = 0.8f;
     }
 
     @Override
@@ -104,8 +109,8 @@ public class HollerModel<T extends Holler> extends EntityModel<T> implements Hea
         //renders back to front so first one rendes last
         for (int i = step - 1; i >= 0; i--) {
             float fract = i / (float) step;
-            float actualAlpha = i == 0 ? 1 :
-                    (float) (alpha * alphaMult * (1 - fract * (1 / alphaDecayFactor)));
+            float actualAlpha = alpha * alphaMult * (i == 0 ? 1 :
+                    (float) ((1 - fract * (1 / alphaDecayFactor))));
 
             if (actualAlpha <= 0) continue;
             //cubic decay
@@ -123,7 +128,6 @@ public class HollerModel<T extends Holler> extends EntityModel<T> implements Hea
             poseStack.translate(0, 1, 0);
             poseStack.scale(scale, scale, scale);
             poseStack.translate(0, -1, 0);
-
 
             head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, actualAlpha);
             body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, actualAlpha);

@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 @OnlyIn(Dist.CLIENT)
 public class HollerRender extends MobRenderer<Holler, HollerModel<Holler>> {
 
-    private static final ResourceLocation HOLLER_TEXTURE = new ResourceLocation(DoomAndGloom.MOD_ID, "textures/entity/holler.png");
+    private static final ResourceLocation HOLLER_TEXTURE = DoomAndGloom.modLoc( "textures/entity/holler.png");
 
     public HollerRender(EntityRendererProvider.Context context) {
             super(context, new HollerModel<>(context.bakeLayer(OModelLayers.HOLLER)), 0.4F);
