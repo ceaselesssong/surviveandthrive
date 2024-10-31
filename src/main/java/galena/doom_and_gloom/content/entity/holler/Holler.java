@@ -1,5 +1,6 @@
 package galena.doom_and_gloom.content.entity.holler;
 
+import galena.doom_and_gloom.index.OBlocks;
 import galena.doom_and_gloom.index.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.DebugPackets;
@@ -23,22 +24,25 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class Holler extends PathfinderMob {
 
@@ -66,9 +70,6 @@ public class Holler extends PathfinderMob {
 
     public Holler(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
-        setPathfindingMalus(BlockPathTypes.WATER, -1);
-        setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1);
-        setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1);
         moveControl = new FlyingMoveControl(this, 20, true);
     }
 
@@ -231,7 +232,7 @@ public class Holler extends PathfinderMob {
         return 0.4F;
     }
 
-    private void disappear(ServerLevel level) {
+    void disappear() {
         playSound(OSoundEvents.HOLLER_SHRIEKS.get(), 1F, 1F);
         discard();
     }
@@ -243,7 +244,7 @@ public class Holler extends PathfinderMob {
         var state = level.getBlockState(blockPosition());
 
         if (state.is(Blocks.JUKEBOX)) {
-            disappear(level);
+            disappear();
 
             if (state.getValue(JukeboxBlock.HAS_RECORD)) return;
 
@@ -258,46 +259,48 @@ public class Holler extends PathfinderMob {
             });
         } else {
             curseGround(level, blockPosition());
-            disappear(level);
+            disappear();
         }
     }
 
     private void curseBlock(ServerLevel level, BlockPos pos) {
-        var dirtMound = OEntityTypes.DIRT_MOUND.get().create(level);
-        if (dirtMound == null) return;
+        if (level.random.nextDouble() > 0.3) return;
 
-        dirtMound.setPos(Vec3.upFromBottomCenterOf(pos, 1));
-        level.addFreshEntity(dirtMound);
+        if (level.random.nextBoolean()) {
+            level.setBlockAndUpdate(pos, OBlocks.BURIAL_DIRT.get().defaultBlockState());
+        } else if (level.random.nextBoolean()) {
+            level.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
+        } else {
+            level.setBlockAndUpdate(pos, Blocks.COARSE_DIRT.defaultBlockState());
+        }
 
-        var vec = Vec3.atCenterOf(blockPosition()).add(Math.random() * 0.5 - 0.25, 1 + Math.random() * 0.2, Math.random() * 0.5 - 0.25);
-        level.sendParticles(OParticleTypes.HOLLERING_SOUL.get(), vec.x, vec.y, vec.z, 1, 0, 0, 0, 0);
+        var vec = Vec3.atCenterOf(pos.above());
+        level.sendParticles(OParticleTypes.HOLLERING_SOUL.get(), vec.x, vec.y, vec.z, 4, 0.5, 0.5, 0.5, 0.01);
     }
 
     private void curseGround(ServerLevel level, BlockPos center) {
         var aabb = new AABB(center).inflate(2, 1, 2);
         BlockPos.betweenClosedStream(aabb).forEach(pos -> {
-            if (level.random.nextDouble() > 0.2) return;
-            if (!level.getBlockState(pos.above()).canBeReplaced()) return;
-
             var state = level.getBlockState(pos);
-            if (state.is(OTags.Blocks.CAN_TURN_INTO_BURIAL_DIRT)) {
+            var above = level.getBlockState(pos.above());
+            if (state.is(OTags.Blocks.CAN_TURN_INTO_BURIAL_DIRT) && above.canBeReplaced()) {
                 curseBlock(level, pos);
             }
         });
     }
 
-    public static boolean checkHollerSpawnRules(EntityType<Holler> entityType, LevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return levelAccessor.getBrightness(LightLayer.SKY, pos) < random.nextInt(8) && random.nextInt(10) > (isHalloween() ? 2 : 5) && checkMobSpawnRules(entityType, levelAccessor, spawnType, pos, random);
-    }
-
-    public boolean isPanicking() {
-        return brain.getMemory(MemoryModuleType.IS_PANICKING).isPresent();
+    public static boolean checkHollerSpawnRules(EntityType<Holler> entityType, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        if (!Monster.isDarkEnoughToSpawn(level, pos, random)) return false;
+        if(pos.getY() < (level.getSeaLevel() - 10)) return false;
+        var spawnRate = isHalloween() ? 8 : 5;
+        if (random.nextInt(10) > spawnRate) return false;
+        return checkMobSpawnRules(entityType, level, spawnType, pos, random);
     }
 
     private static boolean isHalloween() {
-        LocalDate date = LocalDate.now();
-        int day = date.get(ChronoField.DAY_OF_MONTH);
-        int month = date.get(ChronoField.MONTH_OF_YEAR);
+        LocalDate data = LocalDate.now();
+        int day = data.get(ChronoField.DAY_OF_MONTH);
+        int month = data.get(ChronoField.MONTH_OF_YEAR);
         return month == 10 && day >= 20 || month == 11 && day <= 3;
     }
 }

@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.ValidationContext;
@@ -54,6 +55,7 @@ public class OLootTables extends LootTableProvider {
             dropSelf(OBlocks.BONE_PILE);
             dropNothing(OBlocks.ROTTING_FLESH);
             dropSelf(OBlocks.STONE_TABLET);
+            dropOther(OBlocks.BURIAL_DIRT, Blocks.DIRT);
             OBlocks.vigilCandles().forEach(this::vigilCandle);
         }
 

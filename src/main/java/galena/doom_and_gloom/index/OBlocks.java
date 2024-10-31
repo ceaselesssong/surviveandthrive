@@ -3,6 +3,7 @@ package galena.doom_and_gloom.index;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import galena.doom_and_gloom.DoomAndGloom;
 import galena.doom_and_gloom.content.block.BonePileBlock;
+import galena.doom_and_gloom.content.block.BurialDirtBlock;
 import galena.doom_and_gloom.content.block.SepulcherBlock;
 import galena.doom_and_gloom.content.block.StoneTabletBlock;
 import galena.doom_and_gloom.content.block.VigilCandleBlock;
@@ -37,6 +38,8 @@ public class OBlocks {
     private static final Supplier<BlockBehaviour.Properties> VIGIL_CANDLE_PROPERTIES = () -> BlockBehaviour.Properties.of().noOcclusion().lightLevel(VigilCandleBlock.LIGHT_EMISSION).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY);
     public static final RegistryObject<Block> VIGIL_CANDLE = register("vigil_candle", () -> new VigilCandleBlock(VIGIL_CANDLE_PROPERTIES.get()));
     public static final Map<DyeColor, RegistryObject<Block>> COLORED_VIGIL_CANDLES = registerColored("vigil_candle", color -> new VigilCandleBlock(VIGIL_CANDLE_PROPERTIES.get().mapColor(color)));
+
+    public static final RegistryObject<Block> BURIAL_DIRT = register("burial_dirt", () -> new BurialDirtBlock(BlockBehaviour.Properties.copy(Blocks.DIRT)));
 
     public static Stream<RegistryObject<Block>> vigilCandles() {
         return Stream.of(
