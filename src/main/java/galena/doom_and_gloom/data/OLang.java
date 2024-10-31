@@ -6,6 +6,7 @@ import galena.doom_and_gloom.index.OBlocks;
 import galena.doom_and_gloom.index.OEffects;
 import galena.doom_and_gloom.index.OEntityTypes;
 import galena.doom_and_gloom.index.OItems;
+import galena.doom_and_gloom.index.OVillagerTypes;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -43,6 +44,8 @@ public class OLang extends OLangProvider {
         addSubtitle("entity", "holler_hurt", "Holler hurts");
         addSubtitle("entity", "holler_shrieks", "Holler shrieks");
         addSubtitle("entity", "holler_hollers", "Holler wails"); //howls? howls? whispers?
+
+        add("entity.minecraft.villager." + DoomAndGloom.MOD_ID + ".gravetender", "Gravetender");
 
         add("gui.doom_and_gloom.stone_tablet.engrave", "Engrave");
         add("gui.doom_and_gloom.stone_tablet.cancel", "Cancel");

@@ -19,6 +19,8 @@ public class OTags {
 
         public static final TagKey<Item> TOOLS_BUSH_HAMMER = forgeTag("tools/bush_hammer");
 
+        public static final TagKey<Item> VIGIL_CANDLES = tag("vigil_candles");
+
         private static TagKey<Item> tag(String name) {
             return ItemTags.create(DoomAndGloom.modLoc(name));
         }
