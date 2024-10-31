@@ -27,7 +27,6 @@ public abstract class ORenderTypes extends RenderType {
 
     protected static final TransparencyStateShard ADDITIVE_TRANSPARENCY = new TransparencyStateShard("lightning_transparency", () -> {
         RenderSystem.enableBlend();
-        RenderSystem.enableDepthTest();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
     }, () -> {
         RenderSystem.disableBlend();
@@ -40,9 +39,12 @@ public abstract class ORenderTypes extends RenderType {
                 .setTextureState(new RenderStateShard.TextureStateShard(t, false, false))
                 .setTransparencyState(ADDITIVE_TRANSPARENCY)
                 .setCullState(NO_CULL)
-                .setLightmapState(LIGHTMAP).setOverlayState(OVERLAY)
+                .setDepthTestState(LEQUAL_DEPTH_TEST)
+                .setLightmapState(LIGHTMAP)
+                .setOverlayState(OVERLAY)
                 .createCompositeState(false);
-        return create("doom_and_gloom_entity_additive_translucency", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, rendertype$compositestate);
+        return create("doom_and_gloom_entity_additive_translucency", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS,
+                256, true, true, rendertype$compositestate);
     });
 
     public static final Function<ResourceLocation, RenderType> ENTITY_TRANSLUCENT_NO_ALPHA_CUTOFF = Util.memoize((r) -> {

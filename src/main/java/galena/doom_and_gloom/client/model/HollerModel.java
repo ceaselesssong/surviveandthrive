@@ -3,6 +3,7 @@ package galena.doom_and_gloom.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import galena.doom_and_gloom.DGConfig;
 import galena.doom_and_gloom.client.ORenderTypes;
 import galena.doom_and_gloom.content.entity.holler.Holler;
 import net.minecraft.client.model.EntityModel;
@@ -26,13 +27,15 @@ public class HollerModel<T extends Holler> extends EntityModel<T> implements Hea
     private float prevRotDelta;
 
     public HollerModel(ModelPart root) {
-        // faucy render type. Needst more experimentation. Try me out
-        //super(ORenderTypes.ADDITIVE_TRANSLUCENCY);
-        super(ORenderTypes.ENTITY_TRANSLUCENT_NO_ALPHA_CUTOFF);
+        // fancy render type. Needst more experimentation. Try me out
+        super(true ?  ORenderTypes.ADDITIVE_TRANSLUCENCY :
+                ORenderTypes.ENTITY_TRANSLUCENT_NO_ALPHA_CUTOFF);
+        //super();
         this.head = root.getChild("head");
         this.body = root.getChild("body");
         this.right_arm = root.getChild("right_arm");
         this.left_arm = root.getChild("left_arm");
+        this.alphaMult = DGConfig.CLIENT.fancyRenderType.get() ? 0.8f : 1;
     }
 
     public static LayerDefinition createBodyLayer() {
