@@ -35,6 +35,7 @@ public class OTags {
         public static final TagKey<Block> HEAT_SOURCE = BlockTags.create(new ResourceLocation("oreganized", "fire_source"));
         public static final TagKey<Block> VIGIL_CANDLES = tag("vigil_candles");
         public static final TagKey<Block> CAN_TURN_INTO_BURIAL_DIRT = tag("burial_dirt_convertible");
+        public static final TagKey<Block> GRAVETENDER_LIGHTABLE = tag("gravetender_lightables");
 
         private static TagKey<Block> tag(String name) {
             return BlockTags.create(DoomAndGloom.modLoc(name));

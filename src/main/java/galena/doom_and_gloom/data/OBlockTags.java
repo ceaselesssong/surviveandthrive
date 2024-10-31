@@ -6,6 +6,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -15,9 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
 
-import static galena.doom_and_gloom.index.OTags.Blocks.CAN_TURN_INTO_BURIAL_DIRT;
-import static galena.doom_and_gloom.index.OTags.Blocks.HEAT_SOURCE;
-import static galena.doom_and_gloom.index.OTags.Blocks.VIGIL_CANDLES;
+import static galena.doom_and_gloom.index.OTags.Blocks.*;
 
 public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
 
@@ -46,6 +45,7 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
 
         tag(BlockTags.CANDLES).addTags(VIGIL_CANDLES);
         tag(BlockTags.MINEABLE_WITH_PICKAXE).addTags(VIGIL_CANDLES);
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(OBlocks.SEPULCHER.get());
 
         tag(CAN_TURN_INTO_BURIAL_DIRT).add(
                 Blocks.DIRT,
@@ -55,5 +55,9 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
                 Blocks.COARSE_DIRT,
                 Blocks.ROOTED_DIRT
         );
+
+        tag(GRAVETENDER_LIGHTABLE)
+                .addTag(BlockTags.CANDLES)
+                .addOptionalTag(new ResourceLocation("amendments:skull_candles"));
     }
 }

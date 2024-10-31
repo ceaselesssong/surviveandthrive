@@ -125,7 +125,7 @@
     },
 
     "attachment=floor,facing=north,type=engraved": {
-      "model": "doom_and_gloom:block/stone_tablet_floor_engraved",
+      "model": "doom_and_gloom:block/stone_tablet_floor_engraved"
     },
     "attachment=floor,facing=east,type=engraved": {
       "model": "doom_and_gloom:block/stone_tablet_floor_engraved",
@@ -135,7 +135,6 @@
     "attachment=floor,facing=south,type=engraved": {
       "model": "doom_and_gloom:block/stone_tablet_floor_engraved",
       "y": 180
-
     },
     "attachment=floor,facing=west,type=engraved": {
       "model": "doom_and_gloom:block/stone_tablet_floor_engraved",

@@ -2,6 +2,7 @@ package galena.doom_and_gloom;
 
 import com.mojang.serialization.Codec;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
+import galena.doom_and_gloom.compat.moonlight.MoonlightCompat;
 import galena.doom_and_gloom.compat.supplementaries.AmendmentsCompat;
 import galena.doom_and_gloom.content.entity.holler.Holler;
 import galena.doom_and_gloom.data.OBlockStates;
@@ -113,6 +114,9 @@ public class DoomAndGloom {
 
         if (ModList.get().isLoaded("amendments")) {
             AmendmentsCompat.register();
+        }
+        if(ModList.get().isLoaded("moonlight")) {
+            MoonlightCompat.init();
         }
     }
 
