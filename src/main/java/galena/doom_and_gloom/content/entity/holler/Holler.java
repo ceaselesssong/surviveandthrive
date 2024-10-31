@@ -70,9 +70,6 @@ public class Holler extends PathfinderMob {
 
     public Holler(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
-        setPathfindingMalus(BlockPathTypes.WATER, -1);
-        setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1);
-        setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1);
         moveControl = new FlyingMoveControl(this, 20, true);
     }
 
@@ -97,7 +94,7 @@ public class Holler extends PathfinderMob {
     protected void customServerAiStep() {
         super.customServerAiStep();
         if (tickCount % 20 == 0) {
-            applyFogAround((ServerLevel) level(), position(), this, 20);
+           applyFogAround((ServerLevel) level(), position(), this, 20);
         }
     }
 

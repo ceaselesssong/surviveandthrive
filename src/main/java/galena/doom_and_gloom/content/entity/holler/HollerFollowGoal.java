@@ -52,7 +52,11 @@ public class HollerFollowGoal extends Goal {
 
         if (--this.timeToRecalcPath <= 0) {
             timeToRecalcPath = adjustedTickDelay(10);
-            mob.getNavigation().moveTo(target, 1F);
+
+            var distance = target.distanceToSqr(mob);
+            var speed = distance > 16F ? 2F : 1F;
+
+            mob.getNavigation().moveTo(target, speed);
         }
     }
 

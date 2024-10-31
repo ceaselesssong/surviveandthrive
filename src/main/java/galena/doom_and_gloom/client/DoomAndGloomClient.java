@@ -89,8 +89,9 @@ public class DoomAndGloomClient {
             var range = 24;
             var at = player.position().add((level.random.nextDouble() - 0.5) * range, level.random.nextDouble() * 4 - 2, (level.random.nextDouble() - 0.5) * range);
             var blockAt = BlockPos.containing(at.x, at.y, at.z);
+            var stateAt = level.getBlockState(blockAt);
 
-            if (!level.getBlockState(blockAt).canBeReplaced()) return;
+            if (!stateAt.canBeReplaced() || !stateAt.getFluidState().isEmpty()) return;
 
             var below = level.getBlockState(blockAt.below());
 
