@@ -1,5 +1,6 @@
 package galena.doom_and_gloom.content.entity.holler;
 
+import galena.doom_and_gloom.index.OEffects;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.behavior.EntityTracker;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -36,6 +37,11 @@ public class HollerFollowGoal extends Goal {
         var target = mob.getTarget();
         if(target == null) return false;
         var distanceSquared = mob.distanceToSqr(target);
+
+        if(target.hasEffect(OEffects.FOG.get())) {
+            return false;
+        }
+
         return distanceSquared < panicDistanceSquared;
     }
 

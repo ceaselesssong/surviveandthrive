@@ -23,6 +23,7 @@ public class OItemModels extends OItemModelProvider {
         toolItem(OItems.BUSH_HAMMER);
         block(OBlocks.SEPULCHER);
         block(OBlocks.BONE_PILE);
+        block(OBlocks.BURIAL_DIRT);
         OBlocks.vigilCandles().forEach(this::normalItem);
         spawnEggItem(OItems.HOLLER_SPAWN_EGG);
         normalItem(OItems.MUSIC_DISC_AFTERLIFE);

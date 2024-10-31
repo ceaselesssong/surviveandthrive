@@ -175,9 +175,16 @@ public class DoomAndGloom {
 
         putAfter(entries, Blocks.BONE_BLOCK, OBlocks.BONE_PILE);
 
+        putAfter(entries, Blocks.INFESTED_DEEPSLATE, OBlocks.BURIAL_DIRT);
+
         if (tab == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(new ItemStack(OItems.HOLLER_SPAWN_EGG.get()));
         }
+
+        if (tab == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+            event.accept(new ItemStack(OBlocks.STONE_TABLET.get()));
+        }
+
     }
 
     private static void putAfter(MutableHashedLinkedMap<ItemStack, CreativeModeTab.TabVisibility> entries, ItemLike after, Supplier<? extends ItemLike> supplier) {

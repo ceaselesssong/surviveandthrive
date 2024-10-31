@@ -1,5 +1,6 @@
 package galena.doom_and_gloom.content.entity.holler;
 
+import galena.doom_and_gloom.index.OBlocks;
 import galena.doom_and_gloom.index.OEffects;
 import galena.doom_and_gloom.index.OEntityTypes;
 import galena.doom_and_gloom.index.OItems;
@@ -37,17 +38,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class Holler extends PathfinderMob {
 
@@ -94,7 +96,7 @@ public class Holler extends PathfinderMob {
     protected void customServerAiStep() {
         super.customServerAiStep();
         if (tickCount % 20 == 0) {
-           applyFogAround((ServerLevel) level(), position(), this, 20);
+            applyFogAround((ServerLevel) level(), position(), this, 20);
         }
     }
 
@@ -208,7 +210,7 @@ public class Holler extends PathfinderMob {
         return 0.4F;
     }
 
-    private void disappear(ServerLevel level) {
+    void disappear() {
         playSound(OSoundEvents.HOLLER_SHRIEKS.get(), 1F, 1F);
         discard();
     }
@@ -220,7 +222,7 @@ public class Holler extends PathfinderMob {
         var state = level.getBlockState(blockPosition());
 
         if (state.is(Blocks.JUKEBOX)) {
-            disappear(level);
+            disappear();
 
             if (state.getValue(JukeboxBlock.HAS_RECORD)) return;
 
@@ -235,29 +237,31 @@ public class Holler extends PathfinderMob {
             });
         } else {
             curseGround(level, blockPosition());
-            disappear(level);
+            disappear();
         }
     }
 
     private void curseBlock(ServerLevel level, BlockPos pos) {
-        var dirtMound = OEntityTypes.DIRT_MOUND.get().create(level);
-        if (dirtMound == null) return;
+        if (level.random.nextDouble() > 0.3) return;
 
-        dirtMound.setPos(Vec3.upFromBottomCenterOf(pos, 1));
-        level.addFreshEntity(dirtMound);
+        if (level.random.nextBoolean()) {
+            level.setBlockAndUpdate(pos, OBlocks.BURIAL_DIRT.get().defaultBlockState());
+        } else if (level.random.nextBoolean()) {
+            level.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
+        } else {
+            level.setBlockAndUpdate(pos, Blocks.COARSE_DIRT.defaultBlockState());
+        }
 
-        var vec = Vec3.atCenterOf(blockPosition()).add(Math.random() * 0.5 - 0.25, 1 + Math.random() * 0.2, Math.random() * 0.5 - 0.25);
-        level.sendParticles(OParticleTypes.HOLLERING_SOUL.get(), vec.x, vec.y, vec.z, 1, 0, 0, 0, 0);
+        var vec = Vec3.atCenterOf(pos.above());
+        level.sendParticles(OParticleTypes.HOLLERING_SOUL.get(), vec.x, vec.y, vec.z, 4, 0.5, 0.5, 0.5, 0.01);
     }
 
     private void curseGround(ServerLevel level, BlockPos center) {
         var aabb = new AABB(center).inflate(2, 1, 2);
         BlockPos.betweenClosedStream(aabb).forEach(pos -> {
-            if (level.random.nextDouble() > 0.2) return;
-            if (!level.getBlockState(pos.above()).canBeReplaced()) return;
-
             var state = level.getBlockState(pos);
-            if (state.is(OTags.Blocks.CAN_TURN_INTO_BURIAL_DIRT)) {
+            var above = level.getBlockState(pos.above());
+            if (state.is(OTags.Blocks.CAN_TURN_INTO_BURIAL_DIRT) && above.canBeReplaced()) {
                 curseBlock(level, pos);
             }
         });

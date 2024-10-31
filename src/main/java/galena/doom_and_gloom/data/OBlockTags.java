@@ -59,5 +59,7 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
         tag(GRAVETENDER_LIGHTABLE)
                 .addTag(BlockTags.CANDLES)
                 .addOptionalTag(new ResourceLocation("amendments:skull_candles"));
+
+        tag(BlockTags.DIRT).add(OBlocks.BURIAL_DIRT.get());
     }
 }
