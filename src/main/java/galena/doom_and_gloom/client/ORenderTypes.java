@@ -6,7 +6,6 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import galena.doom_and_gloom.DoomAndGloom;
 import net.minecraft.Util;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
@@ -26,11 +25,20 @@ public abstract class ORenderTypes extends RenderType {
 
     protected static final ShaderStateShard NO_ALPHA_CUTOFF_SHARD = new ShaderStateShard(NO_ALPHA_CUTOFF_SHADER::get);
 
+    protected static final TransparencyStateShard ADDITIVE_TRANSPARENCY = new TransparencyStateShard("lightning_transparency", () -> {
+        RenderSystem.enableBlend();
+        RenderSystem.enableDepthTest();
+        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
+    }, () -> {
+        RenderSystem.disableBlend();
+        RenderSystem.defaultBlendFunc();
+    });
+
     public static final Function<ResourceLocation, RenderType> ADDITIVE_TRANSLUCENCY = Util.memoize((t) -> {
         RenderType.CompositeState rendertype$compositestate = RenderType.CompositeState.builder()
                 .setShaderState(NO_ALPHA_CUTOFF_SHARD)
                 .setTextureState(new RenderStateShard.TextureStateShard(t, false, false))
-                .setTransparencyState(TransparencyStateShard.LIGHTNING_TRANSPARENCY)
+                .setTransparencyState(ADDITIVE_TRANSPARENCY)
                 .setCullState(NO_CULL)
                 .setLightmapState(LIGHTMAP).setOverlayState(OVERLAY)
                 .createCompositeState(false);
@@ -49,14 +57,7 @@ public abstract class ORenderTypes extends RenderType {
         return create("doom_and_gloom_entity_translucent_no_alpha_cutoff", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, rendertype$compositestate);
     });
 
-    protected static final TransparencyStateShard LIGHTNING_TRANSPARENCY = new TransparencyStateShard("lightning_transparency", () -> {
-        RenderSystem.enableBlend();
-        RenderSystem.enableDepthTest();
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
-    }, () -> {
-        RenderSystem.disableBlend();
-        RenderSystem.defaultBlendFunc();
-    });
+
 
     public ORenderTypes(String pName, VertexFormat pFormat, VertexFormat.Mode pMode, int pBufferSize, boolean pAffectsCrumbling, boolean pSortOnUpload, Runnable pSetupState, Runnable pClearState) {
         super(pName, pFormat, pMode, pBufferSize, pAffectsCrumbling, pSortOnUpload, pSetupState, pClearState);

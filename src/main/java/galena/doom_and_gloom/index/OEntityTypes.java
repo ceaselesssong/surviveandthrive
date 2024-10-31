@@ -13,7 +13,7 @@ public class OEntityTypes {
 
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, DoomAndGloom.MOD_ID);
 
-    public static final RegistryObject<EntityType<Holler>> HOLLER = ENTITIES.register("holler", () -> EntityType.Builder.of(Holler::new, MobCategory.MONSTER).sized(0.35F, 0.6F).clientTrackingRange(8).updateInterval(2).build("holler"));
+    public static final RegistryObject<EntityType<Holler>> HOLLER = ENTITIES.register("holler", () -> EntityType.Builder.of(Holler::new, MobCategory.MONSTER).sized(0.4F, 0.75F).clientTrackingRange(8).updateInterval(2).build("holler"));
     public static final RegistryObject<EntityType<DirtMound>> DIRT_MOUND = ENTITIES.register("dirt_mound", () -> EntityType.Builder.of(DirtMound::new, MobCategory.MISC).sized(0.8F, 0.25F).build("dirt_mound"));
 
 }

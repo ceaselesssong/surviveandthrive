@@ -3,17 +3,13 @@ package galena.doom_and_gloom.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import galena.doom_and_gloom.DoomAndGloom;
 import galena.doom_and_gloom.client.ORenderTypes;
-import galena.doom_and_gloom.client.render.entity.HollerRender;
 import galena.doom_and_gloom.content.entity.holler.Holler;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
@@ -82,7 +78,7 @@ public class HollerModel<T extends Holler> extends EntityModel<T> implements Hea
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks,
                           float netHeadYaw, float headPitch) {
-        yHover = Math.sin(ageInTicks * 0.12) * 0.1;
+        yHover = (Math.sin(ageInTicks * 0.12) - 1.5) * 0.1;
 
         //we ignore arm swing and limb swing amount and use our own static ones
         //this could be improved by having some part of the anim depend on those so they increase when mob speeds up
