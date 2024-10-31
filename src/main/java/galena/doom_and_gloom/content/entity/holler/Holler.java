@@ -33,11 +33,13 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.JukeboxBlock;
@@ -267,18 +269,18 @@ public class Holler extends PathfinderMob {
         });
     }
 
-    public static boolean checkHollerSpawnRules(EntityType<Holler> entityType, LevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return levelAccessor.getBrightness(LightLayer.SKY, pos) < random.nextInt(8) && random.nextInt(10) > (isHalloween() ? 2 : 5) && checkMobSpawnRules(entityType, levelAccessor, spawnType, pos, random);
-    }
-
-    public boolean isPanicking() {
-        return brain.getMemory(MemoryModuleType.IS_PANICKING).isPresent();
+    public static boolean checkHollerSpawnRules(EntityType<Holler> entityType, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        if (!Monster.isDarkEnoughToSpawn(level, pos, random)) return false;
+        if(pos.getY() < (level.getSeaLevel() - 10)) return false;
+        var spawnRate = isHalloween() ? 8 : 5;
+        if (random.nextInt(10) > spawnRate) return false;
+        return checkMobSpawnRules(entityType, level, spawnType, pos, random);
     }
 
     private static boolean isHalloween() {
-        LocalDate $$0 = LocalDate.now();
-        int $$1 = $$0.get(ChronoField.DAY_OF_MONTH);
-        int $$2 = $$0.get(ChronoField.MONTH_OF_YEAR);
-        return $$2 == 10 && $$1 >= 20 || $$2 == 11 && $$1 <= 3;
+        LocalDate data = LocalDate.now();
+        int day = data.get(ChronoField.DAY_OF_MONTH);
+        int month = data.get(ChronoField.MONTH_OF_YEAR);
+        return month == 10 && day >= 20 || month == 11 && day <= 3;
     }
 }
