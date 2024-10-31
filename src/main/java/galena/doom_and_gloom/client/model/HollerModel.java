@@ -3,7 +3,6 @@ package galena.doom_and_gloom.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import galena.doom_and_gloom.client.ORenderTypes;
 import galena.doom_and_gloom.content.entity.holler.Holler;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
@@ -23,7 +22,7 @@ public class HollerModel<T extends Holler> extends EntityModel<T> implements Hea
     private double yHover;
     private float alphaMult;
 
-    private Vec3 posDelta;
+    private Vec3 prevPosDelta;
     private float prevRotDelta;
 
     public HollerModel(ModelPart root) {
@@ -68,7 +67,7 @@ public class HollerModel<T extends Holler> extends EntityModel<T> implements Hea
         // luckily we only rotate on Y. Could be done better on the renderer level
         // no clue why z needs to be flipped...
 
-        posDelta = entity.getPosDelta(pPartialTick)
+        prevPosDelta = entity.getPosDelta(pPartialTick)
                 .multiply(-1, 1, 1)
                 .yRot(-currentBodyRot * Mth.DEG_TO_RAD);
 
@@ -97,7 +96,7 @@ public class HollerModel<T extends Holler> extends EntityModel<T> implements Hea
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight,
                                int packedOverlay, float red, float green, float blue, float alpha) {
 
-        double alphaDecayFactor = posDelta.lengthSqr() * 100f;
+        double alphaDecayFactor = prevPosDelta.lengthSqr() * 100f;
         alphaDecayFactor = Math.min(alphaDecayFactor, 1);
         int step = 6;
 
@@ -115,7 +114,7 @@ public class HollerModel<T extends Holler> extends EntityModel<T> implements Hea
             poseStack.pushPose();
             //scale trail further back
             float trailScalar = 4;
-            var stepDelta = posDelta.scale(i / (float) step * trailScalar);
+            var stepDelta = prevPosDelta.scale(i / (float) step * trailScalar);
             poseStack.translate(stepDelta.x, stepDelta.y + yHover, stepDelta.z);
             poseStack.mulPose(Axis.YN.rotationDegrees(stepYRot * i));
             float scale = 1 - (0.3f * i / (float) (step));
