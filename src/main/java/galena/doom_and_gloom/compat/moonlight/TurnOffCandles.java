@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+//TODO: this isnt working! villagers arent persisting their added memory!
 public class TurnOffCandles extends Behavior<Villager> {
     private final float speedModifier;
     private int ticksSinceReached = 0;

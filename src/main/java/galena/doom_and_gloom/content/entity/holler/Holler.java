@@ -1,25 +1,16 @@
 package galena.doom_and_gloom.content.entity.holler;
 
-import galena.doom_and_gloom.index.OEffects;
-import galena.doom_and_gloom.index.OEntityTypes;
-import galena.doom_and_gloom.index.OItems;
-import galena.doom_and_gloom.index.OParticleTypes;
-import galena.doom_and_gloom.index.OSoundEvents;
-import galena.doom_and_gloom.index.OTags;
+import galena.doom_and_gloom.index.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -67,6 +58,11 @@ public class Holler extends PathfinderMob {
             MemoryModuleType.HURT_BY,
             MemoryModuleType.IS_PANICKING
     );
+
+    private Vec3 prevPosDelta = Vec3.ZERO;
+    private Vec3 prevPosDeltaO = Vec3.ZERO;
+    private float prevYRotDelta = 0;
+    private float prevYRotDeltaO = 0;
 
     public Holler(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
@@ -136,12 +132,36 @@ public class Holler extends PathfinderMob {
         DebugPackets.sendEntityBrain(this);
     }
 
+    //for renderer
+    public float getYRotDelta(float partialTicks) {
+        return Mth.lerp(partialTicks, prevYRotDeltaO, prevYRotDelta);
+    }
+
+    public Vec3 getPosDelta(float partialTicks) {
+        return prevPosDeltaO.lerp(prevPosDelta, partialTicks);
+    }
+
     @Override
     public void tick() {
+        prevPosDeltaO = prevPosDelta;
+        prevYRotDeltaO = prevYRotDelta;
+        //anim testing mode. remove
+        if (false) {
+            this.tickCount++;
+            this.xo = this.getX() + Mth.sin(tickCount * 0.02f) * 2f;
+            this.yo = this.getY();
+            this.zo = this.getZ();
+            this.yRotO = this.getYRot() + 20;
+            return;
+        }
         noPhysics = true;
         super.tick();
         noPhysics = false;
         setNoGravity(true);
+
+        prevPosDelta = this.position().subtract(new Vec3(this.xOld, this.yOld, this.zOld));
+        prevYRotDelta = this.yBodyRot - this.yBodyRotO;
+
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -275,9 +295,9 @@ public class Holler extends PathfinderMob {
     }
 
     private static boolean isHalloween() {
-        LocalDate $$0 = LocalDate.now();
-        int $$1 = $$0.get(ChronoField.DAY_OF_MONTH);
-        int $$2 = $$0.get(ChronoField.MONTH_OF_YEAR);
-        return $$2 == 10 && $$1 >= 20 || $$2 == 11 && $$1 <= 3;
+        LocalDate date = LocalDate.now();
+        int day = date.get(ChronoField.DAY_OF_MONTH);
+        int month = date.get(ChronoField.MONTH_OF_YEAR);
+        return month == 10 && day >= 20 || month == 11 && day <= 3;
     }
 }

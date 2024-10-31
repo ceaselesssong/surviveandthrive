@@ -16,9 +16,13 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.schedule.Schedule;
+import net.minecraft.world.item.FlintAndSteelItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractCandleBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -32,7 +36,7 @@ import java.util.UUID;
 public class LightUpCandles extends Behavior<Villager> {
     private final float speedModifier;
     private int ticksSinceReached = 0;
-    private int cooldown = 20 * 30;
+    private int cooldown = 20 * 10;
     protected int lastBreakProgress = -1;
     protected GlobalPos targetPos = null;
 
@@ -107,9 +111,14 @@ public class LightUpCandles extends Behavior<Villager> {
                 //TODO: this task is run for candles that are already on too. We would need to clear them off first and validate thatthey canbe extinguished
                 if (ticksSinceReached > 20) {
                     ServerPlayer player = FakePlayerFactory.get(pLevel, GRAVETENDER);
-                    player.setItemInHand(InteractionHand.MAIN_HAND, Items.FLINT_AND_STEEL.getDefaultInstance());
+                    ItemStack itemStack = Items.FLINT_AND_STEEL.getDefaultInstance();
+                    player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
                     BlockHitResult hit = new BlockHitResult(Vec3.atBottomCenterOf(pos), Direction.UP, pos, false);
-                    state.use(pLevel, player, InteractionHand.MAIN_HAND, hit);
+
+                    if(!itemStack.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND,hit)).consumesAction()){
+                        state.use(pLevel, player, InteractionHand.MAIN_HAND, hit);
+                    }
+                    pOwner.getBrain().eraseMemory(MemoryModuleType.LOOK_TARGET);
                 }
             }
 

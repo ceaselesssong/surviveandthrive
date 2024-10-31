@@ -2,8 +2,9 @@ package galena.doom_and_gloom;
 
 import com.mojang.serialization.Codec;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
+import galena.doom_and_gloom.compat.CompatHandler;
 import galena.doom_and_gloom.compat.moonlight.MoonlightCompat;
-import galena.doom_and_gloom.compat.supplementaries.AmendmentsCompat;
+import galena.doom_and_gloom.compat.amendments.AmendmentsCompat;
 import galena.doom_and_gloom.content.entity.holler.Holler;
 import galena.doom_and_gloom.data.OBlockStates;
 import galena.doom_and_gloom.data.OBlockTags;
@@ -53,8 +54,6 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -112,10 +111,10 @@ public class DoomAndGloom {
 
         DGNetwork.register();
 
-        if (ModList.get().isLoaded("amendments")) {
+        if (CompatHandler.AMENDMENTS) {
             AmendmentsCompat.register();
         }
-        if(ModList.get().isLoaded("moonlight")) {
+        if(CompatHandler.MOONLIGHT) {
             MoonlightCompat.init();
         }
     }
