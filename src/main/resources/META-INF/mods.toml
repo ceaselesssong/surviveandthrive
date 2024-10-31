@@ -42,7 +42,7 @@ TODO
 
 [[dependencies.doom_and_gloom]]
     modId="oreganized"
-    mandatory=true
+    mandatory=false
     versionRange="*"
     ordering="AFTER"
     side="BOTH"
