@@ -5,6 +5,8 @@ import galena.doom_and_gloom.index.OBlockEntities;
 import galena.doom_and_gloom.index.OBlocks;
 import galena.doom_and_gloom.index.OSoundEvents;
 import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.TerrainParticle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -31,7 +33,11 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
+
+import java.awt.*;
 
 public class SepulcherBlock extends Block implements TickingEntityBlock<SepulcherBlockEntity> {
 
@@ -114,6 +120,31 @@ public class SepulcherBlock extends Block implements TickingEntityBlock<Sepulche
         }
 
         clear(user, state, level, pos);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void spawnConsumeParticles(Vec3 at) {
+        var level = Minecraft.getInstance().level;
+        if (level == null) return;
+
+        var particles = Minecraft.getInstance().particleEngine;
+        var state = OBlocks.ROTTING_FLESH.get().defaultBlockState();
+        for (int i = 0; i < 20; i++) {
+            var vec = at.add(level.random.nextDouble() - 0.5, level.random.nextDouble() * 2, level.random.nextDouble() - 0.5);
+            particles.add(new TerrainParticle(level, vec.x, vec.y, vec.z, 0.0, 0.0, 0.0, state));
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void spawnRottingParticles(BlockPos at) {
+        var level = Minecraft.getInstance().level;
+        if (level == null) return;
+
+        var effectColor = new Color(8889187);
+        for (int i = 0; i < 20; i++) {
+            var vec = Vec3.atBottomCenterOf(at).add(level.random.nextDouble() - 0.5, 0.8, level.random.nextDouble() - 0.5);
+            level.addParticle(ParticleTypes.ENTITY_EFFECT, vec.x, vec.y, vec.z, effectColor.getRed() / 255D, effectColor.getGreen() / 255D, effectColor.getBlue() / 255D);
+        }
     }
 
     public static void clear(@Nullable Entity user, BlockState state, Level level, BlockPos pos) {

@@ -1,5 +1,6 @@
 package galena.doom_and_gloom.network.packet;
 
+import galena.doom_and_gloom.content.block.SepulcherBlock;
 import galena.doom_and_gloom.index.OBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.TerrainParticle;
@@ -18,15 +19,7 @@ public record SepulcherConsumesDeathPacket(Vec3 at) {
     public void handle(Supplier<NetworkEvent.Context> contextSupplier) {
         var context = contextSupplier.get();
         context.enqueueWork(() -> {
-            var level = Minecraft.getInstance().level;
-            if (level == null) return;
-
-            var particles = Minecraft.getInstance().particleEngine;
-            var state = OBlocks.ROTTING_FLESH.get().defaultBlockState();
-            for (int i = 0; i < 20; i++) {
-                var vec = at.add(level.random.nextDouble() - 0.5, level.random.nextDouble() * 2, level.random.nextDouble() - 0.5);
-                particles.add(new TerrainParticle(level, vec.x, vec.y, vec.z, 0.0, 0.0, 0.0, state));
-            }
+            SepulcherBlock.spawnConsumeParticles(at);
         });
 
         context.setPacketHandled(true);

@@ -1,8 +1,10 @@
 package galena.doom_and_gloom.content.block;
 
+import galena.doom_and_gloom.client.screen.StoneTabletScreen;
 import galena.doom_and_gloom.index.OBlockEntities;
 import galena.doom_and_gloom.network.DGNetwork;
 import galena.doom_and_gloom.network.packet.EngraveStoneTabletPacket;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -34,6 +36,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
@@ -202,6 +206,15 @@ public class StoneTabletBlock extends Block implements SimpleWaterloggedBlock, T
     private boolean otherPlayerIsEditingSign(Player pPlayer, StoneTabletBlockEntity pSignEntity) {
         UUID id = pSignEntity.getPlayerWhoMayEdit();
         return id != null && !id.equals(pPlayer.getUUID());
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void openScreen(BlockPos pos) {
+        Minecraft mc = Minecraft.getInstance();
+        var level = mc.level;
+        if(level != null && level.getBlockEntity(pos) instanceof StoneTabletBlockEntity tile) {
+            mc.setScreen(new StoneTabletScreen(tile, mc.isTextFilteringEnabled()));
+        }
     }
 
     @Override

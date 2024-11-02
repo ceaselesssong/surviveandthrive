@@ -1,6 +1,7 @@
 package galena.doom_and_gloom.network.packet;
 
 import galena.doom_and_gloom.client.screen.StoneTabletScreen;
+import galena.doom_and_gloom.content.block.StoneTabletBlock;
 import galena.doom_and_gloom.content.block.StoneTabletBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -18,11 +19,7 @@ public record EngraveStoneTabletPacket(BlockPos pos) {
     public void handle(Supplier<NetworkEvent.Context> contextSupplier) {
         var context = contextSupplier.get();
         context.enqueueWork(() -> {
-            Minecraft mc = Minecraft.getInstance();
-            var level = mc.level;
-            if(level != null && level.getBlockEntity(pos) instanceof StoneTabletBlockEntity tile) {
-              mc.setScreen(new StoneTabletScreen(tile, mc.isTextFilteringEnabled()));
-            }
+            StoneTabletBlock.openScreen(pos);
         });
 
         context.setPacketHandled(true);
