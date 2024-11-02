@@ -3,6 +3,7 @@ package galena.doom_and_gloom.data;
 import galena.doom_and_gloom.DoomAndGloom;
 import galena.doom_and_gloom.index.OBlocks;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -41,7 +42,10 @@ public class OBlockTags extends IntrinsicHolderTagsProvider<Block> {
 
         var vigilCandles = tag(VIGIL_CANDLES);
 
-        OBlocks.vigilCandles().forEach(block -> vigilCandles.add(block.get()));
+        OBlocks.vigilCandles().forEach(block -> {
+            var id = BuiltInRegistries.BLOCK.getKey(block.get());
+            vigilCandles.addOptional(id);
+        });
 
         tag(BlockTags.CANDLES).addTags(VIGIL_CANDLES);
         tag(BlockTags.MINEABLE_WITH_PICKAXE).addTags(VIGIL_CANDLES);
