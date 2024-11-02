@@ -184,6 +184,11 @@ public class Holler extends PathfinderMob {
     }
 
     @Override
+    public boolean canBeLeashed(Player player) {
+        return false;
+    }
+
+    @Override
     public void travel(Vec3 vec3) {
         if (isControlledByLocalInstance()) {
             if (isInWater()) {
