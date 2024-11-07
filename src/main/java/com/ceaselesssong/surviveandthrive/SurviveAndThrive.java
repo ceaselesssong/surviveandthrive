@@ -27,10 +27,11 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
-
+// GOD FUCKING DAMNIT
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(SurviveAndThrive.MODID)
 public class SurviveAndThrive
+
 {
     // Define mod id in a common place for everything to reference
     public static final String MODID = "surviveandthrive";
