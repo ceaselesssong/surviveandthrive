@@ -3,6 +3,7 @@ package com.ceaselesssong.surviveandthrive;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -30,35 +31,36 @@ import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(SurviveAndThrive.MODID)
-public class SurviveAndThrive
-
-{
-    // Define mod id in a common place for everything to reference
+public class SurviveAndThrive {
     public static final String MODID = "surviveandthrive";
-    // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
+
     // Create a Deferred Register to hold Blocks which will all be registered under the "surviveandthrive" namespace
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
+
     // Create a Deferred Register to hold Items which will all be registered under the "surviveandthrive" namespace
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "surviveandthrive" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     // Creates a new Block with the id "surviveandthrive:example_block", combining the namespace and path
-    public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("tabiblock", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
+    public static final RegistryObject<Block> ABYSSMAL_BLOCK = BLOCKS.register("abyssmal_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
     // Creates a new BlockItem with the id "surviveandthrive:example_block", combining the namespace and path
-    public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("tabiblock", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
+    public static final RegistryObject<Item> ABYSSMAL_BLOCK_ITEM = ITEMS.register("abyssmal_block", () -> new BlockItem(ABYSSMAL_BLOCK.get(), new Item.Properties()));
 
     // Creates a new food item with the id "surviveandthrive:example_id", nutrition 1 and saturation 2
-    public static final RegistryObject<Item> EXAMPLE_ITEM = ITEMS.register("example_item", () -> new Item(new Item.Properties().food(new FoodProperties.Builder()
+    public static final RegistryObject<Item> GASTER_ITEM = ITEMS.register("gaster_item", () -> new Item(new Item.Properties().food(new FoodProperties.Builder()
             .alwaysEat().nutrition(1).saturationMod(2f).build())));
+    public static final RegistryObject<Item> TAB_ICON = ITEMS.register("tab_icon_item", () -> new Item(new Item.Properties()));
 
     // Creates a creative tab with the id "surviveandthrive:example_tab" for the example item, that is placed after the combat tab
     public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
-            .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
+            .title(Component.literal("Survive And Thrive"))
+            .icon(() -> TAB_ICON.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(GASTER_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(ABYSSMAL_BLOCK_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
             }).build());
 
     public SurviveAndThrive(FMLJavaModLoadingContext context)
@@ -102,7 +104,7 @@ public class SurviveAndThrive
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
-            event.accept(EXAMPLE_BLOCK_ITEM);
+            event.accept(ABYSSMAL_BLOCK_ITEM);
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
