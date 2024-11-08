@@ -66,11 +66,6 @@ sourceSets.main.resources.srcDir 'src/generated/resources'
 
 repositories {
     maven {
-        // location of the maven that hosts Blueprint
-        name = "Jackson's Maven"
-        url = "https://maven.jaackson.me"
-    }
-    maven {
         // location of the maven that hosts JEI files
         name = "Progwml6 maven"
         url = "https://dvs1.progwml6.com/files/maven/"
@@ -97,25 +92,12 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    implementation fg.deobf("com.teamabnormals:blueprint:${minecraft_version}-${blueprint_version}")
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
-
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
     implementation(jarJar("io.github.llamalad7:mixinextras-forge:${mixin_extras_version}")) {
         jarJar.ranged(it, "[${mixin_extras_version},)")
     }
-
-    // Compatibilities
-    implementation(fg.deobf("maven.modrinth:supplementaries:${supplementaries_version}"))
-    implementation(fg.deobf("maven.modrinth:amendments:${amendments_version}"))
     implementation(fg.deobf("maven.modrinth:moonlight:${moonlight_lib_version}"))
-
-    // For dev testing
-    runtimeOnly(fg.deobf("maven.modrinth:oreganized:${oreganized_version}"))
-    runtimeOnly(fg.deobf("maven.modrinth:dye-depot:${dye_depot_version}"))
-
-    /// Utilities for the development environment
-    //runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_version}")
     // compile against the JEI API but do not include it at runtime
     compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
     compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
