@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "down": "surviveandthrive:block/nicket_top",
+    "up": "surviveandthrive:block/nicket_top",
+    "north": "surviveandthrive:block/nicket_side",
+    "east": "surviveandthrive:block/nicket_side",
+    "south": "surviveandthrive:block/nicket_side",
+    "west": "surviveandthrive:block/nicket_side",
+    "particle": "surviveandthrive:block/nicket_side"
+  }
+}
