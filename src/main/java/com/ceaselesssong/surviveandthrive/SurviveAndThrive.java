@@ -1,6 +1,5 @@
 package com.ceaselesssong.surviveandthrive;
 
-import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
@@ -15,6 +14,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
 
 import net.minecraft.resources.ResourceLocation;
@@ -25,7 +26,7 @@ import com.ceaselesssong.surviveandthrive.init.*;
 @Mod(SurviveAndThrive.MODID)
 public class SurviveAndThrive {
     public static final String MODID = "surviveandthrive";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public static ResourceLocation res(String location) {
         return new ResourceLocation(MODID, location);

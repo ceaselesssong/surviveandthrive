@@ -16,5 +16,8 @@ public class STitem {
             SurviveAndThrive.res("gaster_item"), () -> new Item(new Item.Properties())
     );
 
+    protected static final Supplier<Item> SCRAP = RegHelper.registerItem(
+            SurviveAndThrive.res("scrap"), () -> new Item(new Item.Properties())
+    );
 
 }

@@ -13,15 +13,21 @@ import java.util.function.Supplier;
 public class STblock {
     public static void init(){
     }
-    public static <T extends Block> Supplier<T> regBlockItem(String name, Supplier<T> blockFactory) {
+    public static <T extends Block> Supplier<T> regWithItem(String name, Supplier<T> blockFactory) {
         Supplier<T> block = RegHelper.registerBlock(SurviveAndThrive.res(name), blockFactory);
         RegHelper.registerItem(SurviveAndThrive.res(name), () -> new BlockItem(block.get(), new Item.Properties()));
         return block;
     }
 
-    protected static final Supplier<Block> ABYSSMAL = regBlockItem("abyssmal_block",
+    protected static final Supplier<Block> ABYSSMAL = regWithItem("abyssmal_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE))
     );
+
+    protected static final Supplier<Block> NICKET = regWithItem("nicket_block",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG))
+    );
+
+
 
 
 }

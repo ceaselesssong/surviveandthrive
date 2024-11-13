@@ -28,7 +28,7 @@ public class STtab {
 
     private static void registerItemsToTabs(RegHelper.ItemToTabEvent e) {
         addItems(e, STTAB,
-                STitem.PENIS, STitem.GASTER, STblock.ABYSSMAL
+                STitem.PENIS, STitem.GASTER, STblock.ABYSSMAL, STblock.NICKET, STitem.SCRAP
         );
     }
 
